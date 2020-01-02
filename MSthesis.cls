@@ -15,9 +15,35 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{csquotes}
-\usepackage{geometry}
+%\usepackage{geometry}
 \usepackage{emptypage}
 \usepackage[parfill]{parskip} % removes indentation of sectioning.
+
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[acronym]{glossaries}
+\makeglossaries
+ 
+\usepackage[labelfont=bf]{caption} % Gives bold figure X. 
+ 
+\usepackage{amsmath}
+
+%\let\oldref\ref
+%\renewcommand{\ref}[1]{(\oldref{#1})}
+
+% Updates acrfull to be acrlong, acr short and not (acrshort).
+\let\oldacrfull\acrfull
+\renewcommand{\acrfull}[1]{ \acrlong{#1}, \acrshort{#1}  }
+ 
+ % Inserting a line behind paragraph.
+\let\oldparagraph\paragraph
+\newcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
 
 \linespread{1.5} % Line spacing
 \newgeometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}

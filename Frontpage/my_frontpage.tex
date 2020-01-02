@@ -26,9 +26,12 @@ without permission.}
   \begin{titlepage}
     \centering
     \fontfamily{ptm}\fontsize{17.28}{20pt}\selectfont
-    {\fontsize{24}{28pt}\selectfont \mytitle - \myundertitle}
+    {\fontsize{24}{28pt}\selectfont \mytitle}
     \vspace{.5cm}
- 
+    
+    \myundertitle
+    \vspace{.5cm}
+    
     \myauthor
     \vspace{.5cm}
     
@@ -71,7 +74,9 @@ without permission.}
     \def \and {, }
     \textbf{\textcopyright~\the\year~\myauthor} 
     \newline \newline
-    \leavevmode\mytitle  \myundertitle 
+    \leavevmode\mytitle 
+    \newline \newline
+    \myundertitle 
     \newline \newline
     \mypublished 
     \newline \newline
