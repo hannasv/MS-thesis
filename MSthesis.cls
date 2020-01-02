@@ -1,6 +1,6 @@
 \ProvidesClass{MSthesis} % MSthesis contains everything before "begin document"
 
-\LoadClass[a4paper,12pt,twoside, english]{report} 
+\LoadClass[a4paper, 12pt, twoside, english]{report} 
 % twoside - alternating margins 
 % 12pt (same textsize as UiOs word mal)
 
@@ -19,10 +19,20 @@
 \usepackage{emptypage}
 \usepackage[parfill]{parskip} % removes indentation of sectioning.
 
+% For tikz images
+\usepackage{filecontents}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+
+\usetikzlibrary{matrix,positioning,fit,backgrounds,intersections, fit, arrows.meta, shapes}
 
 \usepackage{titlesec}
 
-\setcounter{secnumdepth}{4}
+%\setcounter{secnumdepth}{4}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{multirow}
@@ -42,8 +52,8 @@
 \renewcommand{\acrfull}[1]{ \acrlong{#1}, \acrshort{#1}  }
  
  % Inserting a line behind paragraph.
-\let\oldparagraph\paragraph
-\newcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
+%\let\oldparagraph\paragraph
+%\newcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
 
 \linespread{1.5} % Line spacing
 \newgeometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}

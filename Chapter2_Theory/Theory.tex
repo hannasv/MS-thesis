@@ -18,8 +18,8 @@ Climate models are an important tool for studying the effects of emissions (= fo
 \\ \\
 The computational cost of generating these large ensambles are limiting factor. Simplyfied models in terms of resolution and/ or coplexity is common. 
 \\ \\ 
-Using idealised experiments they give model spread in \acrfull{ecm}. This describes the \textit{equilibrium change in global and annual mean surface temperature after doubling the $CO_2$ conditions from preindustrial times.}
-For \acrshort{cmip5} the \acrshort{ecm} is $2.1^oC$ to $4.7^oC$.The is \textit{very high confidence} that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et al ran their experiments using a coarse resolution of $8^ox10^o$ gridbox (lat x lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. The \acrshort{cmip5} 
+Using idealised experiments they give model spread in \acrfull{ecs}. This describes the \textit{equilibrium change in global and annual mean surface temperature after doubling the $CO_2$ conditions from preindustrial times.}
+For \acrshort{cmip5} the \acrshort{ecs} is $2.1^oC$ to $4.7^oC$.The is \textit{very high confidence} that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et al ran their experiments using a coarse resolution of $8^ox10^o$ gridbox (lat x lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. The \acrshort{cmip5} 
 
 \subsubsection{ERA5} \label{sec:paramERA5}
 ERA5 is produced used IFS cycle. This has a new cloud scheme or hydrological cycle. 
@@ -81,7 +81,7 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 \\ \\ 
 %This includes METEOSAT 8, 9, 10 and 11.
 The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite technical and is described in section \ref{sec:regridding}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
-\input{Chapter2_Theory/table_dataset_summary.tex}
+\input{Chapter2_Theory/tables/table_dataset_summary.tex}
 
 \begin{figure}[h]
     \centering
@@ -152,7 +152,7 @@ The latitude and the extend of the pixel is terms in this equation. The extent o
 The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This became evident from conversation with the help desk. 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale = 0.6]{coordinates.png}
+    \includegraphics[scale = 0.6]{Chapter2_Theory/images/coordinates.png}
     \caption{Credit, https://tex.stackexchange.com/questions/159445/draw-in-cylindrical-and-spherical-coordinates}
     \label{fig:coords}
 \end{figure}
@@ -165,6 +165,46 @@ Scripts for downloading the ERA5 data used in this thesis is available in the pr
 There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. You choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can remap your own files.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computational Methods  - Introduction to machine learning} \label{sec:comp_met}
+
+\input{Chapter2_Theory/tikz/spherical_vs_cartesian.tikz}
+
+\input{Chapter2_Theory/tikz/graph.tikz}
+\input{Chapter2_Theory/tikz/one_layer_mlp.tikz}
+\input{Chapter2_Theory/tikz/activation_mlp.tikz}
+
+\input{Chapter2_Theory/tikz/convolution.tikz}
+
+\input{Chapter2_Theory/tikz/lstm_cell.tikz}
+
+\begin{figure}
+    \centering
+    \includegraphics{Chapter2_Theory/images/classification_overfitted.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{Chapter2_Theory/images/linear_regression.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{Chapter2_Theory/images/linear_regression_overfitting.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{Chapter2_Theory/images/spherical_coords.pdf}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+
 \subsection{Talk about machine learning in broad terms - then rewrite this to an introduction to chapter}
 Machine learning consist of three subcategories supervised-, unsupervised- and reinforcement learning. Supervised learning is the part of machine learning concerned with learning the relation between input data, x and labelled data y. 
 \\ \\
