@@ -1,4 +1,4 @@
-\begin{figure}[htb]
+\begin{figure}[hp]
 \centering
 \def\layersep{2.5cm}
 \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
@@ -9,10 +9,15 @@
     \tikzstyle{hidden neuron}=[neuron, fill=blue!50];
     \tikzstyle{annot} = [text width=4em, text centered]
 
+    \node[input neuron, pin=left:$T_{2m}$] (I-1) at (0,-1) {};
+    \node[input neuron, pin=left:$q_v$] (I-2) at (0,-2) {};
+    \node[input neuron, pin=left:$RH$] (I-3) at (0,-3) {};
+    \node[input neuron, pin=left:$p_s$] (I-4) at (0,-4) {};
+
     % Draw the input layer nodes
-    \foreach \name / \y in {1,...,4}
+    %\foreach \name / \y in {1,...,4}
     % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
-        \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
+    %    \node[input neuron, pin=left:Input \#\y] (I-\name) at (0,-\y) {};
 
     % Draw the hidden layer nodes
     \foreach \name / \y in {1,...,5}
@@ -20,7 +25,7 @@
             node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
 
     % Draw the output layer node
-    \node[output neuron,pin={[pin edge={->}]right:Output}, right of=H-3] (O) {};
+    \node[output neuron,pin={[pin edge={->}]right:CA}, right of=H-3] (O) {};
 
     % Connect every node in the input layer with every node in the
     % hidden layer.
@@ -38,6 +43,6 @@
     \node[annot,right of=hl] {Output layer};
 \end{tikzpicture}
 
-\caption{Sketch of the flow of information in a one layer mlp.}
+\caption{One layer hidden neural network. Taking temperature, humidities and pressure as input and estimating a fractional cloud cover - cloud amount - CA}
 \label{fig:one_layer_mlp}
 \end{figure}

@@ -6,30 +6,30 @@ In this thesis I will present motivation, necessary theoretical background and p
 The methods for the data driven approach for parameterization of clouds. It is used as a tool for approximation the complex process of cloud formation. Hopefully this will contribute to the understanding of the physical process which is cloud formation. The data used is a mix of satellite retrievals and reanalysis data. No ancillary information is provided. See sections \ref{sec:era5} to \ref{sec:meteosat} for more detailed descriptions. The numerical methods used in this thesis are described in section \ref{sec:comp_met}. All the code is available on GitHub in the project repository named MS on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. At this repository you will find everything you need to perform this experiment yourself. Descriptions for downloading data and retrieving the correct licences. Conda envionments listing the python packages and version used to run this code. The project environment is called \textit{sciclouds}. Notebooks for conducting the experiments. Supplementary material for remapping satellite data and land-sea masks are available in a supplementary repository called \textit{MS-suppl}  \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
 
 %\subsection{Cloud feedbacks from convection and fronts} %Cloud, circulation and climate sensitivity article.
-\subsection{Parameterizations of clouds}
+\section{Parameterizations of clouds} \label{sec:param_clouds}
 \textbf{From Tomkins summary}
 In order to incorporate the effect of the sub gridscale processes to the climate system one use paramtrizations. Clouds are one of these processes which are usually parametrized. Since this thesis concerns the parametrization of cloud cover. This is the only process which will be discussed. Several other processes are also parameters, like \textbf{give examples}. The simplest form of cloud scheme is if $RH > 100 \rightarrow CLA = 1$ else $CLA = 0$. To achieve a fractional cloud cover one needs a sub gridscale variation in humidity. This could be combined with a sub gridscale of temperature. Over the years reaserchers have tried to draw the distrubutions of these variables from observations and implement them into models. Vitualy all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on.  
 \\ \\
 Cloud cover is usually a combination of several parametrizations. Its common to have seperate schemes for ice-, liquid clouds and convections.
 \\ \\ 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
-\subsubsection{Parametrizations of clouds Climate models} \label{sec:climate_models}
+\subsection{Parametrizations of clouds Climate models} \label{sec:params_climate_models}
 Climate models are an important tool for studying the effects of emissions (= forcing) on future climates. The intergovernmental panel of climate change provide assessments report every ~10th year or so, providing a state of the art status update on the current knowledge of climate change. The previous report published was Assesment report 5, AR5 in 2013 and the next report is scheduled to be published in 2021. The ensamble of climate models included in AR5 is \acrfull{cmip5}. \acrshort{cmip6} are now being evaluated, thus there is less published literature. Even though its a bit old, we will mostly focus on the results in AR5. In resent years a lot of effort have been invested in improving the parametrizations of subgridscale processes. Among these clouds contribute with the largest uncertainty, approximately three times as large as other process i.e. relative humidity\textbf{ + another one}. The contributions of the clouds to the short wave component in the radiative budget is the main contributor to the uncertainty. Short wave cloud feedback. 
 \\ \\
 The computational cost of generating these large ensambles are limiting factor. Simplyfied models in terms of resolution and/ or coplexity is common. 
 \\ \\ 
 Using idealised experiments they give model spread in \acrfull{ecs}. This describes the \textit{equilibrium change in global and annual mean surface temperature after doubling the $CO_2$ conditions from preindustrial times.}
-For \acrshort{cmip5} the \acrshort{ecs} is $2.1^oC$ to $4.7^oC$.The is \textit{very high confidence} that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et al ran their experiments using a coarse resolution of $8^ox10^o$ gridbox (lat x lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. The \acrshort{cmip5} 
+For \acrshort{cmip5} the \acrshort{ecs} is $2.1^oC$ to $4.7^oC$.The is \textit{very high confidence} that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et. al. ran their experiments using a coarse resolution of $8^o \times 10^o$ grid box (lat $\times$ lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. The \acrshort{cmip5} 
 
-\subsubsection{ERA5} \label{sec:paramERA5}
+\subsection{ERA5} \label{sec:param_ERA5}
 ERA5 is produced used IFS cycle. This has a new cloud scheme or hydrological cycle. 
 
 
-\subsubsection{Practical implications} \label{sec:practical_implications}
-\textbf{Explain the streength and weakneses of this approach for future implementations. Hva er tatt høyde for ved valg av data og lignende. Kan være nyttig for om folk reproduserer det og skal jobbe videre...}
+\subsection{Practical implications} \label{sec:practical_implications}
+\textbf{Explain the strength and weaknesses of this approach for future implementations. Hva er tatt høyde for ved valg av data og lignende. Kan være nyttig for om folk reproduserer det og skal jobbe videre...}
 %  when  using machine learning models as parametrization
 One of the obvious downsides of using this approach is the rigid resolution. 
-Climate models provide data in a wide range of different of spatiotemporal resolutions. 
+Climate models provide data in a wide range of different of spatiotemporal resolutions. \textbf{programmeringsspråk}
 \\ \\ 
 Before implementing this model it would need to be retrained on the resolution of the climate model under development. Which includes both remapping the data set and retraining the model. This is a time consuming process involving finding a new set of hyperparameters suitable for the new resolution. Once trained machine learning models provide fast results even for complex parametrizations which is what makes them suitable. \\ \\ global view of satellites can be useful. 
 
@@ -52,7 +52,7 @@ The second generation satellite consist of METEOSAT 8 to 11. The MSG system prov
 \textbf{More practical implications}. This one has two partners covering the Indian and Pacific ocean. Together they give almost a global view, discarding the poles. This will be useful if this trail run is successful.  \textbf{programming language. how to best implement them in }
 %You may calculate the difference of the measurements, e.g. for channels VIS0.6, IR3.9 and IR10.8 between the two satellites. This will give an estimate how large the measurements differ and as a consequence the products (e.g. cloud mask) will be different.\textbf{also personal corespondance.}
 
-\subsection{EUMETSAT Cloud Mask} \label{sec:cloud_mask}
+\subsection{EUMETSAT Cloud Mask} \label{sec:EUMETSAT_cloud_mask}
 The EUMETSAT cloud mask, CLM relies on the fact that clouds are colder and more reflective than the surface. They also reclassify isolated pixel. The data is available on Earth Observation Portal on EUMETSATS web pages. CLM consist of four classes, zero - clear sky over ocean, one which is clear sky over land, 2 denotes cloudy and 3 is outer space/off earth disk/no data. These classes are derived from almost all channels except (X) \textbf{cite article 10 in Tavarat, 2015}.
 
 The cloud mask is distributed in GRIB-format (no coordinates) and NC-format (coordinates). Due to spatial limitations (Since all files have the same coordinates) one NC-files is downloaded for the coordinates and the rest of the data has been downloaded in GRIB-format. Some retrievals are excluded because of high uncertainty in the measurements this creates gaps in the data set. 
@@ -65,12 +65,13 @@ The cloud mask is distributed in GRIB-format (no coordinates) and NC-format (coo
 
 
 \subsection{Thoughts when choosing the data set of satellite images}
-Choose the finest temporal resolution possible. The average lifetime of a cloud is an hour. Since this is a proof of study is seems reasonable to choose the finest resolution available. Here this is METEOSAT.
+Choose the finest temporal resolution possible. The average lifetime of a cloud is an hour. Since this is a proof of study is seems reasonable to choose the finest resolution available. Here this is METEOSAT. 
+\\ \\
 In future work it would be interesting to asses how data driven parametrization compare to the existing parametrizaions available in the state of the art climate models. Here both the temporal and spatial resolution is a lot coarser. Other data sets could be considered. The masks in other data sets are computed based on more channels than in METEOSAT but the temporal resolution is a lot worse. 
 
-\subsection{European Cloud Cover}
+\subsection{European Cloud Cover} \label{sec:ECC}
 \textit{Add somewhere from personal correspondence the gaps are caused by: We regret to inform you that unfortunately we cannot process your orders 1368572 and 1368598. The data was corrupted prior archiving to tape and this data file cannot be recovered. }
-For the purpose of this thesis a new data set was built. The clouds in ERA5 is models according to the descriptions in \ref{sec:paramERA5} so I had to look elsewhere for a suitable \textit{true value} to regress the meteorological variables against. Keep in min the hourly temporal resolution and $0.25^o$ spatial resolution in ERA5. Most satellite products move in polar orbits and finer resolution than daily is rare. Vertically resolved data was also unnecessary. \textbf{cite Calipso and Modis}. This guided me in the direction of the satellites in geostationary orbit. The only geostationary satellite covering the east Atlantic is the 0 degree \acrfull{msg} satellite. With the high temporal resolution of 15min and a fixed grid is seemed like a reasonable choice. %This is beneficial when learning from data. 
+For the purpose of this thesis a new data set was built. The clouds in ERA5 is models according to the descriptions in \ref{sec:param_ERA5} so I had to look elsewhere for a suitable \textit{true value} to regress the meteorological variables against. Keep in min the hourly temporal resolution and $0.25^o$ spatial resolution in ERA5. Most satellite products move in polar orbits and finer resolution than daily is rare. Vertically resolved data was also unnecessary. \textbf{cite Calipso and Modis}. This guided me in the direction of the satellites in geostationary orbit. The only geostationary satellite covering the east Atlantic is the 0 degree \acrfull{msg} satellite. With the high temporal resolution of 15min and a fixed grid is seemed like a reasonable choice. %This is beneficial when learning from data. 
 Preserving the resolution available from ERA5, remapping the cloud mask to cloud fractions also know as cloud amount. \textit{\acrshort{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT}The final product consist of the variables temperature, pressure, cloud amount, specific and relative humidity. Hourly data on a $0.25^o$ resolution in the period \textbf{put in first date} to \textbf{last date}. 
 For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. This becomes 80x160 pixels for each time step. As always when working with observations, data is missing. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. For sometimes no cloud masks are available. Then the closest time step available within the previous and trailing 45 minutes are chosen. Other gaps are documented in \textbf{X}. 
 \\ \\
@@ -97,7 +98,7 @@ The mapping from the curve-linear grid of the geostationary satellite to the uni
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Physical basis of variable decision}
+\subsubsection{Physical basis of variable decision} \label{sec:physical_basis}
 The variables have been chosen based on availability, \textit{uncertainty/ quality} and their contribution to the physical processes. As mentioned in the introduction clouds require a aerosol and sufficient supersaturation.\textit{ However up-draft velocities and aerosols (especially type) is difficult to impossible to know?} \textbf{kilde?} I hypothesis that some of this information is present in temperature, humidifies and surface pressure in space and time and thus the cloud cover can be inferred patterns of these variables. Except for rural areas there is usually \acrshort{cnn} and/or \acrshort{inp} present. \textbf{lov å si kilde!}
 
 \paragraph{Temperature}\mbox{}\\ % Need this line otherwise its 
@@ -156,85 +157,133 @@ The latitude, longitude information is retrieved from the product of the satelli
     \label{fig:coords}
 \end{figure}
 
-\\ \\
 The cloud cover will be referred to as cloud amount, fraction or simply the clouds.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Licences and Downloading Data}
-Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading_RA}{https://github.com/hannasv/MS/tree/metos/downloading_RA}. However you will need to create a CDS-user. I suggest you follow the instructions on ECMWF homepages on \textit{how to download ERA5}. 
+\subsubsection{Licences and Downloading Data} \label{sec:downloading_data}
+Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. I suggest you follow the instructions on ECMWF homepages on \textit{how to download ERA5}. 
 There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. You choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can remap your own files.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Computational Methods  - Introduction to machine learning} \label{sec:comp_met}
+\subsubsection{summary}
+In this thesis I want to test if its possible to make a parametrization on total cloud cover based on macro-scale variables like humidity, surface temperature and pressure. Move away from the subgridscale processes, by regressing historical observations against macro physical properties which affect clouds. The question remains: Is there be enough information in humidity, temperature and surface pressure to predict clouds in a time and space. 
 
-\input{Chapter2_Theory/tikz/spherical_vs_cartesian.tikz}
+\begin{enumerate}
+    \item How representative is the training period we choose?
+    \item politikk - machine learning velger personalisert reklame i forhold til valg.
+    \item speech recognition (google speaker)
+    \item spam filter 1990
+    \item selv kjørende buss - aker brygge 
+    \item manipulere video - at du får politikere / andre til å si ting de aldri har sagt
+    \item face generation
+    \item testing (in-sample error) and validiation (out of sample error) - generalization error 
+    \item pipeline - transformations of cloud cover data. 
+    \item predicting house prices is a typical regression task. Predicting if a person will default on its loan is another one. 
+    \item clustering and classification as examples on mnist (overused dataset)
+    \item Stuff on downloading data and installing the envionment can be called \textit{setting up your workspace -- > downloading data}
+    \item Look at the correlation in the data. Pearson correlation? Someone else correlation?
+    \item \textit{This plot reveals several things. First, the correlation is very strong. Second, ... }
+    \item \textit{You will often gain good insight on the problem by examining }
+    \item Ensamble methods in climate models and machine learning. It true that for both domains the model mean usually outperform the single model.
+\end{enumerate}
 
+
+\section{Machine learning} \label{sec:intro_machine_learning}
+In this section I will explain the computational methods used for generating the numerical experiments conducted in this thesis. Starting with the the performance metrics used to evaluate the models. Followed by the auto regressive model and recurrent neural networks. For recurrent nets I will start by explaining the simple feed forward network building up to the more complex recurrent networks. This network is also known as convolution long short-term memory network. \textbf{Anatomy and architecture.} 
+\\ \\
+Machine learning is a part of our daily life. From self driving bussed in  your 
+
+is a word on a lot of peoples tounge. It becoming more and more a part of our daily life from search engines to googles speakers responding to speech. There are lot of different types of machine learning, suitable for solving different tasks. Figure \ref{fig:machine_learning_categories} shows the types of machine learning and their subcategories. Supervised learning is the part of machine learning concerned with learning the relation between input data, x and labelled data y. Regression predict continuous values. Replicating a function. Classification is discrete, since it assigns a category to the input. Reinforcement learning is solves games, labyrinth and fluid mechanics \textbf{(Jean Rubalt)}. Unsupervised learning tries to detect patterns in unlabelled data. This includes contains clustering and dimensionality reduction. Unsupervised and reinforcement learning is out of the scope of this thesis and will not be further discusses.
 \input{Chapter2_Theory/tikz/graph.tikz}
-\input{Chapter2_Theory/tikz/one_layer_mlp.tikz}
-\input{Chapter2_Theory/tikz/activation_mlp.tikz}
+There is a ongoing debate on what is intelligence. Traditionally a machine would be considered intelligent if it would beat a human at a given task. This has later been abandoned. The abilities a machine need to posses in order to beat a human in chess is completely different. A human needs X while the machine need Y. \textbf{kilde Chollet google} This will not be further discussed in this thesis since this is about task specific intelligence. Is it possible to train a network to gain sufficiently intelligent at the task of prediction European cloud cover?
 
+\subsection{Supervised learning} \label{sec:supervised_learning}
+Linear regression is the simplest form of supervised learning. Finding a suitable curve for a set of points. Working with real data, there is usually noise present in the dataset. In order to compensate for this we split the data into training and test (validation) sets. Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation or "rules". See figure \ref{fig:linreg_overfitting}
+
+\begin{figure}[hp]
+    \centering
+    \includegraphics{Chapter2_Theory/images/linear_regression.png}
+    \caption{Fitting at different levels. The optimal fit is the most general one. This is applicable to many cases.}
+    \label{fig:linreg_overfitting}
+\end{figure}
+
+\subsubsection{Autoregressive models} \label{sec:ARmodels}
+The autoregressive model is a form of linear regression models where you allow a certain number of timesteps to be predictor variables. Equation \eqref{eq:AR-expression} describes how to make a prediction based on the optimal weighs, $\beta$. The expression for finding the optimal betas in a matrix form is given in equation \eqref{eq:AR-solution}. In the case for linear regression (using MSE- loss) there is only one solution to the optimal beta values. This makes it computationally very fast, as long as the matrix $X^TX$ is non-singular and thus its inverse exits. \textbf{Should i derive equation \eqref{eq:AR-solution}?}. For more complicated loss surfaces, there is no analytical solution. Gradient descent is a common algorithmn used to work around this. \textbf{write a section on gradient descent. Illustrert med mann som går ned fjellet og } 
+
+\begin{equation} \label{eq:AR-expression}
+    \hat{Y_n} = \hat{\beta_0} + \sum_{j=1}^p X_j\hat{\beta_j} + \sum_{i = 1}^{n_{ts}} Y_{n-i}\hat{\beta_{p+i}}
+\end{equation}
+
+\begin{equation} \label{eq:AR-solution}
+    \hat{B} = \left( \textbf{X}^T\textbf{X} \right)^{-1}\textbf{X}\bar{y}
+\end{equation}
+
+\subsubsection{Transforming data} \label{sec:transforming_cloud_cover}
+Since cloud cover fractions are in the range from zero to one, a common approach can be to transform the data so it includes values from the entire real axis $(-\infty, \infty)$. This is done using the inverse of the sigmoid function (see figure \ref{fig:sigmoid}).
+\input{Chapter2_Theory/tikz/sigmoid.tikz}
+\textbf{mer?}
+
+\subsection{Neural network}
+\input{Chapter2_Theory/tikz/one_layer_mlp.tikz}
+Figure \ref{fig:one_layer_mlp} shows a simple architecture of a neural network. This consist of four input nodes or neurons, one for each of the variables relevant for the problem at hand. This is a fully connected network, meaning that every input node has a connection/weight to the next layer. After the input data has been passed to the hidden layer (sum over the matrix multiplication of the data and weight) it goes though a activation. The activation function in neural networks introduce the non-linearity's. Without then this would be piece-wise linear functions\textbf{..?}. Figure \ref{fig:activation_one_node} illustrates the activation in one node based on the input of variables. 
+\input{Chapter2_Theory/tikz/activation_mlp.tikz}
+In a neural network the connections between the nodes and the biases of the nodes need to be trained. This means that the optimal first layer in three layer model, is not equal to the optimal first layer in a two layer model. 
+\\ \\
+Three important concepts to every model. The weights, loss-function and optimiser. \textbf{neurons..?} The models is built from weights. The loss is a measure on how close you are to what you want to learn. Optimiser updates/adjust the weights in the direction of a lower loss. \textbf{Backpropagation is the learning algorithmn?} 
+\begin{equation} \label{eq:relating_cc_as_a_func}
+    tcc = f(T_{2m}, q_v, RH, sp)
+\end{equation}
+The rules I hope to achieve in this thesis is the physical relation of total cloud cover based on temperature, pressure and humidity. Like described in equation  \eqref{eq:relating_cc_as_a_func}.
+
+Explain Difference between a neural network used for classification and regression, is choises in cost-function and activation function in the output layer (linear for regression and softmax for classification). 
+
+\subsection{Recurrent networks}
+Introduction to recurrent networks. 
+
+\subsubsection{Convolution}
+Convolution is a mathematical operation where you move a filter across you two dimensional data. Here the result in one cell is the affected by its neighbours. In a convolution neural network the trained weights are the filters. 
 \input{Chapter2_Theory/tikz/convolution.tikz}
 
 \input{Chapter2_Theory/tikz/lstm_cell.tikz}
+
+\input{Chapter2_Theory/tikz/spherical_vs_cartesian.tikz}
 
 \begin{figure}
     \centering
     \includegraphics{Chapter2_Theory/images/classification_overfitted.png}
     \caption{Caption}
-    \label{fig:my_label}
+    \label{fig:classification_overfitting}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics{Chapter2_Theory/images/linear_regression.png}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
+Climate models are implementations of physical equations and parametrizations. After some tuning they are thought to provide the answers given a state. You can read more about climate models in section \ref{sec:climate_models}. Since Hansen et. al. 1984 \textbf{siter} first attempted to estimate the \acrfull{ecs}, reaserchers have been working on reducing the spread. 
+More complex models introduce other uncertainties and they have not yet been able to reduce it sufficiently \textbf{hvordan si "nok" - uten at et blir slemt}. With data available, more complex relations can be described. This requires deeper networks and the depth in deep learning refers to the number of layers. More complex models come with a higher risk of overfitting. \textbf{Kilde book Chollet}.
 
-\begin{figure}
-    \centering
-    \includegraphics{Chapter2_Theory/images/linear_regression_overfitting.png}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
+\subsection{Metrics}  \label{sec:metrics}
+In order to acquire a certain skill you need a measure determining how close you are. 
+Use the sum of square or abosolute values in order to not penalize point on the lower side of the line. Or not having to deal with negative distances. 
+\begin{equation} \label{eq:mse}
+    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
+\end{equation} 
 
-\begin{figure}
-    \centering
-    \includegraphics{Chapter2_Theory/images/spherical_coords.pdf}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
+\begin{equation} \label{eq:ase}
+    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
+\end{equation} 
+
+\begin{equation} \label{eq:r2}
+    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
+\end{equation} 
+where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model.
 
 
-\subsection{Talk about machine learning in broad terms - then rewrite this to an introduction to chapter}
-Machine learning consist of three subcategories supervised-, unsupervised- and reinforcement learning. Supervised learning is the part of machine learning concerned with learning the relation between input data, x and labelled data y. 
-\\ \\
-In this section I will explain the computational methods used for generating the numerical experiments conducted in this thesis. Starting with the the performance metrics used to evaluate the models. Followed by the auto regressive model and recurrent neural networks. For recurrent nets I will start by explaining the simple feed forward network building up to the more complex recurrent networks. This network is also known as convolution long short-term memory network.
-\subsection{machine learning types and what they are useful for}
-\textit{designs that utilise their learning. }
-\subsection{Supervised learning - Regression}
-Present the general idea in a interesting way.
 
-\subsubsection{Autoregressive models} \label{sec:ARmodels}
-The autoregressive model is regression method where you allow the state at previous time to be a predictor. As you can see from \eqref{eq:auto-regressive} removing the time dependency leaves the expression of ordinary linear squares, OLS regression. \textbf{Kilde}
+\subsection{Hyperparameters - Automatic Optimization}
+Keras-tuner.
+\textbf{Explain all the params you tune. Might be beneficially with a figure. See Rune's MS-thesis.}
 
-\begin{equation} \label{eq:AR}
-    \hat{Y_n} = \hat{\beta_0} + \sum_{j=1}^p X_j\hat{\beta_j} + \sum_{i = 1}^{n_{ts}} Y_{n-i}\hat{\beta_{p+i}}
-\end{equation}
 
-\textit{include gradient descent here}
-
-\subsection{Neural network}
-Introduction. 
-\subsubsection{The Perceptron}
-\begin{enumerate}
-    \item the perceptron 
-    \item draw link to one layer nn when you have 1 layer 
-    \item feedforward and backprop in perceptron (includes activation and activation functions.)
-    \item Mulitple layers here or in its own subsubsection?
-\end{enumerate}
-
-\subsubsection{Muliple layers - Deeper networks}
 
 \subsubsection{Convolutional Neural Networks}
+\input{Chapter2_Theory/tikz/cnn.tikz}
+
 
 \subsubsection{Convolutional LSTM}
 \label{sec:conv_lstm}
@@ -271,30 +320,12 @@ From Chollet book s. 11 \textit{the fundamental trick in deep learning is to use
 
 
 
-\paragraph{Automatic optimisation}
-Keras-tuner .
-\textbf{Explain all the params you tune. Might be beneficially with a figure. See Rune's MS-thesis.}
+\subsection{Klipp og lim}
 
 
-
-
-\section{OLD }
-
-\subsection{Performance metrics}  \label{sec:perf_metrics}
-In order to acquire a certain skill you need a measure determining how close you are. 
-
-\begin{equation} \label{eq:mse}
-    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
-\end{equation} 
-
-\begin{equation} \label{eq:ase}
-    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
-\end{equation} 
-
-\begin{equation} \label{eq:r2}
-    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
-\end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. 
+When describing shapes, do it by keras convention. Which is channel first? \textbf{Talk about working with real data and not synthetic.} In this 
+\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.}
+\textbf{Does the setup here resemble videos mostly? Since its a sequence of frames containing meteorological data..}
 
 \section{Future work}
 \begin{enumerate}
@@ -302,32 +333,6 @@ where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{
     \item Programming language in climate models vs python.
 \end{enumerate}
 
-\section{Good phases}
-\begin{itemize}
-    \item  In its most simple form, the diffusion equation is given by
-    \item By using a finer grid one can usually get better approximations
-    \item The comparison will focus on computational time and accuracy.
-    \item This was chosen after
-studying the development of the loss function as a function of number of iterations
-    \item and is mandatory in
-more advanced architectures(e.g. residual nets) where a constant spatial
-dimension is demanded.
-    \item a list of examples and so forth.
-    \item (I will reference to source code/project part where relevant!)
-    \item out of sample precision.
-    \item Learn how to create plots with a zoomed in view.
-    \item sufficiently large
-    \item Viktig poeng. \textit{However, both academic
-researchers and practitioners alike acknowledge the
-need to make tests on the actual data set that is
-subject of interest, as well as dedicating time and
-resources to tune hyperparameters}
-    \item methods for tabular data vs images
-    \item I have opted to use
-    \item We have also modified our own code for a dense feed forward neural
-network produced for Project 2, see
-
-\end{itemize}
 
 
 

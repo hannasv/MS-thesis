@@ -1,5 +1,5 @@
 % kilde https://tex.stackexchange.com/questions/522118/visualizing-matrix-convolution 
-\begin{figure}
+\begin{figure}[hp]
     \centering
     \begin{tikzpicture}[mmat/.style={matrix of math nodes,column sep=-\pgflinewidth/2,
    row sep=-\pgflinewidth/2,cells={nodes={draw,inner sep=2pt,thin}},draw=#1,thick,inner sep=0pt},
@@ -35,6 +35,6 @@
   \fill[red!20] (f1.north west) rectangle (f1.south east);
  \end{scope}
 \end{tikzpicture}
-    \caption{Caption}
-    \label{fig:my_label}
+    \caption{Diagram showing a convolutional operation.}
+    \label{fig:convolution}
 \end{figure}

@@ -4,7 +4,7 @@
 % used to avoid putting the same thing several times...
 % Command \empt{var1}{var2}
 \newcommand{\empt}[2]{$#1^{\langle #2 \rangle}$}
-\begin{figure}
+\begin{figure}[hp]
     \centering
     
     \begin{tikzpicture}[
@@ -111,8 +111,6 @@
     \draw [-, ArrowC2] (i1)++(0,0.2) -- (x2);
 
 \end{tikzpicture}
-
-    
-    \caption{Caption}
-    \label{fig:my_label}
+    \caption{Architecture of a \acrshort{lstm} cell.}
+    \label{fig:lstm_cell}
 \end{figure}
