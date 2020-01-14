@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.13)  9 JAN 2020 11:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.13)  9 JAN 2020 17:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2092,22 +2092,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 ] (./Chapter1_Intro/Introduction.tex
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--14
+Underfull \hbox (badness 10000) in paragraph at lines 3--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--14
+Underfull \hbox (badness 10000) in paragraph at lines 3--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--14
+Underfull \hbox (badness 10000) in paragraph at lines 3--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--14
+Underfull \hbox (badness 10000) in paragraph at lines 3--15
 
  []
 
@@ -2115,33 +2115,33 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.14 
+l.15 
       [1
 
 ]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 15.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 16.
 
 <Chapter1_Intro/images/both_wild2019.jpg, id=378, 65.16345pt x 22.04234pt>
 File: Chapter1_Intro/images/both_wild2019.jpg Graphic file (type jpg)
 
 <use Chapter1_Intro/images/both_wild2019.jpg>
 Package pdftex.def Info: Chapter1_Intro/images/both_wild2019.jpg used on input 
-line 18.
+line 19.
 (pdftex.def)             Requested size: 456.14288pt x 154.29587pt.
 
-Overfull \hbox (15.12515pt too wide) in paragraph at lines 18--19
+Overfull \hbox (15.12515pt too wide) in paragraph at lines 19--20
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 19.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 20.
 <Chapter1_Intro/images/CRE_wild2019.jpg, id=384, 46.61415pt x 31.7988pt>
 File: Chapter1_Intro/images/CRE_wild2019.jpg Graphic file (type jpg)
 
 <use Chapter1_Intro/images/CRE_wild2019.jpg>
 Package pdftex.def Info: Chapter1_Intro/images/CRE_wild2019.jpg used on input l
-ine 26.
+ine 27.
 (pdftex.def)             Requested size: 326.2982pt x 222.59094pt.
 
 
@@ -2159,29 +2159,29 @@ File: Chapter1_Intro/images/Fig7-11_ipcc.jpg Graphic file (type jpg)
 
 <use Chapter1_Intro/images/Fig7-11_ipcc.jpg>
 Package pdftex.def Info: Chapter1_Intro/images/Fig7-11_ipcc.jpg used on input l
-ine 47.
+ine 48.
 (pdftex.def)             Requested size: 432.46426pt x 141.45665pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--62
+Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--62
+Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--62
+Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--62
+Underfull \hbox (badness 10000) in paragraph at lines 53--64
 
  []
 
@@ -2199,15 +2199,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [4 <./Chapter1_Intro/images/Fig7-11_ipcc.jpg>]
-<Chapter1_Intro/images/Datenvolumen_D-SDA.jpg, id=419, 351.46042pt x 191.70569p
+<Chapter1_Intro/images/Datenvolumen_D-SDA.jpg, id=420, 351.46042pt x 191.70569p
 t>
 File: Chapter1_Intro/images/Datenvolumen_D-SDA.jpg Graphic file (type jpg)
  <use Chapter1_Intro/images/Datenvolumen_D-SDA.jpg>
 Package pdftex.def Info: Chapter1_Intro/images/Datenvolumen_D-SDA.jpg used on i
-nput line 69.
+nput line 71.
 (pdftex.def)             Requested size: 351.45956pt x 191.70522pt.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 64--54
+Underfull \hbox (badness 10000) in paragraph at lines 66--54
 
  []
 
@@ -2368,7 +2368,7 @@ Overfull \hbox (85.7889pt too wide) in paragraph at lines 3--12
 [][] 
  []
 
-) <Chapter2_Theory/images/Domain.png, id=485, 429.605pt x 286.06876pt>
+) <Chapter2_Theory/images/Domain.png, id=486, 429.605pt x 286.06876pt>
 File: Chapter2_Theory/images/Domain.png Graphic file (type png)
 
 <use Chapter2_Theory/images/Domain.png>
@@ -2381,7 +2381,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 <Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_20191123120000.
-jpg, id=486, 3725.92pt x 3725.92pt>
+jpg, id=487, 3725.92pt x 3725.92pt>
 File: Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_2019112312
 0000.jpg Graphic file (type jpg)
 
@@ -2440,7 +2440,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 131--134
 
  []
 
-<Chapter2_Theory/images/coordinates.png, id=519, 617.37032pt x 614.295pt>
+<Chapter2_Theory/images/coordinates.png, id=520, 617.37032pt x 614.295pt>
 File: Chapter2_Theory/images/coordinates.png Graphic file (type png)
 
 <use Chapter2_Theory/images/coordinates.png>
@@ -2487,7 +2487,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [19]
-<Chapter2_Theory/images/linear_regression.png, id=563, 361.35pt x 144.54pt>
+<Chapter2_Theory/images/linear_regression.png, id=564, 361.35pt x 144.54pt>
 File: Chapter2_Theory/images/linear_regression.png Graphic file (type png)
 
 <use Chapter2_Theory/images/linear_regression.png>
@@ -4858,7 +4858,7 @@ LaTeX Warning: Reference `eq:actbal2sph' on page 22 undefined on input line 188
 .
 
 )
-<Chapter2_Theory/images/classification_overfitted.png, id=588, 361.35pt x 144.5
+<Chapter2_Theory/images/classification_overfitted.png, id=589, 361.35pt x 144.5
 4pt>
 File: Chapter2_Theory/images/classification_overfitted.png Graphic file (type p
 ng)
@@ -4995,9 +4995,6 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
@@ -5006,7 +5003,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 79.
 Here is how much of TeX's memory you used:
  46317 strings out of 493029
  1006463 string characters out of 6136234
- 1581970 words of memory out of 5000000
+ 1580970 words of memory out of 5000000
  48738 multiletter control sequences out of 15000+600000
  89134 words of font info for 136 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -5076,10 +5073,10 @@ re/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/u
 tmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (56 pages, 4734580 bytes).
+Output written on main.pdf (56 pages, 4735118 bytes).
 PDF statistics:
- 797 PDF objects out of 1000 (max. 8388607)
- 682 compressed objects within 7 object streams
+ 798 PDF objects out of 1000 (max. 8388607)
+ 683 compressed objects within 7 object streams
  175 named destinations out of 1000 (max. 500000)
  491 words of extra memory for PDF output out of 10000 (max. 10000000)
 
