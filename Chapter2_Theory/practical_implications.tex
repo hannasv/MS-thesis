@@ -1,0 +1,8 @@
+
+\subsection{Practical implications} \label{sec:practical_implications}
+It is necessary to have a understanding of the needs of the end product when conducting large machine learning projects. What will it be used for? How can it be implemented in useful way?
+\\ \\
+A downside of the data driven learning approach is the rigid resolution. For simplicity let training data be the subset of examples used to determine your weights and let test data be the subset used to run the model. Both test and train need to be of the same resolution. For applications like climate models. Climate models provide output in a wide range of different of spatiotemporal resolutions. Before implementing the finished product, it would need to be retrained on the resolution of the climate model under development. Which includes both remapping the data set and retraining the model. This is a time consuming process involving finding a new set of hyperparameters suitable for the new resolution. % It essentially means starting over. 
+Once trained machine learning models provide fast results even for complex parametrisation which is what makes them suitable. For global climate models you need to have access to training data all over the globe otherwise there is no point. This thesis is concerned with a region, in the attempts of providing a proof of concept. % Another ting 
+Most machine learning packages are developed using Python. The finished trained models would have to be implemented in Fortran.
+% Another issue is that most machine learning packages are in python programming language while climate models are in Fortran. If you know the weights you only need to implement the forward pass in \acrshort{lstm}. This is feasible since its only matrix multiplications. 

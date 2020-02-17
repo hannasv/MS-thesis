@@ -1,354 +1,257 @@
 \setcounter{chapter}{1} 
 \chapter{Theoretical Background} \label{ch:theoretical_back}
 % Parametrization (atmospheric modeling), a method of approximating complex processes.
-In this chapter I will present motivation, necessary theoretical background and practical implications to understand thee need for new predictions of cloud cover/cloud amount. Investigating a data driven approach for parameterization of clouds. Developing new tools for approximating the complex process of cloud formation. Hopefully this will contribute to the understanding of the physical process which is cloud formation. The data used in this project is a mixture of satellite retrievals and reanalysis data. No ancillary information is provided. See sections \ref{sec:era5} to \ref{sec:meteosat} for more detailed descriptions. 
+\textbf{Rewrite summary when you finished the chapter.}
+\textit{This chapter presents the motivation and necessary theoretical background  to understand the need for new methods for estimation cloud cover \textit{(cloud amount)}. Hopefully this will also help shed some light on the understanding of the underlying physical processes. In terms also help reduce the spread in climate sensitivity. Also known as global mean temperature increase in future climates. The data used in this project is a combination of satellite retrievals and reanalysis data.}
 \\ \\
-The numerical methods used in this thesis are described in section \ref{sec:comp_met}. All the code is available on GitHub in the project repository named MS on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. At this repository you will find everything you need to perform this experiment yourself. Descriptions for downloading data and retrieving the correct licences. 
-\\ \\ 
-There is project environment ready for installation, called \textit{sciclouds}. This is a conda envionment, the yaml-file lists the python packages and their versions used for running this code. Notebooks for conducting the experiments. Supplementary material for remapping satellite data and land-sea masks are available in a supplementary repository called \textit{MS-suppl} \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
-
+Starting with giving a introduction to clouds in the current and future climate. Continuing with information about the dataset, structure, implementations and practical implications.
+\input{Chapter2_Theory/clouds.tex}
 %\subsection{Cloud feedbacks from convection and fronts} %Cloud, circulation and climate sensitivity article.
-\section{Parameterizations of clouds} \label{sec:param_clouds}
-Parametrizations are a tool used in climate models to include the effect of subgridscale prosesses. This is done for several processes \textbf{give examples}. This thesis is only conserned with parametrizaions of cloud cover. The simplest form of cloud scheme is binary. Either the eintire pixel is covered by clouds or there is no clouds present. This is implemented as follows, if $RH > 100 \rightarrow CLA = 1$ else $CLA = 0$.
-Sub gridscale variability in humidity is necesary to achive fractional cloud cover. This can be combined with a sub gridscale of temperature. Over the years reaserchers have tried to draw the distrubutions of these variables from observations and implement them into models. Vitualy all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on. They have not been sucesfull in finding a adaquate repreentation of cloud cover using this approach. \textbf{(siter Tomkins summary)}
-\\ \\
-Cloud cover is usually a combination of several parametrizations. Its common to have seperate schemes for ice-, liquid clouds and convections.
-\textbf{Read more Tomkins}
+
+\section{Parametrisation of clouds} \label{sec:param_clouds}
+Parametrisation are a tool used in climate models to include the effect of subgrid-scale processes. This is done for several processes \textbf{give examples - michrophysics Lohmann}. This thesis is only concerned with parametrisation of cloud cover. The simplest form of cloud scheme is binary. Either the entire pixel is covered by clouds or there is no clouds. This can be implemented as follows,
+\begin{equation} \label{eq:binary_param_clouds}
+    CLA\left(RH\right) = 
+     \begin{cases}
+       \text{0,} &\quad\text{if RH}\le100\\
+       \text{1,} &\quad\text{else}
+     \end{cases}
+\end{equation}
+Sub-grid scale variability in humidity is necessary to archive fractional cloud cover. This can be combined with a sub-grid scale of temperature. Over the years researchers have tried to draw the distributions of these variables from observations and implement them into models. Virtually all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on. They have not been successful in finding a adequate representation of cloud cover using this approach. \textbf{(siter Tomkins summary)}. Cloud cover is usually a combination of several parametrisations. Its common to have separate schemes for ice-, liquid clouds and convective clouds. \textbf{Read more Tomkins}
 \\ \\ 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
-\subsection{Parametrizations of clouds - Climate models} \label{sec:params_climate_models}
-Climate models are an important tool for studying the effects of emissions/forcing on future climates. The \acrfull{ipcc} provide assessments report every ~10th year or so, providing a state of the art status update on the current knowledge of climate change. Since the previos assesment report there has been three spesial report A, B and C. 
-\textbf{Les special report.} The previous report published was Assesment report 5, AR5 in 2013 and the next report is scheduled to be published in 2021. 
-The ensamble of climate models included in AR5 is \acrfull{cmip5}. 
-\acrshort{cmip6} are now being evaluated, thus there is less published literature. Even though its a bit old, we will mostly focus on the results in AR5. \textbf{Plus the findings in the special reports.}
-\\ \\
-% As mentioned before cloud feedbacks contribute with the largest uncertainty when computing the climate sensitivity. 
-In resent years a lot of effort have been invested in improving the parametrizations of subgridscale processes. Among these clouds contribute with the largest uncertainty, approximately three times as large as other process i.e. relative humidity-lapse rate feedback (these processes shoukd not be viewed in isolation). The contributions of the clouds to the short wave component in the radiative budget is the main contributor to the uncertainty. Short wave cloud feedback. \textit{To this day neither observastions of global climate models, GCM's provide clear eveidence or contradict the low level clouds feedback}. There is no accepted basis to refuse a GSM \textit{a priori} \textbf{this increases the muli-model mean spead in climate sensitivity}. Missing representations of clouds microphysical processes related to opacity or cirrus (high altitude, composed of ice) clouds.
-\\ \\
-The computational cost of generating these large ensambles are limiting factor. Simplyfied models in terms of resolution and/ or complexity is common/often necesarry. 
+\subsection{Parametrisations of clouds - Climate models} \label{sec:params_climate_models}
+\textit{Trude: Most climate models have a fractional cloud cover, which is driven by saturation threshold. In global climate models all michcrophysics (bilde lohman), convection are parametrised in dependant structures. Climate models output monthly mean/or et tidspunkt hver måned.}
+\textbf{Include details on parameterisations in climate models}
 \\ \\ 
-Using idealised experiments they give model spread in \acrfull{ecs}. This describes the \textit{equilibrium change in global and annual mean surface temperature after doubling the $CO_2$ conditions from preindustrial times.}
-For \acrshort{cmip5} the \acrshort{ecs} is $2.1^oC$ to $4.7^oC$.The is \textit{very high confidence} that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et. al. ran their experiments using a coarse resolution of $8^o \times 10^o$ grid box (lat $\times$ lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. The \acrshort{cmip5} \textbf{What more where you thinking here..?}
+One method to deal with this is cloud parameterisation are cloud resolving models. This runs a LES-model. You still need to parametrise the michrophysical scheme, but the model might be able to resolve the convection. \textbf{Read paper.}
+% Climate models are an important tool for studying the effects of emissions/forcing on future climates. The \acrfull{ipcc} provide assessments report every ~10th year or so, providing a state of the art status update on the current knowledge of climate change. Since the previous assessment report there has been three special report A, B and C. \textbf{Les special report.} The previous report published was Assesment report 5, AR5 in 2013 and the next report is scheduled to be published in 2021. 
+%The ensamble of climate models included in AR5 is \acrfull{cmip5}. \acrshort{cmip6} are now being evaluated, thus there is less published literature. Even though its a bit old, we will mostly focus on the results in AR5. \textbf{Plus the findings in the special reports.}
+\\ \\
+In resent years a lot of effort have been invested in improving the parametrisations of sub-grid scale processes. Among these clouds contribute with the largest uncertainty, approximately three times as large as other process i.e. relative humidity-lapse rate feedback (these processes should not be viewed in isolation). The contributions of the clouds to the short wave component in the radiative budget is the main contributor to the uncertainty. Short wave cloud feedback. \textit{To this day neither observations of \acrfull{gcm} provide clear evidence or contradict the low level clouds feedback}. There is no accepted basis to refuse a \acrshort{gcm} \textit{a priori} \textbf{this increases the multi-model mean spread in climate sensitivity}. Missing representations of clouds micro-physical processes related to opacity or cirrus (high altitude, composed of ice) clouds. \textbf{cite AR5}
+\\ \\
+The computational cost of generating these large ensembles are limiting factor. Simplified models in terms of resolution and/ or complexity is common/often necessary. 
+\\ \\ 
+Using idealised experiments they give model spread in \acrfull{ecs}. This describes the \textit{equilibrium change in global and annual mean surface temperature after doubling the $CO_2$ conditions from pre-industrial times.} For \acrshort{cmip5} the \acrshort{ecs} is $2.1^oC$ to $4.7^oC$. The is very high confidence that clouds are the primary factor attributing to the wide range. This is not a very big improvement from Hansen et. al. 1984 first estimate of climate sensitivity which was the range $2.0^oC$ to $5.0^oC$. \textbf{explain idealised experiments.} Hansen et. al. ran their experiments using a coarse resolution of $8^o \times 10^o$ grid box (lat $\times$ lon) and a doubling of the $CO_2$ concentrations from 315ppm to 630ppm. 
 
-\subsection{ERA5} \label{sec:param_ERA5}
+\subsection{ERA5 - make sure this should be included before you write it} \label{sec:param_ERA5}
 ERA5 is produced used IFS cycle 4lr2. This has a new cloud scheme or hydrological cycle. \textbf{Artikkelen forteller om oppdateringer fra sist era-interim produksjon ikke alt som finnes. Bedre å skrive denne etter du har skrevet i datasettet hvor }. Husk Tomkins jobber for ECMWF.
 
-
-\subsection{Practical implications} \label{sec:practical_implications}
-When conducting large machine learning project, such as this thesis its good to have a understanding of needs of the end product. What should it be used for? And how does it need to be implemented to be usefull in such a way. 
-\textbf{Explain the strength and weaknesses of this approach for future implementations. Hva er tatt høyde for ved valg av data og lignende. Kan være nyttig for om folk reproduserer det og skal jobbe videre...}
-%  when  using machine learning models as parametrization
-One of the obvious downsides of using this data driven approach is the rigid resolution. It needs to be retrained in another resolution for it to be usefull in climate research. Climate models provide data in a wide range of different of spatiotemporal resolutions. Before implementing this model it would need to be retrained on the resolution of the climate model under development. Which includes both remapping the data set and retraining the model. This is a time consuming process involving finding a new set of hyperparameters suitable for the new resolution. Once trained machine learning models provide fast results even for complex parametrizations which is what makes them suitable. For global climate models you need to have access to training data all over the globe otherwise there is no point. This thesis is concerend with a region, in order to compute a proof of consept. Antoher issue is that most machine learning packages are in python programming languange while climate models are in \textbf{fortran 90/95 - dobbelsjekk}. \textbf{how to solve this}
-
-\section{Data set and Methods}
+\section{Dataset and Methods}
 \subsection{ERA5} \label{sec:era5}
-ERA5 is the latest in the series of reanalysis produced by \acrfull{ecmwf}. Re-analysis is as close to observations as one can get coherent in space and time. Sometimes people forget that it is assimilated against observations not observations. Data assimilation takes in observations and tries to make a accurate estimate of the state of the system. This includes observations from ground based, ships, bouyes, airplanes and satellites. The analysis is produced in the operational system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available in $0.25^o$ degree and hourly resolution. Its an important product in the continuous climate monitoring of the earth system. Since we are learning from data its important to mention that the all sky radiance's from \acrfull{msg} in the period 2003-2012 is included in the assimilation. This is the same satellite as I gather the cloud masks. From more information on how the cloud mask are computed please read section \ref{sec:meteosat}.
+ERA5 is the latest in the series of reanalysis produced by \acrfull{ecmwf}. Re-analysis is as close to observations as one can get coherent in space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations and input and tries to make a accurate estimate of the state of the system. This includes observations from ground based, ships, bouyes, airplanes and satellites. The analysis is produced in the operational system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available in $0.25^o$ degree and hourly resolution. Its an important product for the continuous climate monitoring of the earth system. It can be wort noting that the all sky radiance's from \acrfull{msg} in the period 2003-2012 is included in the assimilation. This is the same satellite that provides the cloud mask. 
 \\ \\ 
-Reanalyses data is often mistakenly referred to as observations. The differences between them was the theme of a essay in \acrfull{bams}, 2015. They conclude with that they are not to different. Both involve inference (theory based calculations) and re-analysis relies on forecast and observations does not. This is not a significant difference as long as the forecast is sufficiently accurate. Its important to be aware of that the uncertainty of the reanalysis is less well known than for observations. This makes it harder to judge appropriate use of the reanalysis.  
-
-\subsection{METEOSAT Second Generation - SEVRI} \label{sec:meteosat}
-The highest resolved satellite retrivals come from geostationary meteorological weather satellites. Polar orbiting satellites usually provide daily resolution.\textbf{ (STUBENAU)}. There is also a wide range of viewing angles. Optical properties is always a function of viewing angle and frequency (Huang et. al. 2018).  
+Reanalyses data is often mistakenly referred to as observations. This was the theme of a essay in \acrfull{bams}, 2015. Based on the following three points they conclude that observations and re-analysis are not to different. First, both involve inference (theory based calculations). Re-analysis relies on forecast and observations does not. Second, it is not a significant difference as long as the forecast is sufficiently accurate. Third, its important to be aware of that the uncertainty of the reanalysis is less well known than for observations. This makes it harder to judge appropriate use of the reanalysis. 
+\textbf{One sentence explaining that we have judged the appropriate use and have come to the conclusion that using the assimilated variables and not parameterised are appropriate for this application.}
 \\ \\
-%The orbit of MODIS makes sure it has the exact same viewing angle every 16th day. 
-The angle attributes to small differences in detected cloud mask. This becomes evident when the standby and operational satelite scan simultaneously. By default the stanby satelite is adjusted to fit the position of the operational. By taking the difference some small patterns becomes visible. This is not accounted for when using the data. 
+\subsection{Remote sensing of cloud properties}
+Satellites are instruments capable of providing continuous global measurements. Two types of sensors, passive and active imagers. The passive imaging sensor detects natural occurring levels of radiation. Opposed to active sensor, which detect the radiation returned from a emitted artificially fixed pulse of radiation.
+
+\begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_wv062_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
+            \caption[Channel WV 6.2]%
+            {{\small Channel WV 6.2}}    
+            \label{fig:WV_6.2}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_vis006_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
+            \caption[]%
+            {{\small VIS 0.6}}    
+            \label{fig:VIS_0.6}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_ir108_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
+            \caption[something]%
+            {{\small IR 10.8}}    
+            \label{fig:IR_10.8}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_ir039_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
+            \caption[]%
+            {{\small IR 3.9}}    
+            \label{fig:IR_3.9}
+        \end{subfigure}
+        \caption[ The average and standard deviation of critical parameters ]
+        {\small Spectral bands from SEVIRI. February 15th 2020 at noon. It shows the lowpressure system \textit{Elsa} persisting over iceland. Having a record breaking low of 914hPa. \textbf{NRK artikkel} 
+        % info på bildene \textbf{Rectified (level 1.5) Meteosat SEVIRI image data. The data is transmitted as High Rate transmissions in 12 spectral channels. Level 1.5 image data corresponds to the geolocated and radiometrically pre-processed image data, ready for further processing, e.g. the extraction of meteorological products. Any spacecraft specific effects have been removed, and in particular, linearisation and equalisation of the image radiometry has been performed for all SEVIRI channels. The on-board blackbody data has been processed. Both radiometric and geometric quality control information is included. Images are made available with different timeliness according to their latency: quarter-hourly images if latency is more than 3 hours and hourly images if latency is less than 3 hours (for a total of 87 images per day). To enhance the perception for areas which are on the night side of the Earth a different mapping with increased contrast is applied for IR3.9 product. The greyscale mapping is based on the EBBT which allows to map the ranges 200 K to 300 K for the night and 250 K to 330 K for the day.}
+        % Lastet ned 16.02.2020.
+        \href{https://eumetview.eumetsat.int/mapviewer/?product=EO:EUM:DAT:0025}{https://eumetview.eumetsat.int/mapviewer/?product=EO:EUM:DAT:0025}
+        \href{https://www.nrk.no/nordland/nytt-lavtrykk-kan-skape-trobbel-for-wideroe-og-flytrafikken-i-nord-norge-1.14902193}{https://www.nrk.no/nordland/nytt-lavtrykk-kan-skape-trobbel-for-wideroe-og-flytrafikken-i-nord-norge-1.14902193}} 
+        \label{fig:SEVIRI_channels}
+    \end{figure*}
+Karlsson et. al. 2015 list the five key properties for remote sensing of clouds using passive imagery. To have a reference figure \ref{fig:SEVIRI_channels} shows examples on how different properties are seen by the satellite. This includes the four spectral bands, WV 6.2, VIS 0.6, IR 3.9 and IR 10.8. In general anything that appears bright have a higher reflectance at the \acrfull{toa} than the surface. Lower radiences are displayed in darker colours and brighter is white. Clouds appear bright in VIS and NIR channels, see \ref{fig:VIS_0.6}. Clouds consisting of liquid droplets reflect strongly in SWIR and MWIR. This is shown in figure \ref{fig:IR_3.9}. The earth surface, including snow and ice, appear dark. This allows for detection of low level clouds at night. Exploiting the fact that clouds are not perfectly emitting black bodies. Cloud are typically colder than the earth surface. Cirrus cloud are optically thin, but can be detected using split window channels (IR10.8 and IR12.0) differences. See figure \ref{fig:IR_10.8}. Figure \ref{fig:WV_6.2} shows detected water vapour. In general broken clouds give rise to scattered pattern or texture in images otherwise homogeneous, ice-free ocean for instance. To summaries the success of a screening is dependant on the illumination, the state of the surface and atmosphere. \textbf{kalsson et al} The number of spectral bands and footprint size (pixel resolution) determine the practical application a particular retrieval can be used for. Differences in swath width determine the frequency at a given position. Viewing angle affect the optical properties of the medium (but also its apparent position). \textit{Parallax} describes the apparent shift in position of a object, when you move the observer along a axis. This is a issue in remote sensing. Positions of satellites are moved and high viewing angles may cause similar issues. Since the position of objects is relevant to the viewing angle. A high viewing angle may introduce problems with parallax of high clouds. This factor is negligible when detecting low clouds (Joro et al). Moving the observer (satellite) changes the apparent position of the measurement. This becomes evident when comparing simultaneous measurements for the operation and the standby METeosat satellites.
+\\ \\
+Differences in sensitivity and retrieval algorithms contribute to a large spread in global mean cloud amount among different cloud products. In their assessment of global cloud datasets Studbenau et. al. 2013 compared the global mean cloud cover of six datasets (ISCCP, PATMOS-x, MODIS-ST, MODIS-CE, AIR-LMD and TOVS Path-B). In this process they eliminating MISR and ATSR-GRAPE because of different observation times \textbf{(ref the table in the article)} and two outlier datasets, HIRS-NOAA and POLDER. Their results show that the difference among the six datasets, the difference is of order 0.08. On the contrary, local differences could be up to 0.4. Its worth noting that the satellite data using in this thesis is not included in Schubanaus study, but its illustrates nicely the large differences among other datasets. 
 \\ \\ 
-The second generation satellite consist of METEOSAT 8 to 11. The MSG system provides a two satellite system. The operational satellite at a nadir point of $0^o$ latitude. 
+Spatiotemporal consistency and resolution was given high priority when choosing a dataset. %Main goal is to gain insight to cloud dynamics (..?) using a physical based parametrisation. 
+Cloud cover is a two dimensional variable. This results in a larger pool av satellites to chose from. The satellite product chosen for this thesis is the \acrfull{msg}. This is geostationary, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19}
+%Cloud-Aerosol Lidar and Infrared Pathfinder Satellite Observations, CALISO is much used in other research because it gives a vertically resolved cloud (3D observations). This additional spatial information is provided on the expense of frequency and uncertainty. \textit{Reason why calipso is ruled out as a candidate. large uncertainty Stubenau} MODIS has low spatial resolution but high temporal resolution, one to two days. National Oceanic and Atmospheric Administration, NOAA \textbf{ something}. Most polar orbiting satellites have a resolution at best daily. \textbf{kilde (shubenau)} \textbf{Does the other one give ferdig produkter av skyfraksjoner og eller er mye lettere og regridde??} The number of channels (higher for other than METEOSAT). The more channels you have the more accurate cloud detection algorihms you can use. Most of the uncertainty in satellite retrivals are attributed to the presence of clouds.  
+\\ \\
+\subsection{METeosat Second Generation, MSG} \label{sec:meteosat}
+Prior to the launch of the METeosat researchers discussed the temporal frequency suitable for the observing weather. The METeosat first generation had a temporal resolution of 30min \textbf{kilde}. For the second generation, 15min intervals was chosen to best cope with the short lifetime and rapid deformation of clouds. It was also suggested that a temporal frequency of 1 to 10min is necessary tracking cumulus type clouds. \textbf{kilde stubenau - må være en annen kilde}. This agrees with the table 1.3 in Lohmann et. al. stating the lifetimes of different type clouds. \textbf{kilde Lohmann s. 19} There is a \textit{ring} of geostationary satellites located at equator providing a global covering (not included polar regions). The altitude of satellite determine the forward velocity and is chosen for the geostationary orbit. To achieve this orbit it needs to maintain a height of $\sim 36 000km $. The first Meteosat Second Generation (MSG-1) was lauched 28 August 2002. It became operational 29 January 2004 and got renamed Meteosat-8. The \acrshort{msg} system provides a two satellite system, one operational and one standby. The operational satellite at a nadir point of $0^o$ latitude. Samples a full disk in cycles of 15min. A full disk is $3712\times 3712$ pixels.
+%\textbf{Thoughts:}
+%\begin{enumerate}
+%    \item Would it be possible to see further north if the altitude where higher? (Wouldn't be geostationary anymore but would you.)
+%    \item Må den alltid være på latitude = 0 for å være geostationary? 
+%\end{enumerate}
 \\ \\ 
-Sometimes both satellites gather data at the same time. Then the standby-satellite grid is rectified to a a grid of the operational one (Personal correspondence with the help-desk). In these images it becomes evident that viewing angle affects the retrievals. When this duplication occurs, the operational satellite is chosen. The temporal resolution of 15min and the nadir pixel size is 3km (Taravat, 2015). The sensor SEVERI har 12 channels. One broadband visible channel, three solar channels (0.6, 0.8 and 1.6 $\mu m$) and 8 thermal infrared channels (3.9, 6.2, 7.3, 8.7, 9.7, 10.8, 12.0 and 13.4 $\mu m$). (Taravat, 2015 - should probably find the source online on EUMATSAT web pages).
+%METeosat is the only geostationary satellite covering the Europe, Africa and India?. Geostationary \textit{ring} of GEO-satellites. 
+The \acrfull{msg} was established as a corporation between \acrfull{esa} and \acrfull{eumetsat}. \acrshort{esa} was in charge of developing the prototype of MSG-1. \acrshort{eumetsat} is responsible for maintaining the user requirements, launch procedures, developing ground segments, ensuring over all system consistency and day to day operations.  \acrshort{msg} primary function is to provide a continuous observations of the earths full disk. Near-constant sampling frequency and a geostationary orbit allows for observing weather phenomena occurring on short scales. Since the satellite always is located at $0^o$ the spatial resolution is not constant spatial resolution, unlike the polar orbiting satellites. the resolution becomes coarser with increasing off-nadir viewing angle. \textbf{kilde stubenau} There are efforts invested in extending the MSG dataset with the MFG, in order to make use of the timeseries all the way back to 1980. \textbf{kilde, launched 1977} This is requires new cloud detection algorithms since they only have three common channels and two of them are useful for detecting clouds. \textbf{kilde Stöckli} This could potentially be useful in the future. 
 \\ \\ 
-\textbf{More practical implications}. This one has two partners covering the Indian and Pacific ocean. Together they give almost a global view, discarding the poles. This will be useful if this trail run is successful.  \textbf{programming language. how to best implement them in }
+On board the \acrshort{msg} is the \acrfull{seviri} imaging radiometer. Its has  12 spectral channels. The scan is done south to north, east to west. The wavelength of the discrete channels are chosen based on heritage from other sensors. One broadband visible channel, three solar channels (0.6, 0.8 and 1.6 $\mu m$) and 8 thermal infrared channels (3.9, 6.2, 7.3, 8.7, 9.7, 10.8, 12.0 and 13.4 $\mu m$). (Taravat, 2015)  This is of great advantage since much of the community already know how to use the \acrshort{seviri} radiance observations. The channels have been chosen based on their ability to detect clouds, water vapour and ozone. More information about what the different channels detect is available in this paper \textit{An introduction to METeosat second generation (MSG)} published in BAMS 2002 \textbf{kilde Schmetz}. % \ref{tab:dataset_summary}.  \\ \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.11]{Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_20191123120000.jpg}    
+    \caption{\textit{Coverage with \acrshort{seviri} on MSG.}The view of the earth from \acrshort{msg}. The picture is dated noon on the 11 November 2019. \textbf{Cite EUMETSAT}. By studying the patterns it becomes evident that clouds are influenced by the circulations. The image is "Natural colors enhanced"}
+    \label{fig:sat_view}
+\end{figure}
 %You may calculate the difference of the measurements, e.g. for channels VIS0.6, IR3.9 and IR10.8 between the two satellites. This will give an estimate how large the measurements differ and as a consequence the products (e.g. cloud mask) will be different.\textbf{also personal corespondance.}
-
+The last couple of years researchers have been investigating the potential of using deep learning algorithms in order to include the spatial structures. This is lost in today's pixelwise detection. \textbf{List many sources}.
 \subsection{EUMETSAT Cloud Mask} \label{sec:EUMETSAT_cloud_mask}
-The EUMETSAT cloud mask, CLM relies on the fact that clouds are colder and more reflective than the surface. They also reclassify isolated pixel. The data is available on Earth Observation Portal on EUMETSATS web pages. CLM consist of four classes, zero - clear sky over ocean, one which is clear sky over land, 2 denotes cloudy and 3 is outer space/off earth disk/no data. These classes are derived from almost all channels except (X) \textbf{cite article 10 in Tavarat, 2015}.
+The \acrshort{eumetsat} cloud mask, CLM consist of four classes, see table \ref{tab:classes_clm}.
 
-The cloud mask is distributed in GRIB-format (no coordinates) and NC-format (coordinates). Due to spatial limitations (Since all files have the same coordinates) one NC-files is downloaded for the coordinates and the rest of the data has been downloaded in GRIB-format. Some retrievals are excluded because of high uncertainty in the measurements this creates gaps in the data set. 
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c}
+        Class & Description \\ \hline
+        0 & Clear sky over ocean \\
+        1 & Clear sky over land \\
+        2 & Cloudy \\
+        3 & No data/ outer space        
+    \end{tabular}
+    \caption{Description of classes in EUMETSAT Cloud Mask product.}
+    \label{tab:classes_clm}
+\end{table}
 
-%\subsection{MODIS - If you include comparisons to verify own sat elite computations.} \label{sec:modis}
-%\textbf{Something on modis.}
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
-
-\subsection{Thoughts when choosing the data set of satellite images}
-Choose the finest temporal resolution possible. The average lifetime of a cloud is an hour. Since this is a proof of study is seems reasonable to choose the finest resolution available. Here this is METEOSAT. 
-\\ \\
-In future work it would be interesting to asses how data driven parametrization compare to the existing parametrizaions available in the state of the art climate models. Here both the temporal and spatial resolution is a lot coarser. Other data sets could be considered. The masks in other data sets are computed based on more channels than in METEOSAT but the temporal resolution is a lot worse. 
-
-\subsection{European Cloud Cover} \label{sec:ECC}
-\textit{Add somewhere from personal correspondence the gaps are caused by: We regret to inform you that unfortunately we cannot process your orders 1368572 and 1368598. The data was corrupted prior archiving to tape and this data file cannot be recovered. }
-For the purpose of this thesis a new data set was built. The clouds in ERA5 is models according to the descriptions in \ref{sec:param_ERA5} so I had to look elsewhere for a suitable \textit{true value} to regress the meteorological variables against. Keep in min the hourly temporal resolution and $0.25^o$ spatial resolution in ERA5. Most satellite products move in polar orbits and finer resolution than daily is rare. Vertically resolved data was also unnecessary. \textbf{cite Calipso and Modis}. This guided me in the direction of the satellites in geostationary orbit. The only geostationary satellite covering the east Atlantic is the 0 degree \acrfull{msg} satellite. With the high temporal resolution of 15min and a fixed grid is seemed like a reasonable choice. %This is beneficial when learning from data. 
-Preserving the resolution available from ERA5, remapping the cloud mask to cloud fractions also know as cloud amount. \textit{\acrshort{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT}The final product consist of the variables temperature, pressure, cloud amount, specific and relative humidity. Hourly data on a $0.25^o$ resolution in the period \textbf{put in first date} to \textbf{last date}. 
-For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. This becomes 80x160 pixels for each time step. As always when working with observations, data is missing. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. For sometimes no cloud masks are available. Then the closest time step available within the previous and trailing 45 minutes are chosen. Other gaps are documented in \textbf{X}. 
-\\ \\
-The original data is described in table \ref{tab:dataset_summary} and the finished product is described in the \ref{tab:ecc}. The demanding process of remapping the mask to fraction is presented in section \ref{sec:remapping}
-% more detailed description on what ERA5 is and how it is produced is described in section \ref{sec:era5}. 
-% As table \ref{tab:variables} shows the data set comprises of five variables collected from two sources; ERA5 and EUMETSAT. Temperature, surface pressure, specific and relative humidity is collected from ERA5. More information about this is available in section \ref{sec:era5}.
-Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METEOSAT satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. 
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c}
+        Spectral band & Central wavelength $\left( \mu m  \right)$ \\ \hline
+        VIS 0.6 & 0.635 \\
+        VIS 0.8 & 0.81 \\
+        NIR 1.6 & 1.64 \\
+        IR 3.9 & 3.92 \\
+        WV 6.2 & 6.25 \\
+        WV 7.3 & 7.35 \\ 
+        IR 8.7 & 8.7 \\
+        IR 9.7 & 9.66 \\
+        IR 10.8 & 10.8 \\
+        IR 12.0 & 12 \\
+        IR 13.4 & 13.4 \\
+        HRV & 0.75
+    \end{tabular}
+    \caption{List of MSG spectral bands and their central wavelength. \textbf{Expand this with a column of what they are useful to detect. Move table to MSG section. } All of these channels are useful when detection clouds except on? Add subplots of images in the different channels. See Schmetz et al }
+    \label{tab:msg_spectral_bands}
+\end{table}
+These classes are derived from almost all channels except HRV and isolated pixels are reclassified \textbf{cite article 10 in Tavarat, 2015}. The cloud mask is distributed in GRIdded Binary or General Regularly-distributed Information in Binary form (GRIB) (no coordinates) and network Common Data Form (NetCDF) (coordinates). The data is available on Earth Observation Portal on EUMETSATS web pages. 
 \\ \\ 
-%This includes METEOSAT 8, 9, 10 and 11.
-The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite technical and is described in section \ref{sec:regridding}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
-\textbf{transponer tabellen!!!!}
-\input{Chapter2_Theory/tables/table_dataset_summary.tex}
+The viewing angle attributes to small differences in detected cloud mask. Explained by parallax. This becomes evident when the standby and operational satellite scan simultaneously. By default the standby satellite is adjusted to fit the position of the operational. By taking the difference some small patterns becomes visible. This is not accounted/adjusted for when using the data. Sometimes both satellites gather data at the same time. Then the standby-satellite grid is rectified to a a grid of the operational one \textbf{(Personal correspondence EUMETSAT staff).} 
 
+\subsection{European Cloud Cover} \label{sec:ecc}
+Preserving the resolution available from ERA5. Remapping the cloud mask to cloud fractions. \textit{\acrshort{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT}. The final product consist of the variables temperature, pressure, cloud amount, specific and relative humidity. Hourly data on a $0.25^o$ resolution in the period \textbf{put in first date} to \textbf{last date}. The original data is described in table \ref{tab:dataset_summary}. The dataset compiled for this thesis contains five variables on uniform grid of $0.25^o$ and hourly resolution. The variables are two meter temperature, surface pressure, total cloud cover relative and specific humidity. Total cloud cover is produced from area weighting cloud masks. The others are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}.
+\\ \\
+The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. For more details concerning remapping see section \ref{sec:remapping}. 
+\\ \\
+% Present Domain
+For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. This becomes $80\times160$ pixels for each time step. As always when working with observations, data is missing. This is either individual pixels of entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Other gaps are documented in \textbf{X}. The finished product is named \acrfull{ecc}.
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 0.7]{Chapter2_Theory/images/Domain.png}
-    \caption{Map showing the domain. The region cover southern Europe and northern Africa. The coordinate system is Plate Caree, which is the same as ECC. The image have been generated using the python package cartopy ref? \textbf{new figure with correct range and some vegetation or topography on  }}
+    \caption{Map showing the domain. The region cover southern Europe and northern Africa. The coordinate system is Plate Caree, which is the same as ECC. The image have been generated using the python package cartopy ref? \textbf{new figure with correct range and some vegetation or topography on  } \textbf{generate new plot with the updated boundaries}}
     \label{fig:map}
 \end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.11]{Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_20191123120000.jpg}    \caption{The view of the earth from \acrshort{msg}. The picture is dated noon on the 11 November 2019. \textbf{Cite EUMETSAT}. By studying the patterns it becomes evident that clouds are influenced by the circulations. }
-    \label{fig:sat_view}
-\end{figure}
+The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite tedious \textit{(langrekkelig)}/technical and is described in section \ref{sec:regridding}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
+\input{Chapter2_Theory/tables/table_transposed.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Physical basis of variable decision} \label{sec:physical_basis}
-The variables have been chosen based on availability, \textit{uncertainty/ quality} and their contribution to the physical processes. As mentioned in the introduction clouds require a aerosol and sufficient supersaturation.\textit{ However up-draft velocities and aerosols (especially type) is difficult to impossible to know?} \textbf{kilde?} I hypothesis that some of this information is present in temperature, humidifies and surface pressure in space and time and thus the cloud cover can be inferred patterns of these variables. Except for rural areas there is usually \acrshort{cnn} and/or \acrshort{inp} present. \textbf{lov å si kilde!}
-
-\paragraph{Temperature}\mbox{}\\ % Need this line otherwise its 
-The temperature is the two meter temperature produced by ERA5. For simplicity this will be referred to as temperature from now on. High temperature is related to convection. The air close to the surface gets heated, this reduces the density and starts the process of rising air masses. As the air rises it cools as a consequence of the work that has been done to the surrounding because of expansion. The temperature could also be a seasonal proxy. 
-
-\paragraph{Humidity} \mbox{}\\
-Both specific and relative humidity is included as features. Conditions where relative humidity exceeds 100\% are called supersaturated. Intuitively this should be a good predictor. However since the the clouds don't form at the surface its not clear if specific humidity is a better predictor. Specific humidity is the actual amount of vapour in the atmosphere in units of \textbf{kg/kg?}. \textit{Trude: Can I say that the rate of evaporation at the surface is proporsjonale to the humidity?} To some extent these variables are temperature dependant. Warm air can retain more vapour than cold air. Which is the main reason from precipitation. 
+The overall goal is to investigate if its enough information to predict clouds in the meteorological variables such as temperature, pressure and humidity. In section \textbf{REF X} clouds in the climate system its discussed that cloud dynamics is far more complicated than than what can be describes by these variables. On the other hand it is not feasible in the near future to include the effects of all the micro-physical processes in an accurately either. Some threshold retrieval algorithms include ancillary information from temperature and humidity profiles. This is not possible in realtime, only useful for post-processing satellite imagery. \textbf{kilde}
 \\ \\
-Let humidity be a collective term for both humidity's. The data is gathered from the model level closest to the surface. Which is at a height of 1000hPa. 
+As described in section \ref{sec:param_clouds} clouds are parameterised in many different ways using many different tools. Researchers have to this day not been able to incorporate the effects of clouds. There might be enough information in these variables to make a adaquate representation of cloud amount. The following variables have been chosen since they are reliable (temperature and pressure) and/or cause the are necessity in cloud formation (humidities). Other information may be present implicitly because of the other variables chosen. It is worth noting that they are either surface variables or from the pressure level closest to the surface. All variables are produced by ERA5. This section will give a brief introduction to their participation in cloud formation. 
+\\ \\
+The 2m temperature, referred to as temperature hereafter, can serve as a proxy for convective motions. Warmer air has higher buoyancy than air at lower temperatures. The warmer air rises. The temperature decreasing due to volume expansion. This is called adiabatic cooling. Colder air can retain less vapour. Achieves saturation faster. Have in mind that evaporation rates are faster at higher temperatures. This thesis include both relative and specific humidity. 
+\\ \\
+Relative humidity is a measure of how much vapour the air contain relative to much it can contain at the temperature of the parcel. Its unitless, and it values ranges from $\left[ 0, 1 \right]$.  Conditions where relative humidity exceeds 1 are called supersaturated. Specific humidity ratio between mass of vapour and mass of air. Unit is $kg kg^{-1}$.
+\textbf{kilde s. 53, 54 Lohmann}. Which one of them that serves as the best predictor is not clear a priori. Let humidity be a collective term for both humidity's. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. 
 \\ \\ 
-In order to form a cloud you need the air to exceed a saturation with respect to water or ice. This can with the presence of cloud condensation nuclei/ ice nuclei particles start the cloud formation processes.  On the other hand specific humidity is the actual amount of water vapour present in the atmosphere. 
-
-\paragraph{Surface Pressure}\mbox{}\\ % ikke samme linjeavstand
-Due to the earth geometry and the angle of rotation there is a energy surplus at the equator. Winds transport some of this heat pole ward. Geostrophic winds are the large scale balance between the Coriolis force and the pressure gradients. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. For convenience surface pressure will be referred to as pressure in this thesis. \textbf{Don't think including the equation from geostrophic balance improved this section.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% \textbf{Q: Trude - hvordan legger jeg inn aerosoler uten å inkludere dem som variabel.}
+In order to form a cloud you need suitable particles as mentioned in section \ref{sec:cloud_in_climate_system}. No variables containing information about nuclei is included, however over land and in (none rural) parts of the globe is reasonable to assume that they are present. In areas with human activity its reasonable to assume that they are present.
+\\ \\
+Surface pressure can be used to infer some of the winds. More precisely geostrophic winds. In settings/ places where frictions and centripetal forces are negligible. Which is not the case at the surface. This balance between the colioslis force and the pressure gradient is a solution of the Navier-Stokes equation. Equation of motion. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. The variations of geostrophic wids with altitude is called thermal wind. \textit{In the real atmosphere the density depend both on pressure and temperature - where do we know this from? The ideal gas law.}. \textbf{Include the expression of Navier-Stokes and the geostrophic winds?}
+\textbf{kilde Lohmann s. 81-84}
+\\ \\ 
 \subsubsection{Computing cloud fractions} \label{sec:remapping}
-The cloud fractions in \acrshort{ecc} is the area weighted cloud masks from \acrshort{msg}. The masks in \acrshort{msg} referred to as clear (0) or cloudy (1).
-If there is a NaN present, this pixel is simply excluded. Calculation wise this has the same affect as a clear pixel. \textbf{Should this be updated to remove the area of the cloudy pixel.} 
+EUMETSAT doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
+\\ \\ 
+Let the subscripts denote the dataset of the grid. Then grid$_{\text{MGS}}$ refers to the curve-linear grid of the \acrlong{msg}. Grid$_{\text{ERA5}}$ refers to the uniform grid originating from ERA5. The latter one is the grid-format used in the final product \acrlong{ecc}. Calculating the area based on a curve-linear grid that only contain information about latitude and longitude involves some simplifications.
+\\ \\ 
+Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories, centre, left, right, up and down boundary. 
+%\begin{figure}
+%    \centering
+%    \includegraphics{}
+%    \caption{Caption}
+%    \label{fig:example_relation_coordssystem_regridded}
+%\end{figure}
+For the boundary categories we only include the contribution from within the cell. This is not actually a strict condition, including the entire area would still keep the fraction within its normal bounds of 0 and 1. However the boundary pixels would have a larger effect on the mean cloud cover since they contribute to several pixels. The footprint size effect on the distribution of cloud cover. For a large pixel size, and less contributing pixels we expect a higher number of grid-cells with close to 0 or 1 cloud amount. Since it alter the number of components you compute the average from.
 \\ \\
-The METEOSAT cloud mask provided in NetCDF-format contains the coordinate information. Since the coordinate system is constant only one NetCDF files are downloaded.The surface area of a square on a sphere can be computed by solving the integral in \eqref{eq:sphere_integral}. This is the result in \eqref{eq:sphere_finish}. Since the netCDF-files only contain latitude and longitude informa
-
-Before using this formula approximations of the extent of the cell needs to be made.
-    
-Calculating the area based on a curve-linear grid that only contain information about latitude and longitude involves some simplifications. From \eqref{eq:sphere_finish} 
-
-, which can be rewritten into equation \eqref{eq:sphere_finish}. The latter one is used for implementations. Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to equations \eqref{eq:app_lon} and  \eqref{eq:app_lat}.
-
-%I have tried to keep these to a minimum and believe that they don't add more uncertainty. 
-The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 terra in the period from 2004 to 2018. 
+The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
+% Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
 \\ \\
-\textbf{Update equation to use a upside down delta.}
+Starting with the equations necessary for computing the area weighting. Integrating over changes in latitude and longitude yields the area. The general expression for the area of a square in spherical coordinates, is given by the following integral. 
+%\textbf{Update equation to use a upside down delta.}
 \begin{equation} \label{eq:sphere_integral}
     A = -R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
-\end{equation} 
-
+\end{equation}
+This can be rewriting into,
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
-\end{equation} 
-
-The latitude and the extend of the pixel is terms in this equation. The extent of a pixel can also be interpreted as the \textbf{what.} The changes on longitude at a certain pixel is the the average distance to neighbouring points.
-
+\end{equation}
+Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. The latitude and the extend of the pixel is terms in this equation. Equation \ref{eq:sphere_finish} is implemented. The changes on longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the horizontal (vertical). Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations, \eqref{eq:app_lon} and  \eqref{eq:app_lat}.
 \begin{equation} \label{eq:app_lon}
     \delta \phi_{i,j} = \left| \frac{\phi_{i+1,j} - \phi_{i-1, j}}{4} \right|
 \end{equation}
-
 \begin{equation} \label{eq:app_lat}
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
+The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This is confirmed from personal communication with EUMETSAT staff.
+\\ \\
+The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (10), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset. \\ \\
+% Finished regriddidng files.
 
-The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This became evident from conversation with the help desk. 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale = 0.6]{Chapter2_Theory/images/coordinates.png}
-    \caption{Credit, https://tex.stackexchange.com/questions/159445/draw-in-cylindrical-and-spherical-coordinates}
-    \label{fig:coords}
-\end{figure}
+To summarize the datset ECC. 
 
-The cloud cover will be referred to as cloud amount, fraction or simply the clouds.
+\\ \\
+
+\\ \\
+Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METEOSAT satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
+\\ \\
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[scale = 0.6]{Chapter2_Theory/images/coordinates.png}
+%    \caption{Credit, https://tex.stackexchange.com/questions/159445/draw-in-cylindrical-and-spherical-coordinates}
+%    \label{fig:coords}
+%\end{figure}
+%The cloud cover will be referred to as cloud amount, fraction or simply the clouds.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{Chapter2_Theory/structure_implementations.tex}
+\input{Chapter2_Theory/practical_implications.tex}
+
 \subsubsection{Licences and Downloading Data} \label{sec:downloading_data}
 Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. I suggest you follow the instructions on ECMWF homepages on \textit{how to download ERA5}. 
-There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. You choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can remap your own files.
+There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. You choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. GitHub has a max limit allowed for uploading. This is why the supplementary material only provide the domain used in this thesis. Otherwise it would be great to provide the reader with the more flexible system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{summary}
 In this thesis I want to test if its possible to make a parametrization on total cloud cover based on macro-scale variables like humidity, surface temperature and pressure. Move away from the subgridscale processes, by regressing historical observations against macro physical properties which affect clouds. The question remains: Is there be enough information in humidity, temperature and surface pressure to predict clouds in a time and space. 
-
-\begin{enumerate}
-    \item How representative is the training period we choose?
-    \item politikk - machine learning velger personalisert reklame i forhold til valg.
-    \item speech recognition (google speaker)
-    \item spam filter 1990
-    \item selv kjørende buss - aker brygge 
-    \item manipulere video - at du får politikere / andre til å si ting de aldri har sagt
-    \item face generation
-    \item testing (in-sample error) and validiation (out of sample error) - generalization error 
-    \item pipeline - transformations of cloud cover data. 
-    \item predicting house prices is a typical regression task. Predicting if a person will default on its loan is another one. 
-    \item clustering and classification as examples on mnist (overused dataset)
-    \item Stuff on downloading data and installing the envionment can be called \textit{setting up your workspace -- > downloading data}
-    \item Look at the correlation in the data. Pearson correlation? Someone else correlation?
-    \item \textit{This plot reveals several things. First, the correlation is very strong. Second, ... }
-    \item \textit{You will often gain good insight on the problem by examining }
-    \item Ensamble methods in climate models and machine learning. It true that for both domains the model mean usually outperform the single model.
-\end{enumerate}
-
-\section{Machine Learning}
-
-
-\subsection{LSTM}
-% Ingen ligninger før dette. 
-
-
-
-
-
-
-\section{OLD Machine learning} \label{sec:intro_machine_learning}
-In this section I will explain the computational methods used for generating the numerical experiments conducted in this thesis. Starting with the the performance metrics used to evaluate the models. Followed by the auto regressive model and recurrent neural networks. For recurrent nets I will start by explaining the simple feed forward network building up to the more complex recurrent networks. This network is also known as convolution long short-term memory network. \textbf{Anatomy and architecture.} 
-\\ \\
-Machine learning is a part of our daily life. From self driving bussed in  your is a word on a lot of peoples tounge. It becoming more and more a part of our daily life from search engines to googles speakers responding to speech. There are lot of different types of machine learning, suitable for solving different tasks. Figure \ref{fig:machine_learning_categories} shows the types of machine learning and their subcategories. Supervised learning is the part of machine learning concerned with learning the relation between input data, x and labelled data y. Regression predict continuous values. Replicating a function. Classification is discrete, since it assigns a category to the input. Reinforcement learning is solves games, labyrinth and fluid mechanics \textbf{(Jean Rubalt)}. Unsupervised learning tries to detect patterns in unlabelled data. This includes contains clustering and dimensionality reduction. Unsupervised and reinforcement learning is out of the scope of this thesis and will not be further discusses.
-\input{Chapter2_Theory/tikz/graph.tikz}
-There is a ongoing debate on what is intelligence. Traditionally a machine would be considered intelligent if it would beat a human at a given task. This has later been abandoned. The abilities a machine need to posses in order to beat a human in chess is completely different. A human needs X while the machine need Y. \textbf{kilde Chollet google} This will not be further discussed in this thesis since this is about task specific intelligence. Is it possible to train a network to gain sufficiently intelligent at the task of prediction European cloud cover?
-
-\subsection{Supervised learning} \label{sec:supervised_learning}
-Linear regression is the simplest form of supervised learning. Finding a suitable curve for a set of points. Working with real data, there is usually noise present in the dataset. In order to compensate for this we split the data into training and test (validation) sets. Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation or "rules". See figure \ref{fig:linreg_overfitting}
-
-\begin{figure}[hp]
-    \centering
-    \includegraphics{Chapter2_Theory/images/linear_regression.png}
-    \caption{Fitting at different levels. The optimal fit is the most general one. This is applicable to many cases.}
-    \label{fig:linreg_overfitting}
-\end{figure}
-
-\subsubsection{Autoregressive models} \label{sec:ARmodels}
-The autoregressive model is a form of linear regression models where you allow a certain number of timesteps to be predictor variables. Equation \eqref{eq:AR-expression} describes how to make a prediction based on the optimal weighs, $\beta$. The expression for finding the optimal betas in a matrix form is given in equation \eqref{eq:AR-solution}. In the case for linear regression (using MSE- loss) there is only one solution to the optimal beta values. This makes it computationally very fast, as long as the matrix $X^TX$ is non-singular and thus its inverse exits. \textbf{Should i derive equation \eqref{eq:AR-solution}?}. For more complicated loss surfaces, there is no analytical solution. Gradient descent is a common algorithmn used to work around this. \textbf{write a section on gradient descent. Illustrert med mann som går ned fjellet og } 
-
-\begin{equation} \label{eq:AR-expression}
-    \hat{Y_n} = \hat{\beta_0} + \sum_{j=1}^p X_j\hat{\beta_j} + \sum_{i = 1}^{n_{ts}} Y_{n-i}\hat{\beta_{p+i}}
-\end{equation}
-
-\begin{equation} \label{eq:AR-solution}
-    \hat{B} = \left( \textbf{X}^T\textbf{X} \right)^{-1}\textbf{X}\bar{y}
-\end{equation}
-
-\subsubsection{Transforming data} \label{sec:transforming_cloud_cover}
-Since cloud cover fractions are in the range from zero to one, a common approach can be to transform the data so it includes values from the entire real axis $(-\infty, \infty)$. This is done using the inverse of the sigmoid function (see figure \ref{fig:sigmoid}).
-\input{Chapter2_Theory/tikz/sigmoid.tikz}
-\textbf{mer?}
-
-\subsection{Neural network}
-\input{Chapter2_Theory/tikz/one_layer_mlp.tikz}
-Figure \ref{fig:one_layer_mlp} shows a simple architecture of a neural network. This consist of four input nodes or neurons, one for each of the variables relevant for the problem at hand. This is a fully connected network, meaning that every input node has a connection/weight to the next layer. After the input data has been passed to the hidden layer (sum over the matrix multiplication of the data and weight) it goes though a activation. The activation function in neural networks introduce the non-linearity's. Without then this would be piece-wise linear functions\textbf{..?}. Figure \ref{fig:activation_one_node} illustrates the activation in one node based on the input of variables. 
-\input{Chapter2_Theory/tikz/activation_mlp.tikz}
-In a neural network the connections between the nodes and the biases of the nodes need to be trained. This means that the optimal first layer in three layer model, is not equal to the optimal first layer in a two layer model. 
-\\ \\
-Three important concepts to every model. The weights, loss-function and optimiser. \textbf{neurons..?} The models is built from weights. The loss is a measure on how close you are to what you want to learn. Optimiser updates/adjust the weights in the direction of a lower loss. \textbf{Backpropagation is the learning algorithmn?} 
-\begin{equation} \label{eq:relating_cc_as_a_func}
-    tcc = f(T_{2m}, q_v, RH, sp)
-\end{equation}
-The rules I hope to achieve in this thesis is the physical relation of total cloud cover based on temperature, pressure and humidity. Like described in equation  \eqref{eq:relating_cc_as_a_func}.
-
-Explain Difference between a neural network used for classification and regression, is choises in cost-function and activation function in the output layer (linear for regression and softmax for classification). 
-
-\subsection{Recurrent networks}
-Introduction to recurrent networks. 
-
-\subsubsection{Convolution}
-Convolution is a mathematical operation where you move a filter across you two dimensional data. Here the result in one cell is the affected by its neighbours. In a convolution neural network the trained weights are the filters. 
-\input{Chapter2_Theory/tikz/convolution.tikz}
-
-\input{Chapter2_Theory/tikz/lstm_cell.tikz}
-
-\input{Chapter2_Theory/tikz/spherical_vs_cartesian.tikz}
-
-\begin{figure}
-    \centering
-    \includegraphics{Chapter2_Theory/images/classification_overfitted.png}
-    \caption{Caption}
-    \label{fig:classification_overfitting}
-\end{figure}
-
-Climate models are implementations of physical equations and parametrizations. After some tuning they are thought to provide the answers given a state. You can read more about climate models in section \ref{sec:climate_models}. Since Hansen et. al. 1984 \textbf{siter} first attempted to estimate the \acrfull{ecs}, reaserchers have been working on reducing the spread. 
-More complex models introduce other uncertainties and they have not yet been able to reduce it sufficiently \textbf{hvordan si "nok" - uten at et blir slemt}. With data available, more complex relations can be described. This requires deeper networks and the depth in deep learning refers to the number of layers. More complex models come with a higher risk of overfitting. \textbf{Kilde book Chollet}.
-
-\subsection{Metrics}  \label{sec:metrics}
-In order to acquire a certain skill you need a measure determining how close you are. 
-Use the sum of square or abosolute values in order to not penalize point on the lower side of the line. Or not having to deal with negative distances. 
-\begin{equation} \label{eq:mse}
-    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
-\end{equation} 
-
-\begin{equation} \label{eq:ase}
-    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
-\end{equation} 
-
-\begin{equation} \label{eq:r2}
-    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
-\end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model.
-
-
-
-\subsection{Hyperparameters - Automatic Optimization}
-Keras-tuner.
-\textbf{Explain all the params you tune. Might be beneficially with a figure. See Rune's MS-thesis.}
-
-
-
-\subsubsection{Convolutional Neural Networks}
-\input{Chapter2_Theory/tikz/cnn.tikz}
-
-
-\subsubsection{Convolutional LSTM}
-\label{sec:conv_lstm}
-Key equations in convolutional LSTM is listed in equation (\ref{eq:CLSTM1_input_gate}) - (\ref{eq:CLSTM5_hidden_state}). Here $\circ$ denoted the Hademand product, which is a component wise multiplication, and * is convolution. 
-
-\begin{equation} \label{eq:CLSTM1_input_gate}
-    i_t = \sigma \left( W_{xi}*x_t + W_{hi}*H_{t-1} + W_{ci}\circ C_{t-1}+b_i \right) 
-\end{equation}
-
-\begin{equation} \label{eq:CLSTM2_forget_gate}
-        f_t = \sigma \left( W_{xf}*x_t + W_{hf}*H_{t-1} + W_{cf}\circ C_{t-1}+b_f \right) 
-\end{equation}
-
-\begin{equation} \label{eq:CLSTM3_cellstate}
-        C_t = f_t \circ C_{t-1} +i_t\circ tanh\left( W_{xc}*X_t + W_{hc}*H_{t-1} + b_c \right)
-\end{equation}
-
-\begin{equation} \label{eq:CLSTM4_output_gate}
-        o_t = \sigma \left( W_{xo}*X_t + W_{ho}*H_{t-1} + W_{co}\circ C_{t}+b_o \right)
-\end{equation}
-
-\begin{equation} \label{eq:CLSTM5_hidden_state}
-        H_t = o_t \circ tanh \left( C_t \right)
-\end{equation}
-
-\paragraph{Learning algorithmns - optimizen (implementation of sequence length)} \mbox{}\\
-Describe the following
-\begin{enumerate}
-    \item Loss, cost, performance metric? epoch batch
-\end{enumerate}
-
-From Chollet book s. 11 \textit{the fundamental trick in deep learning is to use this score (result from performance metric) as a feedback signal to adjust the value of the weights a little, in a direction that will lower the loss score for the current example. } The adjustment is the job of the optimizer, which implements backpropagation algorithmn which is the sentral learning algoritmn.
-\textbf{Explain this in words.}
-
-
-
-\subsection{Klipp og lim}
-
-
-When describing shapes, do it by keras convention. Which is channel first? \textbf{Talk about working with real data and not synthetic.} In this 
-\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.}
-\textbf{Does the setup here resemble videos mostly? Since its a sequence of frames containing meteorological data..}
-
-\section{Future work}
-\begin{enumerate}
-    \item Describe how to make parametrization to implement in CMIP6.
-    \item Programming language in climate models vs python.
-\end{enumerate}
-
-
-
 
 
 

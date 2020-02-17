@@ -7,6 +7,8 @@
 Siter Schubenau og si at satelitter definerer skyer basert på optical depth og at det derfor er nokså stor forskjellen på global gjennomsnittlig skydekket. I tillegg har man forskjeller på retrival algorithmns and sensors. 
 
 \subsection{NOTES -- to be removed}
+Given enough data. Accurate and high resolved measurements is important for learning physical based parametrisations from data. 
+
 I dagen klima vet vi at skyer er vektig
 Wild et al 2019 radiative budget.
 
@@ -38,6 +40,7 @@ Figur forrig ipcc rapport.
     \item Summaries the best five architecture 
     \item A drawback of introducing more layers
     is that it increases the complexity, and thereby the chance of
+    \item emphesizing a good agreement for latitudinal variation.
  \end{itemize}
 
 
@@ -81,5 +84,48 @@ resources to tune hyper parameters}
     \item I have opted to use
     \item We have also modified our own code for a dense feed forward neural
 network produced for Project 2, see
-
+    \item Gradient methods are at the heat of every machine learning algorithms. 
 \end{itemize}
+
+\begin{enumerate}
+    \item Hvorfor det er viktig - prøv uten dommedag vri.
+    \item Hva du vil gjøre for å løse det -  machine læring.
+    \item Hva har andre gjort for å løses det - traditionell probabilistic modelling. 
+    \item Sometimes emissions of greenhouse gases are referred to as climate forcers.
+    \item Forskjell på earth system models, ECM and global circulation models, GCM is that ECM includes a carbon cycle. Which is very important when studying the carbon emissions of different RCPs and SSPs.
+\end{enumerate}
+
+\begin{enumerate}
+    \item How representative is the training period we choose?
+    %\item politikk - machine learning velger personalisert reklame i forhold til valg.
+    %\item speech recognition (google speaker)
+    %\item spam filter 1990
+    %\item selv kjørende buss - aker brygge 
+    %\item manipulere video - at du får politikere / andre til å si ting de aldri har sagt
+    %\item face generation
+    \item testing (in-sample error) and validiation (out of sample error) - generalization error 
+    %\item pipeline - transformations of cloud cover data. 
+    %\item predicting house prices is a typical regression task. Predicting if a person will default on its loan is another one. 
+    \item clustering and classification as examples on mnist (overused dataset)
+    %\item Stuff on downloading data and installing the enviornment can be called \textit{setting up your workspace -- > downloading data}
+    \item Look at the correlation in the data. Pearson correlation? Someone else correlation?
+    \item \textit{This plot reveals several things. First, the correlation is very strong. Second, ... }
+    \item \textit{You will often gain good insight on the problem by examining data.}
+    \item Ensamble methods in climate models and machine learning. It true that for both domains the model mean usually outperform the single model.
+\end{enumerate}
+
+\section{Future work}
+In future work it would be interesting to asses how data driven parametrisation compare to the existing parametrisaions available in the state of the art climate models. Here both the temporal and spatial resolution is a lot coarser. Other data sets could be considered. The masks in other data sets are computed based on more channels than in METEOSAT but the temporal resolution is a lot worse. 
+
+
+\textbf{From the introduction.}
+The field dates back to the fifties. Pioneers was debating if it was possible to \textit{automatise task normally performed by humans}. Now a days machine learning is on everyone's tongue. Three factors determining the advances of the field; data, hardware and algorithmns. Algorithmns predating computers are still useful to this day. One example of this is logistic regression, which is used for binary classification problems. 
+%Logistic regression and Naive Bayes classifiers are exampls of algorithmns that predates computers, but are still very useful to this day. 
+Internet continuous to provide large amounts of data from Wikipedia, Flicker (tagged images) and YouTube. Technological advances such as the \acrfull{gpu} allow for fast computations. It was originally developed for gaming. The invention of the interface CUDA allows performing heavy computations. This did wonders for machine learning.
+%Advances in computational powers, such as graphical processing units, GPU's \textit{provide a environment/platform=os to learn in/on}. These where originally develop for the gaming industry, but in 2007 they realised a interface called CUDA (2007) which allows for computing \textbf{find a up to date cost and flops (floating point operations per second)}. \textbf{siter Chollet bok}
+\\ \\ 
+For clarity, the deep in deep learning refer to the number of layers. Moving from shallow networks to deeper ones (more than 10) algorithmic advances in gradient propagation was needed. The main advantage of using deep neural networks is that they find their own feature representations of the given data. \acrfull{ai} promises that if you have enough data you can find any relation. However this is not always the case. Often you have noise, non stationary system (e.g. climate) and/or miss-labeled data. The last  being a consequence of humans labelling data. Earth system monitoring provides a global view of variables across meteorological systems. %\textbf{Some thing about satellite era}. These large amounts of data and the flexible nature of the neural network makes is a suitable method also in geosciences. \textbf{With enough data neural networks can serve as a universal function approximate given a suitable hyper parameter tuning and input data.} 
+
+
+
+

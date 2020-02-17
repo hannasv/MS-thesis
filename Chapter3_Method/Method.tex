@@ -1,3 +1,50 @@
 \setcounter{chapter}{2}
-\chapter{Methods}
+\chapter{Numerical Methods} \label{ch:num_methods}
 
+\section{Deep Learning}
+A more intuitive way of talking about machine learning is pattern recognition. Older types of machine learning, like PCA (used to remove natural variability, IPCC and Benestad), statistical downscaling has been used in climate research for years. Image super-resolution have shown potential for replacing regional climate models. The idealised situation where you run a climate model in two resolution and train the relation between them doesn't generate so much noise and the more complex models perform quite well. \textit{kilde image super resolution}
+
+\textbf{From Begion Lecun article - Convolutional}
+\begin{enumerate}
+    \item Deep learning relies on the fact that you feed in the raw data (can be normalised, still raw) and the backpropagation choose the features.
+    \item Overfitting occurs if data is scarce and you have high noise. Bias Variance Trade off.
+    \item Big data works since you cover the space of all variations. 
+    \item Computing correlations in time can be quite difficult. This thesis will only be concerned with finding the pixelwise correlation between the meteorological variables. There is primary two types of correlations we are looking for. There is both circulation and local effect. The GCM (general circulation model)
+    \item Less parameters needs  less memory, you are less at risk for overfitting and needs less input data to train? \textbf{Double check all of this.}
+\end{enumerate}
+
+\subsection{Long short term memory network - LSTM}
+% Ingen ligninger før dette. 
+LSTM has shown great results in fields if language processing and speech recognition. There is no a-priori reason why this should not transfer to climate research. 
+
+
+\subsubsection{Convolutional LSTM}
+\label{sec:conv_lstm}
+Key equations in convolutional LSTM is listed in equation (\ref{eq:CLSTM1_input_gate}) - (\ref{eq:CLSTM5_hidden_state}). Here $\circ$ denoted the Hademand product, which is a component wise multiplication, and * is convolution. 
+
+
+\begin{equation} \label{eq:CLSTM1_input_gate}
+    i_t = \sigma \left( W_{xi}*x_t + W_{hi}*H_{t-1} + W_{ci}\circ C_{t-1}+b_i \right) 
+\end{equation}
+
+\begin{equation} \label{eq:CLSTM2_forget_gate}
+        f_t = \sigma \left( W_{xf}*x_t + W_{hf}*H_{t-1} + W_{cf}\circ C_{t-1}+b_f \right) 
+\end{equation}
+
+\begin{equation} \label{eq:CLSTM3_cellstate}
+        C_t = f_t \circ C_{t-1} +i_t\circ tanh\left( W_{xc}*X_t + W_{hc}*H_{t-1} + b_c \right)
+\end{equation}
+
+\begin{equation} \label{eq:CLSTM4_output_gate}
+        o_t = \sigma \left( W_{xo}*X_t + W_{ho}*H_{t-1} + W_{co}\circ C_{t}+b_o \right)
+\end{equation}
+
+\begin{equation} \label{eq:CLSTM5_hidden_state}
+        H_t = o_t \circ tanh \left( C_t \right)
+\end{equation}
+
+
+\input{Chapter2_Theory/tikz/lstm_cell.tikz}
+
+% Moved the old stuff to this file
+% \input{Chapter2_Theory/ML_theory_old.tex}

@@ -74,14 +74,14 @@
     \node [function] (func1) at (1.5,0.75) {Tanh};
 
     % Draw External inputs? named as basis c,h,x
-    \node[ct, label={[mylabel]Cell}] (c) at (-4,1.5) {\empt{c}{t-1}};
-    \node[ct, label={[mylabel]Hidden}] (h) at (-4,-1.5) {\empt{h}{t-1}};
+    \node[ct, label={[mylabel]Cell state}] (c) at (-4,1.5) {\empt{c}{t-1}};
+    \node[ct, label={[mylabel]Hidden state}] (h) at (-4,-1.5) {\empt{h}{t-1}};
     \node[ct, label={[mylabel]left:Input}] (x) at (-2.5,-3) {\empt{x}{t}};
 
     % Draw External outputs? named as basis c2,h2,x2
-    \node[ct, label={[mylabel]Label1}] (c2) at (4,1.5) {\empt{c}{t}};
-    \node[ct, label={[mylabel]Label2}] (h2) at (4,-1.5) {\empt{h}{t}};
-    \node[ct, label={[mylabel]left:Label3}] (x2) at (2.5,3) {\empt{h}{t}};
+    \node[ct, label={[mylabel]Cell state}] (c2) at (4,1.5) {\empt{c}{t}};
+    \node[ct, label={[mylabel]Hidden state}] (h2) at (4,-1.5) {\empt{h}{t}};
+    \node[ct, label={[mylabel]left:Hidden state}] (x2) at (2.5,3) {\empt{h}{t}};
 
 % Start connecting all.
     %Intersections and displacements are used. 
@@ -111,6 +111,6 @@
     \draw [-, ArrowC2] (i1)++(0,0.2) -- (x2);
 
 \end{tikzpicture}
-    \caption{Architecture of a \acrshort{lstm} cell.}
+    \caption{Architecture of a \acrshort{lstm} cell. https://tex.stackexchange.com/questions/328733/how-to-draw-recurrent-neural-network for drawing multiple cells RNN.}
     \label{fig:lstm_cell}
 \end{figure}

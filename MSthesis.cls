@@ -32,12 +32,12 @@
 
 \usepackage{titlesec}
 
-%\setcounter{secnumdepth}{4}
+\setcounter{secnumdepth}{4} % gives numbers to subsubsections
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage[margin=0.9in]{geometry}
-\usepackage[acronym]{glossaries}
+\usepackage[acronym, nonumberlist]{glossaries}
 \makeglossaries
  
 \usepackage[labelfont=bf]{caption} % Gives bold figure X. 
@@ -48,8 +48,9 @@
 %\renewcommand{\ref}[1]{(\oldref{#1})}
 
 % Updates acrfull to be acrlong, acr short and not (acrshort).
-\let\oldacrfull\acrfull
-\renewcommand{\acrfull}[1]{ \acrlong{#1}, \acrshort{#1}  }
+
+%\let\oldacrfull\acrfull
+%\renewcommand{\acrfull}[1]{ \acrlong{#1}, \acrshort{#1}  }
  
  % Inserting a line behind paragraph.
 %\let\oldparagraph\paragraph
