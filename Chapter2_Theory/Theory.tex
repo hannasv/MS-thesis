@@ -46,49 +46,8 @@ Reanalyses data is often mistakenly referred to as observations. This was the th
 \\ \\
 \subsection{Remote sensing of cloud properties}
 Satellites are instruments capable of providing continuous global measurements. Two types of sensors, passive and active imagers. The passive imaging sensor detects natural occurring levels of radiation. Opposed to active sensor, which detect the radiation returned from a emitted artificially fixed pulse of radiation.
-
-\begin{figure*}
-        \centering
-        \begin{subfigure}[b]{0.475\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_wv062_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
-            \caption[Channel WV 6.2]%
-            {{\small Channel WV 6.2}}    
-            \label{fig:WV_6.2}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{0.475\textwidth}  
-            \centering 
-            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_vis006_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
-            \caption[]%
-            {{\small VIS 0.6}}    
-            \label{fig:VIS_0.6}
-        \end{subfigure}
-        \vskip\baselineskip
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_ir108_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
-            \caption[something]%
-            {{\small IR 10.8}}    
-            \label{fig:IR_10.8}
-        \end{subfigure}
-        \quad
-        \begin{subfigure}[b]{0.475\textwidth}   
-            \centering 
-            \includegraphics[width=\textwidth]{Chapter2_Theory/images/sat_channels/meteosat-msg_ir039_overlay-ne_10m_coastline_overlay-ne_10m_admin_0_boundary_lines_land.png}
-            \caption[]%
-            {{\small IR 3.9}}    
-            \label{fig:IR_3.9}
-        \end{subfigure}
-        \caption[ The average and standard deviation of critical parameters ]
-        {\small Spectral bands from SEVIRI. February 15th 2020 at noon. It shows the lowpressure system \textit{Elsa} persisting over iceland. Having a record breaking low of 914hPa. \textbf{NRK artikkel} 
-        % info på bildene \textbf{Rectified (level 1.5) Meteosat SEVIRI image data. The data is transmitted as High Rate transmissions in 12 spectral channels. Level 1.5 image data corresponds to the geolocated and radiometrically pre-processed image data, ready for further processing, e.g. the extraction of meteorological products. Any spacecraft specific effects have been removed, and in particular, linearisation and equalisation of the image radiometry has been performed for all SEVIRI channels. The on-board blackbody data has been processed. Both radiometric and geometric quality control information is included. Images are made available with different timeliness according to their latency: quarter-hourly images if latency is more than 3 hours and hourly images if latency is less than 3 hours (for a total of 87 images per day). To enhance the perception for areas which are on the night side of the Earth a different mapping with increased contrast is applied for IR3.9 product. The greyscale mapping is based on the EBBT which allows to map the ranges 200 K to 300 K for the night and 250 K to 330 K for the day.}
-        % Lastet ned 16.02.2020.
-        \href{https://eumetview.eumetsat.int/mapviewer/?product=EO:EUM:DAT:0025}{https://eumetview.eumetsat.int/mapviewer/?product=EO:EUM:DAT:0025}
-        \href{https://www.nrk.no/nordland/nytt-lavtrykk-kan-skape-trobbel-for-wideroe-og-flytrafikken-i-nord-norge-1.14902193}{https://www.nrk.no/nordland/nytt-lavtrykk-kan-skape-trobbel-for-wideroe-og-flytrafikken-i-nord-norge-1.14902193}} 
-        \label{fig:SEVIRI_channels}
-    \end{figure*}
-Karlsson et. al. 2015 list the five key properties for remote sensing of clouds using passive imagery. To have a reference figure \ref{fig:SEVIRI_channels} shows examples on how different properties are seen by the satellite. This includes the four spectral bands, WV 6.2, VIS 0.6, IR 3.9 and IR 10.8. In general anything that appears bright have a higher reflectance at the \acrfull{toa} than the surface. Lower radiences are displayed in darker colours and brighter is white. Clouds appear bright in VIS and NIR channels, see \ref{fig:VIS_0.6}. Clouds consisting of liquid droplets reflect strongly in SWIR and MWIR. This is shown in figure \ref{fig:IR_3.9}. The earth surface, including snow and ice, appear dark. This allows for detection of low level clouds at night. Exploiting the fact that clouds are not perfectly emitting black bodies. Cloud are typically colder than the earth surface. Cirrus cloud are optically thin, but can be detected using split window channels (IR10.8 and IR12.0) differences. See figure \ref{fig:IR_10.8}. Figure \ref{fig:WV_6.2} shows detected water vapour. In general broken clouds give rise to scattered pattern or texture in images otherwise homogeneous, ice-free ocean for instance. To summaries the success of a screening is dependant on the illumination, the state of the surface and atmosphere. \textbf{kalsson et al} The number of spectral bands and footprint size (pixel resolution) determine the practical application a particular retrieval can be used for. Differences in swath width determine the frequency at a given position. Viewing angle affect the optical properties of the medium (but also its apparent position). \textit{Parallax} describes the apparent shift in position of a object, when you move the observer along a axis. This is a issue in remote sensing. Positions of satellites are moved and high viewing angles may cause similar issues. Since the position of objects is relevant to the viewing angle. A high viewing angle may introduce problems with parallax of high clouds. This factor is negligible when detecting low clouds (Joro et al). Moving the observer (satellite) changes the apparent position of the measurement. This becomes evident when comparing simultaneous measurements for the operation and the standby METeosat satellites.
+\input{Chapter2_Theory/subplot_satellite_channels}
+Karlsson et. al. 2015 list the five key properties for remote sensing of clouds using passive imagery. To have a reference figure \ref{fig:SEVIRI_channels} shows examples on how different properties are seen by the satellite. This includes the four spectral bands, WV 6.2, VIS 0.6, IR 3.9 and IR 10.8. In general anything that appears bright have a higher reflectance at the \acrfull{toa} than the surface. Lower radiences are displayed in darker colours and brighter is white. Clouds appear bright in VIS and NIR channels, see \ref{fig:VIS_0.6}. Clouds consisting of liquid droplets reflect strongly in SWIR and MWIR. This is shown in figure \ref{fig:IR_3.9}. The earth surface, including snow and ice, appear dark. This allows for detection of low level clouds at night. Exploiting the fact that clouds are not perfectly emitting black bodies. Cloud are typically colder than the earth surface. Cirrus cloud are optically thin, but can be detected using split window channels (IR10.8 and IR12.0) differences. See figure \ref{fig:IR_10.8}. Figure \ref{fig:WV_6.2} shows detected water vapour. In general broken clouds give rise to scattered pattern or texture in images otherwise homogeneous, ice-free ocean for instance. To summaries the success of a screening is dependant on the illumination, the state of the surface and atmosphere. \textbf{kalsson et al} The number of spectral bands and footprint size (pixel resolution) determine the practical application a particular retrieval can be used for. Differences in swath width determine the frequency at a given position. Viewing angle affect the optical properties of the medium (but also its apparent position). \textit{Parallax} describes the apparent shift in position of a object, when you move the observer along a axis. This is a issue in remote sensing. Positions of satellites are moved and high viewing angles may cause similar issues. Since the position of objects is relevant to the viewing angle. A high viewing angle may introduce problems with parallax of high clouds. This factor is negligible when detecting low clouds (Joro et al). Moving the observer (satellite) changes the apparent position of the measurement. This becomes evident when comparing simultaneous measurements for the operation and the standby METeosat satellites. \ref{tab:dataset_summary}
 \\ \\
 Differences in sensitivity and retrieval algorithms contribute to a large spread in global mean cloud amount among different cloud products. In their assessment of global cloud datasets Studbenau et. al. 2013 compared the global mean cloud cover of six datasets (ISCCP, PATMOS-x, MODIS-ST, MODIS-CE, AIR-LMD and TOVS Path-B). In this process they eliminating MISR and ATSR-GRAPE because of different observation times \textbf{(ref the table in the article)} and two outlier datasets, HIRS-NOAA and POLDER. Their results show that the difference among the six datasets, the difference is of order 0.08. On the contrary, local differences could be up to 0.4. Its worth noting that the satellite data using in this thesis is not included in Schubanaus study, but its illustrates nicely the large differences among other datasets. 
 \\ \\ 
@@ -170,7 +129,7 @@ For this project the geographical domain has been restricted latitude $\in[30,50
     \caption{Map showing the domain. The region cover southern Europe and northern Africa. The coordinate system is Plate Caree, which is the same as ECC. The image have been generated using the python package cartopy ref? \textbf{new figure with correct range and some vegetation or topography on  } \textbf{generate new plot with the updated boundaries}}
     \label{fig:map}
 \end{figure}
-The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite cumbersome, for more details see section \ref{sec:regridding}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
+The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite cumbersome, for more details see section \ref{sec:remapping}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
 \input{Chapter2_Theory/tables/table_transposed.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -220,7 +179,7 @@ Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ th
 \end{equation}
 The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This is confirmed from personal communication with EUMETSAT staff.
 \\ \\
-The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (10), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset. \\ \\
+The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (10), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary} \\ \\
 % Finished regriddidng files.
 \textbf{Summarize the datset ECC.}
 \\ \\
@@ -234,6 +193,16 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 %\end{figure}
 %The cloud cover will be referred to as cloud amount, fraction or simply the clouds.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Maskinlæring}
+Present general methods.
+
+\subsubsection{LSTM}
+a
+
+\subsection{AR}
+b
+
+
 \input{Chapter2_Theory/practical_implications.tex}
 \\ \\
 \subsubsection{Licences and Downloading Data} \label{sec:downloading_data}
@@ -245,3 +214,13 @@ This thesis aim to devolop and/or explore methods of parameterising cloud cover 
 
 
 
+% Kommentarer fra Hugo om skriving : Teoridelem om satelitter hva er nevn flere og deres oppløsning og hva er fordelen og ulemepen med dem. 
+%  Legg inn helt generelle ting i teoretical background åså diskuter selve datasettet i metoden.
+
+% Ignorer artifakten men kommenter i resultatene, keep in mind the artifact is present. 
+% Fixed input length, normally one would add 0 if it not present. We need to find a value to add. 
+% Scaling is smart due to numerical error not necessarily a requirement for the statistical models. 
+% Missing values can be dealt with in two ways. 
+% 1) Calculate the average ()
+% 2) Predict the missing values - as always this might lead to a unnatural smoothness. 
+% 3) 

@@ -1,8 +1,60 @@
 \setcounter{chapter}{2}
 \chapter{Numerical Methods} \label{ch:num_methods}
+Before we introduce the machine learning aspect of this thesis, a brief introduction to clouds are presented. 
+\\ \\
+\textbf{Write summary}
 
+\subsubsection{Autoregressive models}
+Autoregressive models are a form of regression including the former less developed stage of the predictor. This thesis expands the traditional autoregressive models with other features such as temperature, pressure and humidity's. One would expect this simple method would give a better performance for noisy data.
+
+This simple model should work better with more noise data, than more complex neural network structure. One the benefits with this has a analytical solution. Tweaking is not necessary, it will always give you the optimal solution for that dataset. This models are done pixelwise and then predictions are made for the entire grid based on local weights and biases. Need compile the entire domain after the weights are computed for a single pixel.
+\\ \\
+The general expression for linear higher order recurrence. The linear recurrence of order n,
+\begin{equation} \label{eq:reccurence_relation}
+    a_{n}=c_{1}a_{n-1}+c_{2}a_{n-2}+\cdots +c_{d}a_{n-d}
+\end{equation}
+
+
+\subsection{Recurrent Nets}
+Recurrent neural network (RNN) are a class of artificial neural networks. Developed for studying patterns in sequences. Sequential modelling has had a great success in applications such as machine translation and speech recognition. The connection between the nodes in this kind of networks are a directed graph along a temporal sequence. More advanced forms of recurrent nets control the information flow using gates. \textbf{Maybee some more general stuff here.} LSTM has shown great results in fields if language processing and speech recognition. There is no a priori reason why this should not transfer to climate research. % Their internal state is their memory, 
+%The building block of the LSTM network is the
+\input{Chapter2_Theory/rnn.tex}
+The \acrfull{lstm} introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 \textit{set accuracy records in multiple applications domains.} It was designed to be capable to learn long term dependencies. This section attempts to build a understanding to \acrfull{lstm} without referring to any significant mathematics. The information flow thought the cell is regulated by three gates; the forget gate, the input gate and the output gate. These gates are neural networks trained for learning respectively, the information to forget, the information from input to add to memory and the information to send to the output.
+\\ \\
+The process of training is repeated until the network reaches a acceptable accuracy. At a first glance the \acrshort{lstm} cell looks terrifying. This section will walk thought the sketch along with the relevant equation. Hopefully this makes it more clear why LSTM work the way they do.
+
+The LSTM-cell is the recurrent unit / building block of this kind of recurrent networks.
+\acrshort{rnn} are often displayed unrolled. Since each input goes into the same cell for different times, its often easier to display the network enrolled. This way they don't appear cyclic.
+
+\subsection{LSTM}
+\input{Chapter2_Theory/tikz/lstm_cell.tikz}
+The key idea of \acrfull{lstm} is to learn what to forget. Storing the long term information, also know as the cell state. The flow of information though a \acrshort{lstm} cell. A \acrshort{LSTM} cell receives three inputs, the current cell state, the hidden state and the input X. 
+\\ \\
+The cell state, $C_{t-1}$ goes thought the forget gate, loosing some memories. Simultaneously the input gate chooses the new memories.  These memories are then added to the cell state. The cell state is then passed to the next recurrent unit or timestep? The cell state is the long-term memory.
+\\ \\
+In each timestep some memories are removed and others are added. The cell state is then passed though a tanh-function and filtered by the output gate. By filtered we mean component wise multiplication with a gate. This produce the output and hidden state. The latter one being the short term memory.
+\\ 
+\textbf{Multiple cells.}
+
+\subsubsection{ConvLSTM}
+Expanding the LSTM to support multidimentional data. This allows the method to capture the spatial structure in the data. A convolution is a mathematical operation 
+Convolution LSTM is a variant of the convolution nets which contributed with 
+
+\subsubsection{Learning - back propagation trought time}
+\textbf{Explain general backpropagation, saturating gradients and refere to paper saying that they can read more detailes there.}
+
+\section{Hyperparameter tuning}
+\begin{enumerate}
+    \item Build lots of different combinations - tedeous and computational expensive. 
+    \item Used to find the configuration which squeezes out a little bit extra performance.
+\end{enumerate}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 \section{Deep Learning}
-A more intuitive way of talking about machine learning is pattern recognition. Older types of machine learning, like PCA (used to remove natural variability, IPCC and Benestad), statistical downscaling has been used in climate research for years. Image super-resolution have shown potential for replacing regional climate models. The idealised situation where you run a climate model in two resolution and train the relation between them doesn't generate so much noise and the more complex models perform quite well. \textit{kilde image super resolution}
+A intuitive way of talking about machine learning is pattern recognition. Older types of machine learning, like PCA (used to remove natural variability, IPCC and Benestad), statistical downscaling has been used in climate research for years. Image super-resolution have shown potential for replacing regional climate models. The idealised situation where you run a climate model in two resolution and train the relation between them doesn't generate so much noise and the more complex models perform quite well. \textit{kilde image super resolution}
 
 \textbf{From Begion Lecun article - Convolutional}
 \begin{enumerate}
@@ -15,7 +67,7 @@ A more intuitive way of talking about machine learning is pattern recognition. O
 
 \subsection{Long short term memory network - LSTM}
 % Ingen ligninger før dette. 
-LSTM has shown great results in fields if language processing and speech recognition. There is no a-priori reason why this should not transfer to climate research. 
+
 
 
 \subsubsection{Convolutional LSTM}
@@ -43,8 +95,6 @@ Key equations in convolutional LSTM is listed in equation (\ref{eq:CLSTM1_input_
         H_t = o_t \circ tanh \left( C_t \right)
 \end{equation}
 
-
-\input{Chapter2_Theory/tikz/lstm_cell.tikz}
 
 % Moved the old stuff to this file
 % \input{Chapter2_Theory/ML_theory_old.tex}
