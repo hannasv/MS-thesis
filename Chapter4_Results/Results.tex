@@ -1,9 +1,14 @@
 \chapter{Results}
+\textit{We tried several candidate structure before arriving at the ones presented here.}
+
+ 
+Spatiotemporal consistency and resolution was given high priority when choosing a dataset. %Main goal is to gain insight to cloud dynamics (..?) using a physical based parametrisation. 
+Cloud cover is a two dimensional variable. This results in a larger pool av satellites to chose from. The satellite product chosen for this thesis is the \acrfull{msg}. This is geostationary, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19}
 
 \section{Dataset}
 % compiled dataset
 % developed algorithms for regridding the satellite images to era5 format.
-This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. 
+This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. It is pieces together from two sources.
 
 \subsection{Domain}
 For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. This becomes $80\times160$ pixels for each time step. As always when working with observations, data is missing. This is either individual pixels of entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Other gaps are documented in \textbf{X}. The finished product is named \acrfull{ecc}.
