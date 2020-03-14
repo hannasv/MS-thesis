@@ -3,13 +3,15 @@
 % Parametrization (atmospheric modeling), a method of approximating complex processes.
 \textbf{Rewrite summary when you finished the chapter.}
 \textit{This chapter presents the motivation and necessary theoretical background  to understand the need for new methods for estimation cloud cover \textit{(cloud amount)}. Hopefully this will also help shed some light on the understanding of the underlying physical processes. In terms also help reduce the spread in climate sensitivity. Also known as global mean temperature increase in future climates. The data used in this project is a combination of satellite retrievals and reanalysis data.}
-\\ \\
+
 Starting with giving a introduction to clouds in the current and future climate. Continuing with information about the dataset, structure, implementations and practical implications.
 \input{Chapter2_Theory/clouds.tex}
 %\subsection{Cloud feedbacks from convection and fronts} %Cloud, circulation and climate sensitivity article.
 
 \section{Parametrisation of clouds} \label{sec:param_clouds}
-Parametrisation are a tool used in climate models to include the effect of subgrid-scale processes. This is done for several processes \textbf{give examples - michrophysics Lohmann}. This thesis is only concerned with parametrisation of cloud cover. The simplest form of cloud scheme is binary. Either the entire pixel is covered by clouds or there is no clouds. This can be implemented as follows,
+F
+irst oder or
+Pararmetrisation are a tool used in climate models to include the effect of subgrid-scale processes. This is done for several processes \textbf{give examples - michrophysics Lohmann}. This thesis is only concerned with parametrisation of cloud cover. The simplest form of cloud scheme is binary. Either the entire pixel is covered by clouds or there is no clouds. This can be implemented as follows,
 \begin{equation} \label{eq:binary_param_clouds}
     CLA\left(RH\right) = 
      \begin{cases}
@@ -17,7 +19,9 @@ Parametrisation are a tool used in climate models to include the effect of subgr
        \text{1,} &\quad\text{else}
      \end{cases}
 \end{equation}
-Sub-grid scale variability in humidity is necessary to achieve fractional cloud cover. This can be combined with other sub-grid scale variables, like temperature. Based on observations researches have attempted to find the distributions of these variables. In order to include them in models. 
+Sub-grid scale variability in humidity is necessary to achieve fractional cloud cover. This can be combined with other sub-grid scale variables, like temperature. In order incorporate the effects of clouds o  
+
+Based on observations researches have attempted to find the distributions of these variables. In order to include them in models. 
 
 Over the years researchers have tried to draw the distributions of these variables from observations and implement them into models. Virtually all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on. They have not been successful in finding a adequate representation of cloud cover using this approach. \textbf{(siter Tomkins summary)}. Cloud cover is usually a combination of several parametrisations. Its common to have separate schemes for ice-, liquid clouds and convective clouds. \textbf{Read more Tomkins}
 \\ \\ 

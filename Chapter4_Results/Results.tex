@@ -1,17 +1,14 @@
 \chapter{Results}
-\textit{We tried several candidate structure before arriving at the ones presented here.}
+Several candidate satellites was studied before arriving at the one presented here. Spatiotemporal consistency and resolution was given high priority when choosing a dataset. Cloud mask are provided by all satellites, mostly because other retrievals are only possible under cloud free conditions. Humidity's is a good example of such a variable. 
 
- 
-Spatiotemporal consistency and resolution was given high priority when choosing a dataset. %Main goal is to gain insight to cloud dynamics (..?) using a physical based parametrisation. 
-Cloud cover is a two dimensional variable. This results in a larger pool av satellites to chose from. The satellite product chosen for this thesis is the \acrfull{msg}. This is geostationary, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19}
+The satellite product chosen for this thesis is the \acrfull{msg}. This is geostationary, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19} The finished dataset is named \acrfull{ecc}.
 
 \section{Dataset}
-% compiled dataset
-% developed algorithms for regridding the satellite images to era5 format.
-This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. It is pieces together from two sources.
+This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. It is pieces together from two sources, ERA5 reanalysis and METeosat second generation cloud mask.
 
 \subsection{Domain}
-For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. This becomes $80\times160$ pixels for each time step. As always when working with observations, data is missing. This is either individual pixels of entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Other gaps are documented in \textbf{X}. The finished product is named \acrfull{ecc}.
+For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. The resulting dimensions of the grid becomes $81\times161$ pixels. \textbf{Why not larger part of domain. 1) You have included parts with ...  2) } Seemed like a reasonable start, to prove a concept. 
+
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 0.7]{Chapter2_Theory/images/Domain.png}
@@ -20,30 +17,30 @@ For this project the geographical domain has been restricted latitude $\in[30,50
 \end{figure}
 
 \subsection{European Cloud Cover} \label{sec:ecc}
-\acrfull{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. Preserving the resolution available from ERA5. Remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud amount, specific and relative humidity. Hourly data on a $0.25^o$ uniform grid  resolution in the period \textbf{put in first date} to \textbf{last date}. The original data is described in table \ref{tab:dataset_summary}. Total cloud cover is produced from area weighting cloud masks. The others are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}.
-
-The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. For more details concerning remapping see section \ref{sec:remapping}. 
-
-The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite cumbersome, for more details see section \ref{sec:remapping}. The cloud amount of a pixel is the sum of the area weighted cloud mask contributing to a cell.
+\acrfull{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. Preserving the resolution available in ERA5, while remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud fraction, specific and relative humidity. Hourly data on a $0.25^o$ uniform grid resolution in the period \textbf{put in first date} to \textbf{last date}. Total cloud cover is produced from area weighting cloud masks. This computations are described in \ref{sec:remapping}. The others are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and see section \ref{sec:EUMETSAT_cloud_mask} for more information about the original cloud mask. 
 \input{Chapter2_Theory/tables/table_transposed.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Physical basis of variable decision} \label{sec:physical_basis}
 The overall goal is to investigate if its enough information to predict clouds in the meteorological variables such as temperature, pressure and humidity. On the one hand, in section \ref{sec:cloud_in_climate_system} its discussed that cloud dynamics is far more complicated than than what can be describes by these variables. On the other hand it is not feasible in the near future to include the effects of all the micro-physical processes in an accurately either. Some threshold retrieval algorithms include ancillary information from temperature and humidity profiles. This is not possible in realtime, only useful for post-processing satellite imagery. \textbf{kilde}
-\\ \\
+
 As described in section \ref{sec:param_clouds} clouds are parameterised in many different ways using many different tools. Researchers have to this day not been able to incorporate the effects of clouds. There might be enough information in these variables to make a adaquate representation of cloud amount. The following variables have been chosen because they are reliable (temperature and pressure) and/or cause the are necessity in cloud formation (humidities). Other information may be present implicitly because of the other variables chosen. It is worth noting that they are either surface variables or from the pressure level closest to the surface. All variables are produced by ERA5. This section will give a brief introduction to their participation in cloud formation. 
-\\ \\
-The 2m temperature, referred to as temperature hereafter, can serve as a proxy for convective motions. Warmer air has higher buoyancy than air at lower temperatures. The warmer air rises. The temperature decreases due to volume expansion. This is called adiabatic cooling. Colder air can retain less vapour. Achieves saturation faster. Have in mind that evaporation rates are faster at higher temperatures. This thesis include both relative and specific humidity. Relative humidity is a measure of how much vapour the air contain relative to much it can contain at the temperature of the parcel. Its unitless, and it values ranges from $\left[ 0, 1 \right]$.  Conditions where relative humidity exceeds 1 are called supersaturated. Specific humidity ratio between mass of vapour and mass of air. Unit is $kg kg^{-1}$. \textbf{kilde s. 53, 54 Lohmann}. Which one of them that serves as the best predictor is not clear a priori. Let humidity be a collective term for both. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. 
-\\ \\ 
+
+The 2m temperature, referred to as temperature hereafter, can serve as a proxy for convective motions. Warmer air has higher buoyancy than air at lower temperatures. The warmer air rises. The temperature decreases due to volume expansion. This is called adiabatic cooling. Colder air can retain less vapour. Achieves saturation faster. Keeping in mind that evaporation rates are faster at higher temperatures. The dataset include both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. Its unitless, and it values ranges from $\left[ 0, 1 \right]$.  Conditions where relative humidity exceeds 1 are called supersaturated. Specific humidity ratio between mass of vapour and mass of air. Unit is $kg kg^{-1}$. \textbf{kilde s. 53, 54 Lohmann}. Which one of them that serves as the best predictor is not clear a priori. Let humidity be a collective term for both. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. 
+ 
 % \textbf{Q: Trude - hvordan legger jeg inn aerosoler uten å inkludere dem som variabel.}
 In order to form a cloud you need suitable particles as mentioned in section \ref{sec:cloud_in_climate_system}. No variables containing information about nuclei is included, however over land and in (none rural) parts of the globe is reasonable to assume that they are present. In areas with human activity its reasonable to assume that they are present.
-\\ \\
-Surface pressure can be used to infer some of the winds. More precisely geostrophic winds. At locations where frictions and centripetal forces are negligible, not really  the case at the surface. This balance between the Coriolis force and the pressure gradient is a solution of the Navier-Stokes equation. Equation of motion. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. The variations of geostrophic winds with altitude is called thermal wind. \textit{In the real atmosphere the density depend both on pressure and temperature - where do we know this from? The ideal gas law.}. \textbf{Include the expression of Navier-Stokes and the geostrophic winds?}
+
+Surface pressure can be used to infer some of the winds. More precisely geostrophic winds. At locations where frictions and centripetal forces are negligible, not really the case at the surface. This balance between the Coriolis force and the pressure gradient is a solution of the Navier-Stokes equation. Equation of motion. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. The variations of geostrophic winds with altitude is called thermal wind. \textit{In the real atmosphere the density depend both on pressure and temperature - where do we know this from? The ideal gas law.}. \textbf{Include the expression of Navier-Stokes and the geostrophic winds?}
 \textbf{kilde Lohmann s. 81-84}
-\\ \\ 
+
 \subsubsection{Computing cloud fractions} \label{sec:remapping}
+\textit{The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. }
+
+\textit{The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite cumbersome, for more details see section \ref{sec:remapping}. The cloud fraction of a pixel is the sum of the area weighted cloud mask contributing to a cell.}
+
 EUMETSAT doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
-\\ \\ 
+
 Let the subscripts denote the dataset of the grid. Then grid$_{\text{MGS}}$ refers to the curve-linear grid of the \acrlong{msg}. Grid$_{\text{ERA5}}$ refers to the uniform grid originating from ERA5. The latter one is the grid-format used in the final product \acrlong{ecc}. Calculating the area based on a curve-linear grid that only contain information about latitude and longitude involves some simplifications. Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories, centre, left, right, up and down boundary. 
 %\begin{figure}
 %    \centering
@@ -52,10 +49,10 @@ Let the subscripts denote the dataset of the grid. Then grid$_{\text{MGS}}$ refe
 %    \label{fig:example_relation_coordssystem_regridded}
 %\end{figure}
 For the boundary categories we only include the contribution from within the cell. This is not actually a strict condition, including the entire area would still keep the fraction within its normal bounds of 0 and 1. However the boundary pixels would have a larger effect on the mean cloud cover since they contribute to several pixels. The footprint size effect on the distribution of cloud cover. For a large pixel size, and less contributing pixels we expect a higher number of grid-cells with close to 0 or 1 cloud amount. Since it alter the number of components you compute the average from.
-\\ \\
+
 The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
 % Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
-\\ \\
+
 Starting with the equations necessary for computing the area weighting. Integrating over changes in latitude and longitude yields the area. The general expression for the area of a square in spherical coordinates, is given by the following integral. 
 %\textbf{Update equation to use a upside down delta.}
 \begin{equation} \label{eq:sphere_integral}
@@ -73,15 +70,22 @@ Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ th
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
 The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This is confirmed from personal communication with EUMETSAT staff.
-\\ \\
-The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (10), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary} \\ \\
+
+The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (20), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary}
+
+\subsection{Missing Data} \label{sec:missing_values}
+This is either individual pixels of entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Gaps that not possible to fill in this way are documented in \textbf{X}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small.
+
+\textbf{Add heatmap of missing hours}
+
 % Finished regriddidng files.
-\textbf{Summarize the datset ECC.}
-\\ \\
-Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METEOSAT satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
+\subsection{Summarise the dataset ECC.}
+Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METeosat satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
 
 \subsubsection{Licences and Downloading Data} \label{sec:downloading_data}
 Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. Follow the instructions on ECMWF homepages on \textit{how to download ERA5}. There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. Choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. The supplementary material only include the domain used in this thesis, because of GitHub has a maximum limit allowed for uploading. 
+
+\section{AR models}
 
 \section{Experiments}
 
