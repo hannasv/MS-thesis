@@ -7,30 +7,21 @@ The development of observational system and models requires a understandinng of 
 \input{Chapter2_Theory/clouds.tex}
 
 \section{Parametrisation of clouds} \label{sec:param_clouds}
+Det finnes mange klimamodeller eller numeriske værvarslingsmodeller. Disse er av forskjellig grad av komplexitet. Detter refererer til hvor mange mekasnismer som er med på å påvirke skydannelsen. Bare AR5 inneholder X antall klimamodeller. This section will  give a brief introduction to some methods used for parameterizing clouds. This is just the tip of the iceberg, the aim is to give \textbf{what}. Including all the small scale processes described in the previous sections is
+an impossible task. Limited by computational resources and knowledge of interactions in cloud. 
 
-Including all the small scale processes described above is not possible today. Both because of computational resources and the fact that all the processes involved in cloud formation is not fully understood. For the simplest estimates of clouds are used to detect if there is a cloud present in a pixel or not. Followed by how large percentage of this cell is a cloud. Macrophysical properties of clouds of fundamental variables in the radiative budget. 
-
+Including the effect from clouds on the earth system first need a reliable estimate of whether there is a cloud in no cloud in a pixel. Secondly, progressing toward knowing how much cloud there is. Lets distinguish between micro- and macrophysical properties of cloud. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. Macrophysics properties are for the entire cloud. Concerned with its base height, top height, thickness, fractional cover and cloud type. \textbf{Neglecting the microphysical properties we wish to parameterize cloud fractional cover.}
 % https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
-Microphysical processes are all mechanisms involveving the particals making up a cloud, i.e. cloud droplet number concentrations, cloud condensation number consentrations . Examples of cloud macrophysical properties include cloud thickness, cloud base heigh, cloud fraction, cloud top height and cloud type. % https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
-Precipitation pattern and cloud radiative effect is largely related to these variables. Modelling the effects of clouds on the earth system requires parameterizations. Clouds vary on a smaller scale than what the average earth system models are able to resolve. Various approaches have been used the last couple of years. Due to the large uncertinty in equilibrium climate sensitivity related to clouds. This area has recieved a lot of attension the last few years. More complex parameterizations produce a larger inter-model spread in climate sensitivity.
+% https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
+Even thought precipitation formation and cloud optical thickness is affected by changes on a macrophysical level. They are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover. Due to small scale modelling the effects of clouds on the earth system requires parameterizations.  Clouds vary on a smaller scale than what the average earth system models are able to resolve. 
 
-This section will give a brief introduction to methods used to parameterise clouds. They exist in all degrees of complexities. 
-
-Common methods are saturation threshold, probability density functions, PDF's, joint probability functions (alltid funksjon av andre variable?), CLOUD RESOLVING MODELS. DEEP LEARNING ALGORITHMS HAVE BEEN USED TO EMULATE THE CLOUD RESOLVING MODELS. TO deacrease the computational time, related 
-It is worth noting that cloud resolving models have a increased resolution and thus resolve more mechanisms involved in cloud formation. The name is missleading for the models also have their own parameterization of very small scales processes. 
+Various approaches have been used the last couple of years. Due to the large uncertinty in equilibrium climate sensitivity related to clouds. This area has recieved a lot of attension the last few years. Causing a increase in inter-model spread in climate sensitivity. Beause of more complex increased complexity of parameterisations. Used approaches are saturation threshold, probability density functions, PDF's, joint probability functions and cloud resolving models. It is worth noting that cloud resolving models have a increased resolution and thus resolve more mechanisms involved in cloud formation. However, the name is misleading since it still requires parameterizations of smallest scale processes.
 
 Cloud-aerosol effects in climate models created many parameterizations dependant on each other.
-
+Many parameterizations are again dependant on others. 
 
 % er en joint probability density function always dependant on multiple variables.
-
-With a focus on cloud cover. Starting with the simplest relative humidity schemes, moving towards joint probablility distributions and finishing off with cloud resolving models. 
-
-Increadsing the resolution in models to include the effest of small scale processes is not feasable in the near future. Pararmetrisation are a tool used in climate models to include the effect of subgrid-scale processes. 
-
-As described in the previos sections, there is a lot of processes acting simulatnously inside a cloud. Depending on the complexity of the model, many of these have their own parameterizations. For instance different cloud regimes. 
-
-The datadriven approach taken in this thesis does not neet this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satelites capabilities to detect them. Cirrus being the most difficult.
+The data driven approach taken in this thesis does not neet this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satelites capabilities to detect them. Cirrus being the most difficult.
 
 
 \subsection{Relative humidity schemes}
