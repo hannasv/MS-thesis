@@ -10,7 +10,7 @@ The development of observational system and models requires a understandinng of 
 Det finnes mange klimamodeller eller numeriske værvarslingsmodeller. Disse er av forskjellig grad av komplexitet. Detter refererer til hvor mange mekasnismer som er med på å påvirke skydannelsen. Bare AR5 inneholder X antall klimamodeller. This section will  give a brief introduction to some methods used for parameterizing clouds. This is just the tip of the iceberg, the aim is to give \textbf{what}. Including all the small scale processes described in the previous sections is
 an impossible task. Limited by computational resources and knowledge of interactions in cloud. 
 
-Including the effect from clouds on the earth system first need a reliable estimate of whether there is a cloud in no cloud in a pixel. Secondly, progressing toward knowing how much cloud there is. Lets distinguish between micro- and macrophysical properties of cloud. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. Macrophysics properties are for the entire cloud. Concerned with its base height, top height, thickness, fractional cover and cloud type. \textbf{Neglecting the microphysical properties we wish to parameterize cloud fractional cover.}
+Including the effect from clouds on the earth system first need a reliable estimate of whether there is a cloud in no cloud in a pixel. Secondly, progressing toward knowing how much cloud there is. Lets distinguish between micro- and macrophysical properties of cloud. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. Macrophysics properties are for the entire cloud. Concerned with its base height, top height, thickness, fractional cover and cloud type. 
 % https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
 % https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
 Even thought precipitation formation and cloud optical thickness is affected by changes on a macrophysical level. They are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover. Due to small scale modelling the effects of clouds on the earth system requires parameterizations.  Clouds vary on a smaller scale than what the average earth system models are able to resolve. 
@@ -18,14 +18,14 @@ Even thought precipitation formation and cloud optical thickness is affected by 
 Various approaches have been used the last couple of years. Due to the large uncertinty in equilibrium climate sensitivity related to clouds. This area has recieved a lot of attension the last few years. Causing a increase in inter-model spread in climate sensitivity. Beause of more complex increased complexity of parameterisations. Used approaches are saturation threshold, probability density functions, PDF's, joint probability functions and cloud resolving models. It is worth noting that cloud resolving models have a increased resolution and thus resolve more mechanisms involved in cloud formation. However, the name is misleading since it still requires parameterizations of smallest scale processes.
 
 Cloud-aerosol effects in climate models created many parameterizations dependant on each other.
-Many parameterizations are again dependant on others. 
+Many parameterizations are again dependant on others. Nested dependancies of parameterizations. Scheme is a set of parameterizations.One variables distribution being the result of many interacting processes.
 
 % er en joint probability density function always dependant on multiple variables.
-The data driven approach taken in this thesis does not neet this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satelites capabilities to detect them. Cirrus being the most difficult.
-
+\textbf{Move to somewhere else: Neglecting the microphysical properties we wish to parameterize cloud fractional cover.
+The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. }
 
 \subsection{Relative humidity schemes}
-The simplest form of cloud scheme is binary. Either the entire pixel is covered by clouds or there is no clouds. See Equation \ref{eq:binary_param_clouds}. Describing a diagnosatic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
+The simplest form of cloud scheme is a \textit{all-of-nothing} scheme. This is binary. Either the entire pixel is covered by clouds or there is no clouds. See Equation \ref{eq:binary_param_clouds}. Describing a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
 \begin{equation} \label{eq:binary_param_clouds}
     CLA\left(RH\right) = 
      \begin{cases}
@@ -37,7 +37,7 @@ Sub-grid scale variability is necessary to achieve fractional cloud cover. This 
 
 \textbf{more}
 
-\subsection{PDF based}
+\subsection{Statistical schemes}
 Based on observations (from airplane campains) researches have attempted to draw dirstibutions of relevant variables. Reaserchers have then implemented these PDF's into models. Virtually all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on. See table \ref{tab:summary_PDF} for a summary of the PDF's used in different papers. They have not been successful in finding a adequate representation of cloud cover using this approach. \textbf{(siter Tomkins summary)}. The most sucessful is being joint PDF's. One examples of a usecase of these functions are used in NorESM and CESM to parameterize boundary layer clouds. \textbf{(Source Trude)} \textbf{Golaz et al 2002}. They use a joint probability density function of 
 
 Their parameterization can be regarded as a higher order turbulent closure problem. Big advantage of this sceme is that the same scheme can be applied to all regimes. It is quite difficult to devolop a general condition desciding which regime it is.  
