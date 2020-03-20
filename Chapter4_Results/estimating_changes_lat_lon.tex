@@ -1,0 +1,184 @@
+\tdplotsetmaincoords{60}{110}
+%
+\pgfmathsetmacro{\rvec}{1.6}
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\phivec}{60}
+
+\pgfmathsetmacro{\deltathetavec}{40}
+\pgfmathsetmacro{\deltaphivec}{80}
+
+\begin{figure}
+    \centering
+    
+    
+\tdplotsetmaincoords{60}{110}
+%
+\pgfmathsetmacro{\rvec}{1.0}
+
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\deltathetavec}{40}
+\pgfmathsetmacro{\deltatwothetavec}{50}
+\pgfmathsetmacro{\deltathreethetavec}{60}
+
+\pgfmathsetmacro{\phivec}{-30}
+\pgfmathsetmacro{\deltaphivec}{10}
+\pgfmathsetmacro{\deltatwophivec}{50}
+\pgfmathsetmacro{\deltathreephivec}{90}
+
+\begin{tikzpicture}[scale=5,tdplot_main_coords]
+
+    %%%%%%%%%%%%%% Setting up axis and coordinate system.
+    \coordinate (O) at (0,0,0); % origo
+    \coordinate (z) at (0, 0, \rvec); % origo
+    %\draw[thin, <->] (1, 0.7, 1.16) -- (1, 0.52, 1.2) node[pos = 0.8, above right]{\Large $d\theta$};
+    \draw[very thick,->, opacity = 1.] (0,0,0) -- (1.7, 0, 0) node[anchor=north east]{\Large $x$};
+    \draw[very thick,->,  opacity = 1.] (0,0,0) -- (0, 1.7, 0) node[anchor=north west]{\Large $y$};
+    \draw[very thick,->,  opacity = 1.] (0,0,0) -- (0, 0, 1.7) node[anchor=south]{\Large $z$};
+    \shade[ball color = teal, opacity = 0.1] (0,0,0) circle [radius=\rvec];
+    \draw (0,0,0) circle [radius=\rvec];
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%% first column
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+    \tdplotsetcoord{dP}{\rvec}{\deltathetavec}{\phivec}
+    \tdplotsetcoord{G}{\rvec}{\thetavec}{\deltaphivec}
+    \tdplotsetcoord{dG}{\rvec}{\deltathetavec}{\deltaphivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (P) -- (dP) -- (dG) -- (G) -- (P);
+    \draw[dashed, very thick, color=teal] (P) -- (dP) -- (dG) -- (G) -- (P);
+    
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec}{\phivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec}{\phivec}
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec}{\deltaphivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec}{\deltaphivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+    
+    \tdplotsetcoord{e}{\rvec}{\deltatwothetavec}{\phivec}
+    \tdplotsetcoord{f}{\rvec}{\deltathreethetavec}{\phivec}
+    \tdplotsetcoord{g}{\rvec}{\deltatwothetavec}{\deltaphivec}
+    \tdplotsetcoord{h}{\rvec}{\deltathreethetavec}{\deltaphivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (e) -- (f) -- (h)-- (g) -- (e);
+    \draw[dashed, very thick, color=teal] (e) -- (f) -- (h)-- (g) -- (e);
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% second column
+      
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\deltaphivec}
+    \tdplotsetcoord{dP}{\rvec}{\deltathetavec}{\deltaphivec}
+    \tdplotsetcoord{G}{\rvec}{\thetavec}{\deltatwophivec}
+    \tdplotsetcoord{dG}{\rvec}{\deltathetavec}{\deltatwophivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (P) -- (dP) -- (dG) -- (G) -- (P);
+    \draw[dashed, very thick, color=teal] (P) -- (dP) -- (dG) -- (G) -- (P);
+  
+      
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec}{\deltaphivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec}{\deltaphivec}
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec}{\deltatwophivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec}{\deltatwophivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+  
+  
+    \tdplotsetcoord{e}{\rvec}{\deltatwothetavec}{\deltaphivec}
+    \tdplotsetcoord{f}{\rvec}{\deltathreethetavec}{\deltaphivec}
+    \tdplotsetcoord{g}{\rvec}{\deltatwothetavec}{\deltatwophivec}
+    \tdplotsetcoord{h}{\rvec}{\deltathreethetavec}{\deltatwophivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (e) -- (f) -- (h)-- (g) -- (e);
+    \draw[dashed, very thick, color=teal] (e) -- (f) -- (h)-- (g) -- (e);
+    
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% third column
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\deltatwophivec}
+    \tdplotsetcoord{dP}{\rvec}{\deltathetavec}{\deltatwophivec}
+    \tdplotsetcoord{G}{\rvec}{\thetavec}{\deltathreephivec}
+    \tdplotsetcoord{dG}{\rvec}{\deltathetavec}{\deltathreephivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (P) -- (dP) -- (dG) -- (G) -- (P);
+    \draw[dashed, very thick, color=teal] (P) -- (dP) -- (dG) -- (G) -- (P);
+  
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec}{\deltatwophivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec}{\deltatwophivec}
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec}{\deltathreephivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec}{\deltathreephivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+  
+    \tdplotsetcoord{e}{\rvec}{\deltatwothetavec}{\deltatwophivec}
+    \tdplotsetcoord{f}{\rvec}{\deltathreethetavec}{\deltatwophivec}
+    \tdplotsetcoord{g}{\rvec}{\deltatwothetavec}{\deltathreephivec}
+    \tdplotsetcoord{h}{\rvec}{\deltathreethetavec}{\deltathreephivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (e) -- (f) -- (h)-- (g) -- (e);
+    \draw[dashed, very thick, color=teal] (e) -- (f) -- (h)-- (g) -- (e);
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%% Adding coordinate information
+
+    % First column
+    \draw[thick](0.3, -0.25, 0.5)node[scale=0.8, rotate = -15]{$(i,j-1)$};
+    \draw[thick](0.3, -0.17, 0.7)node[scale=0.8, rotate = -15]{$(i+1,j-1)$};
+    \draw[thick](0.3, -0.3, 0.3)node[scale=0.8, rotate = -15]{$(i-1,j-1)$};
+
+    % Second column
+    \draw[thick](0.5, 0.3, 0.65)node[scale=0.8, rotate = 5]{$(i,j)$};
+    \draw[thick](0.5, 0.3, 0.85)node[scale=0.8, rotate = 5]{$(i+1,j)$};
+    \draw[thick](0.5, 0.3, 0.45)node[scale=0.8, rotate = 5]{$(i-1,j)$};
+    
+    % Third column
+    \draw[thick](0.5, 0.73, 0.87)node[scale=0.8, rotate = 35]{$(i,j+1)$};
+    \draw[thick](0.5, 0.8, 0.7)node[scale=0.8, rotate = 35]{$(i-1,j+1)$};
+
+    \draw[thick](0.05, 0.45, 0.73)node[scale=0.8, rotate = 35]{$(i+1,j+1)$};
+
+
+    %\draw[dashed, color=teal] (dG) -- (G); 
+    
+    %\draw[very thick, color=teal, opacity = 0.3] (O) -- (G) node[above right]  {};
+    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (dG) node[above right] {};    
+    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (P) node[above right]  {};
+    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (dP) node[above right] {};
+    
+    %\draw[dashed, color=teal] (O) -- (Pxy);
+    %\draw[dashed, color=teal] (dP) -- (Pxy);
+    %\draw[dashed, color=red] (Pz) -- (Py);
+
+
+    %\draw[dashed, color=red] (dP) -- (Pxy);
+    
+    %\draw[dashed, color=teal] (O) -- (Gxy);
+    %\draw[dashed, color=teal] (dG) -- (Gxy);
+    %\draw[dashed, color=black,looseness = 10, bend left] (z) -- (G)  node[pos = 0.6, above right] {\Large $rsin\theta$};
+    %\draw[dashed, color=teal,looseness = 10, bend left] (z) -- (G);
+    %\draw[dashed, color=teal, bend right] (P) -- (z);
+    
+    %\draw [] (\phivec:0.5)  arc (\phivec:\deltaphivec:0.5) node [below right, pos=0.3] {\Large $d\phi$};
+
+    %\tdplotdrawarc[tdplot_rotated_coords, ->]{(dP)}{.7}{(Pxy)}
+
+    %\draw[dashed, color=black] (dG) -- (G) node[pos = 0.5, above right] {\Large $rd\theta$};
+   %\tdplotdrawarc[]{(O)}{0.4}{0}{\phivec}{anchor=north}{\Large $\phi$}
+    %\tdplotdrawarc{(O)}{0.2}{0}{\deltathetavec}{anchor=north}{$\theta$}
+
+    %\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.8}{0}%
+    %    {\thetavec}{anchor=south west}{\Large $\theta$};
+    
+    %\tdplotdrawarc[tdplot_rotated_coords, pos = 0.5]{(0,0,0.2)}{0.26}{0}%
+    %    {\thetavec}{anchor = south west,shift={(4mm,-5mm)}}{\Large $d\theta$};
+        
+    %\tdplotdrawarc[tdplot_rotated_coords, <->]{(0.1, 0.2, 0)}{.5}{0}{\thetavec}{anchor=east}{\Large $d\theta$}
+    
+    \tdplotsetthetaplanecoords{\phivec};
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \foreach \X/\Y in {xy/z,yz/x,zx/y}
+        {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
+         \fill circle[radius=1pt];
+        \end{scope}}
+    \end{tikzpicture}
+    
+    \caption{Estimating the changes in latitude and longitude}
+    \label{fig:estimate_dlat_dlon}
+\end{figure}

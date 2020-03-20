@@ -22,11 +22,12 @@
 % For tikz images
 \usepackage{filecontents}
 \usepackage{tikz}
+\usepackage{tikz-3dplot}
 \usepackage{amsmath}
 \usetikzlibrary{arrows}
 \pagestyle{empty}
 \usepackage{pgfplots}
-\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+%\usetizlibrary{calc,fadings,decorations.pathreplacing}
 
 \usetikzlibrary{matrix,positioning,fit,backgrounds,intersections, fit, arrows.meta, shapes}
 

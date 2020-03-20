@@ -1,0 +1,81 @@
+\begin{figure}
+    \centering
+    
+    
+\tdplotsetmaincoords{60}{110}
+%
+\pgfmathsetmacro{\rvec}{1.0}
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\phivec}{60}
+
+\pgfmathsetmacro{\deltathetavec}{40}
+\pgfmathsetmacro{\deltaphivec}{80}
+
+%
+\begin{tikzpicture}[scale=5,tdplot_main_coords]
+    \coordinate (O) at (0,0,0); % origo
+
+    \coordinate (z) at (0, 0, 1.0); % origo
+    %\draw[thin, <->] (1, 0.7, 1.16) -- (1, 0.52, 1.2) node[pos = 0.8, above right]{\Large $d\theta$};
+    
+    \draw[very thick,->] (0,0,0) -- (1.7, 0, 0) node[anchor=north east]{\Large $x$};
+    \draw[very thick,->] (0,0,0) -- (0, 1.7, 0) node[anchor=north west]{\Large $y$};
+    \draw[very thick,->] (0,0,0) -- (0, 0, 1.7) node[anchor=south]{\Large $z$};
+    \shade[ball color = teal, opacity = 0.1] (0,0,0) circle [radius=\rvec];
+    \draw (0,0,0) circle [radius=\rvec];
+    
+    \tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+    \tdplotsetcoord{dP}{\rvec}{\deltathetavec}{\phivec}
+    
+    \tdplotsetcoord{G}{\rvec}{\thetavec}{\deltaphivec}
+    \tdplotsetcoord{dG}{\rvec}{\deltathetavec}{\deltaphivec}
+
+    \draw[very thick, color=teal, opacity = 0.3] (O) -- (G) node[above right]  {};
+    \draw[very thick, color=teal, opacity = 0.6] (O) -- (dG) node[above right] {};    
+    \draw[very thick, color=teal, opacity = 0.6] (O) -- (P) node[above right]  {};
+    \draw[very thick, color=teal, opacity = 0.6] (O) -- (dP) node[above right] {};
+    
+    \draw[dashed, color=teal] (O) -- (Pxy);
+    \draw[dashed, color=teal] (dP) -- (Pxy);
+    %\draw[dashed, color=red] (Pz) -- (Py);
+
+
+    %\draw[dashed, color=red] (dP) -- (Pxy);
+    
+    \draw[dashed, color=teal] (O) -- (Gxy);
+    \draw[dashed, color=teal] (dG) -- (Gxy);
+    \draw[dashed, color=black,looseness = 10, bend left] (z) -- (G)  node[pos = 0.6, above right] {\Large $rsin\theta$};
+    \draw[dashed, color=teal,looseness = 10, bend left] (z) -- (G);
+    \draw[dashed, color=teal, bend right] (P) -- (z);
+    
+    
+    \draw [] (\phivec:0.5)  arc (\phivec:\deltaphivec:0.5) node [below right, pos=0.3] {\Large $d\phi$};
+
+    
+    %\tdplotdrawarc[tdplot_rotated_coords, ->]{(dP)}{.7}{(Pxy)}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (P) -- (dP) -- (dG) -- (G) -- (P);
+    \draw[dashed, very thick, color=teal] (P) -- (dP) -- (dG) -- (G) -- (P);
+    \draw[dashed, color=black] (dG) -- (G) node[pos = 0.5, above right] {\Large $rd\theta$};
+    \draw[dashed, color=teal] (dG) -- (G);    \tdplotdrawarc[]{(O)}{0.4}{0}{\phivec}{anchor=north}{\Large $\phi$}
+    %\tdplotdrawarc{(O)}{0.2}{0}{\deltathetavec}{anchor=north}{$\theta$}
+
+    \tdplotsetthetaplanecoords{\phivec};
+    
+    \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.8}{0}%
+        {\thetavec}{anchor=south west}{\Large $\theta$};
+    
+    \tdplotdrawarc[tdplot_rotated_coords, pos = 0.5]{(0,0,0.2)}{0.26}{0}%
+        {\thetavec}{anchor = south west,shift={(4mm,-5mm)}}{\Large $d\theta$};
+        
+    %\tdplotdrawarc[tdplot_rotated_coords, <->]{(0.1, 0.2, 0)}{.5}{0}{\thetavec}{anchor=east}{\Large $d\theta$}
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \foreach \X/\Y in {xy/z,yz/x,zx/y}
+        {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
+         \fill circle[radius=1pt];
+        \end{scope}}
+    \end{tikzpicture}
+    
+    \caption{Map projection}
+    \label{fig:spherical_coords}
+\end{figure}
