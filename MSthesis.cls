@@ -28,7 +28,7 @@
 \pagestyle{empty}
 \usepackage{pgfplots}
 %\usetizlibrary{calc,fadings,decorations.pathreplacing}
-
+\usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{matrix,positioning,fit,backgrounds,intersections, fit, arrows.meta, shapes}
 
 \usepackage{titlesec}

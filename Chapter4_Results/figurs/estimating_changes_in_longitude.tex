@@ -1,0 +1,95 @@
+
+\tdplotsetmaincoords{60}{110}
+%
+\pgfmathsetmacro{\rvec}{1.6}
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\phivec}{60}
+
+\pgfmathsetmacro{\deltathetavec}{40}
+\pgfmathsetmacro{\deltaphivec}{80}
+
+\begin{figure}
+    \centering
+    
+    
+\tdplotsetmaincoords{60}{110}
+%
+\pgfmathsetmacro{\rvec}{1.0}
+
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\deltathetavec}{40}
+\pgfmathsetmacro{\deltatwothetavec}{50}
+\pgfmathsetmacro{\deltathreethetavec}{60}
+
+\pgfmathsetmacro{\phivec}{-30}
+\pgfmathsetmacro{\deltaphivec}{10}
+\pgfmathsetmacro{\deltatwophivec}{50}
+\pgfmathsetmacro{\deltathreephivec}{90}
+
+
+
+\begin{tikzpicture}[scale=5,tdplot_main_coords, 
+                    mycirc/.style={circle,fill=blue!20, minimum size=0.5cm}]
+
+    %%%%%%%%%%%%%% Setting up axis and coordinate system.
+    \coordinate (O) at (0,0,0); % origo
+    \coordinate (z) at (0, 0, \rvec); % origo
+    %\draw[thin, <->] (1, 0.7, 1.16) -- (1, 0.52, 1.2) node[pos = 0.8, above right]{\Large $d\theta$};
+    \draw[very thick,->, opacity = 1.] (0,0,0) -- (1.7, 0, 0) node[anchor=north east]{\Large $x$};
+    \draw[very thick,->,  opacity = 1.] (0,0,0) -- (0, 1.7, 0) node[anchor=north west]{\Large $y$};
+    \draw[very thick,->,  opacity = 1.] (0,0,0) -- (0, 0, 1.7) node[anchor=south]{\Large $z$};
+    \shade[ball color = teal, opacity = 0.1] (0,0,0) circle [radius=\rvec];
+    \draw (0,0,0) circle [radius=\rvec];
+
+    
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec}{\phivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec}{\phivec}
+    % Changeing the rightmost part 
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec-5}{\deltaphivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec+5}{\deltaphivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec-5}{\deltaphivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec+5}{\deltaphivec}
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec-10}{\deltatwophivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec+10}{\deltatwophivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+        
+    % First column
+    %\node[draw] at (0, -2)  (c)     {C};
+    %\node[draw] at (0.3, -0.25, 0.5) {$\phi_{(i,j-1)}$};
+    %\node[draw, thick] at (0.5, 0.3, 0.65) {$\phi_{(i,j)})$};
+    %\node[draw, thick] at (0.5, 0.73, 0.87) {$(i,j+1)$};
+    \filldraw [teal, label=above:{$\phi_{(i,j-1)}$}]  (0.3, -0.25, 0.5) circle (1pt);
+    \filldraw [teal, label=above:{$\phi_{(i,j-1)}$}]  (0.5, 0.3, 0.65)  circle (1pt);
+    \filldraw [teal, label=above:{$\phi_{(i,j-1)}$}]  (0.5, 0.73, 0.87) circle (1pt);
+    
+    \tdplotsetcoord{a}{\rvec}{\deltathetavec-10}{\deltatwophivec}
+    \tdplotsetcoord{b}{\rvec}{\deltatwothetavec+10}{\deltatwophivec}
+    \tdplotsetcoord{c}{\rvec}{\deltathetavec-15}{\deltathreephivec}
+    \tdplotsetcoord{d}{\rvec}{\deltatwothetavec+15}{\deltathreephivec}
+    
+    \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (a) -- (b) -- (d)-- (c) -- (a);
+    \draw[dashed, very thick, color=teal] (a) -- (b) -- (d)-- (c) -- (a);
+    
+    \draw [decorate,decoration={brace, amplitude=12pt, mirror}, xshift=0pt, yshift=0pt]
+    (0.3, -0.25, 0.1) -- (0.5, 0.83, 0.47) node [black,midway,xshift=0.2cm, yshift = -1.5cm, very thick] {\Large $\left| \phi_{i+1,j} - \phi_{i-1, j} \right| $};
+    
+    \draw [decorate,decoration={brace, amplitude=12pt}, xshift=0pt, yshift=0pt]
+    (0.5, 0.3, 0.65) -- ((0.5, 0.5, 0.73) node [black,midway,xshift=0cm, yshift = 2.cm, very thick] {\Large $\delta \phi_{(i, j)}$};
+
+    \tdplotsetthetaplanecoords{\phivec};
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \foreach \X/\Y in {xy/z,yz/x,zx/y}
+        {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
+         \fill circle[radius=1pt];
+        \end{scope}}
+    \end{tikzpicture}
+    
+    \caption{Illustrating three neighbouring pixels on a sphere in the \textit{space-view} grid provided by EUMETSAT. Estimating the changes in longitude. Used to explain equation \eqref{eq:app_lon}. \textbf{Trude: Bør jeg ha lignende figure for latitude eller holder det å si det det finnes tilsvarende i vertikalen også.}}
+    \label{fig:estimate_dlon}
+\end{figure}

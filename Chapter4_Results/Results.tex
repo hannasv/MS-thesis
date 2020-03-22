@@ -1,92 +1,186 @@
 \chapter{Results}
-Several candidate satellites was studied before arriving at the one presented here. Spatiotemporal consistency and resolution was given high priority when choosing a dataset. Cloud mask are provided by all satellites, mostly because other retrievals are only possible under cloud free conditions. Humidity's is a good example of such a variable. 
+Several candidate satellites was studied before arriving at the combination of datasets presented here. Spatiotemporal consistency and resolution was given high priority.% when choosing a dataset.
+The variable cloud mask is provided by many satellites. providing valuble information to other variables that only can be retrieved under cloud free conditions. Humidity's is a good example of such a variable. 
 
-The satellite product chosen for this thesis is the \acrfull{msg}. This is geostationary, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19} The finished dataset is named \acrfull{ecc}.
+The satellite product chosen for this thesis is the \acrfull{msg}. This is satellite is in geostationary orbit, has a exceptional temporal resolution. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice. \textbf{kilde Lohmann s.19} The finished dataset is named \acrfull{ecc}.
 
-\section{Dataset}
-This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. It is pieces together from two sources, ERA5 reanalysis and METeosat second generation cloud mask. This requires the regridding of one of them.
+\section{Dataset - European Cloud Cover }
+This section presents the developed algorithms necessary for the compilation of the dataset European Cloud Cover, ECC. It is pieces together from two sources, ERA5 reanalysis and METeosat second generation cloud mask. % This requires the regridding of one of them.
+
+\acrfull{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. Preserving the resolution available in ERA5, while remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud fraction, specific and relative humidity. Hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Total cloud cover is produced from area weighting cloud masks. This computations are described in \ref{sec:remapping}. The others are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and see section \ref{sec:EUMETSAT_cloud_mask} for more information about cloud mask. 
+\input{Chapter2_Theory/tables/table_transposed.tex}
 
 \subsection{Domain}
-For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. The resulting dimensions of the grid becomes $81\times161$ pixels. \textbf{Why not larger part of domain. 1) You have included parts with ...  2) } Seemed like a reasonable start, to prove a concept. Figure \ref{fig:map} shows the region of Europe included in this dataset. Covering the Mediterranean areas.
+For this project the geographical domain has been restricted latitude $\in[30,50]$ and longitude $\in [-15, 25]$. The resulting dimensions of the grid becomes $81\times161$ pixels. Argue that this area should be sufficient ot prove a concept. Seems like a reasonable start, to prove a concept. Figure \ref{fig:map} shows the region of Europe included in this dataset. Covering the Mediterranean areas.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale = 0.7]{Chapter2_Theory/images/Domain.png}
-    \caption{Map showing the domain. The region cover southern Europe and northern Africa. The coordinate system is Plate Caree, which is the same as ECC. The image have been generated using the python package cartopy ref? \textbf{new figure with correct range and some vegetation or topography on  } \textbf{generate new plot with the updated boundaries}}
+    \includegraphics[scale = 0.7]{Chapter4_Results/figurs/Domain.png}
+    \caption[Map over domain.]{Map showing the domain. The region covers southern Europe and northern Africa. The projection is the same as ECC (Plate Caree).}
     \label{fig:map}
 \end{figure}
 
-\subsection{European Cloud Cover} \label{sec:ecc}
-\acrfull{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. Preserving the resolution available in ERA5, while remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud fraction, specific and relative humidity. Hourly data on a $0.25^o$ uniform grid resolution in the period \textbf{put in first date} to \textbf{last date}. Total cloud cover is produced from area weighting cloud masks. This computations are described in \ref{sec:remapping}. The others are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and see section \ref{sec:EUMETSAT_cloud_mask} for more information about cloud mask. 
-\input{Chapter2_Theory/tables/table_transposed.tex}
+\begin{figure}
+    \centering
+    \includegraphics{Chapter4_Results/figurs/regridded_raw_satelite_image_to_make_sure_its_correcxt_area.png}
+    \caption{Making sure its the correct area.}
+    \label{fig:correct_area}
+\end{figure}
 
+\subsection{Physical basis of variable decision} \label{sec:ecc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Physical basis of variable decision} \label{sec:physical_basis}
+%\subsubsection{Physical basis of variable decision} \label{sec:physical_basis}
 The overall goal is to investigate if its enough information to predict clouds in the meteorological variables such as temperature, pressure and humidity. On the one hand, like discussed in Section \ref{sec:cloud_in_climate_system}, cloud dynamics is far more complicated than what can be describes by these variables. Given that it is not feasible in the near future to include the effects of all the micro-physical processes in an accurately. Focusing on the macrophysical aspect of clouds its is reasonable to chose large scale variables.  Variables proved by a reliable estimate using reanalysis and other climate model. Making that its is applicable for the use case in mind.
 
 Some threshold retrieval algorithms include ancillary information from temperature and humidity profiles. This is not possible in real time, only useful for post-processing satellite imagery. \textbf{kilde}
 
 As described in section \ref{sec:param_clouds} clouds are parameterised in many different ways using many different tools. Researchers have to this day not been able to incorporate the effects of clouds. There might be enough information in these variables to make a adaquate representation of cloud amount. The following variables have been chosen because they are reliable (temperature and pressure) and/or cause the are necessity in cloud formation (humidities). Other information may be present implicitly because of the other variables chosen. It is worth noting that they are either surface variables or from the pressure level closest to the surface. All variables are produced by ERA5. This section will give a brief introduction to their role in cloud formation. 
 
-The 2m temperature ($T_{2m}$). Serves as a proxy for convective motions. Warmer air has higher buoyancy than air at lower temperatures. The warmer air rises. The temperature decreases due to volume expansion. This is called adiabatic cooling. Colder air can retain less vapour. Achieves saturation faster. Keeping in mind that evaporation rates are faster at higher temperatures. The dataset include both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. Its unitless, and it values ranges from $\left[ 0, 1 \right]$.  Conditions where relative humidity exceeds 1 are called supersaturated. Specific humidity ratio between mass of vapour and mass of air. Unit is $kg kg^{-1}$. \textbf{kilde s. 53, 54 Lohmann}. Which one of them that serves as the best predictor is not clear a priori. Let humidity be a collective term for both. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. 
-
-\textit{Pressure varies from day to day at the Earth’s surface - the bottom of the atmosphere. This is, in part, because the Earth is not equally heated by the Sun. Areas where the air is warmed often have lower pressure because the warm air rises. These areas are called low pressure systems. Places where the air pressure is high, are called high pressure systems.
-
-A low pressure system has lower pressure at its center than the areas around it. Winds blow towards the low pressure, and the air rises in the atmosphere where they meet. As the air rises, the water vapor within it condenses, forming clouds and often precipitation. Because of Earth’s spin and the Coriolis Effect, winds of a low pressure system swirl counterclockwise north of the equator and clockwise south of the equator. This is called cyclonic flow. On weather maps, a low pressure system is labeled with red L.
-
+The 2m temperature ($T_{2m}$). Serves as a proxy for convective motions. Warmer air has higher buoyancy than air at lower temperatures. The warmer air rises. The temperature decreases due to volume expansion. This is called adiabatic cooling. Colder air can retain less vapour. Achieves saturation faster. Keeping in mind that evaporation rates are faster at higher temperatures. The dataset include both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. Its unitless, and it values ranges from $\left[ 0, 1 \right]$.  Conditions where relative humidity exceeds 1 are called supersaturated. Specific humidity ratio between mass of vapour and mass of air. Unit is $kg kg^{-1}$. \textbf{kilde s. 53, 54 Lohmann}. Wherether the relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. 
+\textbf{Kopiert hele avsnittet, skal skrive om alt. Beholder det bare enn så lenge for det reflekterer nivået jeg har tenkt å legge meg på.}
+\textit{Pressure varies from day to day at the Earth’s surface - the bottom of the atmosphere. This is, in part, because the Earth is not equally heated by the Sun. Areas where the air is warmed often have lower pressure because the warm air rises. These areas are called low pressure systems. Places where the air pressure is high, are called high pressure systems. \\ 
+A low pressure system has lower pressure at its center than the areas around it. Winds blow towards the low pressure, and the air rises in the atmosphere where they meet. As the air rises, the water vapor within it condenses, forming clouds and often precipitation. Because of Earth’s spin and the Coriolis Effect, winds of a low pressure system swirl counterclockwise north of the equator and clockwise south of the equator. This is called cyclonic flow. On weather maps, a low pressure system is labeled with red L.\\ 
 A high pressure system has higher pressure at its center than the areas around it. Winds blow away from high pressure. Swirling in the opposite direction from a low pressure system, the winds of a high pressure system rotate clockwise north of the equator and counterclockwise south of the equator. This is called anticyclonic flow. Air from higher in the atmosphere sinks down to fill the space left as air is blown outward. On a weather map, you may notice a blue H, denoting the location of a high pressure system.}
 
-
-Surface pressure can be used to infer some of the winds. More precisely geostrophic winds. At locations where frictions and centripetal forces are negligible (not really the case at the surface). This balance between the Coriolis force and the pressure gradient is a solution of the Navier-Stokes equation. Equation of motion. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. The variations of geostrophic winds with altitude is called thermal wind. \textit{In the real atmosphere the density depend both on pressure and temperature - where do we know this from? The ideal gas law.}. \textbf{Include the expression of Navier-Stokes and the geostrophic winds?}
+%Surface pressure can be used to infer some of the winds. More precisely geostrophic winds. At locations where frictions and centripetal forces are negligible (not really the case at the surface). This balance between the Coriolis force and the pressure gradient is a solution of the Navier-Stokes equation. Equation of motion. This wind flows parallel to the isobars, lines of constant pressure. Any factor that generates a pressure gradient can create disruptions in the wind pattern's. Topography for instance. The variations of geostrophic winds with altitude is called thermal wind. \textit{In the real atmosphere the density depend both on pressure and temperature - where do we know this from? The ideal gas law.}. \textbf{Include the expression of Navier-Stokes and the geostrophic winds?}
 \textbf{kilde Lohmann s. 81-84}
 
-\subsubsection{Computing cloud fractions} \label{sec:remapping}
-\input{Chapter4_Results/spherical_coord}
-\input{Chapter4_Results/estimating_changes_lat_lon}
+\subsection{Computing cloud fractions (ny overskrift == preprocessing?)} \label{sec:remapping}
+\input{Chapter4_Results/figurs/spherical_coord}
+\input{Chapter4_Results/figurs/estimating_changes_lat_lon} % move
+Computing cloud fractions based on cloud mask requires a regridding scheme, such as mean, nearest neighbour or area weighted. For this particular task the area weighted seemed most appropriate. This section will provided a step-by-step walk-though of the necessary preprocessing done for the compilation of ECC. Transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. EUMETSAT doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
 
+%In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
+%\textit{The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. }
+\textbf{Write summary based on this list to introduce section.}
+\begin{enumerate}
+    \item Utlede ligningene for areal
+    \item Area of a square in spherical coordinates
+    \item Estimating the changes in latitude and longitude. Based on information about the centre of the pixels. 
+    \item Contributions from boundaries and corners. 
+    \item Validating the algorithm against cdo compute areas and the focusing on the artefact. Making short videos of 500 frames to look at the evolution of cloud cover, to double check that it looks reasonable. 
+    \item Cause of many errors, the data is flipped depending on the file-format it is provided in shuffled/reversed (opp ned, bak fram). Similar shape of distribution of cloud cover as other satelite,usnnhetstegn mens skyfracsjon er en stor funksjon av 
+    item \textbf{Obs Obs - gridtype space view}
+    \item Has anyone managed to handle this kind of data? Obviously the space view perspective grid is natural choice for products derived from geostationary platforms and thus standard in EUMETSAT. 
+    \item Bytt curvelinear til space view.
+    \item Latitude (degrees north), Longitude degrees east.
+\end{enumerate}
 
-\textit{The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. }
-
-\textit{The mapping from the curve-linear grid of the geostationary satellite to the uniform grid of era5 is quite cumbersome, for more details see section \ref{sec:remapping}. The cloud fraction of a pixel is the sum of the area weighted cloud mask contributing to a cell.}
-
-EUMETSAT doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
-
-Let the subscripts denote the dataset of the grid. Then grid$_{\text{MGS}}$ refers to the curve-linear grid of the \acrlong{msg}. Grid$_{\text{ERA5}}$ refers to the uniform grid originating from ERA5. The latter one is the grid-format used in the final product \acrlong{ecc}. Calculating the area based on a curve-linear grid that only contain information about latitude and longitude involves some simplifications. Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories, centre, left, right, up and down boundary. 
-%\begin{figure}
-%    \centering
-%    \includegraphics{}
-%    \caption{Caption}
-%    \label{fig:example_relation_coordssystem_regridded}
-%\end{figure}
-For the boundary categories we only include the contribution from within the cell. This is not actually a strict condition, including the entire area would still keep the fraction within its normal bounds of 0 and 1. However the boundary pixels would have a larger effect on the mean cloud cover since they contribute to several pixels. The footprint size effect on the distribution of cloud cover. For a large pixel size, and less contributing pixels we expect a higher number of grid-cells with close to 0 or 1 cloud amount. Since it alter the number of components you compute the average from.
-
-The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
-% Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
-
-Starting with the equations necessary for computing the area weighting. Integrating over changes in latitude and longitude yields the area. The general expression for the area of a square in spherical coordinates, is given by the following integral. 
-%\textbf{Update equation to use a upside down delta.}
+Implementing this algorithm requires deriving the equation necessary for computing the area weighting and detection of pixels contributing to the particular cells in the other coordinate system. The satellite retrievals are provided in a \textit{space-view} grid. Pixel-areas are computed using spherical coordinates. Deriving the equation for computing the area of an square in spherical coordinates, requires integrating over changes in latitude and longitude. The general expression for the area of a square in spherical coordinates, is given by the following integral. 
 \begin{equation} \label{eq:sphere_integral}
     A = -R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
 \end{equation}
-This can be rewriting into,
+This can be rewriting into, \textbf{add indices $(i, j)$ ..?}
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
 \end{equation}
-Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. The latitude and the extend of the pixel is terms in this equation. Equation \ref{eq:sphere_finish} is implemented. The changes on longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the horizontal (vertical). Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations, \eqref{eq:app_lon} and  \eqref{eq:app_lat}.
+Relating this to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $d \phi = 2 \delta \phi$. Figure \ref{fig:spherical_coords} shows a square projected onto a sphere. Highlighting the parts necessary to compute a area. \textbf{Update this based on how the equations are solved.} Here R denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. The latitude and the extend of the pixel is terms in this equation. Equation \ref{eq:sphere_finish} is implemented. 
+
+% Estimating the extent of the cell.
+The coordinate information is provided as the latitude, $\theta$ (degrees north) and longitude, $\phi$ (degrees east) of the centre of the pixel. The areas computation require information about the extent of the cell, this requires some simplifications. The changes on longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the horizontal (vertical). Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations, \eqref{eq:app_lon} and  \eqref{eq:app_lat}. Figure \ref{fig:estimate_dlat_dlon} illustrates how neighbouring pixels, of same extent, appear in spherical coordinates. The area decreases poleward. 
+% The below approach underestimates the extent a bit? Jeg tror ikke det .. 
+Let the horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels, see Equation \eqref{eg:app_lon}. The same follows for the vertical extent, but in Equation \eqref{eq:app_lat} it is dependant of the latitude values. 
+\input{Chapter4_Results/figurs/estimating_changes_in_longitude}
+The cloud mask pixels are smallest at the nadir point, increasing in all other directions. Figure \ref{fig:estimate_dlon} shows a example of three neighbouring pixels where the apparent pixel size increase going eastward. This results in different distances to the right and left neighbour. Argue that the most robust estimate of the extent of the cell is made by averaging the distance to both neighbours. The is done in \eqref{eq:app_lon}. 
+
+Failed to derive equations for trapezoidal shapes in spherical coordinate, therefore it never made sense to keep a different left, right, up and down extent. \textbf{Not sure how to include this}
+%Since changes in degrees varies linearly this should not affect the extent of the cell. More than the error already present in the data. Det forklarer bare hvorfor buelengde ikke er nødvendig.
 \begin{equation} \label{eq:app_lon}
     \delta \phi_{i,j} = \left| \frac{\phi_{i+1,j} - \phi_{i-1, j}}{4} \right|
 \end{equation}
 \begin{equation} \label{eq:app_lat}
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
-The latitude, longitude information is retrieved from the product of the satellite images. In order to keep the data storage to a minimum most files are download in grib-format. All satellite images from the 0 degree service are given with the same coordinates. This is confirmed from personal communication with EUMETSAT staff.
 
-The original satellite products are provided in one scan per file. The disks for one month is regridded and stored in \acrshort{netcdf}-format on UiO's server. Running the regridding code for all samples ($\sim 140k$) takes one week on the computer provided by UiO. Occasionally both the standby and the operational scan at the same time. When this duplication occurs, the first satellite is chosen \textbf{check that this is the operational}. Working with observation, there will always be missing data. Some request enters a infinity loops, pending for months without being detected by EUMETSAT. In these cases the data has been destroyed prior to archiving. The EUMETSAT staff has been made aware of this problem. This data can never be recovered. Other restrictions which slowed things down was maximum number of pending requests (20), maximum amount per request. This corresponds to 3.5 months of data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary}
+% Detecting which pixels that contribute to a cell.
+Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories, centre, left, right, up and down boundary. 
+
+Let the subscripts denote the dataset pertaining to a particular grid. Grid$_{\text{MGS}}$ refers to the space-view grid of the \acrlong{msg} and grid$_{\text{ECC}}$ refers to the uniform grid originating from ERA5. It is worth noting that the grid$_{\text{ECC}}$ would be the same as grid$_{\text{ECC}}$.
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.6]{Chapter4_Results/figurs/remapping-pixels.JPG}
+    \caption{Remapping one cell, studying the number of pixels contributing to a cell.}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{equation} \label{eq:tot_area}
+    A = \sum_{i=0}^{N} a_i
+\end{equation}
+
+\begin{equation} \label{eq:area_weighting}
+    CF_{ECC} = \frac{1}{A} \sum_{i=0}^{N} a_i m_i
+\end{equation}
+
+One can easily prove that if all the mask $m_i = 0$ the cloud fraction, $CF_{ECC}=1$. This would not be if the total area A, was determine by the extent of ERA5/ECC cell. This explains why the overlap of neighbouring cell is not a cause for concern. The cloud fractions will not give unphysical values. The only affect worth mentioning is that some cloud mask, located at boundary pixels, contribute a marginally more to the fraction than they should. Argue that this is o little importance in the big picture.
+% For the boundary categories we only include the contribution from within the cell. This is not actually a strict condition, including the entire area would still keep the fraction within its normal bounds of 0 and 1. However the boundary pixels would have a larger effect on the mean cloud cover since they contribute to several pixels. The footprint size effect on the distribution of cloud cover. For a large pixel size, and less contributing pixels we expect a higher number of grid-cells with close to 0 or 1 cloud amount. Since it alter the number of components you compute the average from.
+
+% The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
+
+% Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
+
+The cloud masks are provided from EUMETSAT in multiple formats. The grib-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available i \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). Occasionally both the standby and the operational scan at the same time. To reduce the perturbations due to parallax of cloud in the data the operational satellite is chosen, given the choice.
+
+\subsection{ARTEFACT and LAND, SEA and Coastline masks} \label{sec:artefact}
+The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution. Global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox the \acrfull{aerocom} project. Storing only the domain relevant, available in the project supplementary repository. 
+
+\textbf{TODO:} Running the artefact filters to compute how many times this occurs. Make histogram.
+
+Filters available is land, sea, coastline and artefact. The coastline is defined to be all pixel that is not 100\% either land or sea. For land pixels, coastline pixel exceeding a 50\% threshold is included, the other pixels are regarded at the sea. Argue that this is OK since this pixels at a level of at least 50\% is most like sufficiently affected by maritime conditions that its OK to classify them as sea pixels.
+
+Some may want to argue that all pixels that are below 100\% coast probably is maritime conditions.
+
+Defining the artefact according to equation, 
+\begin{equation} \label{eq:artefact}
+    \theta + \frac{1}{3}\phi < 40
+\end{equation}
+Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
+
+\begin{figure}
+    \centering
+    \includegraphics{Chapter4_Results/figurs/example_artefact.png}
+    \caption[Artefact in European Cloud Cover dataset.]{Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
+    \label{fig:example_artefact}
+\end{figure}
+
+\begin{figure*}[hp]
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[scale=0.5]{Chapter4_Results/figurs/restricted_to_artefact.png}
+            \caption[Filter activated to detect the region of Spain, Portugal and Northern Africa.]
+            {{\small Filter activated to detect the region of Spain, Portugal and Northern Africa.}}
+            \label{fig:filter_artefact}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[scale=0.5]{Chapter4_Results/figurs/detecting_coast.png}
+            \caption[]%
+            {{\small Percentage of land in coastline pixels. }}    
+            \label{fig:entire_coastline_detected}
+        \end{subfigure}
+
+        \caption[Different approaches for detecting the artefact, separating the land, sea and coastline pixels.]
+        {\small Different approaches for detecting the artefact, separating the land, sea and coastline pixels. Filters to remove artefact in future. Can also use this compute statistics over land and ocean. Add land sea mask as subplot. }
+        \label{fig:filters}
+    \end{figure*}
+
+Leaving the artefact in the data, its a thesis in itself to remove this without doing to much damage to the parts that are actually clouds that also produce a signal.
 
 \subsection{Missing Data} \label{sec:missing_values}
-This is either individual pixels of entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's are not a issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Gaps that not possible to fill in this way are documented in \textbf{X}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small.
+As always when working with observations. The sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's don't appear too be an issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Gaps that not possible to fill in this way are documented in \textbf{X}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small. Figure \ref{fig:heatmap_missing_values} show how many hours, that is missing from each of the month in the relevant time period. 
 
-\textbf{Add heatmap of missing hours}
+In some cases the data has been destroyed prior to archiving, and can never be recovered. The EUMETSAT staff has been made aware of this problem. The requested data has entered infinity loop without being detected by EUMETSAT along with max pending request restrictions (20), this has slowed things down in addition to create gaps in the data. One request can contain ca. 3.5 months of hourly data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale = 0.6]{Chapter4_Results/figurs/heat_map_missing_values.png}
+    \caption[Heatmap showing missing hours for all months or years.]{Heatmap displaying missing hours separated in month and years.}
+    \label{fig:heatmap_missing_values}
+\end{figure}
+
+\subsection{Statistics}
+Add some interesting statistics. Correlation maps, and matrices.
+\textbf{I intend to compute som statistics for land and ocean, if only to include the code I've used to compute the land, sea, coastline masks.}
 
 % Finished regriddidng files.
 \subsection{Summarise the dataset ECC.}

@@ -134,43 +134,6 @@
 
     \draw[thick](0.05, 0.45, 0.73)node[scale=0.8, rotate = 35]{$(i+1,j+1)$};
 
-
-    %\draw[dashed, color=teal] (dG) -- (G); 
-    
-    %\draw[very thick, color=teal, opacity = 0.3] (O) -- (G) node[above right]  {};
-    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (dG) node[above right] {};    
-    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (P) node[above right]  {};
-    %\draw[very thick, color=teal, opacity = 0.6] (O) -- (dP) node[above right] {};
-    
-    %\draw[dashed, color=teal] (O) -- (Pxy);
-    %\draw[dashed, color=teal] (dP) -- (Pxy);
-    %\draw[dashed, color=red] (Pz) -- (Py);
-
-
-    %\draw[dashed, color=red] (dP) -- (Pxy);
-    
-    %\draw[dashed, color=teal] (O) -- (Gxy);
-    %\draw[dashed, color=teal] (dG) -- (Gxy);
-    %\draw[dashed, color=black,looseness = 10, bend left] (z) -- (G)  node[pos = 0.6, above right] {\Large $rsin\theta$};
-    %\draw[dashed, color=teal,looseness = 10, bend left] (z) -- (G);
-    %\draw[dashed, color=teal, bend right] (P) -- (z);
-    
-    %\draw [] (\phivec:0.5)  arc (\phivec:\deltaphivec:0.5) node [below right, pos=0.3] {\Large $d\phi$};
-
-    %\tdplotdrawarc[tdplot_rotated_coords, ->]{(dP)}{.7}{(Pxy)}
-
-    %\draw[dashed, color=black] (dG) -- (G) node[pos = 0.5, above right] {\Large $rd\theta$};
-   %\tdplotdrawarc[]{(O)}{0.4}{0}{\phivec}{anchor=north}{\Large $\phi$}
-    %\tdplotdrawarc{(O)}{0.2}{0}{\deltathetavec}{anchor=north}{$\theta$}
-
-    %\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.8}{0}%
-    %    {\thetavec}{anchor=south west}{\Large $\theta$};
-    
-    %\tdplotdrawarc[tdplot_rotated_coords, pos = 0.5]{(0,0,0.2)}{0.26}{0}%
-    %    {\thetavec}{anchor = south west,shift={(4mm,-5mm)}}{\Large $d\theta$};
-        
-    %\tdplotdrawarc[tdplot_rotated_coords, <->]{(0.1, 0.2, 0)}{.5}{0}{\thetavec}{anchor=east}{\Large $d\theta$}
-    
     \tdplotsetthetaplanecoords{\phivec};
     \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
     \foreach \X/\Y in {xy/z,yz/x,zx/y}
@@ -179,6 +142,7 @@
         \end{scope}}
     \end{tikzpicture}
     
-    \caption{Estimating the changes in latitude and longitude}
-    \label{fig:estimate_dlat_dlon}
+    \caption{Illustrated the relative size of neighbouring pixels (in final uniform grid of ECC) in spherical coordinates. The areas of pixels in a uniform grid decrease poleward. \textbf{Har du en ide om hva denne figuren kan endres til eller om den kan forbedres på noen måte.}}
+    
+    \label{fig:relative_size_neigbouring_pixels}
 \end{figure}
