@@ -104,13 +104,13 @@
   \printfield{eid}}
 \DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
 
-
 \setlength\bibitemsep{\baselineskip}
 \usepackage{booktabs}
 \renewcommand\arraystretch{1.5}
 
 %%%%%% Add you references to the ref.bib file 
-\addbibresource{ref.bib}
+\addbibresource{ref.bib} % mendeley
+\addbibresource{manual_ref.bib} % created manually - most ML figures
 
 %\usepackage{subfig}
 \usepackage{adjustbox}
@@ -155,5 +155,5 @@
 
 \input{./Frontpage/my_frontpage}
 
-\addbibresource{ref.bib}
+%\addbibresource{ref.bib} duplicate?
 
