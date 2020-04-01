@@ -1,31 +1,33 @@
 \setcounter{chapter}{1} 
+\newacronym{esm}{ESM}{Earth system models}
 \chapter{Theoretical Background} \label{ch:theoretical_back}
-Human activity changes the envionments, while the globe need to support the lives of a increasing population. Providing a realistic estimate of future climates is important for motivating mitigation and hopefulle reducing the mean temperature increase. Earth system models, ESM are usefull tool for studing the past and future climate. Observations are used to aid the development of models. It is common to validate a model against observation to ensure that it is capable of describiong the desired mechanisms. 
+Human activity changes the environment, while the globe need to support the lives of a increasing population. Providing a realistic estimate of future climates is important for motivating mitigation and hopefully reducing the temperature increase. \acrfull{esm} is a useful tool for studying the past and future climate. Observations are used to aid the development of models. It is good practise to validate a model against observation to ensure that it is capable of describing the desired mechanisms. 
 % Skriv om earth system modells and what their purpose is. Legg vekt på at ting skal være godt nok til å gi et bedre estimat på hva som trengs for å forbedre estimat. (1) cloud or no cloud, (2) Macrophysical properties of clouds such as cloud cover. In NorESM og CESM state of the art earth system models, the joint PDF of humidity, temperature and vertical velocity is used. 
-The development of observational system and models requires a understandinng of the physical and biogeochemical processes that takes place in the earth system. Tradeoff between ensuring continous long-term data records and development of retrivals. To include new variables. For capturing the effects of climate change it is beneficial with multidecadal data records. \textbf{Simmons et. al. 2016} The data used in this project is a combination of satellite retrievals and reanalysis data. \textbf{Starting with giving a introduction to clouds in the current and future climate. Continuing with information about the dataset, structure, implementations and practical implications.}
+The development of observational system and models requires a understanding of the physical and biogeochemical processes that takes place in the earth system. Tradeoff between ensuring continuous long-term data records and development of retrievals. To include new variables. For capturing the effects of climate change it is beneficial with multidecadal data records. \textbf{Simmons et. al. 2016} The data used in this project is a combination of satellite retrievals and reanalysis data. \textbf{Starting with giving a introduction to clouds in the current and future climate. Continuing with information about the dataset, structure, implementations and practical implications.}
 
 \input{Chapter2_Theory/clouds.tex}
 
 \section{Parametrisation of clouds} \label{sec:param_clouds}
-Det finnes mange klimamodeller eller numeriske værvarslingsmodeller. Disse er av forskjellig grad av komplexitet. Detter refererer til hvor mange mekasnismer som er med på å påvirke skydannelsen. Bare AR5 inneholder X antall klimamodeller. This section will  give a brief introduction to some methods used for parameterizing clouds. This is just the tip of the iceberg, the aim is to give \textbf{what}. Including all the small scale processes described in the previous sections is
-an impossible task. Limited by computational resources and knowledge of interactions in cloud. 
+Det finnes mange klimamodeller eller numeriske værvarslingsmodeller. Disse er av forskjellig grad av komplexitet. Detter refererer til hvor mange mekasnismer som er med på å påvirke skydannelsen. Bare AR5 inneholder X antall klimamodeller. This section will  give a brief introduction to some methods used for parameterizing clouds. This is just the tip of the iceberg, the aim is to give the reader an idea of what has been done before. Limited by computational power and knowledge of cloud processes, including all small scale processes described in previous sections is a impossible task. \textit{Their integration into numerical models continuous to pose a challenge.}
 
-Including the effect from clouds on the earth system first need a reliable estimate of whether there is a cloud in no cloud in a pixel. Secondly, progressing toward knowing how much cloud there is. Lets distinguish between micro- and macrophysical properties of cloud. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. Macrophysics properties are for the entire cloud. Concerned with its base height, top height, thickness, fractional cover and cloud type. 
+Hierical structure for obtaining a general purpose parameterization. 
+Including the effect from clouds on the earth system first need a reliable estimate of whether there is a cloud in no cloud in a pixel. Secondly, progressing toward knowing how much cloud there is. Lets distinguish between micro- and macrophysical properties of cloud. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. Macrophysics properties decribes the cloud as a whole. Examples of properties are base height, top height, thickness, fractional cover and regime/type. 
 % https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
 % https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
-Even thought precipitation formation and cloud optical thickness is affected by changes on a macrophysical level. They are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover. Due to small scale modelling the effects of clouds on the earth system requires parameterizations.  Clouds vary on a smaller scale than what the average earth system models are able to resolve. 
+Even thought precipitation formation and cloud optical thickness is affected by changes on a microphysical level. They are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover. Due to small scale modelling the effects of clouds on the earth system requires parameterizations.  Clouds vary on a smaller scale than what the average earth system models are able to resolve. 
 
-Various approaches have been used the last couple of years. Due to the large uncertinty in equilibrium climate sensitivity related to clouds. This area has recieved a lot of attension the last few years. Causing a increase in inter-model spread in climate sensitivity. Beause of more complex increased complexity of parameterisations. Used approaches are saturation threshold, probability density functions, PDF's, joint probability functions and cloud resolving models. It is worth noting that cloud resolving models have a increased resolution and thus resolve more mechanisms involved in cloud formation. However, the name is misleading since it still requires parameterizations of smallest scale processes.
+Various approaches have been used the last couple of years. Due to the large uncertinty in \acrfull{ecs} related to clouds. This area has received a lot of attention the last few years. Causing a increase in inter-model spread in climate sensitivity. Because of more complex increased complexity of parameterisations. Used approaches are saturation threshold, probability density functions, PDF's, joint probability functions and cloud resolving models. It is worth noting that cloud resolving models have a increased resolution and thus resolve more mechanisms involved in cloud formation. However, the name is misleading since it still requires parameterizations of smallest processes.
 
 Cloud-aerosol effects in climate models created many parameterizations dependant on each other.
+
 Many parameterizations are again dependant on others. Nested dependancies of parameterizations. Scheme is a set of parameterizations.One variables distribution being the result of many interacting processes.
 
 % er en joint probability density function always dependant on multiple variables.
 \textbf{Move to somewhere else: Neglecting the microphysical properties we wish to parameterize cloud fractional cover.
-The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. }
+The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. When you one as seperate parameterizations for different cloud regimens, a consequence of this is that the cloud fraction might exceed 1.}
 
 \subsection{Relative humidity schemes}
-The simplest form of cloud scheme is a \textit{all-of-nothing} scheme. This is binary. Either the entire pixel is covered by clouds or there is no clouds. See Equation \ref{eq:binary_param_clouds}. Describing a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
+The simplest form of cloud scheme is a binary \textit{all-or-nothing} scheme. A pixel is either cloudy of clear. Equation \ref{eq:binary_param_clouds} describes a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
 \begin{equation} \label{eq:binary_param_clouds}
     CLA\left(RH\right) = 
      \begin{cases}
@@ -33,18 +35,27 @@ The simplest form of cloud scheme is a \textit{all-of-nothing} scheme. This is b
        \text{1,} &\quad\text{else}
      \end{cases}
 \end{equation}
-Sub-grid scale variability is necessary to achieve fractional cloud cover. This can ba a combination of multiple variables. The most common being relative humidity, temperature and/or vertical velocity. 
+Sub-grid scale variability is necessary to achieve fractional cloud cover. The most common either alone or in combination is relative humidity, temperature and vertical velocity. 
 
-\textbf{more}
+
 
 \subsection{Statistical schemes}
-Based on observations (from airplane campains) researches have attempted to draw dirstibutions of relevant variables. Reaserchers have then implemented these PDF's into models. Virtually all probability density functions, PDF's have been used to model either cloud cover or its dependant variables humidity, temperature and so on. See table \ref{tab:summary_PDF} for a summary of the PDF's used in different papers. They have not been successful in finding a adequate representation of cloud cover using this approach. \textbf{(siter Tomkins summary)}. The most sucessful is being joint PDF's. One examples of a usecase of these functions are used in NorESM and CESM to parameterize boundary layer clouds. \textbf{(Source Trude)} \textbf{Golaz et al 2002}. They use a joint probability density function of 
+\textit{Trude: Most climate models have a fractional cloud cover, which is driven by saturation threshold. All the vapour in excess of saturation, $RH=100\%$, gets turned into cloud water. Producing a cloud. Some models include aerosol-cloud interactions. In global climate models all michcrophysics (bilde lohman), convection are parametrised in dependant structures. Climate models output monthly mean/or et tidspunkt hver måned.}
+Based on observations, from air plane campaigns, researches have attempted to draw distributions of relevant variables and then implementing these \acrlong{pdf}s (\acrshort{pdf}s) into models. Virtually all \acrshort{pdf}s have been used to model either cloud cover or its dependant variables. % humidity, temperature and so on. 
+A reproduction of the summary from \textbf{cite Tomkins}, describing distribution used in a selection of papers is given in table \ref{tab:summary_PDF}.
+\input{Chapter2_Theory/tables/param_summary_tomkins}
 
-Their parameterization can be regarded as a higher order turbulent closure problem. Big advantage of this sceme is that the same scheme can be applied to all regimes. It is quite difficult to devolop a general condition desciding which regime it is.  
-For more details see Golaz et. al. 2002.
+Researchers have not been successful in finding a adequate representation of cloud cover using this approach \textbf{or these approaches}. \textbf{(siter Tomkins summary)}. The most successful is being joint \acrshort{pdf}, derived by Golaz et. al. 2002, still used to parametrize boundary layer clouds in \acrfull{noresm} and \acrfull{cesm}. \textbf{two recognized models..?}
 
-\textit{Their integration into numerical models continous to be pose a challange.}
-\textit{Categorizing into regimes leads to the difficult problems of interfacing various components to obtain general purpose parameterizations.}
+%%%%%%%%%%%%% Beskriv Golaz sin parameterisering.
+Their parameterization can be regarded as a higher order turbulent closure problem. Big advantage of this scheme is that the same scheme can be applied to all regimes. 
+
+Developing general conditions which differentiates between different regimes. The cloud system doesn't really have hard boundaries 
+
+It is quite difficult to develop a general condition deciding which regime it is.  
+For more details see .
+
+
 
 
 \textbf{Om noe er litt tilfeldig, however is somewhat arbitrary.}
@@ -52,8 +63,8 @@ For more details see Golaz et. al. 2002.
 Cloud cover is usually a combination of several parametrisations. Its common to have separate schemes for ice-, liquid clouds and convective clouds. \textbf{Read more Tomkins}
 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
-\subsection{Parametrisations of clouds - Climate models} \label{sec:params_climate_models}
-\textit{Trude: Most climate models have a fractional cloud cover, which is driven by saturation threshold. All the vapour in excess of saturation, $RH=100\%$, gets turned into cloud water. Producing a cloud. Some models include aerosol-cloud interactions. In global climate models all michcrophysics (bilde lohman), convection are parametrised in dependant structures. Climate models output monthly mean/or et tidspunkt hver måned.}
+\subsection{Cloud resolving models} \label{sec:params_climate_models}
+
 \textbf{Include details on parameterisations in climate models}
 
 One method to deal with this is cloud parameterisation are cloud resolving models. This runs a LES-model. You still need to parametrise the michrophysical scheme, but the model might be able to resolve the convection. \textbf{Read paper.} DEEP LEARNING IS USED TO EMULATE THE les modells. But then again these DL models are restricted to the performance of the cloud resl
@@ -63,9 +74,9 @@ Cloud resolving models, CRM are a misleadning name. These can include some more 
 Some models include aerosols-clouds interaction. Modelling the cloud cover as 
 function of available particles to condense upon. 
 
-this becomes a nested set of parameterization. The clouds scheme are a function the aersols scheme and thing ultiple other phenomenas. This generates a tangled web of parameterizations.
+this becomes a nested set of parameterization. The clouds scheme are a function the aersols scheme and thing multiple other phenomenas. This generates a tangled web of parameterizations.
 
-Param aerosols involves sources and sinks. Precipitation is the main cause of deopsition of aerosols. Les om nedbør i simmons, 2016. 
+Including aerosols in models, involves parametzising its sources and sinks. Precipitation is the main cause of deposition of aerosols. Les om nedbør i simmons, 2016. 
 
 % Climate models are an important tool for studying the effects of emissions/forcing on future climates. The \acrfull{ipcc} provide assessments report every ~10th year or so, providing a state of the art status update on the current knowledge of climate change. Since the previous assessment report there has been three special report A, B and C. \textbf{Les special report.} The previous report published was Assesment report 5, AR5 in 2013 and the next report is scheduled to be published in 2021. 
 %The ensamble of climate models included in AR5 is \acrfull{cmip5}. \acrshort{cmip6} are now being evaluated, thus there is less published literature. Even though its a bit old, we will mostly focus on the results in AR5. \textbf{Plus the findings in the special reports.}
@@ -134,39 +145,9 @@ The viewing angle attributes to small differences in detected cloud mask. Explai
 
 The \acrshort{eumetsat} cloud mask, CLM consist of four classes, described in table \ref{tab:classes_clm}.
 
-\begin{table}[]
-    \centering
-    \begin{tabular}{c|c}
-        Class & Description \\ \hline
-        0 & Clear sky over ocean \\
-        1 & Clear sky over land \\
-        2 & Cloudy \\
-        3 & No data/ outer space        
-    \end{tabular}
-    \caption{Description of classes in EUMETSAT Cloud Mask product.}
-    \label{tab:classes_clm}
-\end{table}
+\input{Chapter2_Theory/tables/description_EUMETSAT_cloud_mask}
+\input{Chapter2_Theory/tables/msg_spectral_bands}
 
-\begin{table}[]
-    \centering
-    \begin{tabular}{c|c}
-        Spectral band & Central wavelength $\left( \mu m  \right)$ \\ \hline
-        VIS 0.6 & 0.635 \\
-        VIS 0.8 & 0.81 \\
-        NIR 1.6 & 1.64 \\
-        IR 3.9 & 3.92 \\
-        WV 6.2 & 6.25 \\
-        WV 7.3 & 7.35 \\ 
-        IR 8.7 & 8.7 \\
-        IR 9.7 & 9.66 \\
-        IR 10.8 & 10.8 \\
-        IR 12.0 & 12 \\
-        IR 13.4 & 13.4 \\
-        HRV & 0.75
-    \end{tabular}
-    \caption{List of MSG spectral bands and their central wavelength. \textbf{Expand this with a column of what they are useful to detect. Move table to MSG section. } All of these channels are useful when detection clouds except on? Add subplots of images in the different channels. See Schmetz et. al. 2002  Not refered to anywhere yet.}
-    \label{tab:msg_spectral_bands}
-\end{table}
 These classes are derived from almost all channels except HRV and isolated pixels are reclassified \textbf{cite article 10 in Tavarat, 2015}. The cloud mask is distributed in GRIdded Binary or General Regularly-distributed Information in Binary form (GRIB) (no coordinates) and network Common Data Form (NetCDF) (coordinates). The data is available on Earth Observation Portal on EUMETSATS web pages. 
 
 %\begin{figure}[h]

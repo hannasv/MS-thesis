@@ -18,6 +18,7 @@
 %\usepackage{geometry}
 \usepackage{emptypage}
 \usepackage[parfill]{parskip} % removes indentation of sectioning.
+\usepackage{array} 
 
 % For tikz images
 \usepackage{filecontents}
@@ -33,7 +34,7 @@
 
 \usepackage{titlesec}
 
-\setcounter{secnumdepth}{4} % gives numbers to subsubsections
+%\setcounter{secnumdepth}{4} % gives numbers to subsubsections
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{multirow}
