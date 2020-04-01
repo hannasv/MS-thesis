@@ -46,6 +46,21 @@
  
 \usepackage{amsmath}
 
+% For tikz images
+\usepackage{filecontents}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+
+\usetikzlibrary{arrows}
+\usepackage{pgfplots}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+
+\usetikzlibrary{matrix,positioning,fit,backgrounds,intersections, fit, arrows.meta, shapes}
+
+
 %\let\oldref\ref
 %\renewcommand{\ref}[1]{(\oldref{#1})}
 

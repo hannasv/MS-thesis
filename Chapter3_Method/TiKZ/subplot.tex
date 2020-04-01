@@ -1,24 +1,23 @@
 \begin{figure*}[hp]
              \begin{subfigure}[b]{\textwidth}   
             \centering 
-            \input{legend.tikz}
+            \input{Chapter3_Method/TiKZ/legend.tikz}
             \caption{Legend.}
             \label{fig:legend_lstm}
         \end{subfigure}
         \vskip\baselineskip
         \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
-            \input{3_forget_gate.tikz}
+            \input{Chapter3_Method/TiKZ/3_forget_gate.tikz}
             \caption[something]
-            {{\small   The forget gate: $f_t = \sigma \left(W_f\dot \left[h_{t-h}, x{t} \right] + b_f \right)$ 
-            \\ \\ \color{white}{ooooooooooooooooooooooooo} }}
+            {{\small   The forget gate: $f_t = \sigma \left(W_f\dot \left[h_{t-h}, x{t} \right] + b_f \right)$ }}
 
             \label{fig:forget_gate}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
-            \input{4_input_gate.tikz}
+            \input{Chapter3_Method/TiKZ/4_input_gate.tikz}
             \caption[]
             {{\small Candidate information: $\Tilde{C_t} = tanh \left( W_C \dot \left[ h_{t-1}, x_t \right] + b_C \right)$  } \\ \\  The input gate: $i_t = \sigma \left( W_i \dot \left[ h_{t-1}, x_t \right] + b_i \right)$}
 
@@ -26,16 +25,16 @@
         \end{subfigure}
                 \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
-            \input{5_update_cell_state.tikz}
+            \input{Chapter3_Method/TiKZ/5_update_cell_state.tikz}
             \caption[something]%
-            {{\small Updating the cell state, $C_t = f_t * C_{t-1} + i_t*\Tilde{C_t}$ \\ \\ \color{white}{ooooooooooooooooooooooooo}}}
+            {{\small Updating the cell state, $C_t = f_t * C_{t-1} + i_t*\Tilde{C_t}$}}
 
             \label{fig:update_memory}
         \end{subfigure}
         \quad
         \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
-            \input{6_output_gate.tikz}
+            \input{Chapter3_Method/TiKZ/6_output_gate.tikz}
             \caption[]
             {{\small The output gate: $ o_t =\sigma \left( W_o \dot \left[ h_{t-1}, x_t \right] + b_o\right) $
              \\ \\ Updating the hidden state, $ h_t = o_t*tanh\left( C_t \right)$ }}
