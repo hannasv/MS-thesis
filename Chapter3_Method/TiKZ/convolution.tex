@@ -1,0 +1,44 @@
+% kilde https://tex.stackexchange.com/questions/522118/visualizing-matrix-convolution 
+\begin{figure}[hp]
+    \centering
+    \begin{tikzpicture}[mmat/.style={matrix of math nodes,column sep=-\pgflinewidth/2,
+   row sep=-\pgflinewidth/2,cells={nodes={draw,inner sep=2pt,thin}},draw=#1,thick, inner sep=0pt},
+   mmat/.default=green,
+   node distance=0.3em]
+   
+ \matrix[mmat](mat1){
+         0 & 1 & 1 & |[draw=green,thick,fill=green!20,alias=1]| 1 & |[draw=green,thick,fill=green!20,alias=0]| 0 & |[draw=green,thick,fill=green!20,alias=]| 0 & 0 \\ 
+         0 & 0 & 1 & |[draw=green,thick,fill=green!20,alias=1]|1 & |[draw=green,thick,fill=green!20,alias=1]|1 &|[draw=green,thick,fill=green!20,alias=0]| 0 & 0 \\ 
+         0 & 0 & 0 & |[draw=green,thick,fill=green!20,alias=1]|1 &|[draw=green,thick,fill=green!20,alias=1]| 1 & |[draw=green,thick,fill=green!20,alias=1]|1 & 0 \\ 
+         0 & 0 & 0 & 1 & 1 & 0 & 0 \\ 
+         0 & 0 & 1 & 1 & 0 & 0 & 0 \\ 
+         0 & 1 & 1 & 0 & 0 & 0 & 0 \\ 
+         0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 
+         };
+ \node[fit=(mat1-1-4)(mat1-3-6),inner sep=0pt, draw, green, thick, fill = green, opacity = 0.2](f1){};        
+ 
+ \node[right=of mat1] (mul) {$*$};      
+ \matrix[mmat=blue,fill=blue!30,right=of mul](mat2){    
+     1 & 0 & 1 \\ 
+     0 & 1 & 0 \\ 
+     1 & 0 & 1 \\ };
+ \node[right=of mat2] (eq) {$=$};       
+ \matrix[mmat,right=of eq, draw = red](mat3){    
+     1 & 4 & 3 & |[draw=red,thick,fill=red!20,alias=4]|4 & 1 \\ 
+     1 & 2 & 4 & 3 & 3 \\ 
+     1 & 2 & 3 & 4 & 1 \\ 
+     1 & 3 & 3 & 1 & 1 \\ 
+     3 & 3 & 1 & 1 & 0 \\ 
+ };
+ \foreach \Anchor in {south west,north west,south east,north east}
+ {\draw[blue,densely dotted] (f1.\Anchor) -- (mat2.\Anchor); 
+ \draw[red,densely dotted] (4.\Anchor) -- (mat2.\Anchor);}
+ \begin{scope}[on background layer]
+  \fill[red!20] (f1.north west) rectangle (f1.south east);
+ \end{scope}
+ 
+ 
+\end{tikzpicture}
+    \caption{Diagram showing a convolutional operation. Inspired by \cite{convolution_operation}.}
+    \label{fig:convolution}
+\end{figure}

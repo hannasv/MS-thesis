@@ -1,0 +1,77 @@
+\begin{figure}[hp]
+    \centering
+        \begin{tikzpicture}[
+    % GLOBAL CFG
+    font=\sf \scriptsize,
+    >=LaTeX,
+    % Styles
+    cell/.style={% For the main box
+        rectangle, 
+        rounded corners=5mm, 
+        draw,
+        very thick,
+        },
+    operator/.style={%For operators like +  and  x
+        circle,
+        draw,
+        inner sep=-0.5pt,
+        minimum height =.01cm,
+        },
+    function/.style={%For functions
+        ellipse,
+        draw,
+        inner sep=1pt
+        },
+    ct/.style={% For external inputs and outputs
+        circle,
+        draw,
+        line width = .75pt,
+        minimum width=0.2cm,
+        inner sep=1pt,
+        },
+    gt/.style={% For internal inputs
+        rectangle,
+        draw,
+        minimum width=4mm,
+        minimum height=3mm,
+        inner sep=1pt
+        },
+    mylabel/.style={% something new that I have learned
+        font=\scriptsize\sffamily
+        },
+    ArrowC1/.style={% Arrows with rounded corners
+        rounded corners=.25cm,
+        thick,
+        },
+    ArrowC2/.style={% Arrows with big rounded corners
+        rounded corners=.5cm,
+        thick,
+        },
+    ]
+
+%Start drawing the thing...    
+    % Draw the cell: 
+    \node [cell, minimum height =1.5cm, minimum width=2cm, fill = cyan!50] (first) at (0,0){\Large \textbf{A}}; % , fill=green
+
+    %\node[ct, label={[mylabel]Cell state}] (c) at (-4,1.5) {\empt{c}{t-1}};
+    \node[ct, fill = red!50, scale = 2.25] (h) at (0, 2) {$y_{t}$}; % , fill=blue
+    \node[ct, fill = green!50, scale = 2.25] (x) at (0, -2) { $x_t$}; %, fill = magenta
+    \draw [->, ArrowC1] (x) -- (first);
+    \draw [->, ArrowC1] (first) -- (h);
+
+    %\node [operator, fill = black, opacity = 1] (a) at (0, 1) { };
+    %\node [operator, fill = black, opacity = 1] (d) at (-2, 1) { };
+    %\node [operator, fill = black, opacity = 1] (c) at (2, 0) { }; 
+    %\node [operator, fill = black, opacity = 1] (b) at (-2, .0) { };
+
+    %\draw [->, ArrowC1] (first) -- (a) -- (d) -- (b)  -- (first);
+     
+    \draw[-latex, thick, white] (first) to[out=110,in=180, loop] node[above] { \Large $h_t$} (first);  %
+    \draw[-latex, thick, black] (first) to[out=70,in=360, loop] node[auto] {\Large $h_t$} (first);  
+
+    %\draw [->] (first) to[loop above] node[auto] {} (first);
+    \end{tikzpicture}
+    
+    \caption{Simple one layer recurrent network. $x_t$ denotes the input, $h_t$ denotes the output/ hidden state of the neuron and A denotes a artificial recurrent unit. Note the output can be different from the hidden state, but it doesn't necessarily have to be. Inspired by \cite{colah_blog_post}.}
+    \label{fig:rnn}
+\end{figure}

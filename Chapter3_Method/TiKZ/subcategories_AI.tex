@@ -1,0 +1,16 @@
+\begin{figure}
+    \centering
+     
+    \begin{tikzpicture}
+        \draw [black, fill=orange, opacity = 0.3]  (2, -0.65) ellipse (2.5 and 1.25); % DL 
+        \draw [black, fill=orange, opacity = 0.3]  (2, -0.25) ellipse (4 and 2); % ML
+        \draw [black, fill=orange, opacity = 0.3]  (2, 0) ellipse (5.5 and 2.75);     % AI
+        \node at ($(2, 2.125)$) {\Large Artificial Intelligence}; % +(2 and -0.65)
+        \node at ($(2, 0.9)$) {\Large Machine Learning};
+        \node at ($(2, -0.65)$) {\Large Deep Learning};
+
+    \end{tikzpicture}
+    
+    \caption{Graph illustrating the subfields of AI. ML is a subfield of AI, DL is again a subfield of ML. The sketch is inspired by Figure 1.1 in \cite{chollet_book}.}
+    \label{fig:subcategories_AI}
+\end{figure}

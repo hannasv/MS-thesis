@@ -1,0 +1,259 @@
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=1.,every node/.style={minimum size=1cm}, on grid]
+    % slanting: production of a set of n 'laminae' to be piled up.
+    % N=number of grids.
+    
+    % 
+    \begin{scope}[yshift=-100,xshift=-150, every node/.append style={
+        yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+        \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+        \draw[blue, very thick] (1.25, 1.25) rectangle (1.5, 1.5); % marking borders
+        \draw[step=2.5mm, blue, very thick] (1.25, 1.25) grid (1.5, 1.5);
+        
+        \coordinate (s9) at (0, 0);
+        \coordinate (s10) at (0, 2.7);
+        \coordinate (s11) at (2.1, 0);
+        \coordinate (s12) at (2.1, 2.7);
+        
+        % Corners 
+        \coordinate (c5) at (1.25, 1.25);
+        \coordinate (c6) at (1.25, 1.5);
+        \coordinate (c7) at (1.5, 1.25);
+        \coordinate (c8) at (1.5, 1.5);
+        
+    \end{scope} 
+    
+        
+    % BLUE LAYER 
+    \begin{scope}[yshift=-110,xshift=-150, every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[step=3mm, very thick, black] (0, 0) grid (2.1, 2.7);
+
+            \coordinate (s1) at (0, 0);
+            \coordinate (s2) at (0, 2.7);
+            \coordinate (s3) at (2.1, 0);
+            \coordinate (s4) at (2.1, 2.7);
+
+            \draw[black,very thick]   (s9) -- (s1);
+            \draw[black,very thick]   (s10) -- (s2);
+            \draw[black,very thick]   (s11) -- (s3);
+            \draw[black,very thick]   (s12) -- (s4);
+            
+    \end{scope}
+        
+    % RED LAYER 
+    \begin{scope}[yshift=-160,xshift=-150, every node/.append style={
+        yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+        \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+        %\draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders
+        \coordinate (h1) at (0, 0);
+        \coordinate (h2) at (0, 2.7);
+        \coordinate (h3) at (2.1, 0);
+        \coordinate (h4) at (2.1, 2.7);
+        
+                            
+        \draw[blue, very thick] (1.0, 1.0) rectangle (1.75, 1.75); % marking borders
+        \draw[step=2.5mm, blue, very thick] (1.0, 1.0) grid (1.75, 1.75);
+        
+        % corners 
+        \coordinate (c1) at (1.0, 1.0);
+        \coordinate (c2) at (1.0, 1.75);
+        \coordinate (c3) at (1.75, 1.0);
+        \coordinate (c4) at (1.75, 1.75);
+        
+        \draw[blue, thick, dashed]   (c1) -- (c5);
+        \draw[blue, thick, dashed]   (c2) -- (c6);
+        \draw[blue, thick, dashed]   (c3) -- (c7);
+        \draw[blue, thick, dashed]   (c4) -- (c8);
+        
+        % Centre pixel 
+        \coordinate (m1) at (1.25, 1.25);
+        \coordinate (m2) at (1.25, 1.5);
+        \coordinate (m3) at (1.5, 1.25);
+        \coordinate (m4) at (1.5, 1.5);
+        
+        
+    \end{scope} 
+        
+        
+    % BLUE LAYER 
+    \begin{scope}[yshift=-170,xshift=-150, every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[step=3mm, very thick, black] (0, 0) grid (2.1, 2.7);
+            
+            \coordinate (h5) at (0, 0);
+            \coordinate (h6) at (0, 2.7);
+            \coordinate (h7) at (2.1, 0);
+            \coordinate (h8) at (2.1, 2.7);
+
+            \draw[black,very thick]   (h1) -- (h5);
+            \draw[black,very thick]   (h2) -- (h6);
+            \draw[black,very thick]   (h3) -- (h7);
+            \draw[black,very thick]   (h4) -- (h8);
+    \end{scope}
+        
+    \begin{scope}[yshift=-240,xshift=-150, every node/.append style={
+        yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+        \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+        %\draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders
+        \coordinate (e1) at (0, 0);
+        \coordinate (e2) at (0, 2.7);
+        \coordinate (e3) at (2.1, 0);
+        \coordinate (e4) at (2.1, 2.7);
+
+        \draw[blue, very thick] (1.0, 1.0) rectangle (2.25, 2.25); % marking borders
+        \draw[step=2.5mm, blue, very thick] (1.0, 1.0) grid (2.25, 2.25);
+        
+        % corners 
+        \coordinate (c9) at (1.0, 1.0);
+        \coordinate (c10) at (1.0, 2.25);
+        \coordinate (c11) at (2.25, 1.0);
+        \coordinate (c12) at (2.25, 2.25);
+        
+        \draw[blue, thick, dashed]   (m1) -- (c9);
+        \draw[blue, thick, dashed]   (m2) -- (c10);
+        \draw[blue, thick, dashed]   (m3) -- (c11);
+        \draw[blue, thick, dashed]   (m4) -- (c12);
+        
+    \end{scope} 
+        
+        
+    % BLUE LAYER 
+    \begin{scope}[yshift=-230,xshift=-150, every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[step=3mm, very thick, black] (0, 0) grid (2.1, 2.7);
+            
+            \coordinate (e5) at (0, 0);
+            \coordinate (e6) at (0, 2.7);
+            \coordinate (e7) at (2.1, 0);
+            \coordinate (e8) at (2.1, 2.7);
+
+            \draw[black,very thick]   (e1) -- (e5);
+            \draw[black,very thick]   (e2) -- (e6);
+            \draw[black,very thick]   (e3) -- (e7);
+            \draw[black,very thick]   (e4) -- (e8);
+    \end{scope}
+
+    \begin{scope}[yshift=-160, xshift= 30, every node/.append style={
+        yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+        \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+        %\draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders
+        \coordinate (e1) at (0, 0);
+        \coordinate (e2) at (0, 2.7);
+        \coordinate (e3) at (2.1, 0);
+        \coordinate (e4) at (2.1, 2.7);
+    \end{scope} 
+        
+        
+    % BLUE LAYER 
+    \begin{scope}[yshift=-170, xshift= 30,  every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            \draw[blue, very thick] (1.0, 1.0) rectangle (1.75, 1.75); 
+            \draw[step=2.5mm, blue, very thick] (1.0, 1.0) grid (1.75, 1.75);            
+            
+            % Corners 
+            \coordinate (x5) at (1.0, 1.0);
+            \coordinate (x6) at (1.0, 1.75);
+            \coordinate (x7) at (1.75, 1.0);
+            \coordinate (x8) at (1.75, 1.75);
+            
+            \draw[blue, thick, dashed]   (x5) -- (c5);
+            \draw[blue, thick, dashed]   (x6) -- (c6);
+            \draw[blue, thick, dashed]   (x7) -- (c7);
+            \draw[blue, thick, dashed]   (x8) -- (c8);
+            
+            \coordinate (e5) at (0, 0);
+            \coordinate (e6) at (0, 2.7);
+            \coordinate (e7) at (2.1, 0);
+            \coordinate (e8) at (2.1, 2.7);
+
+            \draw[black,very thick]   (e1) -- (e5);
+            \draw[black,very thick]   (e2) -- (e6);
+            \draw[black,very thick]   (e3) -- (e7);
+            \draw[black,very thick]   (e4) -- (e8);
+    \end{scope}
+        
+   
+    \begin{scope}[yshift=-230, xshift= 30, every node/.append style={
+        yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+        \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+        %\draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders
+        \coordinate (e1) at (0, 0);
+        \coordinate (e2) at (0, 2.7);
+        \coordinate (e3) at (2.1, 0);
+        \coordinate (e4) at (2.1, 2.7);
+        
+        \draw[blue, very thick] (0.5, 0.5) rectangle (1.75, 1.75);
+        \draw[step=2.5mm, blue, very thick] (0.5, 0.5) grid (1.75, 1.75);
+        
+        % corners 
+        \coordinate (x1) at (0.5, 0.5);
+        \coordinate (x2) at (0.5, 1.75);
+        \coordinate (x3) at (1.75, 0.5);
+        \coordinate (x4) at (1.75, 1.75);
+    
+        \draw[blue, thick, dashed]   (x1) -- (c1);
+        \draw[blue, thick, dashed]   (x2) -- (c2);
+        \draw[blue, thick, dashed]   (x3) -- (c3);
+        \draw[blue, thick, dashed]   (x4) -- (c4);
+    
+    \end{scope} 
+        
+        
+    % BLUE LAYER 
+    \begin{scope}[yshift=-240, xshift= 30,  every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+            % \draw[step=3mm, very thick, black] (0, 0) grid (2.1, 2.7);
+            
+            \coordinate (e5) at (0, 0);
+            \coordinate (e6) at (0, 2.7);
+            \coordinate (e7) at (2.1, 0);
+            \coordinate (e8) at (2.1, 2.7);
+
+            \draw[black,very thick]   (e1) -- (e5);
+            \draw[black,very thick]   (e2) -- (e6);
+            \draw[black,very thick]   (e3) -- (e7);
+            \draw[black,very thick]   (e4) -- (e8);
+            
+    \end{scope}     
+        
+    \coordinate (s9) at (2.5, -4);
+    \node at (s9) [circle, scale=1.5] {$X_{t+1}$};
+    
+    \coordinate (s9) at (2.5, -6.5);
+    \node at (s9) [circle, scale=1.5] {$X_{t}$};
+     
+    \coordinate (s9) at (-9, -1.7);
+    \node at (s9) [circle, scale=1.5] {$H_{t+1}, C_{t+1}$};
+       
+    \coordinate (s9) at (-9, -4);
+    \node at (s9) [circle, scale=1.5] {$H_{t}, C_t$};
+    
+    \coordinate (s9) at (-9, -6.5);
+    \node at (s9) [circle, scale=1.5] {$H_{t-1}, C_{t-1}$};    
+
+    \end{tikzpicture}
+
+    \caption{Inside convolutional LSTM. Illustrating the differences in input to a ConvLSTM cell and a LSTM cell. The inputs and states are now vectors standing on a grid. \textit{The ConvLSTM detemines the future state of a certain cell in the grid based on the inputs and passed states of its local neighbors.} This is achived using the convolutional operation in the input-to-state transition and the state-to-state transition. Might need to add colors to the hidden states, input an cell state matrices. Cite Precipitation Nowcasting.}
+    \label{fig:inside_conv_lstm}
+    
+\end{figure}
+
+

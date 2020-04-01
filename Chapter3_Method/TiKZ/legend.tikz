@@ -1,0 +1,85 @@
+
+\begin{tikzpicture}[ % GLOBAL CFG
+    font=\sf \scriptsize,
+    >=LaTeX,
+    scale = 0.89,
+    every node/.style={scale=0.89},
+    % Styles
+    cell/.style={% For the main box
+        rectangle, 
+        rounded corners=5mm, 
+        draw,
+        very thick,
+        },
+    operator/.style={%For operators like +  and  x
+        circle,
+        draw,
+        inner sep=-0.5pt,
+        minimum height =.70cm,
+        },
+    function/.style={%For functions
+        ellipse,
+        draw,
+        inner sep=1pt
+        },
+    ct/.style={% For external inputs and outputs
+        circle,
+        draw,
+        line width = .75pt,
+        minimum width=1cm,
+        inner sep=1pt,
+        },
+    gt/.style={% For internal inputs
+        rectangle,
+        draw,
+        minimum width=12mm,
+        minimum height=7mm,
+        inner sep=1pt
+        },
+    mylabel/.style={% something new that I have learned
+        font=\scriptsize\sffamily ,
+        opacity = 0.2, 
+        size = \large,
+        },
+    ArrowC1/.style={% Arrows with rounded corners
+        rounded corners=10cm,
+        thick,
+        },
+    ArrowC2/.style={% Arrows with big rounded corners
+        rounded corners=.5cm,
+        thick,
+        },
+    ]
+    
+    \node [gt, fill = yellow, opacity = 1.0, label = {\large Neural network  layer}] (ibox4) at (-2.75, 0) {}; 
+    \node [operator, fill = pink, opacity = 1.0, label = {\large Pointwise operation}] (mux1) at (1, 0) { }; 
+    
+    % Vector transfer element
+    \node [operator, fill = pink, opacity = .0] (n1) at (3.5, 0) { }; 
+    \node [operator, fill = pink, opacity = .0] (n2) at (6.5, 0) { }; 
+    \draw [->, ArrowC2, opacity = 1.0] (n1) -- (n2) node[midway, above=3.5mm of n1] {\large Vector transfer};
+    
+    % copy
+    \node [operator, fill = pink, opacity = .0] (c1) at (10, 1.1) { }; 
+    \node [operator, fill = pink, opacity = .0] (c2) at (10, -1.1) { };
+    \node [operator, fill = pink, opacity = .0] (c3) at (8, 0) { }; 
+    
+    \draw [->, ArrowC2, opacity = 1.0] (c3 -| c1)++(-2., 0) -| (c1) node[above=-0.5mm of c3] {\large Copy};
+    \draw [->, ArrowC2, opacity = 1.0] (c3 -| c2)++(-2., 0) -| (c2) ;
+
+    % Concatenate
+    \node [operator, fill = pink, opacity = .0] (co1) at (10, 1.0) { }; 
+    \node [operator, fill = pink, opacity = .0] (co2) at (10, -1.0) { };
+    \node [operator, fill = pink, opacity = .0] (co3) at (12, 0) { }; 
+    
+    %\draw [->, ArrowC2, opacity = 1.0, label = {Vector Transfer}] (c1) -- (c3) ;
+    %\draw [->, ArrowC2, opacity = 1.0, label = {Vector Transfer}] (c1 -| c3)++(.5, 3.5) -| (c1) ;
+
+    %\draw [->, ArrowC2, opacity = 1.0] (co1) |- (co3); %(co1) -- (co3);
+    %\draw [->, ArrowC2, opacity = 1.0] (co2) |- (co3) node[above=0.5mm of co3] {\large Concatenate};
+    
+    \end{tikzpicture}
+    
+    
+    
+

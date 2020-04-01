@@ -1,0 +1,31 @@
+\begin{figure*}[hp]
+        \centering
+        \begin{subfigure}[b]{\textwidth}   
+            \centering 
+            \input{legend.tikz}
+            \caption{Legend for LSTM walk through.}
+            \label{fig:legend_lstm}
+        \end{subfigure}
+
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \input{lstm.tikz}
+            \caption[Channel WV 6.2]
+            {{\small Recurrent unit. LSTM cell.}}
+                %\\ \\ \color{white}{ooooooooooooooooooooooooo} 
+                
+            \label{fig:lstm_unit}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \input{1cell_state_core_idea.tikz}
+            \caption[]%
+            {{\small The cell state. Keeping track of the long term dependencies.}}    
+            \label{fig:cell_state_information_flow}
+        \end{subfigure}
+
+        \caption{Walk trough the components of a LSTM and the relevant equations.  Modified version of the example given at \cite{lstm_cell_tikz} and inspired by \cite{colah_blog_post}.
+        }
+        \label{fig:LSTM2}
+    \end{figure*}

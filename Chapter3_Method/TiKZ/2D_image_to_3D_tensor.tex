@@ -1,0 +1,178 @@
+\begin{figure}
+    \centering
+    
+    \begin{tikzpicture}[scale=1.5,every node/.style={minimum size=1cm}, on grid]
+    % slanting: production of a set of n 'laminae' to be piled up.
+    % N=number of grids.
+    
+            
+        \begin{scope}[yshift=-200, xshift = -200, 
+                      every node/.append style={yslant=0.,xslant=0},
+                      yslant=0,xslant=0]
+            \draw[black, very thick, fill = gray, opacity = 0.2] (0,0) rectangle (2.8, 3.6);
+            \draw[step = 4mm, very thick, black] (0,0) grid (2.8, 3.6);
+            \coordinate (s9) at (0.2, 3.4);
+            \node at (s9) [circle, scale=1.5] {$P$};
+            
+        \end{scope} 
+        
+    
+        % RED LAYER 
+        \begin{scope}[yshift=-200,every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3 ]
+            \draw[black, very thick, fill = red, opacity = 0.2] (0,0) rectangle (2.1, 2.7); % marking borders 
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders
+            
+            \coordinate (s9) at (0, 0);
+            \coordinate (s10) at (0, 2.7);
+            \coordinate (s11) at (2.1, 0);
+            \coordinate (s12) at (2.1, 2.7);
+
+            \coordinate (t1) at (0, 0.3);
+            %\node at (t1) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t2) at (0, 0.6);
+            %\node at (t2) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t3) at (0, 0.9);
+            %\node at (t3) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t4) at (0, 1.2);
+            %\node at (t4) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t5) at (0, 1.5);
+            %\node at (t5) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t6) at (0, 1.8);
+            %\node at (t6) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t7) at (0, 2.1);
+            %\node at (t7) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t8) at (0, 2.4);
+            %\node at (t8) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t9) at (0.3, 0);
+            %\node at (t9) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t10) at (0.6, 0);
+            %\node at (t10) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t11) at (0.9, 0);
+            %\node at (t11) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t12) at (1.2, 0);
+            %\node at (t12) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t13) at (1.5, 0);
+            %\node at (t13) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (t14) at (1.8, 0);
+            %\node at (t14) [circle, fill = blue, scale=.5] {$P$};
+
+            
+        \end{scope} 
+        
+        
+        \begin{scope}[
+            yshift=-195,every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3
+                      ]
+            \draw[black, very thick, fill = green, opacity = 0.2] (0,0) rectangle (2.1, 2.7); % marking borders 
+            \coordinate (h_input) at (2.1, 0);
+            \coordinate (h_bl) at (0, 2.7);
+            %\node at (h_bl) [fill=blue, circle, scale=0.5] {$s$};
+        \end{scope} 
+        
+        % BLUE LAYER 
+        \begin{scope}[yshift=-190,every node/.append style={
+                yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
+                \draw[black, very thick, fill = blue, opacity = 0.2] (0,0) rectangle (2.1, 2.7); % marking borders 
+                \draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+                %\draw[black, very thick] (0,0) rectangle (2.1, 2.7); % marking borders 
+                \draw[step=3mm, very thick, black] (0, 0) grid (2.1, 2.7);
+                
+                \coordinate (s1) at (0, 0);
+                \coordinate (s2) at (0, 2.7);
+                \coordinate (s3) at (2.1, 0);
+                \coordinate (s4) at (2.1, 2.7);
+    
+                \draw[black,very thick]   (s9) -- (s1);
+                \draw[black,very thick]   (s10) -- (s2);
+                \draw[black,very thick]   (s11) -- (s3);
+                \draw[black,very thick]   (s12) -- (s4);
+                
+                \coordinate (s9) at (0.15, 2.55);
+                \node at (s9) [circle, scale=1.5] {$P$};
+                
+            \coordinate (h1) at (0, 0.3);
+            %\node at (t1) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h2) at (0, 0.6);
+            %\node at (t2) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h3) at (0, 0.9);
+            %\node at (t3) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h4) at (0, 1.2);
+            %\node at (t4) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h5) at (0, 1.5);
+            %\node at (t5) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h6) at (0, 1.8);
+            %\node at (t6) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h7) at (0, 2.1);
+            %\node at (t7) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h8) at (0, 2.4);
+            %\node at (t8) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h9) at (0.3, 0);
+            %\node at (t9) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h10) at (0.6, 0);
+            %\node at (t10) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h11) at (0.9, 0);
+            %\node at (t11) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h12) at (1.2, 0);
+            %\node at (t12) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h13) at (1.5, 0);
+            %\node at (t13) [circle, fill = blue, scale=.5] {$P$};
+            
+            \coordinate (h14) at (1.8, 0);
+            %\node at (t14) [circle, fill = blue, scale=.5] {$P$};
+                
+        \end{scope}
+        
+        \draw[black,very thick]   (t1) -- (h1);
+        \draw[black,very thick]   (t2) -- (h2);
+        \draw[black,very thick]   (t3) -- (h3);
+        \draw[black,very thick]   (t4) -- (h4);
+        \draw[black,very thick]   (t5) -- (h5);
+        \draw[black,very thick]   (t6) -- (h6);
+        \draw[black,very thick]   (t7) -- (h7);
+        \draw[black,very thick]   (t8) -- (h8);
+        \draw[black,very thick]   (t9) -- (h9);
+        \draw[black,very thick]   (t10) -- (h10);
+        \draw[black,very thick]   (t11) -- (h11);
+        \draw[black,very thick]   (t12) -- (h12);
+        \draw[black,very thick]   (t13) -- (h13);
+        \draw[black,very thick]   (t14) -- (h14);
+    
+    
+    \end{tikzpicture}    
+    
+    \caption{Transforming t 2D image to a 3D tensor. Decoding a image into RGB (red green blue) channels. Inspired by Figure 1 in \cite{precip_nowcasting}.}
+    \label{fig:2D_image}
+\end{figure}
+
+
+
+
+
+

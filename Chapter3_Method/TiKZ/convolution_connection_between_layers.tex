@@ -1,0 +1,164 @@
+
+\begin{figure}
+    \centering
+    
+    \begin{tikzpicture}[scale=2,every node/.style={minimum size=1cm},on grid]
+    % slanting: production of a set of n 'laminae' to be piled up.
+    % N=number of grids.
+    \begin{scope}[
+            yshift=-100, xshift= 0, every node/.append style={
+            yslant=0.5, xslant=-1.3}, yslant=0.5, xslant=-1.3
+            ]
+        % opacity to prevent graphical interference
+        \draw[red, very thick, fill = white]  (0, 0) rectangle (1.5, 2.1);
+        \draw[step=3mm, thin, red] (0, 0) grid (1.5, 2.1);   % defining grids
+        \draw[red, very thick] (0, 0) rectangle (1.5, 2.1); % marking borders    
+        
+        % pixel closest to output layes
+        \coordinate (bl) at (0.16, 1.92);
+        \node at (bl) [fill=red!80, square, scale=0.65] {};
+        
+        %last pixel
+        \coordinate (pi) at (0.5, 1.92);
+        \node at (pi) [fill=red!60, square, scale=0.65] {};
+        
+        % rightmost pixel
+        \coordinate (cy) at (0.16, 0.16);
+        \node at (cy) [fill=red!40, square, scale=0.64] {};
+        
+        \coordinate (input_c) at (0, 2.1);
+        %\node at (corner) [fill=yellow, square, scale=0.64] {s};        
+        
+        \end{scope}
+    
+        \begin{scope}[
+            yshift=-160,every node/.append style={
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3
+                      ]
+            % Marking border
+            \draw[blue, very thick, fill = gray!70] (0,0) rectangle (2.1, 2.7);
+            \draw[green, very thick, fill = green!20] (0.33, 0.33) rectangle (1.8, 2.4);
+            \draw[step=3mm, thin, gray] (0,0) grid   (2.1, 2.7);  % defining grid padding
+            \draw[step=3mm, thick, green] (0.33, 0.33) rectangle (1.8, 2.4); % defining grids
+            \draw[black, very thick] (0,0) rectangle (2.1, 2.7);% marking borders   
+            % \draw[black,very thick, fill = blue!50] (0,0) rectangle (3,3);
+
+            \coordinate (s1) at (0, 2.7);
+            %\node at (s1) [fill=blue, circle, scale=0.5] {$s$};
+            \coordinate (s2) at (0, 1.8);
+            %\node at (s2) [fill=pink, circle, scale=0.5] {$s$};
+            \coordinate (s3) at (0.9, 1.8);
+            %\node at (s3) [fill=yellow, circle, scale=0.5] {$s$};
+            \coordinate (s4) at (0.9, 2.7);
+            %\node at (s4) [fill=blue, circle, scale=0.5] {$s$};
+                      
+            \draw[draw=blue, very thick, line join=round, dashed, fill = blue, opacity = 0.5] %  opacity=.2, 
+                  (0,  2.7) -- 
+                  (0,  1.8) --
+                  (0.9,  1.8) --
+                  (0.9,  2.7) -- cycle ;
+                
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round]
+            (s4) -- (bl);
+            
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round]
+            (s3) -- (bl);
+ 
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round]
+            (s2) -- (bl);
+            
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round]
+            (s1) -- (bl);
+           
+           %%%%%%%%%%%%%%%%%%%%%%%% PINK
+            \coordinate (s5) at (0.333, 2.7);
+            %\node at (s5) [fill=blue, circle, scale=0.5] {$s$};
+
+            \coordinate (s6) at (0.333, 1.8);
+            %\node at (s6) [fill=pink, circle, scale=0.5] {$s$};
+
+            \coordinate (s7) at (1.2333, 1.8);
+            %\node at (s7) [fill=yellow, circle, scale=0.5] {$s$};
+
+            \coordinate (s8) at (1.2333, 2.7);
+            %\node at (s8) [fill=blue, circle, scale=0.5] {$s$};
+           
+           
+           
+            \draw[draw=blue, very thick, line join=round, opacity=.2, fill = blue, opacity = 0.5] %  opacity=.2, 
+                  (s5) -- (s6) -- (s7) -- (s8) -- cycle;
+
+            \draw[fill=white, draw=blue, opacity=0.5, very thick, line join=round, dashed]
+            (s5) -- (pi);
+            
+            \draw[fill=white, draw=blue, opacity=0.5, very thick, line join=round, dashed]
+            (s6) -- (pi);
+ 
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round, dashed]
+            (s7) -- (pi);
+            
+            \draw[fill=white, draw=blue, opacity=.5, very thick, line join=round, dashed]
+            (s8) -- (pi);
+            
+            %%%%%%%%%%%%%%%%%%%%%%%% blue
+            \coordinate (s9) at (0, 0);
+            %\node at (s5) [fill=blue, circle, scale=0.5] {$s$};
+
+            \coordinate (input_layer) at (0.32, 1);
+            %\node at (input_layer) [fill=blue, circle, scale=0.5] {$s$};
+
+            \coordinate (s10) at (0, 0.9);
+            %\node at (s6) [fill=pink, circle, scale=0.5] {$s$};
+
+            \coordinate (s11) at (0.9, 0.9);
+            %\node at (s7) [fill=yellow, circle, scale=0.5] {$s$};
+
+            \coordinate (s12) at (0.9, 0);
+            %\node at (s8) [fill=blue, circle, scale=0.5] {$s$};
+           
+            % Adding coordinates for padding
+            \coordinate (p1) at (2.1, 0);
+            \coordinate (p2) at (1.8, 0);
+
+            \draw[draw=blue!60, very thick, line join=round, dashed, opacity=.6, fill = blue!60] %  opacity=.2, 
+                  (s9) -- (s10) -- (s11) -- (s12) -- cycle;
+
+            \draw[fill=white, draw=blue!60, opacity=.6, very thick, line join=round]
+            (s9) -- (cy);
+            
+            \draw[fill=white, draw=blue!60, opacity=.6, very thick, line join=round]
+            (s10) -- (cy);
+ 
+            \draw[fill=white, draw=blue!60, opacity=.6, very thick, line join=round]
+            (s11) -- (cy);
+            
+            \draw[fill=white, draw=blue!60, opacity=.6, very thick, line join=round]
+            (s12) -- (cy);
+            
+        \end{scope} %end of drawing grids
+    
+       \draw[-latex,thick](-1, -6)node[left, scale=1.3]{Input layer}
+             to[out=0, in=90] (input_layer);  	
+            
+        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.3]{Zero padding}
+             to[out=0, in=90] (p1);  
+        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.3]{}
+             to[out=0, in=90] (p2);      
+             
+       \draw[-latex,thick](-3, -2.5)node[left, scale=1.3]{Output layer}
+             to[out=0,in=90] (input_c);  	
+        
+        \draw[-latex,thick](-4, -5)node[left, scale=1.3]{$f_w = 3$}
+               to[out=0,in=90] (s1);  	
+        \draw[-latex,thick](-4, -5)node[left]{}
+              to[out=0,in=90] (s2);  	
+            
+        \draw[-latex,thick](-3.7, -4.4)node[left, scale=1.3]{$f_h = 3$}
+               to[out=0,in=90] (s1);  	
+        \draw[-latex,thick](-3.7, -4.4)node[left]{}
+              to[out=0,in=90] (s4);  
+    \end{tikzpicture}
+    \caption{The illustration shows the connections between input and output layer. This example uses a $3\times 3$-filter (blue), zero-padding (gray) resulting in equal dimensions for input (green) and output (red). The different colors illustrate the connections between input and output pixels. The input pixels contributing to the output, is called the receptive field. The zero padding is added to keep the input shape. Inspired by Figure (13-3) in \cite{OReiley_book}. 
+    }
+    \label{fig:convolution_padding}
+\end{figure}

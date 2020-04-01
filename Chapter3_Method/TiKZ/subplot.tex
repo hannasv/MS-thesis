@@ -1,0 +1,50 @@
+\begin{figure*}[hp]
+             \begin{subfigure}[b]{\textwidth}   
+            \centering 
+            \input{legend.tikz}
+            \caption{Legend.}
+            \label{fig:legend_lstm}
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \input{3_forget_gate.tikz}
+            \caption[something]
+            {{\small   The forget gate: $f_t = \sigma \left(W_f\dot \left[h_{t-h}, x{t} \right] + b_f \right)$ 
+            \\ \\ \color{white}{ooooooooooooooooooooooooo} }}
+
+            \label{fig:forget_gate}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \input{4_input_gate.tikz}
+            \caption[]
+            {{\small Candidate information: $\Tilde{C_t} = tanh \left( W_C \dot \left[ h_{t-1}, x_t \right] + b_C \right)$  } \\ \\  The input gate: $i_t = \sigma \left( W_i \dot \left[ h_{t-1}, x_t \right] + b_i \right)$}
+
+            \label{fig:input_gate}
+        \end{subfigure}
+                \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \input{5_update_cell_state.tikz}
+            \caption[something]%
+            {{\small Updating the cell state, $C_t = f_t * C_{t-1} + i_t*\Tilde{C_t}$ \\ \\ \color{white}{ooooooooooooooooooooooooo}}}
+
+            \label{fig:update_memory}
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \input{6_output_gate.tikz}
+            \caption[]
+            {{\small The output gate: $ o_t =\sigma \left( W_o \dot \left[ h_{t-1}, x_t \right] + b_o\right) $
+             \\ \\ Updating the hidden state, $ h_t = o_t*tanh\left( C_t \right)$ }}
+
+            \label{fig:output_gate}
+
+        \end{subfigure}
+
+        \caption{Walk trough the components of a LSTM and the relevant equations.
+        Let t denote the time step, $\sigma$ is the activation function, $W_{\text{component}, \text{gate}}$, $H_{t}$ denotes the hidden state at time t, $C_{t}$ is the cell state at time t. Inspired by \cite{colah_blog_post}. Extension of example provided by \cite{lstm_cell_tikz}.}
+        \label{fig:LSTM_all}
+    \end{figure*}
