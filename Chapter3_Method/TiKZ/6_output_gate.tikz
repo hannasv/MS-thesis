@@ -1,12 +1,11 @@
-
 % used to avoid putting the same thing several times...
 % Command \empt{var1}{var2}
     \begin{tikzpicture}[
     % GLOBAL CFG
     font=\sf \scriptsize,
     >=LaTeX,
-    scale = 0.89,
-    every node/.style={scale=0.89},
+    scale = 0.79,
+    every node/.style={scale=0.79},
     % Styles
     cell/.style={% For the main box
         rectangle, 
@@ -118,10 +117,4 @@
     \draw (c2 -| x2) ++(0,-0.1) coordinate (i1);
     \draw [-, ArrowC1, opacity=1.0] (h2 -| x2)++(-0.5,0) -| (i1);
     \draw [->, ArrowC2, opacity=1.0] (i1)++(0,0.2) -- (x2) ;
-    %\node [cell, minimum height =4cm, minimum width=6cm, fill = pink, opacity=.8] at (0,0){\Large A} ;
-    
-    %\node [cell, minimum height =4cm, minimum width=6cm, fill = green
-    %, opacity=0.2] at (0,0){} ;
-    
 \end{tikzpicture}
-

@@ -395,13 +395,9 @@
      
         \draw[thick, ->](-4.2, -3)node[left, scale=1.3]{Map 1} to (sec_map_L1);
         \draw[thick, ->](-4.2, -3.3)node[left, scale=1.3]{Map 2} to (sec_map_L2);
-     
-     
-    
     % signed distance
     \end{tikzpicture}    
     \caption[Receptive field of pixel in convolutional neural network trained on RGB-image.]{First two layers of a convolutional neural network trained on RGB-images. Each convolutional layer contains multiple filters, thus producing stack of feature maps. Each layer learn the representation of the previous layer. The trailing layer get this stack as input, producing activations based on all channels. For each layer it contains representations of the structures found in the previous layer. The filters are the weights trained to find useful structures. In each convolutional layer multiple of these filters are passed over the image. The dashed volumes illustrate the receptive fields of a pixel, ``P''. The receptive field of a node in the second layer is larger than the one in first, since a pixel inherant the receptive fields of the nodes in its receptive field. Inspired by Figure (13-6) in \cite{OReiley_book}.
     }
     \label{fig:conv_layers}
 \end{figure} 
- 

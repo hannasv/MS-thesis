@@ -1,4 +1,3 @@
-
 \begin{figure}
     \centering
     \begin{tikzpicture}[scale=1.,every node/.style={minimum size=1cm}, on grid]
@@ -25,7 +24,6 @@
         
     \end{scope} 
     
-        
     % BLUE LAYER 
     \begin{scope}[yshift=-110,xshift=-150, every node/.append style={
             yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
@@ -253,7 +251,4 @@
 
     \caption{Inside convolutional LSTM. Illustrating the differences in input to a ConvLSTM cell and a LSTM cell. The inputs and states are now vectors standing on a grid. \textit{The ConvLSTM detemines the future state of a certain cell in the grid based on the inputs and passed states of its local neighbors.} This is achived using the convolutional operation in the input-to-state transition and the state-to-state transition. Might need to add colors to the hidden states, input an cell state matrices. Cite Precipitation Nowcasting.}
     \label{fig:inside_conv_lstm}
-    
 \end{figure}
-
-
