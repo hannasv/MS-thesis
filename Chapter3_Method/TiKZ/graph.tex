@@ -1,11 +1,11 @@
 %author : Hanna Svennevik
 \begin{figure}[hp]
     \centering
-    \begin{tikzpicture}[sibling distance=11em,
+    \begin{tikzpicture}[sibling distance=12em,scale = 0.85,
   every node/.style = {shape=rectangle, rounded corners,
     draw, align=center, 
     %top color=white, bottom color=cyan!20,
-    fill=orange!60, minimum width=3.5cm, minimum height = 1.0cm}]]
+    fill=orange!60, minimum width=2.5cm, minimum height = 1.0cm}]]
   \node { Machine learning }
     child { node {  Supervised learning  } 
         child { node {  Regression   } }
@@ -13,8 +13,8 @@
     }
     child {node {Reinforcement  learning}}
     child {node {Unsupervised learning}
-           child { node {Clustering}}
-           child { node {Dimension reduction}}};
+           child { node {Dimension reduction}}
+           child { node {Clustering}}};
 \end{tikzpicture}
     \caption{The graph shows the different type of machine learning and their subcategories.}
     \label{fig:machine_learning_categories}
