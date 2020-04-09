@@ -1,81 +1,29 @@
 \setcounter{chapter}{1} 
 \newacronym{esm}{ESM}{Earth system models}
 \chapter{Theoretical Background } \label{ch:theoretical_back}
-This chapter describes the background for this thesis work. First it describes clouds role in the climate system. Starting with cloud formation, including the clouds effect on radiative budget in the current climate and the suggestion of future cloud climatologies as proposed by \acrfull{ipcc} in assessment report 5. This is followed by a introduction to parametrization of clouds, the method used to incorporate clouds into models, therefore necessary in studies of cloud feedback's. %in future climates. 
+This chapter describes the background for this thesis work. It is organised as follows. The three first sections, describes clouds role in the climate system both present and future. Starting with cloud formation and dissipation, including the clouds effect on radiative budget in the current climate and the suggestion of future cloud climatologies as proposed by \acrfull{ipcc} in assessment report 5. Followed by a brief introduction to parametrization of clouds, the method used to incorporate clouds into models.
+% Therefore necessary in studies of cloud feedback's. %in future climates. 
 Finally, the data used to compile the dataset is introduced. 
 
-\input{Chapter2_Theory/clouds.tex}
+%\input{Chapter2_Theory/clouds.tex}
+\input{Chapter2_Theory/parameterizations}
 
-\section{Parametrization of clouds} \label{sec:param_clouds}
-\textbf{The development of both systems (observations and models) requires a understanding of the physical and biogeochemical processes that takes place in the earth system.
-Developing models involve testing new conseptual ideas. A model is benchmarked against observation to ensure that it is capable of describing the desired mechanisms.} There is a considerable amount of different numerical models used in weather forecasting or climate research. The models used in the last assessment report from \acrshort{ipcc} is called \acrfull{cmip5}. This is a collaboration between 20 modelling groups world wide (\cite{Taylor2012AnDesign}, \cite{IPCC_CH9_climate_models}). 
-
-This section will give a brief introduction to some methods used for parameterizing clouds. The aim is to give the reader an idea of earlier endeavours. Limited by computational power and knowledge of cloud processes, including all small scale processes described in previous sections is a impossible task. 
-
-A common denominator between other parameterization is cloud type specific schemes. Its believed that focusing on fewer variables stands a better chanse of reducing the uncertainty associated with cloud processes. Building a model based on meteorological variables provided by a reliable estimate from reanalysis datasets. Employing a hierarchical modelling approach focusing on macrophysical properties. Macrophysics properties describes the cloud as a whole. Examples of such properties are base height, top height, thickness, fractional cover and regime/type. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. (\cite{Grabowski2019ModelingBetter}).
-
-% https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
-% https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
-Precipitation formation and cloud optical thickness is affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover. 
-
-Due to small scale of the processes involved, modelling the effects of clouds on the earth system requires parameterizations. 
-Due to the large uncertainty in \acrfull{ecs} related to clouds. This area has received a lot of attention the last few years. A consequence of increasing the complexity of the models is the trailing increase in uncertainty. Popular approaches are saturation threshold, \acrfull{pdf} and \acrfull{crm}. 
-
-%The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. When you one as seperate parameterizations for different cloud regimens, a consequence of this is that the cloud fraction might exceed 1.
-
-\subsection{Relative humidity schemes}
-The simplest form of cloud scheme is a binary. A pixel is either cloudy of clear. Equation \eqref{eq:binary_param_clouds} describes a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
-\begin{equation} \label{eq:binary_param_clouds}
-    CLA\left(RH\right) = 
-     \begin{cases}
-       \text{0,} &\quad\text{if RH}\le100\\
-       \text{1,} &\quad\text{else}
-     \end{cases}
-\end{equation}
-
-\subsection{Statistical schemes}
-Most climate models have a fractional cloud cover, which is driven by saturation threshold. All the vapour in excess of saturation, $RH=100\%$, gets turned into cloud liquid water. Sub-grid scale variability is necessary to achieve fractional cloud cover. The most common variables either alone or in combination is relative humidity, temperature and vertical velocity. 
-
-Based on observations, from air plane campaigns, researches have attempted to draw statistical distributions of relevant variables and then implementing these \acrshort{pdf} into models. Virtually all existing \acrshort{pdf}s have been used to model either cloud cover or its dependant variables. % humidity, temperature and so on. 
-A reproduction of the summary from \cite{Tompkins2009CloudParametrization}, describing distribution used in a selection of papers is given in table \ref{tab:summary_PDF}.
-\input{Chapter2_Theory/tables/param_summary_tomkins}
-
-Researchers have not been successful in finding a adequate representation of cloud cover using these approaches (\cite{Tompkins2009CloudParametrization}) \textbf{Dobbelsjekk at det står der}. \cite{Golaz2002_part1} derived a joint \acrshort{pdf} to parametrize boundary layer clouds. This is implemented in \acrfull{noresm} and \acrfull{cesm}, to recognized \acrshort{esm}. \textbf{citation ask Trude} 
-
-%%%%%%%%%%%%% Beskriv Golaz sin parameterisering.
-Their parameterization can be regarded as a higher order turbulent closure problem. A big advantage of this scheme is that the same scheme can be applied to all regimes. Developing general conditions to differentiate between different regimes. \textbf{Les mer ...}
-
-Parameterizations based on dependant structures. (co-depandant on each other ) The results are available in \cite{Golaz2002_part2}.
-
-
-
-%What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
-\subsection{Cloud resolving models} \label{sec:params_climate_models}
-\cite{raso}
-One method to deal with this is cloud parameterisation are cloud resolving models. The name cloud resolving model implies that the scale is small enough to resolve a cloud, this is not the full truth. It runs a \acrlong{les} model, more of the smaller scale processes can be resolved. Parameterizing the microphysical scheme, while resolving the convective motions.
-% turbulent and aerosols effects.
-
-Including aerosols in models, involves parametzising its sources and sinks. Precipitation is the main cause of deposition of aerosols. Les om nedbør i \cite{Simmons2016Observation2016-2025}. 
-
-
-Accelerating the computations using \acrshort{dl} methods to emmulated the models.  Emmulation in the contex of computing referes to, \textit{imitation of behavior of a computer or other electronic system with the help of another type of computer/system}. The \acrshort{dl} model is then restricted to perform at most as good as the \acrshort{crm} (\cite{Rasp2018DeepModels}).
 
 
 %The contributions of the clouds to the short wave component in the radiative budget is the main contributor to the uncertainty. Short wave cloud feedback. \textit{To this day neither observations of \acrfull{gcm} provide clear evidence or contradict the low level clouds feedback}. There is no accepted basis to refuse a \acrshort{gcm} \textit{a priori} \textbf{this increases the multi-model mean spread in climate sensitivity}. Missing representations of clouds micro-physical processes related to opacity or cirrus (high altitude, composed of ice) clouds. \textbf{cite AR5}
 
 %The computational cost of generating these large ensembles are limiting factor. Simplified models in terms of resolution and/ or complexity is common/often necessary. 
 
-The proposed parameterization of clouds includes some considerable simplifications, neglecting cloud microphisics. 
+%The proposed parameterization of clouds includes some considerable simplifications, neglecting cloud microphisics. 
 
 
-\subsection{ERA5 - make sure this should be included before you write it} \label{sec:param_ERA5}
-ERA5 is produced used IFS cycle 4lr2. This has a new cloud scheme or hydrological cycle. \textbf{Artikkelen forteller om oppdateringer fra sist era-interim produksjon ikke alt som finnes. Bedre å skrive denne etter du har skrevet i datasettet hvor }. Husk Tomkins jobber for ECMWF.
+%\subsection{ERA5 - make sure this should be included before you write it} \label{sec:param_ERA5}
+%ERA5 is produced used IFS cycle 4lr2. This has a new cloud scheme or hydrological cycle. \textbf{Artikkelen forteller om oppdateringer fra sist era-interim produksjon ikke alt som finnes. Bedre å skrive denne etter du har skrevet i datasettet hvor }. Husk Tomkins jobber for ECMWF.
 
-\textbf{Write this if you compare your clouds to era5 clouds.}
+%\textbf{Write this if you compare your clouds to era5 clouds.}
 
 \section{Data}
-\textbf{write introductions}
-
+Satellite derived cloud cover. Moisture originated from the surface.
 
 \subsection{ERA5} \label{sec:era5}
 ERA5 is the latest in the series of reanalysis produced by \acrfull{ecmwf}. Re-analysis is as close to observations as one can get coherent in space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations and input and tries to make a accurate estimate of the state of the system. This includes observations from ground based, ships, bouyes, airplanes and satellites. The analysis is produced in the operational system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available in $0.25^o$ degree and hourly resolution. Its an important product for the continuous climate monitoring of the earth system. 
