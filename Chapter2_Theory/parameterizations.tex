@@ -1,7 +1,7 @@
 \section{Parametrization of clouds} \label{sec:param_clouds}
 %\textit{In doing so, we do not include the effects of changes to the cloud microphysics explicitly.} Building a model based on meteorological variables provided by a reliable estimate from reanalysis datasets.
 
-All climate simulations are limited by computational power, parameterization are needed to include the effects of clouds on the climate. The development of both observational and modelling systems requires a understanding of the physical and biogeochemical processes that takes place in the earth system (\cite{Simmons2016Observation2016-2025}). New ideas are implemented into models and tested. The simulated climate should recreate previous climate and be in accordance with observations. 
+All climate simulations are limited by computational power, parameterization allows us to simulate the effects of clouds on the climate. The development of both observational and modelling systems requires a understanding of the physical and biogeochemical processes that takes place in the earth system (\cite{Simmons2016Observation2016-2025}). New ideas are implemented into models and tested. The simulated climate should recreate previous climate and be in accordance with observations. 
 
 Historically cloud specific parameterization have been developed. The categorisation into cloud regimes have lead to problems. There is a urgent need for general purpose parametrization of clouds. Its believed that focusing on fewer variables stands a better chance of reducing the uncertainty associated with modelling cloud processes. Employing a hierarchical modelling approach, focusing on macrophysical properties. Macrophysics properties describes the cloud as a whole. Examples of such properties are base height, top height, thickness, fractional cover and regime/type. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations. (\cite{Grabowski2019ModelingBetter}).
 
@@ -17,7 +17,7 @@ Precipitation formation and cloud optical thickness is affected by changes on a 
 %The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. When you one as seperate parameterizations for different cloud regimens, a consequence of this is that the cloud fraction might exceed 1.
 
 \subsection{Relative humidity schemes}
-The simplest form of cloud scheme is a binary. A pixel is either cloudy of clear. Equation \eqref{eq:binary_param_clouds} describes a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
+The simplest form of cloud scheme is a binary. A pixel is either cloudy or clear. Equation \eqref{eq:binary_param_clouds} describes a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
 \begin{equation} \label{eq:binary_param_clouds}
     CLA\left(RH\right) = 
      \begin{cases}
@@ -27,7 +27,7 @@ The simplest form of cloud scheme is a binary. A pixel is either cloudy of clear
 \end{equation}
 
 \subsection{Statistical schemes}
-Most climate models have a fractional cloud cover, which is driven by saturation threshold. All the vapour in excess of saturation, $RH=100\%$, gets turned into cloud liquid water. Sub-grid scale variability is necessary to achieve fractional cloud cover. The most common variables either alone or in combination is relative humidity, temperature and vertical velocity. 
+Most climate models have a fractional cloud cover, which is driven by saturation threshold. All the vapour in excess of this threshold, often $RH=100\%$, gets turned into cloud liquid water. Sub-grid scale variability is necessary to achieve fractional cloud cover. The most common variables either alone or in combination is relative humidity, temperature and vertical velocity. 
 
 Based on observations from air plane campaigns, researches have attempted to draw statistical distributions of relevant variables and then implementing these \acrshort{pdf} into models. Virtually all existing \acrshort{pdf}s have been used to model either cloud cover or its dependant variables. % humidity, temperature and so on. 
 A reproduction of the summary from \cite{Tompkins2009CloudParametrization}, describing distribution used in a selection of papers is given in table \ref{tab:summary_PDF}.
@@ -38,8 +38,8 @@ Researchers have not been successful in finding a adequate representation of clo
 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
 \subsection{Cloud resolving models} \label{sec:params_climate_models}
-Another method of cloud parameterization is using \acrshort{CRM}. On the contrary of what the name implies, this type of model have problems with resolving all cloud processes. 
+Another method of cloud parameterization is using \acrshort{crm}. On the contrary of what the name implies, this type of model have problems with resolving all cloud processes. 
 
 Running a \acrfull{les}-model. The scales are able to resolve convective motions, but microophysics and turbulence still require parameterizations. \cite{Baba2019SpectralModel} used this approach for parameterizing a spectral cumulus cloud. Obtaining the entrainmentrent based on cloud properties from a \acrshort{crm} they build a parameterization valid for both shallow and deep convection. Physically thes phenomena can co-exist, det er viktig å få med når det parameterisseres. 
 
-Accelerating the speed of computations is always usefull. \acrshort{dl} have suitable methods for emmulating these \acrshort{crm}. Emmulation in the contex of computing referes to, \textit{imitation of behavior of a computer or other electronic system with the help of another type of computer/system}. The \acrshort{dl} model is then restricted to perform at most as good as the \acrshort{crm} (\cite{Rasp2018DeepModels}).
+Accelerating the speed of computations is always usefull. \acrshort{dl} have suitable methods for emulating these \acrshort{crm}. Emulation in the context of computing referes to, \textit{imitation of behaviour of a computer or other electronic system with the help of another type of computer/system}. The \acrshort{dl} model is then restricted to perform at most as good as the \acrshort{crm} (\cite{Rasp2018DeepModels}).
