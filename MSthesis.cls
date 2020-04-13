@@ -172,4 +172,3 @@
 \input{./Frontpage/my_frontpage}
 
 %\addbibresource{ref.bib} duplicate?
-

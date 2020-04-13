@@ -1,4 +1,4 @@
-\begin{figure}
+\begin{figure}[h] % h means place here if possible
     \centering
    \begin{tikzpicture}[scale=1.5,every node/.style={minimum size=1cm},on grid]
     % slanting: production of a set of n 'laminae' to be piled up.
@@ -60,21 +60,23 @@
 
         \begin{scope}[
             yshift=-195,every node/.append style={
-            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3
-                      ]
+            yslant=0.5,xslant=-1.3},yslant=0.5,xslant=-1.3]
             \draw[black, very thick, fill = green, opacity = 0.2] (0,0) rectangle (2.1, 2.7); % marking borders 
             \coordinate (h_input) at (2.1, 0);
             \coordinate (h_bl) at (0, 2.7);
             %\node at (h_bl) [fill=blue, circle, scale=0.5] {$s$};
         \end{scope} 
            
-           \draw[thick](3, -5.7)node[scale=1.3]{Input Layer};
-           \draw[thick](3.5, -3.2)node[scale=1.3]{Convolutional layer 1};
-           \draw[thick](3.5, -0.7)node[scale=1.3]{Convolutional layer 2};
-           \draw[thick](-4.6, -0.2)node[scale=1.3]{Feature};
-           \draw[thick](-4.6, -1.1)node[scale=1.3]{$\vdots$};
-           \draw[thick](-4.6, -3.6)node[scale=1.3]{$\vdots$};
-           \draw[thick](-4.4, -5.5)node[scale=1.3]{Channels};
+           \draw[thick](3, -5.7)node[scale=1.]{\small Input Layer};
+           \draw[thick](3.5, -3.2)node[scale=1.]{\small Convolutional layer 1};
+           \draw[thick](3.5, -0.7)node[scale=1.]{\small Convolutional layer 2};
+           \draw[thick](-4.6, -0.2)node[scale=1.]{Feature maps:};
+           \draw[thick](-4.6, -1.1)node[scale=1.]{\small $\vdots$};
+           
+           \draw[thick](-4.6, -2.7)node[scale=1.]{Feature maps:};
+           \draw[thick](-4.6, -3.6)node[scale=1.]{\small $\vdots$};
+           
+           \draw[thick](-4.4, -5.5)node[scale=1.]{Channels:};
            
         \begin{scope}[
             yshift=-190,every node/.append style={
@@ -132,9 +134,9 @@
             
         \end{scope} 
 
-        \draw[black, thick, ->](-4.2, -5.95)node[left, scale=1.3]{green} to (h_bl);
-        \draw[thick, ->](-4.2, -6.15)node[left, scale=1.3]{red} to (h_re);
-        \draw[thick, ->](-4.2, -5.75)node[left, scale=1.3]{blue} to (h_gr);
+        \draw[black, thick, ->](-4.2, -6)node[left, scale=1.]{\small green} to (h_bl);
+        \draw[thick, ->](-4.2, -6.15)node[left, scale=1.]{\small red} to (h_re);
+        \draw[thick, ->](-4.2, -5.75)node[left, scale=1.]{\small blue} to (h_gr);
         %%%%%%%%%%%%%%%%%%%%%%%% END OF INPUT LAYER 
 
 
@@ -390,14 +392,14 @@
 
         \end{scope} 
     
-        \draw[thick, ->](-4.2, -0.5)node[left, scale=1.3]{Map 1} to (first_map);
-        \draw[thick, ->](-4.2, -0.8)node[left, scale=1.3]{Map 2} to (sec_map);
+        \draw[thick, ->](-4.2, -0.5)node[left, scale=1.]{\small 1} to (first_map);
+        \draw[thick, ->](-4.2, -0.8)node[left, scale=1.]{\small 2} to (sec_map);
      
-        \draw[thick, ->](-4.2, -3)node[left, scale=1.3]{Map 1} to (sec_map_L1);
-        \draw[thick, ->](-4.2, -3.3)node[left, scale=1.3]{Map 2} to (sec_map_L2);
+        \draw[thick, ->](-4.2, -3)node[left, scale=1.]{\small 1} to (sec_map_L1);
+        \draw[thick, ->](-4.2, -3.3)node[left, scale=1.]{\small 2} to (sec_map_L2);
     % signed distance
     \end{tikzpicture}    
-    \caption[Receptive field of pixel in convolutional neural network trained on RGB-image.]{First two layers of a convolutional neural network trained on RGB-images. Each convolutional layer contains multiple filters, thus producing stack of feature maps. Each layer learn the representation of the previous layer. The trailing layer get this stack as input, producing activations based on all channels. For each layer it contains representations of the structures found in the previous layer. The filters are the weights trained to find useful structures. In each convolutional layer multiple of these filters are passed over the image. The dashed volumes illustrate the receptive fields of a pixel, ``P''. The receptive field of a node in the second layer is larger than the one in first, since a pixel inherant the receptive fields of the nodes in its receptive field. Inspired by Figure (13-6) in \cite{OReiley_book}.
+    \caption[Receptive field of pixel in convolutional neural network trained on RGB-image.]{First two layers of a convolutional neural network trained on RGB-images. Each convolutional layer contains multiple filters, thus producing stack of feature maps. Each layer learn the representation of the previous layer. The trailing layer get this stack as input, producing activations based on all channels. For each layer it contains representations of the structures found in the previous layer. The filters are the weights trained to find useful structures. In each convolutional layer multiple of these filters are passed over the image. The dashed volumes illustrate the receptive fields of a pixel, ``P''. The receptive field of a node in the second layer is larger than the one in first, since a pixel inherent the receptive fields of the nodes in its receptive field. Inspired by Figure (13-6) in \cite{OReiley_book}.
     }
     \label{fig:conv_layers}
 \end{figure} 

@@ -1,4 +1,4 @@
-\begin{figure}
+\begin{figure}[h] % h means place here if possible
     \centering
     \begin{tikzpicture}[scale=.95,every node/.style={minimum size=1cm}, on grid]
     % slanting: production of a set of n 'laminae' to be piled up.
@@ -248,6 +248,6 @@
 
     \end{tikzpicture}
 
-    \caption{Inside convolutional LSTM. Illustrating the differences in input to a ConvLSTM cell and a LSTM cell. The inputs and states are now vectors standing on a grid. \textit{The ConvLSTM detemines the future state of a certain cell in the grid based on the inputs and passed states of its local neighbors.} This is achived using the convolutional operation in the input-to-state transition and the state-to-state transition. Might need to add colors to the hidden states, input an cell state matrices. Cite Precipitation Nowcasting.}
+    \caption{Inside convolutional LSTM. Illustrating the differences in input to a ConvLSTM cell and a LSTM cell. The inputs and states are now vectors standing on a grid. \textit{The ConvLSTM detemines the future state of a certain cell in the grid based on the inputs and passed states of its local neighbors.} This is achived using the convolutional operation in the input-to-state transition and the state-to-state transition. Might need to add colors to the hidden states, input an cell state matrices. Inspired by \cite{precip_nowcasting}.}
     \label{fig:inside_conv_lstm}
 \end{figure}

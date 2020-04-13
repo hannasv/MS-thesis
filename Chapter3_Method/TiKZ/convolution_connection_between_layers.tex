@@ -1,7 +1,6 @@
 
-\begin{figure}
+\begin{figure}[h] % h means place here if possible
     \centering
-    
     \begin{tikzpicture}[scale=1.75,every node/.style={minimum size=1cm},on grid]
     % slanting: production of a set of n 'laminae' to be piled up.
     % N=number of grids.
@@ -137,23 +136,23 @@
             
         \end{scope} %end of drawing grids
     
-       \draw[-latex,thick](-1, -6)node[left, scale=1.3]{Input layer}
+       \draw[-latex,thick](-1, -6)node[left, scale=1.]{\small Input layer}
              to[out=0, in=90] (input_layer);  	
             
-        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.3]{Zero padding}
+        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.]{\small Zero padding}
              to[out=0, in=90] (p1);  
-        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.3]{}
+        \draw[-latex,thick](2.7, -4.25)node[above, scale=1.]{}
              to[out=0, in=90] (p2);      
              
-       \draw[-latex,thick](-3, -2.5)node[left, scale=1.3]{Output layer}
+       \draw[-latex,thick](-3, -2.5)node[left, scale=1.]{\small  Output layer}
              to[out=0,in=90] (input_c);  	
         
-        \draw[-latex,thick](-4, -5)node[left, scale=1.3]{$f_w = 3$}
+        \draw[-latex,thick](-4, -5)node[left, scale=1.]{\small  $f_w = 3$}
                to[out=0,in=90] (s1);  	
         \draw[-latex,thick](-4, -5)node[left]{}
               to[out=0,in=90] (s2);  	
             
-        \draw[-latex,thick](-3.7, -4.4)node[left, scale=1.3]{$f_h = 3$}
+        \draw[-latex,thick](-3.7, -4.4)node[left, scale=1.]{\small $f_h = 3$}
                to[out=0,in=90] (s1);  	
         \draw[-latex,thick](-3.7, -4.4)node[left]{}
               to[out=0,in=90] (s4);  
