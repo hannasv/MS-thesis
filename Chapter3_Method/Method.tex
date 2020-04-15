@@ -18,7 +18,7 @@ The aim of this study is to determine whether the aggregation of linear models, 
 In encounters with geoscientists the author often get the question: \textit{What is the difference between machine learning and artificial intelligence?} The short answer is: they are not different fields, but \acrshort{ml} is a subfield of AI. Algorithms developing its own ``knowledge'' from supplied examples falls into the category of ML and not the base category of AI. ML is distinct in that it attempts to deduce rules and go beyond human intuition using a complex net of interactions. 
 
 In fact, it is worth mentioning that there is a subfield of \acrshort{ml} known as \acrshort{dl} (see graph in Figure \ref{fig:subcategories_AI}). %Deep learning is a subfield of machine learning, making it a subfield of artificial intelligence. %Deep learning provide a improved. 
-\acrshort{dl} is at the frontier of AI research, with many recent advances being made in this subfield. The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows \acrshort{dl} to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words, the potential is limited by the data its provided and the effectiveness of the training procedure applied.
+\acrshort{dl} is at the frontier of AI research, with many recent advances being made in this subfield. The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows \acrshort{dl} to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words, the potential is limited by the data and the effectiveness of the training procedure applied.
 
 %The origin of the subfields has a historical explanation. Each subfield is linked to significant advances.%, which will be explained using parallels to the long standing problem of computer chess. 
 \input{Chapter3_Method/TiKZ/one_layer_mlp}
@@ -41,16 +41,16 @@ AI started with the idea of automating tasks normally performed by humans. Three
 %Starting with explicitly trained programs. This falls in the category of AI and not ML.
 %\textit{Learning, in the context of ML, describes the automatic search for a better representations.} 
 %The network is presented with many examples and is trained, rather than explicitly programmed. 
-Geoscientists may be more familiar with the concept of ``calibration'' when it comes to statistical models, which essentially is the same process. In the context of deep learning, ``deep'' refers to the number of layers contributing to a network, and thus the complexity of relationship between input variables. DL expands the ideas from ML using deeper networks, \textit{i.e,} more layers.
+Geoscientists may be more familiar with the concept of ``calibration'' when it comes to statistical models, which essentially is the same process. In the context of deep learning, ``deep'' refers to the number of layers contributing to a network. DL expands the ideas from ML using deeper networks, \textit{i.e,} more layers, enabling networks to capturing a more complex relationship between input and output variables.
 %\textbf{``e.g.'' betyr ``exempli gratia'', altså for eksempel; ``i.e.'' betyr ``id est'' -- ``det er'', ``altså''}
 \textbf{Michael is ``backpropagation'' one of the differences between ML and DL?}
 %Geoscientists may be more familiar with the concept of "calibration" when it comes to statistical models, which essentially is the same process. In the context of deep learning, deep references to the number of layers contributing to a network, and thus the complexity of relationship between input variables. DL expands the ideas from ML using deeper network, e.g. more layers. 
 \input{Chapter3_Method/TiKZ/multilayer_mlp}
 Figure \ref{fig:multilayer_mlp} illustrates a deeper version of the network displayed in Figure \ref{fig:one_layer_mlp}. A layer is a set of nodes. The connections between the layers are the trained units, also known as weights. 
 
-To distinguish from deep learning, traditional machine learning is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
+To distinguish from deep learning, traditional \acrshort{ml} is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
 
-``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that (this particular) most architectures are not well matched to human intelligence. 
+``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that most architectures are not well matched to human intelligence. 
 %\textbf{Raymond: DeepBlue var i hovedsak regel-basert, men Google's AlphaZero er (delvis) basert på DL.}
 %See the paper from to get more information about the specifics \textbf{cite paper}. Based on studies in psychology, it is clear that the game of chess involves complex reasoning, search, perceptual and memorial processes. While one can solve chess using these abilities, one can also solve chess by taking radical shortcuts, that the human mind is not capable of. 
 % Explain glossaries or words that are used a lot.
@@ -82,16 +82,18 @@ There are several different types of machine learning, each suitable for solving
 \end{itemize}
 
 \subsection{Autoregressive models} \label{sec:ARmodels}
-In the following discussion, the following conventions are adopted. 
-%Before introducing the more mathematical concepts, some descriptions of the symbols are in order. 
-A discrete value at position or time, $n$ is named $y_n$, the corresponding vector, $\mathbf{y}$ and matrix, $\mathbf{Y}$. Building upon vectors as an example $\Tilde{\mathbf{y}}$ denotes the desired value, $\hat{\mathbf{y}}$ is the predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. %These can be used in all combinations.
+In the following discussion, these conventions are adopted. Typographical emphasis is used to distinguish between dimensions, $y_n$ denotes a discrete value at position or time, $n$, the vector, $\mathbf{y}$ and $\mathbf{Y}$ denotes the matrix. $\mathbf{X}$ always contain the input data, and $\mathbf{y}$ always contain the predicted. The markers $\tilde{ }$, $\hat{ }$ and $\bar{ }$ can be used in combination with the above, describing the $\Tilde{\mathbf{y}}$ denotes the desired value, the predicted $\hat{\mathbf{y}}$ and the mean of $\mathbf{y}$, $\bar{\mathbf{y}}$.
 
-The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. In discrete form it is described by Equation \eqref{eq:AR_traditional} and in matrix form by Equation \eqref{eq:AR_traditional_matrix}, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the bias (intercept), $\beta_0$, the values at $i$, earlier time steps, $y_{n-i}$ and their corresponding weights, $\beta_i$. The term $\beta_0$ is the bias (intercept). This corresponds to the intersection of a function on the y-axis. 
+%The dimensions are distinguished by using typographical emphasis.
+%Before introducing the more mathematical concepts, some descriptions of the symbols are in order. 
+%A  Using vectors as an example $\Tilde{\mathbf{y}}$ denotes the desired value, $\hat{\mathbf{y}}$ is the predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. %These can be used in all combinations.
+
+The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. In discrete form it is described by Equation \eqref{eq:AR_traditional} and in matrix form by Equation \eqref{eq:AR_traditional_matrix}, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the values at $i$, earlier time steps, $y_{n-i}$, their corresponding weights, $\beta_i$, and $\beta_0$, the bias (intercept), corresponding to the intersection of a function on the y-axis. 
 %Equation \eqref{eq:AR_traditional_matrix} formulates the matrix equation.
 \begin{equation} \label{eq:AR_traditional}
     \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i} \beta_{i}
 \end{equation}
-Rewritten into a matrix equation, 
+%Rewritten into a matrix equation, 
 \begin{equation} \label{eq:AR_traditional_matrix}
     \hat{\mathbf{y}} = \mathbf{Y}^T \mathbf{\beta}
 \end{equation}
@@ -101,12 +103,12 @@ Expanding the traditional AR model to include other predictors, $x_i$, yields th
 \end{equation}
 Here $p$ denotes the number of predictors, $\beta_{j+p}$ is the corresponding weights. The other symbols are described above referring to Equation \eqref{eq:AR_traditional}. 
 
-The weight indices might seem unnecessary complicated at first, but it can be easily be vectorized as follows, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. 
+The weight indices might seem unnecessary complicated at first, but ease the transition to the vector equation, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. 
 This can be formulated as a least-squares problem, and the analytical solution to this optimisation problem is found by minimising the \acrfull{mse} loss, 
 \begin{equation} \label{eq:mse_loss}
     L (\tilde{y}, \hat{y}) = \frac{1}{n} \sum_{i=0}^{n-1}(\tilde{y}_i-\hat{y}_i)^2
 \end{equation} 
-where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. Inserting \eqref{eq:AR_traditional_matrix} into \eqref{eq:mse_loss}. 
+where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. Inserting \eqref{eq:AR_traditional_matrix} into \eqref{eq:mse_loss}, solving Equation \eqref{eq:diff_eq} with the respect of $\beta$ yields the solution presented in Equation \eqref{eq:AR_solution}.  
 \begin{equation} \label{eq:diff_eq}
     \frac{dL}{dX} = 0
 \end{equation}
@@ -116,7 +118,7 @@ where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} d
 The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits.
 
 % The code is implemented using scipys pinv to solve the problems with invertable matrices.
-The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. From the fundamental theorem of linear algebra its shown that the inverse of singular matrices doesn't exit. This creates a lot of issues in solving systems of linear equations for practical application. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). In the case of a invertible matrix, $A$, the psudoinverse, $A^+=A^{-1}$.
+Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
 
 \section{Artificial Neural Networks} \label{sec:artificial neural networks}
 Artificial neural networks (\acrshort{ann}) are composed of nodes (artificial neurons) and weights. Returning to Figure \ref{fig:one_layer_mlp}, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer \acrshort{ann}. The nodes are structured in layers, illustrated using different colours. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to the the nodes of the following layer. Weights are the relative strength of the connections between nodes in neighbouring layers. Large networks of these simple neurons are able to perform complex calculations.
@@ -208,16 +210,18 @@ Learning long term dependencies can be a challenging and is done by backpropagat
 %\textbf{Use recurrent self-connections instead of loops} \textcolor{red}{Ufullstendig setning}.
 In order to address challenges in predicting long sequences presented in the previous section, \citeauthor{Hochreiter1997LongMemory} created the \acrfull{lstm}. Their design, documented in a paper from \citeyear{Hochreiter1997LongMemory} (\cite{Hochreiter1997LongMemory}), outperformed previous memory networks by regulating the flow of information provided to a recurrent network at each time step.
 %The memory unit introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 set performance records in multiple domains. The paper introduces gates to regulate the flow of information. 
-A gate is structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. They propose a new method for learning %an approach for constant error flow 
-in order to alleviate the issues with exploding or vanishing gradients, this approach is called constant error flow. The original memory cell contains input and output gates. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting these parts releases internal resources and enables you to learn even more. 
+They propose a new method for learning %an approach for constant error flow 
+in order to alleviate the issues with exploding or vanishing gradients, this approach is called constant error flow. 
+
+The original memory cell contains input and output gates. A gate is a structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting, releases internal resources and enables you to learn even more. In very simplified terms, the forget gate learns which part of the cell state, the long-term memory, it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
 
 \input{Chapter3_Method/TiKZ/subplot}
-Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the \acrshort{lstm} cell and its relevant equations, using the computational graphs in Figure \ref{fig:LSTM}. The assembeled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are the trained units of this class of \acrshort{ann}. The forget gate learns which part of the cell state (the long-term memory) it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
+Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the \acrshort{lstm} unit and its relevant equations, using the computational graphs in Figure \ref{fig:LSTM}. The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
-Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
+The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
 
 % The forget gate
-In order to make a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
+Making a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
 %In order to make a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allow you to learn new things. The gate is initialized to 1, thus it can't forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
 
 % The input gate 
@@ -262,11 +266,14 @@ The process of training is repeated until the network reaches an acceptable perf
 % http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
 \subsection{Convolutional LSTM}  \label{sec:convolutional_lstm}
-A variant of the LSTM network is the convolutional LSTM (ConvLSTM), originally developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see Figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see Figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space.
+A variant of the \acrshort{lstm} network is the \acrfull{convlstm}, originally developed for the application of precipitation nowcasting in 2015. This architecture is has the potential to solve problems varying in time and space. The difference between this and the general LSTM is that the standard \acrshort{ann} (see Figure \ref{fig:one_layer_mlp}) is replaced by \acrshort{cnn} (see Figure \ref{fig:convolution_padding}). This allows the \acrshort{lstm} network to support multi-dimensional data, capturing the spatiotemporal structure in the data. 
 %A variant of the LSTM network is the convolutional LSTM (ConvLSTM). First developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space. 
 \input{Chapter3_Method/TiKZ/inside_conv_lstm}
-Keeping the same structure as in Figure \ref{fig:lstm_unit}, while making small changes to the equations used to forward propagate the input. The multiplicative gates are now replaced with convolution. 
-Figure \ref{fig:inside_conv_lstm} show the dimensions of states and input in a \acrshort{convlstm}. Equations \eqref{eq:CLSTM2_forget_gate} to \eqref{eq:CLSTM5_hidden_state} is describes the forward propagation through a \acrshort{convlstm}. Here $\circ$ denoted the Hademand product, which is a component wise multiplication, and * is convolution. Let t denote the time step, $\sigma$ is the activation function, $tanh$ be hyperbolic tangent, $W_{\text{component}, \text{gate}}$ denote the trained weights of components and gates, $H_{t}$ denotes the hidden state at time t, $C_{t}$ is the cell state at time t. 
+
+Preserving the structure from Figure \ref{fig:lstm_unit}, and making small changes to the equations used to forward propagate the input. The multiplicative gates are now replaced with convolution. 
+Figure \ref{fig:inside_conv_lstm} show the dimensions of states and input, the inner structure, in a \acrshort{convlstm}. 
+
+Equations \eqref{eq:CLSTM2_forget_gate} - \eqref{eq:CLSTM5_hidden_state} describes the forward propagation through a \acrshort{convlstm}. 
 \begin{equation} \label{eq:CLSTM2_forget_gate}
         f_t = \sigma \left( W_{xf}*x_t + W_{hf}*H_{t-1} + W_{cf}\circ C_{t-1}+b_f \right)
 \end{equation}
@@ -282,36 +289,26 @@ Figure \ref{fig:inside_conv_lstm} show the dimensions of states and input in a \
 \begin{equation} \label{eq:CLSTM5_hidden_state}
         H_t = o_t \circ tanh \left( C_t \right)
 \end{equation}
+Here $\circ$ denoted the Hademand product, which is a component wise multiplication, and * is convolution. For a arbitrary time step, $t$, $H_{t}$ denotes the hidden state and $C_{t}$ is the cell state, $\sigma$ is the sigmoid function (see Equation \eqref{eq:sigmoid}), $tanh$ be hyperbolic tangent (see Equation \eqref{eq:tanh}), and $W_{\text{component}, \text{gate}}$ denote the trained weights of components and gates (\cite{precip_nowcasting}). 
 
-\subsection{Automatic hyperparameter tuning}
-
-\subsubsection{Padding} \label{sec:padding}
+\subsection{Padding} \label{sec:padding}
 % Add equation to calculate how much zero padding is needed to make a prediction of the same size.
-The convolution operation shrinks the dimensions of the feature map, according to Equation \eqref{eq:output_size}. The degree of shrinking  depends on the  filter size, padding and stride. Padding zeros along the edges has an additional benefit of including the signal from the boundaries. Stride determines how far you move the filter between convolutions. In other words it control how you convolve around the input volume. Figure \ref{fig:convolution_padding} shows a example with a zero padding of one. This is sufficient to keep the input dimension using a filter of dimensions $3 \time 3$. Which can be shown by plugging the dimensions into \eqref{eq:padding_same}.
-
-For a arbitrary image. Some definitions,
-\begin{enumerate}
-    \item image size, $n\times n$
-    \item filter size, $f\times f$
-    \item padding size, p
-    \item stride, s
-    \item output size, $o \times o$
-\end{enumerate}
-
+As mentioned earlier related to Figure \ref{fig:convolution_padding}, the convolution operation shrinks the dimensions of the feature map, according to Equation \eqref{eq:output_size}. The degree of shrinking depends on the filter size, $f\times f$, padding, $p$ and stride, $s$. Stride determine how you convolve around the input volume. It is the step length between applied filters. For a input of dimensions $n\times n$, the resulting output dimension, $o\times o$ is given by Equation \eqref{eq:output_size}.
 \begin{equation} \label{eq:output_size}
     o = \frac{n+2p-f}{s} + 1
 \end{equation}
-In some cases it can be useful to have the same shape of input and output. This is called \textit{padding same}. Solving the equation \eqref{eq:output_size} for $p$ using $o=n$ yields the following expression.
+Padding zeros along the edges has an additional benefit of including the signal originating at the boundaries. For some applications it is useful to have the same shape of input and output. This is called ``padding same''. Equation \eqref{eq:padding_same} calculates the amount of padding necessary to preserve the dimension of the input volume. It can be derived by inserting $o=n$ in Equation \ref{eq:output_size} and solving for $p$.
 \begin{equation} \label{eq:padding_same}
     p = \frac{n\left(s-1\right)-s+f}{2}
 \end{equation}
 
+\section{Automatic hyperparameter tuning - WIP}
 %\subsection{Learning algorithm} \label{sec:backprop_learning_algorithm}
 %Learning is a time consuming task. The fundamental trick in deep learning is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example (i.e. the current batch). The adjustment is the job of the optimizer, which implements backpropagation algorithmn which is the central learning algoritmn. This section aims to build a understanding of backpropagation trough time without referring to any significant mathematics. If you are interested in the mathematics behind this, read X and Y. 
 
 %\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.}
 
-\section{Notes - Rewrite this entire thing to be "Automatic hyperparameters optimization" }
+%\section{Notes - Rewrite this entire thing to be "Automatic hyperparameters optimization" }
 
 \subsubsection{Transforming data} \label{sec:transforming_cloud_cover}
 \textbf{Inverse of sigmoid is often refered to as logistic sigmoid?}
