@@ -4,8 +4,8 @@
     % GLOBAL CFG
     font=\sf \scriptsize,
     >=LaTeX,
-    scale = 0.79,
-    every node/.style={scale=0.79},
+    scale = 0.69,
+    every node/.style={scale=0.69},
     % Styles
     cell/.style={% For the main box
         rectangle, 
@@ -95,7 +95,7 @@
     \draw [->, ArrowC1] (c) -- (mux1) -- (add1) -- (c2);
 
     % Inputs
-    \draw [ArrowC2, opacity = 0.2] (h) -| (ibox4) ;
+    \draw [ArrowC1, opacity = 0.2] (h) -| (ibox4) ;
     \draw [ArrowC1, opacity = 0.2] (h -| ibox1)++(-0.5,0) -| (ibox1); 
     \draw [ArrowC1, opacity = 0.2] (h -| ibox2)++(-0.5,0) -| (ibox2);
     \draw [ArrowC1, opacity = 0.2] (h -| ibox3)++(-0.5,0) -| (ibox3);
@@ -105,7 +105,8 @@
     \draw [->, ArrowC2, opacity = 0.2] (ibox1) -- (mux1) node[midway, left] {\large $f_t$};
     \draw [->, ArrowC2, opacity = 0.2] (ibox2) |- (mux2) node[midway, above] {\large $i_t$};
     \draw [->, ArrowC2, opacity = 0.2] (ibox3) -- (mux2) node[midway, right] {\normalsize $\Tilde{C}$};
-    \draw [->, ArrowC2, opacity = 0.2] (ibox4) |- (mux3);
+    \draw [->, ArrowC1, opacity = 0.2] (ibox4) |- (mux3);
+    %\draw [->, ArrowC2, opacity = 0.2] (ibox4) |- (mux3);
     \draw [->, ArrowC2, opacity = 0.2] (mux2) -- (add1);
     \draw [->, ArrowC1, opacity = 0.21] (add1 -| func1)++(-0.5,0) -| (func1)  ; % node[midway, above] {d};
     \draw [->, ArrowC2, opacity = 0.2] (func1) -- (mux3) ;

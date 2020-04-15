@@ -1,7 +1,6 @@
 \setcounter{chapter}{2}
 \chapter{Numerical Methods} \label{ch:num_methods}
-%In this section we introduce the computational methods used for generating the numerical experiments conducted in this thesis, starting with a short introduction to artificial intelligence. We will give a brief introduction to the biological mechanisms the algorithms in this thesis draw inspiration from. This helps to gain insight to possible applications of different structures.
-In this section we introduce the computational methods used in generating the numerical experiments conducted in this thesis, starting with a short introduction to artificial intelligence. We will give a brief introduction to the biological mechanisms the algorithms in this study draw inspiration from. This helps to gain insight to possible applications of different structures.
+This section introduce the computational methods used in generating the numerical experiments conducted in this thesis, starting with a short introduction to artificial intelligence. Followed by a brief introduction to the biological mechanisms the algorithms in this study draw inspiration from. This helps to gain insight to possible applications of different structures.
 %Presenting the autoregressive model and convolutional long short-term memory. The performance metrics used to evaluate their performance and finishing of with automatic optimization routines.
 % based on bio-inspired mechanisms are introduced
 The task of forecasting in time and space requires two types of intelligence. One is computer vision, to understand the spatial relation and use the underlying physical properties. The other is sequential modelling to understand the temporal evolution.
@@ -9,29 +8,27 @@ The task of forecasting in time and space requires two types of intelligence. On
 Two approaches will be explored: Autoregressive models (AR) and Convolutional Long Short-Term Memory Network (ConvLSTM). The \acrshort{ar} model describes a time varying process, depending linearly on its previous values. The \acrshort{convlstm} approach is used to find a non-linear relation that describes phenomena varying in both time and space.
 %Two approaches will be explored: autoregressive models (AR) and Convolutional Long Short-Term Memory Network (ConvLSTM). The AR model describes a time varying process, depending linearly on it previous values. The ConvLSTM is used to find a non-linear relation that describes phenomena varying in both time and space. %Another method used is the ConvLSTM.
 
-The aim of this study is to determine whether the concatenation (nytt ord) of linear models, or the more advanced non-linear model are better at prediction the complex phenomena varying in time and space.
+The aim of this study is to determine whether the aggregation of linear models, or the more advanced non-linear model are better at prediction the complex phenomena varying in time and space.
 %When used in tandem (all the linear models?), these models can predict complex natural phenomena ++++ .
 
 %The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows deep learning to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied} and also the data its provided. 
 
 \section{Artificial intelligence}
 \input{Chapter3_Method/TiKZ/subcategories_AI}
-In encounters with geoscientists the author often get the question: \textit{What is the difference between machine learning and artificial intelligence?} \textbf{the answar is..?} They are not different fields, but \acrfull{ml} is a subfield of AI. Algorithms developing its own ``knowledge'' from supplied examples, this falls into the category of ML and not the base category of AI. ML is distinct in that it attempts to deduce rules and go beyond human intuition using a complex net of interactions. 
+In encounters with geoscientists the author often get the question: \textit{What is the difference between machine learning and artificial intelligence?} The short answer is: they are not different fields, but \acrshort{ml} is a subfield of AI. Algorithms developing its own ``knowledge'' from supplied examples falls into the category of ML and not the base category of AI. ML is distinct in that it attempts to deduce rules and go beyond human intuition using a complex net of interactions. 
 
-In fact, it is worth mentioning that there is a subfield of \acrshort{ml} known as deep learning (DL) (see graph in Figure \ref{fig:subcategories_AI}). %Deep learning is a subfield of machine learning, making it a subfield of artificial intelligence. %Deep learning provide a improved. 
- DL is at the frontier of AI research, with many recent advances being made in this subfield. The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows deep learning to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied} and also the data it is provided with. 
+In fact, it is worth mentioning that there is a subfield of \acrshort{ml} known as \acrshort{dl} (see graph in Figure \ref{fig:subcategories_AI}). %Deep learning is a subfield of machine learning, making it a subfield of artificial intelligence. %Deep learning provide a improved. 
+\acrshort{dl} is at the frontier of AI research, with many recent advances being made in this subfield. The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows \acrshort{dl} to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words, the potential is limited by the data its provided and the effectiveness of the training procedure applied.
 
 %The origin of the subfields has a historical explanation. Each subfield is linked to significant advances.%, which will be explained using parallels to the long standing problem of computer chess. 
 \input{Chapter3_Method/TiKZ/one_layer_mlp}
-Artificial intelligence (\acrshort{ai}) in general and \acrshort{dl} in particular emerged from considerations of perception and cognition in biology. Many of the \acrshort{dl} network architectures draw inspiration from the human brain. The architecture of \acrshort{dl}, while distinct from biological computing, is named such that concepts in neuroscience and computing can be treated analogously. For example using building blocks such as nodes (artificial neurons), weights (connections between nodes), rules of signal propagation, activation (transfer function) and learning algorithms (training algorithms). % \textbf{Raymond: Må skille mellom AI og DL - AI er ikke nødvendigvis basert på en modell av hjernen.}
+\acrshort{ai} in general and \acrshort{dl} in particular emerged from considerations of perception and cognition in biology. Many of the \acrshort{dl} network architectures draw inspiration from the human brain. The architecture of \acrshort{dl}, while distinct from biological computing, is named such that concepts in neuroscience and computing can be treated analogously. For example using building blocks such as nodes (artificial neurons), weights (connections between nodes), rules of signal propagation, activation (transfer function) and learning algorithms (training algorithms).
 
 Figure \ref{fig:one_layer_mlp} illustrates a simple artificial neural network. The circles illustrate nodes (neurons). Nodes belonging to the same layer is shown in one colour. Arrows illustrates weights, the connections between the layers. It shows that nodes belonging to the same layer are not connected, but nodes in consecutive layers are connected with weights. 
 
 %Figure \ref{fig:one_layer_mlp} illustrates a simple artificial neural network. Artificial intelligence (AI) in general and Deep Learning (DL) in particular emerged from biological inspired computing. Many of the DL network architectures draw inspiration from the human brain. The architecture of DL, while distinct from biological computing, is named such that concepts in neuroscience and computing can be treated analogously. For example using building blocks such as neurons (nodes, units), weights (connections between neurons), rules of signal propagation, activation (transfer function) and learning algorithms (training algorithms). % \textbf{Raymond: Må skille mellom AI og DL - AI er ikke nødvendigvis basert på en modell av hjernen.}
-
 %The circles illustrate nodes (neurons). Nodes belonging to the same layer is shown in one color. Arrows illustrates weights, the connections between the layers. Nodes belonging to the same layer are not connected, but nodes in consecutive layers are connected with weights. 
 % \textbf{cite \href{https://www.sciencedirect.com/topics/engineering/neural-network-architecture}{\textbf{https://www.sciencedirect.com/topics/engineering/neural-network-architecture}}}
-
 Sequence modelling draws parallels to the human memory. This type of modelling requires information about earlier stages, retained in memory. Simple models have one memory centre. Drawing inspiration from the brain, other more complex models make the distinction between a short term and a long memory centre. Finishing sentences for others is a trivial task for humans. The reader should not be surprised by the following \textit{the clouds are in the \ldots sky} (\cite{colah_blog_post}).
 
 AI started with the idea of automating tasks normally performed by humans. Three factors determine advances in the field of AI: data, hardware, and algorithms (\cite{chollet_book}). This explains why there often is a significant time gap between an idea and breakthroughs in the architectures and results. Convolution neural networks (CNN), for example, were conceptually developed in the 80s (\textbf{add citation}), but a lack of sufficient computing power (hardware) kept their use in hibernation until 2012, when a \acrshort{cnn} (AlexNet) won the ImageNet challenge, an image recognition contest (\cite{AlexNet}).
@@ -41,27 +38,21 @@ AI started with the idea of automating tasks normally performed by humans. Three
 %\textbf{Første model for ANN (Artificial Neural Network) ble laget i 1943. ``Perceptron'' ble beskrevet i 1958, første multi-layer network publisert i 1965, ``continuous backpropagation'' ble utledet i 1960/1961, \ldots ANN/DL har altså en lang historie, i hovedsak drevet av forbedrede algoritmer, men det er først det siste tiåret at maskinvaren er blitt kraftig nok til at neuralnettverk, og da i første rekke ved hjelp av grafikkakseleratorer (GPU).}
 %\textbf{Turing's sjakkprogram er vel strengt tatt heller et eksempel på ``Rule-Based AI''? Alle reglene var bestemt på forhånd, men programmet prøvde for hvert trekk å finne det beste alternativet ut fra tilstanden på brettet og hvilke muligheter motspilleren ville få i sitt neste trekk.}
 % (leads into architecture paragraph)
-
 %Starting with explicitly trained programs. This falls in the category of AI and not ML.
 %\textit{Learning, in the context of ML, describes the automatic search for a better representations.} 
 %The network is presented with many examples and is trained, rather than explicitly programmed. 
 Geoscientists may be more familiar with the concept of ``calibration'' when it comes to statistical models, which essentially is the same process. In the context of deep learning, ``deep'' refers to the number of layers contributing to a network, and thus the complexity of relationship between input variables. DL expands the ideas from ML using deeper networks, \textit{i.e,} more layers.
 %\textbf{``e.g.'' betyr ``exempli gratia'', altså for eksempel; ``i.e.'' betyr ``id est'' -- ``det er'', ``altså''}
 \textbf{Michael is ``backpropagation'' one of the differences between ML and DL?}
-
 %Geoscientists may be more familiar with the concept of "calibration" when it comes to statistical models, which essentially is the same process. In the context of deep learning, deep references to the number of layers contributing to a network, and thus the complexity of relationship between input variables. DL expands the ideas from ML using deeper network, e.g. more layers. 
 \input{Chapter3_Method/TiKZ/multilayer_mlp}
 Figure \ref{fig:multilayer_mlp} illustrates a deeper version of the network displayed in Figure \ref{fig:one_layer_mlp}. A layer is a set of nodes. The connections between the layers are the trained units, also known as weights. 
 
 To distinguish from deep learning, traditional machine learning is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
 
-``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that this particular architecture is not well matched to human intelligence. 
-
+``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that (this particular) most architectures are not well matched to human intelligence. 
 %\textbf{Raymond: DeepBlue var i hovedsak regel-basert, men Google's AlphaZero er (delvis) basert på DL.}
-
-
 %See the paper from to get more information about the specifics \textbf{cite paper}. Based on studies in psychology, it is clear that the game of chess involves complex reasoning, search, perceptual and memorial processes. While one can solve chess using these abilities, one can also solve chess by taking radical shortcuts, that the human mind is not capable of. 
-
 % Explain glossaries or words that are used a lot.
 %Intelligence, in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it would beat a human at a given task. For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientist have realized that this particular architecture is not be informative on human intelligence. See the paper from to get more information about the specifics \textbf{cite paper}. Based phsycology studies its clear that the game of chess involves complex reasoning, search, perceptual and memorial processes. While one can solve chess using these abilities, one can also solve chess by taking radical shortcuts, the human mind is not capable of. 
 %Researchers became aware that they had learned less to nothing about how the human mind works. The original understanding of machine intelligence has been abandoned in search for a more complete definition. \textbf{chollet google artikkel}
@@ -90,12 +81,13 @@ There are several different types of machine learning, each suitable for solving
     \item \textbf{Reinforcement learning}: Goal oriented algorithms.
 \end{itemize}
 
-\subsection{Nomenclature} \label{sec:nomenclature}
-Before moving on to the more heavy mathematics some (description of mathematical symbols) nomenclature is in order. A discrete value at position/ time $n$ is named $y_n$, the corresponding vector, $\mathbf{y}$ and matrix, $\mathbf{Y}$. Using vectors as an example $\Tilde{\mathbf{y}}$ denotes the true/desired value, $\hat{\mathbf{y}}$ is the estimated/ predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. These can be used in all combinations.
-
 \subsection{Autoregressive models} \label{sec:ARmodels}
+In the following discussion, the following conventions are adopted. 
+%Before introducing the more mathematical concepts, some descriptions of the symbols are in order. 
+A discrete value at position or time, $n$ is named $y_n$, the corresponding vector, $\mathbf{y}$ and matrix, $\mathbf{Y}$. Building upon vectors as an example $\Tilde{\mathbf{y}}$ denotes the desired value, $\hat{\mathbf{y}}$ is the predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. %These can be used in all combinations.
 
-The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. This is described by Equation \eqref{eq:AR_traditional}, in its discrete form, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the bias (intercept), $\beta_0$, the values at $i$, earlier time steps, $y_{n-i}$ and their corresponding weights, $\beta_i$. Equation \eqref{eq:AR_traditional_matrix} describes the same computations using vectors and matrices.
+The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. In discrete form it is described by Equation \eqref{eq:AR_traditional} and in matrix form by Equation \eqref{eq:AR_traditional_matrix}, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the bias (intercept), $\beta_0$, the values at $i$, earlier time steps, $y_{n-i}$ and their corresponding weights, $\beta_i$. The term $\beta_0$ is the bias (intercept). This corresponds to the intersection of a function on the y-axis. 
+%Equation \eqref{eq:AR_traditional_matrix} formulates the matrix equation.
 \begin{equation} \label{eq:AR_traditional}
     \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i} \beta_{i}
 \end{equation}
@@ -103,80 +95,86 @@ Rewritten into a matrix equation,
 \begin{equation} \label{eq:AR_traditional_matrix}
     \hat{\mathbf{y}} = \mathbf{Y}^T \mathbf{\beta}
 \end{equation}
-Expanding the traditional AR model to include other predictors, $x_i$, yields the expression in Equation \eqref{eq:AR_expression}.
+Expanding the traditional AR model to include other predictors, $x_i$, yields the expression,
 \begin{equation} \label{eq:AR_expression}
     \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i}\beta_{i}+ \sum_{j=1}^p x_j\beta_{j+p}
 \end{equation}
 Here $p$ denotes the number of predictors, $\beta_{j+p}$ is the corresponding weights. The other symbols are described above referring to Equation \eqref{eq:AR_traditional}. 
-\newacronym{mse}{MSE}{mean squared error}
-The weight indices might seem unnecessary complicated at first, but it can be easily be vectorized as follows, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. The term $\beta_0$ is the bias (intercept). This corresponds to the intersection of a function on the y-axis. The analytical solution to this optimisation problem is found by minimising the \acrfull{mse} loss, 
-\begin{equation} \label{eq:mse}
-    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
+
+The weight indices might seem unnecessary complicated at first, but it can be easily be vectorized as follows, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. 
+This can be formulated as a least-squares problem, and the analytical solution to this optimisation problem is found by minimising the \acrfull{mse} loss, 
+\begin{equation} \label{eq:mse_loss}
+    L (\tilde{y}, \hat{y}) = \frac{1}{n} \sum_{i=0}^{n-1}(\tilde{y}_i-\hat{y}_i)^2
 \end{equation} 
-Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. 
+where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. Inserting \eqref{eq:AR_traditional_matrix} into \eqref{eq:mse_loss}. 
+\begin{equation} \label{eq:diff_eq}
+    \frac{dL}{dX} = 0
+\end{equation}
 \begin{equation} \label{eq:AR_solution}
     \mathbf{\beta}  = \left( \mathbf{X}^T\mathbf{X}\right)^{-1} \mathbf{X}\tilde{\mathbf{y}}
 \end{equation}
 The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits.
-%Equation \eqref{eq:AR_traditional} describes how to make a prediction, $\hat{Y}_n$ based on the optimal weights, $\beta_i$. $n$ denotes a particular time step, while $N$ denotes the order of the model, \textit{i.e,} the total number of time steps used to predict the next values. $\tilde{y}_{n-i}$ describes the true value of the predictor variable at time step, $t=n-i$, where $i$ is a counter going backward in time. 
 
-
+% The code is implemented using scipys pinv to solve the problems with invertable matrices.
+The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. From the fundamental theorem of linear algebra its shown that the inverse of singular matrices doesn't exit. This creates a lot of issues in solving systems of linear equations for practical application. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). In the case of a invertible matrix, $A$, the psudoinverse, $A^+=A^{-1}$.
 
 \section{Artificial Neural Networks} \label{sec:artificial neural networks}
-Artificial neural networks (ANN) are composed of nodes (artificial neurons) and weights. Returning to Figure \ref{fig:one_layer_mlp} again, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer ANN. The nodes are structured in layers, illustrated using different colours. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to the the nodes of the following layer. Weights are the relative strength of the connections between nodes in neighbouring layers. Large networks of these simple neurons are able to perform complex calculations.
+Artificial neural networks (\acrshort{ann}) are composed of nodes (artificial neurons) and weights. Returning to Figure \ref{fig:one_layer_mlp}, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer \acrshort{ann}. The nodes are structured in layers, illustrated using different colours. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to the the nodes of the following layer. Weights are the relative strength of the connections between nodes in neighbouring layers. Large networks of these simple neurons are able to perform complex calculations.
 %Returning to Figure \ref{fig:one_layer_mlp} again, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer ANN. The nodes are structured in layers, illustrated using different colors. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to adjacent layers. Weights are the relative strength of the connections between nodes in neighbouring layers. %All networks have input, output, and zero or more hidden layers.
 \input{Chapter3_Method/TiKZ/activation_mlp}
-
-Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, a circle in the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted inputs and bias are sent trough the activation function, $g$, producing the activation. The activation function is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), sigmoid or tanh-function. These are shown in Figure \ref{fig:activation_function_example} and their mathematical expressions can be found in \eqref{eq:ReLU}, \eqref{eq:sigmoid} and \eqref{eq:tanh} respectively.
-\begin{equation} \label{eq:ReLU}
-    ReLU\left(x\right) = 
-     \begin{cases}
-       \text{x,} &\quad\text{if x} \ge 0\\
-       \text{0,} &\quad\text{else}
-     \end{cases}
-\end{equation}
-\begin{equation} \label{eq:sigmoid}
-    \sigma \left( x \right) = \frac{1}{1 + e^{-x}}
-\end{equation}
-\begin{equation} \label{eq:tanh}
-    tanh\left( x \right) = \frac{e^x - e^{-x}}{e^x + e^{-x}} = \frac{e^{2x} - 1}{e^{2x} + 1}
-\end{equation}
-%Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, a dot the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted input and bias are sent trough the activation function, $g$, producing the activation. The activation function is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), sigmoid or tanh-function. These are shown in Figure \ref{fig:activation_function_example}.
 \begin{figure}
     \centering
     \includegraphics[scale = 0.4]{Chapter3_Method/figs/activation_functions_and_derivatives.png}
     \caption{Activation functions and their derivatives.}
     \label{fig:activation_function_example}
 \end{figure}
-Equation \eqref{eq:activation_hidden_pass} describes the activation of a node in a arbitrary layer, L. $b_L$ denotes the bias, $w_L$ is the weights matrix. and $n$ is the number of input nodes. $g_h$ denotes activation function in hidden layer and $g_o$ is the activation function chosen for the output layer. For regression problem, $g_o$ is linear like.
+Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, focusing on a circle in the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted inputs and bias are sent trough the activation function, $g$, producing the activation. This function is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), sigmoid or tanh-function, gaphs are shown in Figure \ref{fig:activation_function_example}. Mathematical expressions are displayed in Equations \eqref{eq:ReLU}, \eqref{eq:sigmoid} and \eqref{eq:tanh} respectively.
+\begin{equation} \label{eq:ReLU}
+   ReLU\left(x\right) = 
+     \begin{cases}
+       \text{x,} &\quad\text{if x} \ge 0\\
+       \text{0,} &\quad\text{else}
+     \end{cases}
+\end{equation}
+\begin{equation} \label{eq:sigmoid}
+   \sigma \left( x \right) = \frac{1}{1 + e^{-x}}
+\end{equation}
+\begin{equation} \label{eq:tanh}
+   tanh\left( x \right) = \frac{e^x - e^{-x}}{e^x + e^{-x}} = \frac{e^{2x} - 1}{e^{2x} + 1}
+\end{equation}
+%Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, a dot the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted input and bias are sent trough the activation function, $g$, producing the activation. The activation function is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), sigmoid or tanh-function. These are shown in Figure \ref{fig:activation_function_example}.
+
+Equation \eqref{eq:activation_hidden_pass} describes the activation of a node in a arbitrary layer, L. $b_L$ denotes the bias, $w_L$ is the weights matrix. and $n$ is the number of input nodes. $g_L$ denotes activation function in a arbitrary layer.
+%For regression problem, $g_o$ is linear like.
 \begin{equation} \label{eq:activation_hidden_pass}
-    \textbf{a}_L = g_h(\sum_{i=1}^n \textbf{W}_{L, i} \textbf{x}_i + b_L)
+    \textbf{a}_L = g_L(\sum_{i=1}^n \textbf{W}_{L, i} \textbf{x}_i + b_L)
 \end{equation}
-\begin{equation} \label{eq:output_pass}
-    \textbf{a}_{L+1} = g_o(\sum_{i=1}^n \textbf{W}_{L+1, i} \textbf{a}_{L+1} + b_{L+1})
-\end{equation}
+%\begin{equation} \label{eq:output_pass}
+%    \textbf{a}_{L+1} = g_o(\sum_{i=1}^n \textbf{W}_{L+1, i} \textbf{a}_{L+1} + b_{L+1})
+%\end{equation}
 % \textbf{Thought to self, Notation is trick when the next layer is the output. Since the activation-function usually is different in hidden layers and output layers. }
 % Recursively moving things to next layer.
-The activation's of the first layer is weighted, and passed to the output layer, according to Equation \eqref{eq:output_pass}.
+Repeating the procedure, for layer, $L+1$, the activation, $a_L$ from the previous layer is weighted and passed trough the activation function, $g_{L+1}$, generating the activation, $a_{L+1}$. In a forward pass, this is repeated for all layers, until the output layer is reached. The choice of activation function in the output layer is task specific. Regression problems use linear activation. Classification problem need functions able to discriminate between the number of classes.
 
-Back-propagation is the fundamental mechanism used in ``teaching'' neural networks. First introduced by \citeauthor{RumelhartBackProp} in \citeyear{RumelhartBackProp}. The trick is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example. A training instance is passed trough the network producing a output (red node). The networks output error is computed as difference between the computed output and their corresponding targets. For each consecutive layer, moving in reverse from the output to the input, the contribution from every connection between adjacent layers is computed. \textit{This reverse pass efficiently measure the error gradient across all the connecting weights in the network by propagating the error gradient backward in the network. }
-\input{Chapter3_Method/TiKZ/backprop}
-%Figure \ref{fig:backprop} show the nodes from the hidden layer contributing tho the error in the first node in the output layer.  After computing the contributions from all the connections, a small adjustment of the weights (connections) are done to reduce the error. This is know as the gradient step.
+Back-propagation is the fundamental mechanism used in ``teaching'' neural networks. First appreciated in its full importance in \citeyear{RumelhartBackProp} when it was published by \citeauthor{RumelhartBackProp}. The trick is to use the performance metric as a feedback signal to adjust the weights in the direction of the lowest loss score for the current example. A training instance is passed trough the network producing a output (red node). The networks output error is computed as difference between the computed output and the corresponding targets. For each consecutive layer, moving in reverse from the output to the input, the contribution from every connection between adjacent layers is computed. %\textit{This reverse pass efficiently measure the error gradient across all the connecting weights in the network by propagating the error gradient backward in the network.}
+For a more mathematical description of the back propagation algorithm, please read \cite{nielsen_back_prop}.
+% \input{Chapter3_Method/TiKZ/backprop}
+% Figure \ref{fig:backprop} show the nodes from the hidden layer contributing tho the error in the first node in the output layer.  After computing the contributions from all the connections, a small adjustment of the weights (connections) are done to reduce the error. This is know as the gradient step.
 
 \subsection{Convolutional neural networks} \label{sec:convolutional neural network}
 %\textit{According to the philosophy underlying deep learning approach, if we have a reasonable end-to-end model and a sufficient data for training it, we are close to solving the problem}. (Shi et. al., 2015). 
 Computer vision is a field of artificial intelligence concerned with interpreting the visual world. One popular structure for visual tasks is the convolutional neural network. %Its said to resemble the visual cortex, the centre in the brain which processes the visual information. 
 \input{Chapter3_Method/TiKZ/2D_image_to_3D_tensor}
-Computers see images as a grid of numbers, often decoded in red, green and blue (RGB) channels. Figure \ref{fig:2D_image} shows the transformation of a two-dimensional image to a 3-dimensional tensor. The ``P'' shows the connection between one pixel (``picture element'') and a volume. Each of the grid cells (pixels) contains the signal from the color decoded into values ranging from 0 to 255. The machine needs to learn how to extract the necessary information about these pixels to perform a task. More layers increase the model's ability to extract these complex structures, resulting in an improved model performance. 
+Computers see images as a grid of numbers, often decoded in red, green and blue (RGB) channels. Figure \ref{fig:2D_image} shows the transformation of a two-dimensional image to a 3-dimensional tensor. The ``P'' shows the connection between one pixel (``picture element'') and a volume. Each of the grid cells (pixels) contains the signal from the colour decoded into values ranging from 0 to 255. The machine needs to learn how to extract the necessary information about these pixels to perform a task. More layers increase the model's ability to extract these complex structures, resulting in improved model performance. 
 \input{Chapter3_Method/TiKZ/convolution}
 Figure \ref{fig:convolution} shows the mathematical operation convolution as the sum over element-wise multiplication of the filter and input. The filter is blue, this is placed over the filled green section, producing the red output pixel. The entire red grid is called a feature map (output map). The green grid is the input, overlaid with blue indicating the pixels contributing to the activation, of the red pixel. In Figure \ref{fig:convolution} this would be the value 4. \textit{Receptive field} is known as the pixels contributing to the activation in a pixel (i.e. the value). For instance the receptive field of the shaded red pixel is the shaded green submatrix.
 %Figure \ref{fig:convolution} shows the mathematical operation convolution as the sum over element-wise multiplication of the filter and input. The filter is blue, this is placed over the filled green section, producing the red output pixel. The entire red grid is called a feature map (output map). The green grid is the input, overlaid with blue illustrated the pixels contributing to the activation, red pixel. In Figure \ref{fig:convolution} this would be the value 4. \textit{Receptive field} is known as the pixels contributing to the activation in a pixel (i.e. the value). For instance the receptive field of the shaded red pixel is the shaded green submatrix.
 
 \input{Chapter3_Method/TiKZ/convolution_connection_between_layers}
-Convolving a filter over the input image generates a feature map. If it happens to be the last layer, it is common to refer to the results as the output instead, although this is merely a difference in terminology. Figure \ref{fig:convolution_padding} shows a 2D-convolution with filter of size $3\times 3$. Filters are often square (not a strict requirement), and the height $f_h$ and width $f_w$ are odd numbers. The origin is the position of the kernel which is above the current output pixels. The connections between the layers are intended to illustrate the part contributing to the pixel, as well as highlighting the receptive field. In order to include the outermost pixels, the input area is padded with zeros around the edges (grey boarder). 
+Convolving a filter over the input image generates a feature map, a 2-dimensional activation. If it happens to be the last layer, it is common to refer to the results as the output instead, although this is merely a difference in terminology. Figure \ref{fig:convolution_padding} shows a 2D-convolution with filter of size $3\times 3$. Filters are often square (not a strict requirement), and the height $f_h$ and width $f_w$ are odd numbers. The origin is the position of the kernel which is above the current output pixels. The connections between the layers are intended to illustrate the part contributing to the pixel, as well as highlighting the receptive field. In order to include the outermost pixels, the input area is padded with zeros around the edges (grey boarder). 
 %Convolving a filter over the input image generates a feature map. If it happens to be the last layer, it is common to refer to the results as the output instead, even though there is no difference. Figure \ref{fig:convolution_padding} shows a 2D-convolution with filter of size $3\times 3$. Filters are often square (not a strict requirement) and the height, $f_h$ and $f_w$ are odd numbers (not a strict requirement either). The origin is the position of the kernel which is above the current output pixels. The connections between the layers are intended to illustrate the part contributing to the pixel, as well as highlighting the receptive field. In order to include the outermost pixels, the input area is padded with zeros around the edges (shown as gray in the figure). 
 \input{Chapter3_Method/TiKZ/2_layer_convolutional}
-It is worth noting that the same structures are given different names, based on their position in the network. The output is the feature map resulting from convolving the last layer. They are both activations, computed from the values and weights from the previous layer. The number of channels in the first layer and the numbers of feature maps in the subsequent layers are both simply stacks of grids containing values.
+%It is worth noting that the same structures are given different names, based on their position in the network. The output is the feature map resulting from convolving the last layer. They are both activations, computed from the values and weights from the previous layer. The number of channels in the first layer and the numbers of feature maps in the subsequent layers are both simply stacks of grids containing values.
 
 Working with RGB images requires 3D convolution; since the dimensions of the input determines the dimensions of the convolution, it is commonly referred to as simply convolution. As mentioned earlier, neural networks are structured as a stack of layers. Each layer is again a stack of channels or feature maps. The output from the previous layer becomes the input to the next layer. Feature maps, activations, and outputs are all the result of a convolution, produced at different points within a neural net. The activations are computed based on an input volume, including information across channels. A 3D convolution collapses information on multiple colours into a single value.
 
@@ -185,7 +183,7 @@ Figure \ref{fig:conv_layers} shows a two layer convolutional neural network trai
 %Figure \ref{fig:conv_layers} shows a two layer convolutional neural network trained on RGB-images. The input layer is an RGB-image. The first convolutional layer has seven channels (feature maps), these are produced by seven filters. Filters are trained to extract useful features. The second convolutional layer is produced by five filters, all convolving layer 1. This is a simplified network, made shallow for illustrative purposes. Function CNNs require many layers to extract useful information from an image. %Networks are usually a lot deeper. 
 Given raw input (\textit{i.e,} normalized images), the first layers detect low level features like edges, corners and circles. Later layers assemble the features to more complex structures like houses or dogs. The dashed volumes represent the receptive field for different pixels, illustrated as circles. Since each of the layers depend on the previous one, the receptive field of the a node, $P$ depends on a large portion of the input image. Small filters allow you to focus on small features in the data, while larger filters allow you to identify coarser relations.
 
-Unlike the fully connected hidden layers (see Figure \ref{fig:one_layer_mlp}), the nodes in the output layer are not connected to all the input nodes, only the nodes within their receptive fields. The filters contain the trained units. Its dimensions determine the size of the feature it can detect. One convolution (using one filter) searches for a single feature over the entire image. When it finds this particular feature it activates, propagating this signal into the feature maps.
+Unlike the fully connected neural network layers (see Figure \ref{fig:one_layer_mlp}), the nodes in the output layer are not connected to all the input nodes, only the nodes within their receptive fields. The filters contain the trained units. Its dimensions determine the size of the feature it can detect. One convolution (using one filter) searches for a single feature over the entire image. When it finds this particular feature it activates, propagating this signal into the feature maps.
 
 %Unlike fully connected layers (see Figure \ref{fig:one_layer_mlp}), the nodes in the output layer are not connected to all the input nodes, only the nodes within their receptive fields. The filters contain the trained units. Its dimensions determine the size of the feature it can detect. One convolution (using one filter) searches for a single feature over the entire image. When it finds this particular feature it activates, propoagating this signal into the feature maps.% Reduces the number of trainable parameters and making it more robust against overfitting.
 
@@ -193,49 +191,30 @@ Unlike the fully connected hidden layers (see Figure \ref{fig:one_layer_mlp}), t
 % Recurrent betyr tilbakevendende
 % Sequential modelling has had a great success in applications such as machine translation and speech recognition 
 \input{Chapter3_Method/TiKZ/rnn}
-A recurrent neural network (RNN) is a class of artificial neural networks developed for studying patterns in sequential data such as time series, audio, or text. Figure \ref{fig:rnn} shows the structure of a simple RNN. In very simplified terms, a RNN receives an input, produces an output and passes hidden state back to itself. In Figure \ref{fig:rnn}, $A$ denotes a recurrent unit, $x_t$ denotes the input data and  $h_t$ denotes the hidden state. The output from an arbitrary node, $t$ is $y_t$. %The loop explains the origin of the name recurrent neural network. 
-The hidden state contains the information about what you have learned so far. The output at each time step is dependent on the previous inputs. 
+A recurrent neural network (RNN) is a class of artificial neural networks developed for studying patterns in sequential data such as time series, audio, or text. Figure \ref{fig:rnn} shows the structure of a simple RNN. In very simplified terms, the recurrent unit, $A$, receives an input, $x_t$, produces an output, $y_t$ and passes hidden state, $h_t$ back to itself. The hidden state contains the information about what you have learned so far. The output at each time step is dependent on the previous inputs. 
 
 \input{Chapter3_Method/TiKZ/rnn_unrolled}
 Figure \ref{fig:rnn_unrolled} shows the recurrent network unrolled in time. This way of structuring it resembles the earlier structures like ANN (see Figure \ref{fig:one_layer_mlp}). The connection between the nodes %in this kind of networks 
-are a directed graph along a temporal sequence. The hidden state from the previous step is fed into the next. $h_0$ is only dependant on $x_0$, while $h_t$ is dependent on $x_0, x_1, \cdots, x_t $. This example shows a one layer recurrent network. All time steps are passed through the same node. \textbf{Raymond: Please exapnd/rewrite the following for better structure.} The RNN reuses the weights on the input and hidden states for all time steps. Let t denotes the length of the training sequence. The "memory" stores the useful information from $x_0, x_1, \cdots, x_t $ needed to make a prediction, performing the same task on all inputs along the sequence. This reduces the complexity of parameters and in turn lowers the risk of overfitting, obtaining a more general relation between input and output.
+are a directed graph along a temporal sequence. The hidden state from the previous step is fed into the next, here the recurrent units, $A$ can be considered as copies. For each time step it is feed with new examples, $h_0$ is only dependant on $x_0$, while $h_t$ is dependent on the entire training sequence $x_0, x_1, \cdots, x_t $. This example shows a one layer recurrent network. All time steps are passed through the same node, updating the connections between the input, output and hidden states. In this way, the RNN reuses the weights for all time steps, performing the same task on all inputs along the sequence. This reduces the complexity of parameters and in turn lowers the risk of overfitting, obtaining a more general relation between input and output.
+%The "memory", $h_t$, stores the useful information from the training sequence $x_0, x_1, \cdots, x_t $ needed to make a prediction
 %are a directed graph along a temporal sequence. The hidden state from the previous step is fed into the next. $h_0$ is only dependant on $x_0$, while $h_t$ is dependent on $x_0, x_1, \cdots, x_t $. This example shows a one layer recurrent network. All time steps are passed through the same node. The RNN reuses the weights on the input and hidden states for all time steps. Let t denotes the length of the training sequence. The "memory" stores the useful information from $x_0, x_1, \cdots, x_t $ needed to make a prediction, performing the same task on all inputs along the sequence. This reduces the complexity of parameters and in turn lowers the risk of overfitting, obtaining a more general relation between input and output.
 % It is used to predict the next word in a sentence or the next tone in a song.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Learning long term dependencies can be a challenging. Learning is done by backpropagating the error signal thought the network. Working with longer sequences, the error signal tends to approach zero or infinity. Exploding gradients can cause the weights to oscillate. Learning from small or vanishing gradients takes ages, or might not learn anything at all. 
+
+Learning long term dependencies can be a challenging and is done by backpropagating the error signal thought the network. Working with longer sequences, the error signal tends to approach zero or infinity. Exploding gradients can cause the weights to oscillate. Learning from small or vanishing gradients takes ages, or might not learn anything at all. 
 %More advanced forms of recurrent nets control the information flow using gates. \textbf{cite 1997 and cite 1999 learning to forget.}
 
-%\subsubsection{Long Short-term memory network, LSTM} \label{sec:lstm}
+\subsection{Long Short-term memory network} \label{sec:lstm}
 %\textbf{Use recurrent self-connections instead of loops} \textcolor{red}{Ufullstendig setning}.
-In order to address challenges in predicting long sequences presented in the previous section, \citeauthor{Hochreiter1997LongMemory} created the LSTM network. Their design, documented in a \citeyear{Hochreiter1997LongMemory} paper (\cite{Hochreiter1997LongMemory}), outperformed previous memory networks by regulating the flow of information provided to a recurrent network at each time step.
+In order to address challenges in predicting long sequences presented in the previous section, \citeauthor{Hochreiter1997LongMemory} created the \acrfull{lstm}. Their design, documented in a paper from \citeyear{Hochreiter1997LongMemory} (\cite{Hochreiter1997LongMemory}), outperformed previous memory networks by regulating the flow of information provided to a recurrent network at each time step.
 %The memory unit introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 set performance records in multiple domains. The paper introduces gates to regulate the flow of information. 
-A gate is structure that can be opened or closed. Having values in the range zero to one, it truncates the noise signal from the input and the output. They propose a new method for learning %an approach for constant error flow 
-in order to alleviate the issues with exploding or vanishing gradients. The original memory cell contains input and output gates. \citeauthor{lstm_learning_to_forget} proposed in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the LSTM to reset parts its own memory. Resetting these parts releases internal resources and enables you to learn even more. 
+A gate is structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. They propose a new method for learning %an approach for constant error flow 
+in order to alleviate the issues with exploding or vanishing gradients, this approach is called constant error flow. The original memory cell contains input and output gates. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting these parts releases internal resources and enables you to learn even more. 
 
-Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the LSTM cell and its relevant equations. The memory unit is displayed in Figure \ref{fig:lstm_unit}. The legend describing the different components of the computational graph is available in Figure \ref{fig:legend_lstm}. The information flow thought the cell is regulated by three gates; the forget gate, the input gate and the output gate. These gates are neural networks. The forget gate learns which part of the cell state (the long-term memory) it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should send to the output. 
-
-The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied}. There are two types of techniques involved in the training procedure, forward- and backward pass. \textit{For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer \textbf{fix here} (this is the forward pass, just as when making a prediction).} 
-%The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied}. There is two types of techniques involved in the training procedure, forward- and backward pass. \textit{For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer \textbf{fix here} (this is the forward pass, just as when making a prediction).} 
-% A forward pass propagates the input trough the network. In the same way you would make a prediction. 
-%The error signal is the difference between the true and the predicted values. The learning algorithm involves backpropagating the error signal in order to compute a suitable adjustment of the weights. For this particular architecture, LSTM, the gates are trained neural network. Learning which information to let thought the gate.
-The error signal is the difference between the true and the predicted values at the output layer. The learning algorithm involves backpropagating the error signal in order to compute a suitable adjustment of the weights. \textbf{Raymond: remove or rewrite the following.} For this particular architecture, LSTM, the gates are trained neural network. Learning which information to let through the gate.
-
-% More details concerning gradient based learning in Section \ref{sec:backprop_learning_algorithm}.
-% Introducing some terminology, a prediction is the result of forward passing the information through the network. 
-
-\subsubsection{Feed forward} \label{sec:forward_pass_lstm}
 \input{Chapter3_Method/TiKZ/subplot}
-\input{Chapter3_Method/TiKZ/subplot2}
-Take in combination, Figures \ref{fig:LSTM_all} and \ref{fig:LSTM2} show a computational graph of the \acrshort{lstm} unit. The relevant equations are shown in the figure text, making it easier follow the computations. The following subplots highlights the graphs relevant for gates and necessary calculations. Figure \ref{fig:LSTM_all} shows subplots of the components, while Figure \ref{fig:LSTM2} shows the memory flow and the assembled memory unit.
+Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the \acrshort{lstm} cell and its relevant equations, using the computational graphs in Figure \ref{fig:LSTM}. The assembeled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are the trained units of this class of \acrshort{ann}. The forget gate learns which part of the cell state (the long-term memory) it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
 
-%In combination Figures \ref{fig:LSTM_all} and \ref{fig:LSTM2} shows a computational graph of the LSTM unit. The relevant equations are shown in the figure text, making it easier follow the computations. The following subplots highlights the graphs relevant for gates and necessary calculations. 
-%highlighting key computations along with their respective equations. 
-%Figure \ref{fig:LSTM_all} show subplots of the components, while Figure \ref{fig:LSTM2} show the memory flow and the assembled memory unit.
-
-% The cell state plus gates.. 
-% (1) if you start with this you should update the subplots.
-Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates. %ef{fig:cell_state_information_flow} shows the information flow of the cell state. The LSTM has a long term memory, known as the cell state.
-%Figure \ref{fig:cell_state_information_flow} shows the information flow of the cell state. The LSTM has a long term memory, known as the cell state and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a wide-open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates. 
+Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
 
 % The forget gate
 In order to make a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
@@ -246,14 +225,44 @@ Figure \ref{fig:input_gate} shows two processes, one determining the candidate i
 
 Figure \ref{fig:update_memory} shows how the cell state is updated. Using multiplicative gates, first the forget gate removes information. Then the output from input gate adds the useful information from the input to memory. The input gate regulates what information to store from the input. The aim of the input gate is to clean the input by reducing the noise signal. These computations are also shown in Figure \ref{fig:input_gate}.
 
-Figure \ref{fig:output_gate} illustrates how the output gate gets updated. Passing the cell state through the function \textit{tanh}, giving the value a range of $[-1, 1]$. The output gate determines what to remove from the cell state and pass as the hidden state. This gate aims to remove noise from the output, preventing misrepresentations of the hidden state (short-term memory). This forces the hidden state to always take values in the range minus one to one. \textbf{cite LSTM 1997} In summary, at each time step some memories are removed and others are added. 
+Figure \ref{fig:output_gate} illustrates how the output gate gets updated. Passing the cell state through the function $tanh$, giving the value a range of from -1 to 1. The output gate determines what to remove from the cell state and pass as the hidden state. This gate aims to remove noise from the output, preventing misrepresentations of the hidden state (short-term memory). This forces the hidden state to always take values in the range minus one to one (\cite{Hochreiter1997LongMemory}).  In summary, at each time step some memories are removed and others are added. 
+
+
+
+% Finish with this
+The process of training is repeated until the network reaches an acceptable performance. The principle of learning is the same as for the simpler architectures. However, the mathematical description of the backpropagation algorithm gets more complicated. The reverse pass measures the error gradients over all connections traversing backward to the input layer. Like before, based on the error signal the weights are adjusted in the direction of the lowest error.
+
+%\textit{This reverse pass efficiently measure the error gradient across all the connecting weights in the network by propagating the error gradient backward in the network.}
+%For this particular architecture, \acrshort{lstm}, the gates are trained neural network. %Learning which information to let through the gate.
+%In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied}. There are two types of techniques involved in the training procedure, forward- and backward pass. \textit{For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer \textbf{fix here} (this is the forward pass, just as when making a prediction).} 
+%The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied}. There is two types of techniques involved in the training procedure, forward- and backward pass. \textit{For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer \textbf{fix here} (this is the forward pass, just as when making a prediction).} 
+% A forward pass propagates the input trough the network. In the same way you would make a prediction. 
+%The error signal is the difference between the true and the predicted values. The learning algorithm involves backpropagating the error signal in order to compute a suitable adjustment of the weights. For this particular architecture, LSTM, the gates are trained neural network. Learning which information to let thought the gate.
+%The error signal is the difference between the true and the predicted values at the output layer. The learning algorithm involves backpropagating the error signal in order to compute a suitable adjustment of the weights. \textbf{Raymond: remove or rewrite the following.} 
+
+% More details concerning gradient based learning in Section \ref{sec:backprop_learning_algorithm}.
+% Introducing some terminology, a prediction is the result of forward passing the information through the network. 
+%\input{Chapter3_Method/TiKZ/lstm_large_subplot}
+
+%\input{Chapter3_Method/TiKZ/subplot2}
+
+
+%In combination Figures \ref{fig:LSTM_all} and \ref{fig:LSTM2} shows a computational graph of the LSTM unit. The relevant equations are shown in the figure text, making it easier follow the computations. The following subplots highlights the graphs relevant for gates and necessary calculations. 
+%highlighting key computations along with their respective equations. 
+%Figure \ref{fig:LSTM_all} show subplots of the components, while Figure \ref{fig:LSTM2} show the memory flow and the assembled memory unit.
+
+% The cell state plus gates.. 
+% (1) if you start with this you should update the subplots.
+ %ef{fig:cell_state_information_flow} shows the information flow of the cell state. The LSTM has a long term memory, known as the cell state.
+%Figure \ref{fig:cell_state_information_flow} shows the information flow of the cell state. The LSTM has a long term memory, known as the cell state and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a wide-open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates. 
+
 
 %Figure \ref{fig:output_gate} illustrates how the output gate gets updated. Passing the cell state thought a tanh-function, truncating it to take values between minus one and one. The output gate determines what to remove from the truncted cell state and pass as the hidden state. This gate aims to remove noise from the output. Preventing misrepresentations of the hidden state (short-term memory). This forces the hidden state to always take values in the range minusa one to one. \textbf{cite LSTM 1997} In summary, at each time step some memories are removed and others are added.  
 % \textbf{cite colah blogpost ?}
 % http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
 \subsection{Convolutional LSTM}  \label{sec:convolutional_lstm}
-A variant of the LSTM network is the convolutional LSTM (ConvLSTM), originally developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space.
+A variant of the LSTM network is the convolutional LSTM (ConvLSTM), originally developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see Figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see Figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space.
 %A variant of the LSTM network is the convolutional LSTM (ConvLSTM). First developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space. 
 \input{Chapter3_Method/TiKZ/inside_conv_lstm}
 Keeping the same structure as in Figure \ref{fig:lstm_unit}, while making small changes to the equations used to forward propagate the input. The multiplicative gates are now replaced with convolution. 
@@ -274,7 +283,9 @@ Figure \ref{fig:inside_conv_lstm} show the dimensions of states and input in a \
         H_t = o_t \circ tanh \left( C_t \right)
 \end{equation}
 
-\subsection{Padding} \label{sec:padding}
+\subsection{Automatic hyperparameter tuning}
+
+\subsubsection{Padding} \label{sec:padding}
 % Add equation to calculate how much zero padding is needed to make a prediction of the same size.
 The convolution operation shrinks the dimensions of the feature map, according to Equation \eqref{eq:output_size}. The degree of shrinking  depends on the  filter size, padding and stride. Padding zeros along the edges has an additional benefit of including the signal from the boundaries. Stride determines how far you move the filter between convolutions. In other words it control how you convolve around the input volume. Figure \ref{fig:convolution_padding} shows a example with a zero padding of one. This is sufficient to keep the input dimension using a filter of dimensions $3 \time 3$. Which can be shown by plugging the dimensions into \eqref{eq:padding_same}.
 
@@ -300,7 +311,7 @@ In some cases it can be useful to have the same shape of input and output. This 
 
 %\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.}
 
-\section{Notes.}
+\section{Notes - Rewrite this entire thing to be "Automatic hyperparameters optimization" }
 
 \subsubsection{Transforming data} \label{sec:transforming_cloud_cover}
 \textbf{Inverse of sigmoid is often refered to as logistic sigmoid?}
@@ -327,7 +338,7 @@ where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{
 \subsection{Generalization} \label{sec:generalization}
 % Move overfitting here
 Finding a suitable curve for a set of points. Working with real data, noise is inevitable. In order to compensate, data is split into training and test (validation) sets. % better to call it something like generalization..?
-Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} \textbf{Hastie et al.} Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
+Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} (\cite{hastie_statistical-learning}) Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
 
 \begin{figure}[hp]
     \centering

@@ -1,5 +1,74 @@
 %%%%%%%%%%% Inspiration for figures in 
 
+@book{cloud_phys_book_johanna,
+title = "Physics and chemistry of clouds",
+%abstract = "Clouds affect our daily weather and play key roles in the global climate. Through their ability to precipitate, clouds provide virtually all of the fresh water on Earth and are a crucial link in the hydrologic cycle. With ever-increasing importance being placed on quantifiable predictions - from forecasting the local weather to anticipating climate change - we must understand how clouds operate in the real atmosphere, where interactions with natural and anthropogenic pollutants are common. This textbook provides students - whether seasoned or new to the atmospheric sciences - with a quantitative yet approachable path to learning the inner workings of clouds. Developed over many years of the authors' teaching at Pennsylvania State University, Physics and Chemistry of Clouds is an invaluable textbook for advanced students in atmospheric science, meteorology, environmental sciences/engineering and atmospheric chemistry. It is also a very useful reference text for researchers and professionals.",
+author = "Dennis Lamb and Johannes Verlinde",
+year = "2011",
+month = jan,
+%day = "1",
+doi = "10.1017/CBO9780511976377",
+language = "English (US)",
+isbn = "9780521899109",
+publisher = "Cambridge University Press",
+address = "United Kingdom",
+}
+
+
+@book{hastie_statistical-learning,
+  added-at = {2010-06-03T15:15:09.000+0200},
+  author = {Hastie, Trevor and Tibshirani, Robert and Friedman, Jerome},
+  biburl = {https://www.bibsonomy.org/bibtex/200d858c0bd2826d4eb5f39450192d1f5/ukoethe},
+  edition = 2,
+  file = {:Books\\HastieTibshiraniFriedman-09-Elements-of-Statistical-Learning-2nd-edition\\hastie_09_elements-of.statistical-learning.pdf:PDF},
+  interhash = {52d1772f39be836e3b298d37b8c0cfa1},
+  intrahash = {00d858c0bd2826d4eb5f39450192d1f5},
+  keywords = {inference mathmatics dataanalysis method clutering statistics},
+  publisher = {Springer},
+  timestamp = {2010-06-03T15:15:09.000+0200},
+  title = {The elements of statistical learning: data mining, inference and prediction},
+  url = {http://www-stat.stanford.edu/~tibs/ElemStatLearn/},
+  year = 2009
+}
+
+
+@Inbook{Golan2012,
+author="Golan, Jonathan S.",
+title="Moore--Penrose Pseudoinverses",
+bookTitle="The Linear Algebra a Beginning Graduate Student Ought to Know",
+year="2012",
+publisher="Springer Netherlands",
+address="Dordrecht",
+pages="441--452",
+%abstract="Moore--Penrose pseudoinverses of linear transformations between inner product spaces are defined and their existence and uniqueness are established. In particular, the application of pseudoinverses of matrices to finding best approximations of solutions of systems of linear equations is considered and related to the least-squares method.",
+isbn="978-94-007-2636-9",
+doi="10.1007/978-94-007-2636-9_19",
+url="https://doi.org/10.1007/978-94-007-2636-9_19"
+}
+
+
+@book{nielsen_back_prop, 
+author="Micheal Nielsen",
+title = "How the backpropagation algorithm works",
+booktitle="Neural Networks and Deep Learning",
+year="2015",
+publisher="Determintation press",
+url = "http://neuralnetworksanddeeplearning.com/chap2.html"
+}
+
+
+@article{jeppesen_deep_cloud_masking,
+author = {Jeppesen, Jacob and Jacobsen, Rune and Inceoglu, Fadil and Toftegaard, Thomas},
+year = {2019},
+month = {08},
+pages = {247-259},
+title = {A cloud detection algorithm for satellite imagery based on deep learning},
+volume = {229},
+journal = {Remote Sensing of Environment},
+doi = {10.1016/j.rse.2019.03.039}
+}
+
+
 %%%%%%%%%%%%%%%%%%%% kode 
 % For bruk av kode
 @article{scikit-learn,
@@ -36,6 +105,17 @@ address = {Exeter, Devon },
 url = {http://scitools.org.uk/cartopy}
 }
 
+@misc{pyaerocom,
+author = {{MET Norway }},
+title = {Pyaerocom, a Python package containing reading, post analysis and visualisation tools for the AEROCOM project.},
+year = {2020},
+address = {Oslo, Norway},
+url = {https://pyaerocom.met.no/}, 
+publisher={GitHub},
+howpublished={\url{https://github.com/metno/pyaerocom}},
+
+}
+
 @misc{chollet2015keras,
   title={Keras},
   author={Chollet, Fran\c{c}ois and others},
@@ -51,12 +131,12 @@ url = {http://scitools.org.uk/cartopy}
   publisher={GitHub},
   howpublished={\url{https://github.com/keras-team/keras-tuner}},
 }
+
 @misc{tensorflow2015,
-title={ {TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems},
-url={https://www.tensorflow.org/},
+title={{TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems},
+url={http://tensorflow.org/},
 note={Software available from tensorflow.org},
-author={
-    Mart\'{\i}n~Abadi and
+author={Martin~Abadi and
     Ashish~Agarwal and
     Paul~Barham and
     Eugene~Brevdo and
@@ -76,7 +156,7 @@ author={
     Lukasz~Kaiser and
     Manjunath~Kudlur and
     Josh~Levenberg and
-    Dandelion~Man\'{e} and
+    Dan~Mane and
     Rajat~Monga and
     Sherry~Moore and
     Derek~Murray and
@@ -89,7 +169,7 @@ author={
     Paul~Tucker and
     Vincent~Vanhoucke and
     Vijay~Vasudevan and
-    Fernanda~Vi\'{e}gas and
+    Fernanda~Viegas and
     Oriol~Vinyals and
     Pete~Warden and
     Martin~Wattenberg and
@@ -98,7 +178,6 @@ author={
     Xiaoqiang~Zheng},
   year={2015},
 }
-
 
 
 @inproceedings{lstm_learning_to_forget, 
@@ -167,6 +246,7 @@ series = {NIPS’12}
     
 @misc{activation_one_node,
     title = {Architecture Neural Network with weights},
+    author={stackexchange},
     howpublished = {\url{https://tex.stackexchange.com/questions/505741/architecture-neural-network-with-weights}},
     year = {2019},
     month = {8},
@@ -175,6 +255,7 @@ series = {NIPS’12}
     
 @misc{convolution_operation,
     title = {Visualizing matrix convolution},
+    author={stackexchange},
     howpublished = {\url{https://tex.stackexchange.com/questions/522118/visualizing-matrix-convolution}},
     year = {2019},
     month = {12},

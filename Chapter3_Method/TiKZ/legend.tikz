@@ -67,7 +67,11 @@
     \draw [->, ArrowC2, opacity = 1.0] (c3 -| c2)++(-2., 0) -| (c2) ;
 
     % Concatenate
-    \node [operator, fill = pink, opacity = .0] (co1) at (10, 1.0) { }; 
-    \node [operator, fill = pink, opacity = .0] (co2) at (10, -1.0) { };
-    \node [operator, fill = pink, opacity = .0] (co3) at (12, 0) { }; 
+    \node [operator, fill = pink, opacity = .0] (co1) at (11, 1.0) { }; 
+    \node [operator, fill = pink, opacity = .0] (co2) at (11, -1.0) { };
+    \node [operator, fill = pink, opacity = .0] (co3) at (13, 0) { }; 
+    
+    \draw [->, ArrowC2, opacity = 1.0] (co1) |- (co3) node[above=-0.5mm of co3] {\large Concatenate};
+    \draw [->, ArrowC2, opacity = 1.0] (co2) |- (co3);
+    % node[above=-0.5mm of co3] {\large Concatenate};
     \end{tikzpicture}

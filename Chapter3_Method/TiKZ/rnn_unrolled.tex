@@ -65,7 +65,7 @@
     %\draw [->, ArrowC1] (first) -- (second);
 
     %\node[ct, label={[mylabel]Cell state}] (c) at (-4,1.5) {\empt{c}{t-1}};
-    \node[ct, label={[mylabel]Output}, fill = red!50] (h) at (-1, 2) {\large $h_{0}$}; % , fill=blue
+    \node[ct, label={[mylabel]Output}, fill = red!50] (h) at (-1, 2) {\large $y_{0}$}; % , fill=blue
     \node[ct, label={[mylabel]below:Input}, fill = green!50] (x) at (-1, -2) {\large $x_0$}; %, fill = magenta
     \draw [->, ArrowC1] (x) -- (first);
     \draw [->, ArrowC1] (first) -- (h);
@@ -98,7 +98,7 @@
     %\draw (first) to [out=0, in=0,looseness=8] (first);
     \end{tikzpicture}
     
-    \caption{Unrolling Figure \ref{fig:rnn} in time yields this structure. Inspired by \cite{colah_blog_post}. % Used code from lstm unit to develop this one.
+    \caption{Unrolling Figure \ref{fig:rnn} in time, $t$ denotes the length of the training sequence, the elements $x_t$ are the  Inspired by \cite{colah_blog_post}. % Used code from lstm unit to develop this one.
     }
     \label{fig:rnn_unrolled}
 \end{figure}
