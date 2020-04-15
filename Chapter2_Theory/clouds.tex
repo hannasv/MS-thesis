@@ -12,6 +12,20 @@ Growth processes are phase dependant. Liquid droplet grows by diffusion and late
 %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
 This mechanism exist because the saturation vapour pressure, $e_s$ is lower with respect to ice than water. It is most efficient at 12$^oC$ when the difference is largest. This is called the Wegeron-Bergeron-Findeisen process.
 
+The equilibrium saturation vapour pressure, $e_s$ is the amount of vapour the air can retain at a given temperature. Its relationship to temperature, $T$ is described by the Clausius-Claperon Equation \eqref{eq:clausius-claperon}, here $L_v$ is latent heat of phase transition vapour in $J g^{-1}$, $M_w$ is and $R^*$ is .
+\begin{equation} \label{eq:clasius_claperon}
+    \frac{1}{e_s} \frac{de_s}{dT} \simeq \frac{L_v}{R_v T^2} = \frac{L_v M_w}{1000R^*T^2}
+\end{equation}
+\begin{equation} \label{eq:clasius_claperon_prop}
+     \frac{de_s}{e_s} \propto \frac{dT}{T^2} 
+\end{equation}
+From Equation \eqref{eq:clausius-claperon} it becomes clear that the  is inversely proportional with the second power of the temperature, meaning that for decreasing temperatures the vapour pressure 
+
+Double check if this id only valid for adiabatic processes, is there any other assumptions..?
+
+$R^*$ is the specific gas constant 共the universal
+gas constant divided by the mean atmospheric molecular
+weight. 
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
 \begin{figure}[h]
     \centering
