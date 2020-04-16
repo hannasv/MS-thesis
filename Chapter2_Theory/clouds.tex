@@ -1,41 +1,43 @@
 \section{Clouds role in the climate system} \label{sec:cloud_in_climate_system}
 % Clouds, climate and machine learning
-Clouds play an important role in the climate system. Both affecting the radiative budget and the hydrological cycle. Understanding how clouds form in the complex system of the atmosphere involves both knowledge about the large scale influence by the circulation and the small scale influenced by aerosols. Clouds are composed of liquid droplets, ice crystal or both. To this day the micro-physics of all phases are not fully understood. Here mixed phase clouds, consisting of both liquid and ice, shows to be the most difficult. 
+Clouds play an important role in the climate system. Both affecting the radiative budget and the hydrological cycle. Understanding how clouds form in the complex system of the atmosphere involves both knowledge about the large scale influence by the circulation and the small scale influenced by aerosols. Clouds are composed of liquid droplets, ice crystal or both. To this day the microphysics of all phases are not fully understood. Here mixed phase clouds, consisting of both liquid and ice, shows to be the most difficult. 
 %Climate models are the most useful tool for studying the past, present and future climate. Clouds and aerosols are acknowledged as the factors contributing with the largest uncertainty to the \acrfull{ecs}. Also known as global mean temperature increase as a consequence of doubling of the pre-industrial levels of $CO_2$ (280 \acrshort{ppm}). \textbf{kilde AR4 which ch?} \textit{It remains unclear to which level of sophistication is adequate to model their effect om climate.} (\cite{IPCC_CH7_clouds}).
 
 %\textbf{Make sure you include everything that's related to parametrised processes.}
-It is understood that cloud formation requires suitable aerosols and sufficient supersaturation. \textit{Aerosols} include both gases and solid particles suspended in air. They interact with the clouds by serving as particles which vapour and ice can condensate or deposit upon. The different phases require different properties and the nuclei are called \acrfull{ccn} for liquid droplets and \acrfull{inp} for ice crystals. Saturation is usually achieved by a temperature decrease in rising air masses. %Thus the stability of the atmosphere  plays a key role for convective motions.
-%\textbf{Legg inn bilde a skyer en i is fase og en i liquids. Skriv noe som "the sharp outoline suggest that the cloud is consisting of liquid droplets, even at temperagtures below 0."}
-%The negative temperature decreases by height is often referred to as the lapse rate, $\Gamma_{s, d}$. 
- 
+It is understood that cloud formation requires suitable aerosols and sufficient supersaturation. \textit{Aerosols} include both gases and solid particles suspended in air. They interact with the clouds by serving as particles which vapour and ice can condensate or deposit upon. The different phases require different properties and the nuclei are called \acrfull{ccn} for liquid droplets and \acrfull{inp} for ice crystals. 
+
+Saturation is usually achieved by a temperature decrease in rising air masses. The equilibrium saturation vapour pressure, $e_s$ is the quantity describing the amount of vapour the air can retain at a given temperature. Equation \eqref{eq:clausius_clapeyron} describes the dependency of $e_s$ on temperature, $T$. This is known as the Clausius-Clapeyron equation, it is derived based on the assumptions on rapid adjustments without heat exchange \textbf{other things}?
+\begin{equation} \label{eq:clausius_clapeyron}
+    \frac{1}{e_s} \frac{de_s}{dT} \simeq \frac{L_v}{R_v T^2} = \frac{L_v M_w}{1000R^*T^2}
+\end{equation}
+\begin{equation} \label{eq:clausius_clapeyron_prop}
+     \frac{de_s}{e_s} \propto \frac{dT}{T^2} 
+\end{equation}
+here $L_v$ is latent heat of phase transition vapour in $J g^{-1}$, $M_w$ is and $R^*$ is (\cite{cloud_phys_book_johanne}). From Equation \textbf{not differential} it is clear that the $e_s$ increase at the rate proportional to the second power of temperature, resulting in the phenomena that warmer air retain more vapour.
+
+%From Equation \eqref{eq:clausius_clapeyron} it becomes clear that the  is inversely proportional with the second power of the temperature, meaning that for decreasing temperatures the vapour pressure 
+%Double check if this id only valid for adiabatic processes, is there any other assumptions..?
+%$R^*$ is the specific gas constant (the universal
+%gas constant divided by the mean atmospheric molecular
+%weight).  
 Growth processes are phase dependant. Liquid droplet grows by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}) droplets spontaneously freeze and can act as \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, droplets evaporate and deposit on to the ice crystals.
 %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
 This mechanism exist because the saturation vapour pressure, $e_s$ is lower with respect to ice than water. It is most efficient at 12$^oC$ when the difference is largest. This is called the Wegeron-Bergeron-Findeisen process.
 
-The equilibrium saturation vapour pressure, $e_s$ is the amount of vapour the air can retain at a given temperature. Its relationship to temperature, $T$ is described by the Clausius-Claperon Equation \eqref{eq:clausius-claperon}, here $L_v$ is latent heat of phase transition vapour in $J g^{-1}$, $M_w$ is and $R^*$ is .
-\begin{equation} \label{eq:clasius_claperon}
-    \frac{1}{e_s} \frac{de_s}{dT} \simeq \frac{L_v}{R_v T^2} = \frac{L_v M_w}{1000R^*T^2}
-\end{equation}
-\begin{equation} \label{eq:clasius_claperon_prop}
-     \frac{de_s}{e_s} \propto \frac{dT}{T^2} 
-\end{equation}
-From Equation \eqref{eq:clausius-claperon} it becomes clear that the  is inversely proportional with the second power of the temperature, meaning that for decreasing temperatures the vapour pressure 
+The characteristic white colour of the clouds has it nature in its ability effectively scatter solar radiation. %(explains why they appear white - because the backscatter radiation of all wavelenght in the visible spectrum)
+%In part, this mechanism describes the important role in the Earth radiative budget. 
+The Earth bathes in radiation from the Sun, moving through the atmosphere toward the surface, a portion of the radiation is scattered by clouds and another portion is absorbed by aerosols. Most of the radiation reach the surface and transforms into heat, warming the surface. The Earth emits heat (longwave) radiation, only a small portion of this escape directly back to space, most get absorbed by the atmosphere and re-emitted. The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse (constitute) gases, aerosols), and determines the magnitude of the enhanced warming. This phenomena is know as \textit{the greenhouse effect} (\cite{greenhouse_effect}). 
 
-Double check if this id only valid for adiabatic processes, is there any other assumptions..?
+\textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
 
-$R^*$ is the specific gas constant 共the universal
-gas constant divided by the mean atmospheric molecular
-weight. 
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 7]{Chapter1_Intro/images/CRE_wild2019.jpg}
-    \caption{Cloud radiative effect, CRE is the difference between the radiative components of the Clear sky radiative and the all sky. Modified version of as Figure 15 in \cite{Wild2019TheModels}. \textbf{pappa syns denne var grusomt vanskelig.}}
+    \caption{The global mean annual \acrfull{cre} is the difference between the radiative components of the Clear sky radiative and the all sky. Modified version of as Figure 15 in \cite{Wild2019TheModels}.}
     \label{fig:cre}
 \end{figure}
-Based on remote sensed and in-situ measurements \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the radiative budget (see Figure \ref{fig:cre}). Cloud radiative effect (\acrshort{cre}) in earth annual mean energy budget is the difference between a cloudy and a cloud-free atmosphere. 
-
-\textbf{Write short paragraph on the components of the energy balance}
+Based on available observational data, remote sensed and in-situ measurements, \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the radiative budget. Figure \ref{fig:cre} shows a schematic of the cloud radiative effect (\acrshort{cre}) in earth annual mean energy budget is the difference between a cloudy and a cloud-free atmosphere. 
 
 The physical properties causing the interaction with radiation is described below. Dense low level clouds reflect solar radiation. This is called the albedo effect. \textit{Albedo} being the ratio between reflected to incoming radiation. The higher number concentrations of droplets in a cloud the higher the total surface area of droplets. The more radiation gets reflected back into space. Clouds absorb longwave radiation and re-emits it. 
 \begin{equation} \label{eq:stefan-boltzmann}
