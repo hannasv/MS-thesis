@@ -43,12 +43,13 @@ AI started with the idea of automating tasks normally performed by humans. Three
 %The network is presented with many examples and is trained, rather than explicitly programmed. 
 Geoscientists may be more familiar with the concept of ``calibration'' when it comes to statistical models, which essentially is the same process. In the context of deep learning, ``deep'' refers to the number of layers contributing to a network. DL expands the ideas from ML using deeper networks, \textit{i.e,} more layers, enabling networks to capturing a more complex relationship between input and output variables.
 %\textbf{``e.g.'' betyr ``exempli gratia'', altså for eksempel; ``i.e.'' betyr ``id est'' -- ``det er'', ``altså''}
-\textbf{Michael is ``backpropagation'' one of the differences between ML and DL?}
+%\textbf{Michael is ``backpropagation'' one of the differences between ML and DL?}
 %Geoscientists may be more familiar with the concept of "calibration" when it comes to statistical models, which essentially is the same process. In the context of deep learning, deep references to the number of layers contributing to a network, and thus the complexity of relationship between input variables. DL expands the ideas from ML using deeper network, e.g. more layers. 
 \input{Chapter3_Method/TiKZ/multilayer_mlp}
 Figure \ref{fig:multilayer_mlp} illustrates a deeper version of the network displayed in Figure \ref{fig:one_layer_mlp}. A layer is a set of nodes. The connections between the layers are the trained units, also known as weights. 
 
 To distinguish from deep learning, traditional \acrshort{ml} is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
+\textbf{Hugo: ML three categories: 1) Methods that are not based on artificial neural networks such as linear regression models and other regression models, decision trees, random forest, support vector machine etc 2) Artificial neural networks with few layers (shallow) and generally few parameters. 3) Artificial neural networks with many layers and a lot of parameters in each layer (deep learning)}
 
 ``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that most architectures are not well matched to human intelligence. 
 %\textbf{Raymond: DeepBlue var i hovedsak regel-basert, men Google's AlphaZero er (delvis) basert på DL.}
@@ -81,45 +82,6 @@ There are several different types of machine learning, each suitable for solving
     \item \textbf{Reinforcement learning}: Goal oriented algorithms.
 \end{itemize}
 
-\subsection{Autoregressive models} \label{sec:ARmodels}
-In the following discussion, these conventions are adopted. Typographical emphasis is used to distinguish between dimensions, $y_n$ denotes a discrete value at position or time, $n$, the vector, $\mathbf{y}$ and $\mathbf{Y}$ denotes the matrix. $\mathbf{X}$ always contain the input data, and $\mathbf{y}$ always contain the predicted. The markers $\tilde{ }$, $\hat{ }$ and $\bar{ }$ can be used in combination with the above, describing the $\Tilde{\mathbf{y}}$ denotes the desired value, the predicted $\hat{\mathbf{y}}$ and the mean of $\mathbf{y}$, $\bar{\mathbf{y}}$.
-
-%The dimensions are distinguished by using typographical emphasis.
-%Before introducing the more mathematical concepts, some descriptions of the symbols are in order. 
-%A  Using vectors as an example $\Tilde{\mathbf{y}}$ denotes the desired value, $\hat{\mathbf{y}}$ is the predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. %These can be used in all combinations.
-
-The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. In discrete form it is described by Equation \eqref{eq:AR_traditional} and in matrix form by Equation \eqref{eq:AR_traditional_matrix}, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the values at $i$, earlier time steps, $y_{n-i}$, their corresponding weights, $\beta_i$, and $\beta_0$, the bias (intercept), corresponding to the intersection of a function on the y-axis. 
-%Equation \eqref{eq:AR_traditional_matrix} formulates the matrix equation.
-\begin{equation} \label{eq:AR_traditional}
-    \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i} \beta_{i}
-\end{equation}
-%Rewritten into a matrix equation, 
-\begin{equation} \label{eq:AR_traditional_matrix}
-    \hat{\mathbf{y}} = \mathbf{Y}^T \mathbf{\beta}
-\end{equation}
-Expanding the traditional AR model to include other predictors, $x_i$, yields the expression,
-\begin{equation} \label{eq:AR_expression}
-    \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i}\beta_{i}+ \sum_{j=1}^p x_j\beta_{j+p}
-\end{equation}
-Here $p$ denotes the number of predictors, $\beta_{j+p}$ is the corresponding weights. The other symbols are described above referring to Equation \eqref{eq:AR_traditional}. 
-
-The weight indices might seem unnecessary complicated at first, but ease the transition to the vector equation, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. 
-This can be formulated as a least-squares problem, and the analytical solution to this optimisation problem is found by minimising the \acrfull{mse} loss, 
-\begin{equation} \label{eq:mse_loss}
-    L (\tilde{y}, \hat{y}) = \frac{1}{n} \sum_{i=0}^{n-1}(\tilde{y}_i-\hat{y}_i)^2
-\end{equation} 
-where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. Inserting \eqref{eq:AR_traditional_matrix} into \eqref{eq:mse_loss}, solving Equation \eqref{eq:diff_eq} with the respect of $\beta$ yields the solution presented in Equation \eqref{eq:AR_solution}.  
-\begin{equation} \label{eq:diff_eq}
-    \frac{dL}{dX} = 0
-\end{equation}
-\begin{equation} \label{eq:AR_solution}
-    \mathbf{\beta}  = \left( \mathbf{X}^T\mathbf{X}\right)^{-1} \mathbf{X}\tilde{\mathbf{y}}
-\end{equation}
-The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits.
-
-% The code is implemented using scipys pinv to solve the problems with invertable matrices.
-Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
-
 \section{Artificial Neural Networks} \label{sec:artificial neural networks}
 Artificial neural networks (\acrshort{ann}) are composed of nodes (artificial neurons) and weights. Returning to Figure \ref{fig:one_layer_mlp}, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer \acrshort{ann}. The nodes are structured in layers, illustrated using different colours. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to the the nodes of the following layer. Weights are the relative strength of the connections between nodes in neighbouring layers. Large networks of these simple neurons are able to perform complex calculations.
 %Returning to Figure \ref{fig:one_layer_mlp} again, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer ANN. The nodes are structured in layers, illustrated using different colors. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to adjacent layers. Weights are the relative strength of the connections between nodes in neighbouring layers. %All networks have input, output, and zero or more hidden layers.
@@ -150,7 +112,7 @@ Figure \ref{fig:activation_one_node} shows the computation which takes place in 
 Equation \eqref{eq:activation_hidden_pass} describes the activation of a node in a arbitrary layer, L. $b_L$ denotes the bias, $w_L$ is the weights matrix. and $n_L$ is the number of  nodes. $g_L$ denotes activation function in a arbitrary layer.
 %For regression problem, $g_o$ is linear like.
 \begin{equation} \label{eq:activation_hidden_pass}
-    \textbf{a}_L = g_L(\sum_{i=1}^{n_L} \textbf{W}_{L, i} \textbf{x}_i + b_L)
+    \textbf{a}_L = g_L\left(\sum_{i=1}^{n_L} \textbf{W}_{L, i} \textbf{x}_i + b_L\right)
 \end{equation}
 %\begin{equation} \label{eq:output_pass}
 %    \textbf{a}_{L+1} = g_o(\sum_{i=1}^n \textbf{W}_{L+1, i} \textbf{a}_{L+1} + b_{L+1})
@@ -267,7 +229,7 @@ The process of training is repeated until the network reaches an acceptable perf
 % http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
 \subsection{Convolutional LSTM}  \label{sec:convolutional_lstm}
-A variant of the \acrshort{lstm} network is the \acrfull{convlstm}, originally developed for the application of precipitation nowcasting in 2015. This architecture is has the potential to solve problems varying in time and space. The difference between this and the general LSTM is that the standard \acrshort{ann} (see Figure \ref{fig:one_layer_mlp}) is replaced by \acrshort{cnn} (see Figure \ref{fig:convolution_padding}). This allows the \acrshort{lstm} network to support multi-dimensional data, capturing the spatiotemporal structure in the data. 
+A variant of the \acrshort{lstm} network is the \acrfull{convlstm}, originally developed for the application of precipitation nowcasting in 2015. This architecture has the potential to solve problems varying in time and space. The difference between this and the general LSTM is that the standard \acrshort{ann} (see Figure \ref{fig:one_layer_mlp}) is replaced by \acrshort{cnn} (see Figure \ref{fig:convolution_padding}). This allows the \acrshort{lstm} network to support multi-dimensional data, capturing the spatiotemporal structure in the data. 
 %A variant of the LSTM network is the convolutional LSTM (ConvLSTM). First developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space. 
 \input{Chapter3_Method/TiKZ/inside_conv_lstm}
 
@@ -302,6 +264,47 @@ Padding zeros along the edges has an additional benefit of including the signal 
 \begin{equation} \label{eq:padding_same}
     p = \frac{n\left(s-1\right)-s+f}{2}
 \end{equation}
+
+
+\section{Autoregressive models} \label{sec:ARmodels}
+In the following discussion, these conventions are adopted. Typographical emphasis is used to distinguish between dimensions, $y_n$ denotes a discrete value at position or time, $n$, the vector, $\mathbf{y}$ and $\mathbf{Y}$ denotes the matrix. $\mathbf{X}$ always contain the input data, and $\mathbf{y}$ always contain the predicted. The markers $\tilde{ }$, $\hat{ }$ and $\bar{ }$ can be used in combination with the above, describing the $\Tilde{\mathbf{y}}$ denotes the desired value, the predicted $\hat{\mathbf{y}}$ and the mean of $\mathbf{y}$, $\bar{\mathbf{y}}$.
+
+%The dimensions are distinguished by using typographical emphasis.
+%Before introducing the more mathematical concepts, some descriptions of the symbols are in order. 
+%A  Using vectors as an example $\Tilde{\mathbf{y}}$ denotes the desired value, $\hat{\mathbf{y}}$ is the predicted and $\bar{\mathbf{y}}$ is the mean of $\mathbf{y}$. %These can be used in all combinations.
+
+The \acrshort{ar}-model is a form of linear model where values from previous time steps are included as predictor variables. In discrete form it is described by Equation \eqref{eq:AR_traditional} and in matrix form by Equation \eqref{eq:AR_traditional_matrix}, here a prediction at time, $n$, $\hat{y}_n$ is the linear combination of the values at $i$, earlier time steps, $y_{n-i}$, their corresponding weights, $\beta_i$, and $\beta_0$, the bias (intercept), corresponding to the intersection of a function on the y-axis. 
+%Equation \eqref{eq:AR_traditional_matrix} formulates the matrix equation.
+\begin{equation} \label{eq:AR_traditional}
+    \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i} \beta_{i}
+\end{equation}
+%Rewritten into a matrix equation, 
+\begin{equation} \label{eq:AR_traditional_matrix}
+    \hat{\mathbf{y}} = \mathbf{Y}^T \mathbf{\beta}
+\end{equation}
+Expanding the traditional AR model to include other predictors, $x_i$, yields the expression,
+\begin{equation} \label{eq:AR_expression}
+    \hat{y}_n = \beta_0 + \sum_{i = 1}^{N} y_{n-i}\beta_{i}+ \sum_{j=1}^p x_j\beta_{j+p}
+\end{equation}
+Here $p$ denotes the number of predictors, $\beta_{j+p}$ is the corresponding weights. The other symbols are described above referring to Equation \eqref{eq:AR_traditional}. 
+
+The weight indices might seem unnecessary complicated at first, but ease the transition to the vector equation, $\mathbf{\beta} = [\beta_0, \beta_1, \ldots, \beta_i, \beta_{i+1}, \ldots, \beta_{p+i}]^T$. The corresponding input matrix, $\mathbf{X} = [1, y_{n-1}, \ldots, y_{n-i}, x_0, \ldots, x_p]$. 
+This can be formulated as a least-squares problem, and the analytical solution to this optimisation problem is found by minimising the \acrfull{mse} loss, 
+\begin{equation} \label{eq:mse_loss}
+    L (\tilde{y}, \hat{y}) = \frac{1}{n} \sum_{i=0}^{n-1}(\tilde{y}_i-\hat{y}_i)^2
+\end{equation} 
+where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} describes the optimal solution $\mathbf{\beta}$. Inserting \eqref{eq:AR_traditional_matrix} into \eqref{eq:mse_loss}, solving Equation \eqref{eq:diff_eq} with the respect of $\beta$ yields the solution presented in Equation \eqref{eq:AR_solution}.  
+\begin{equation} \label{eq:diff_eq}
+    \frac{dL}{dX} = 0
+\end{equation}
+\begin{equation} \label{eq:AR_solution}
+    \mathbf{\beta}  = \left( \mathbf{X}^T\mathbf{X}\right)^{-1} \mathbf{X}\tilde{\mathbf{y}}
+\end{equation}
+The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits. For the problem considered in this master thesis we have far more observations than the number of parameters and do not expect to run into inversion problems of $\mathbf{X}^T\mathbf{X}$. Further please note that the matrix is only inverted when the parameters are estimated (model training) and not when the model later is used to do predictions.
+
+% The code is implemented using scipys pinv to solve the problems with invertable matrices.
+%Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
+
 
 \section{Automatic hyperparameter tuning - WIP}
 %\subsection{Learning algorithm} \label{sec:backprop_learning_algorithm}
