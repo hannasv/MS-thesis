@@ -32,7 +32,7 @@ This mechanism exist because the saturation vapour pressure, $e_s$ is lower with
 
 The characteristic white colour of the clouds has it nature in its ability effectively scatter solar radiation. %(explains why they appear white - because the backscatter radiation of all wavelenght in the visible spectrum)
 %In part, this mechanism describes the important role in the Earth radiative budget. 
-The Earth bathes in radiation from the Sun, moving through the atmosphere toward the surface, a portion of the radiation is scattered by clouds and another portion is absorbed by aerosols. Most of the radiation reach the surface and transforms into heat, warming the surface. The Earth emits heat (longwave) radiation, only a small portion of this escape directly back to space, most get absorbed by the atmosphere and re-emitted. The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse (constitute) gases, aerosols), and determines the magnitude of the enhanced warming. This phenomena is know as \textit{the greenhouse effect} (\cite{greenhouse_effect}). 
+The Earth bathes in radiation from the Sun, moving through the atmosphere toward the surface, a portion of the radiation is scattered by clouds and another portion is absorbed by aerosols. Most of the radiation reach the Earth and transforms into heat, warming the surface. The Earth emits heat (longwave) radiation, only a small portion of this escape directly back to space, most of it gets absorbed by the atmosphere and re-emitted. The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse gases, aerosols), and determines the magnitude of the enhanced warming. This phenomena is know as \textit{the greenhouse effect} (\cite{greenhouse_effect}). 
 
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
 \begin{figure}[h]
@@ -42,21 +42,31 @@ The Earth bathes in radiation from the Sun, moving through the atmosphere toward
     }
     \label{fig:cre}
 \end{figure}
-Based on available observational data, remote sensed and in-situ measurements and simulations. \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the Earth annual global mean energy budget. For the details on the all-sky (cloudy) and clear-sky (cloud-free) energy budgets, please see the paper \textit{The cloud-free global energy balance and inferred cloud radiative effects: an assessment based on direct observations and climate models} (\cite{Wild2019TheModels}). Figure \ref{fig:cre} shows a schematic of the cloud radiative effect (\acrshort{cre}) in Earths annual mean energy budget, a negative sign can be associated with a cooling and a positive sign with a warming,  units are in $W m^{-2}$. \acrshort{cre} is computed by taking the difference between the components of a cloudy and a cloud-free atmosphere. The altitude along with the composition determines the radiative properties of the cloud. 
+On the basis of simulations and available observational data, both remote sensed and in-situ measurements,  \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the Earth annual global mean energy budget. Figure \ref{fig:cre} shows a schematic of the cloud radiative effect (\acrshort{cre}) in Earths annual mean energy budget, for the details on the all-sky (cloudy) and clear-sky (cloud-free) energy budgets, please see the paper \textit{The cloud-free global energy balance and inferred cloud radiative effects: an assessment based on direct observations and climate models} (\cite{Wild2019TheModels}). A negative sign in this sketch (see Figure \ref{fig:cre}) denotes a cooling effect and a positive sign can be associated with a warming effect, units are in $W m^{-2}$. \acrshort{cre} is computed by subtracting the components of a cloudy from a cloud-free atmosphere. The altitude along with the composition determines the radiative properties of the cloud. \textbf{add citation from ramanathan }
 
-The physical properties causing the interaction with radiation is described below. Dense low level clouds reflect solar radiation. This is called the albedo effect. \textit{Albedo} being the ratio between reflected to incoming radiation. The higher number concentrations of droplets in a cloud the higher the total surface area of droplets. The more radiation gets reflected back into space. Clouds absorb longwave radiation and re-emits it.
+The physical properties causing the interaction with radiation is described below. Dense low level clouds reflect solar radiation. This is called the albedo effect. \textit{Albedo} being the ratio between reflected to incoming radiation. The higher number concentrations of droplets in a cloud the larger the total (bedre med accumulated?) surface area of droplets. The more radiation gets reflected back into space. 
 
-
-The absorbed radiation originates from the surface and is given by Stefan-Boltzmann forth-power law, 
+Clouds absorb longwave radiation and re-emits it.
+The absorbed radiation originates from the surface, a widely used assumption is that the Earth radiates like a black body, thus its radiant flux is given by Stefan-Boltzmann forth-power law, 
 \begin{equation} \label{eq:stefan-boltzmann}
     F = \sigma  T ^4 % \epsilon
 \end{equation}
-here $F$ denotes flux in units of $W m^{-2}$, $T$ denotes temperature in units of $K$ and $\sigma = 5.670 \time 10^{-8} W m^{-2} K^{-4}$ is the Stefan-Boltzmann constant.
+here $F$ denotes flux in units of $W m^{-2}$, $T$ denotes temperature in units of $K$ and $\sigma = 5.670 \time 10^{-8} W m^{-2} K^{-4}$ is the Stefan-Boltzmann constant. 
+
+The emissivity of different surfaces depend on frequency and the viewing angle. The emissivity, $\epsilon$ of a medium is the ratio between the actual emission and the black body emission at the same temperature. Most models assume a black body emission of earth and the atmospheric components, this corresponds to a emissivity, $\epsilon=1$. 
+
+Ønsker å fortelle om emmisivitet som begrep, og introdusere det som enda en faktor som skaper usikkerhet i beregninger av radiative transfer calculation and therefor in equilibrium climate sensitivity..
+
+Its important to employ different assumptions about emmisivity from the atmosphere model, and not only for the surface variables. It is their belief the
+
+In their assessment of the black body assumption for different surfaces (\cite{Huang2018ImprovedClimate}) they conclude that the
+
+
 % and the intensity of the temperature determines the intensity, whether its short or long wave. 
 % see Equation (\ref{eq:stefan-boltzmann}). 
-A perfectly emitting medium body, like the Earth or the Sun, emit radiation according to Equation \eqref{eq:stefan-boltzmann}. The temperature of the body determine intensity, in other words whether is shortwave or longwave radiation.
+%A perfectly emitting medium body, like the Earth or the Sun, emit radiation according to Equation \eqref{eq:stefan-boltzmann}. The temperature of the body determine intensity, in other words whether is shortwave or longwave radiation. $3.9\mu m$ maks the boundary between solar and thermal radiation?
 
-Mediums like water, snow and ice (\cite{Huang2018ImprovedClimate}) are not perfect emitters, this requires the need for extending Equation \eqref{eq:stefan-boltzmann} with a scaling factor, called emissivity, $\epsilon \in [0, 1]$, this depends on the composition, compactness and surface roughness of the medium. The emitted flux is now given by $ F = \sigma \epsilon T ^4$, at a given temperature the Earth emits more intense radiation than a cloud. Researchers are still struggling with determining the exact spectral emissivity of different mediums, this is of utmost importance in the field of remote sensing as well (\citeauthor{Huang2016AnSimulations}).
+Mediums like water, snow and ice are not perfect emitters, this requires the need for extending Equation \eqref{eq:stefan-boltzmann} with a scaling factor, called emissivity, $\epsilon \in [0, 1]$, this depends on the composition, compactness and surface roughness of the medium. The emitted flux is now given by $ F = \sigma \epsilon T ^4$, at a given temperature the Earth radiates more intensely than a cloud. Researchers are still struggling with determining the exact spectral emissivity of different mediums, this is of utmost importance in the field of remote sensing as well.
 
 %this property is also being exploited in remote sensing. In remote sensing it is of utmost importance to distinguish the signal from the reference signal, a cloud from its background for instance. 
 %Different parts of the globe are covered by different surfaces and \citeauthor{Huang2016AnSimulations} proved that assuming a constant surface emissivity effects the \acrfull{toa} polar energy budget \textbf{read paper again to detemine why this is of importance}. 
