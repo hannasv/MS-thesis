@@ -1,14 +1,14 @@
 \section{Structure and Implementations}
-The numerical methods used in this thesis are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. 
+The numerical methods used in this thesis are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading reanalysis (ERA5) data using python is provided.
 
+The code is developed in Python3.7, a popular language for scientific software development. The source code is stored in the package \textit{sciclouds}, made available on Github trought the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}) and the \textit{keras-tuner} (\cite{chollet2015kerastuner}). The \acrshort{convlstm} is implemented in \textit{keras} (\cite{chollet2015keras}) using \textit{tensorflow} as a backend (\cite{tensorflow2015}). The \textit{keras-tuner} is used to automize the hyperparameter search (\cite{chollet2015kerastuner}). 
 
-The code is developed in Python3.7, a popular language for scientific software development. The source code is stored in the package \textit{scloud}, made available on Github trought the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}) and the \textit{keras-tuner} (\cite{chollet2015kerastuner}). The \acrshort{convlstm} is implemented in \textit{keras} (\cite{chollet2015keras}) using \textit{tensorflow} as a backend (\cite{tensorflow2015}). The \textit{keras-tuner} is used to automize the hyperparameter search (\cite{chollet2015kerastuner}).
-
-Vizualizations are generated using \textit{Matplotlib} (\cite{matplotlib}), \textit{Seaborn} (\cite{seaborn}) and maps are generated using the package \textit{Cartopy} (\cite{Cartopy}). Other illustrations are developed using TIkZ, a language used for producing technical illustrations within the environment of LaTEX.
+Vizualizations are generated using \textit{Matplotlib} (\cite{matplotlib}), \textit{Seaborn} (\cite{seaborn}) and maps using the package \textit{Cartopy} (\cite{Cartopy}). Other illustrations are developed using TIkZ, a language used for producing technical illustrations within the environment of LaTEX.
 
 %The repository contains everything need to reproduce the results in this study.
 %The experiments are conducted in notebooks and the developed modules are stored in the package ``sciclouds''. Descriptions on how to acquire the data (scripts if possible) and project environment is provided to simplify the process.
-The versions are documented in the \textit{requirements.txt} and the project environment called ``sciclouds'' is ready for installation. This is a conda environment, the yaml-file lists the Python packages and requirements necessary for running this code. Below you find the code example for installing the environment.
+
+The package versions are documented in the \textit{requirements.txt} and the project environment called ``sciclouds'' is ready for installation. This is a conda environment, the yaml-file lists the Python packages and requirements necessary for running this code. Below you find the code example for cloning the project and installing the environment.
 
 % Included in the readme file on github. 
 \begin{verbatim}
@@ -19,6 +19,7 @@ conda activate sciclouds
 python setup.py install # installing package from source
 \end{verbatim}
 
-Supplementary material for remapping satellite data and filtering masks is available in the supplementary repository \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}. The filters are generated from within the environment of PyAEROCOM (\cite{pyaerocom}). To make use of all the functionality this repo needs to be cloned in the same directory as ``MS''.
+Supplementary material for remapping satellite data and filtering masks is available in the supplementary repository \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}. %To make use of all the functionality available trought ``MS'', the supplementary repository needs to be cloned in the same directory.
+The filters are generated from within the environment of PyAEROCOM (\cite{pyaerocom}). 
 
 

@@ -20,7 +20,7 @@ Figure \ref{fig:map} shows the region of Europe included in this dataset. Coveri
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale = 0.7]{Chapter4_Results/figurs/Domain.png}
+    \includegraphics[scale = 1.0]{python_figs/Domain.pdf}
     \caption[Map over domain.]{Map showing the domain. The region covers southern Europe and northern Africa. The projection is the same as ECC (Plate Caree).}
     \label{fig:map}
 \end{figure}
@@ -150,6 +150,13 @@ Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep mem
     \label{fig:example_artefact}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/filters.pdf}
+    \caption{Filters, the beige colour illustrate the filter}
+    \label{fig:filters_subplot}
+\end{figure}
+
 \begin{figure*}[hp]
         \begin{subfigure}[b]{0.475\textwidth}
             \centering
@@ -181,22 +188,28 @@ In some cases the data has been destroyed prior to archiving, and can never be r
 
 \begin{figure}
     \centering
-    \includegraphics[scale = 0.6]{Chapter4_Results/figurs/heat_map_missing_values.png}
+    \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values.pdf}
     \caption[Heatmap showing missing hours for all months or years.]{Heatmap displaying missing hours separated in month and years.}
     \label{fig:heatmap_missing_values}
 \end{figure}
 
 \subsection{Statistics}
 Add some interesting statistics. Correlation maps, and matrices.
-\textbf{I intend to compute som statistics for land and ocean, if only to include the code I've used to compute the land, sea, coastline masks.}
+\textbf{I intend to compute some statistics for land and ocean, if only to include the code I've used to compute the land, sea, coastline masks.}
 
 \begin{figure}
     \centering
     \includegraphics{python_figs/monthly_means.pdf}
-    \caption{Spatially averaged monhtly values. Filters are applied for land and sea.}
+    \caption{Spatially averaged monthly values. Filters are applied for land and sea.}
     \label{fig:monthly_mean_ts_vars}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.pdf}
+    \caption{Spatially averaged time seires, the filters are applied for land and sea.}
+    \label{fig:monthly_mean_ts_vars}
+\end{figure}
 
 % Finished regriddidng files.
 \subsection{Summarise the dataset ECC.}
