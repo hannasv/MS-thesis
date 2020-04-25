@@ -26,77 +26,65 @@ $L_v$ is latent heat of phase transition vapour in $J g^{-1}$, $M_w$ is and $R^*
 %$R^*$ is the specific gas constant (the universal
 %gas constant divided by the mean atmospheric molecular
 %weight).  
-Growth processes are phase dependant. Liquid droplet grows by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}) droplets spontaneously freeze and can act as \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, droplets evaporate and deposit on to the ice crystals.
-%When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
-This mechanism exist because the saturation vapour pressure, $e_s$ is lower with respect to ice than water. It is most efficient at 12$^oC$ when the difference is largest. This is called the Wegeron-Bergeron-Findeisen process.
+Growth processes are phase dependant. Liquid droplet grows by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}) droplets spontaneously freeze and can act as \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, Wegeron-Bergeron-Findeisen process describe the mechanism where droplets evaporate and deposit on to the ice crystals. %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
+This mechanism exist because the saturation vapour pressure, $e_s$ is lower with respect to ice than water. It is most efficient at 12$^oC$ when the difference is largest. This is called the 
 
 The characteristic white colour of the clouds has it nature in its ability effectively scatter solar radiation. %(explains why they appear white - because the backscatter radiation of all wavelenght in the visible spectrum)
 %In part, this mechanism describes the important role in the Earth radiative budget. 
-The Earth bathes in radiation from the Sun, moving through the atmosphere toward the surface, a portion of the radiation is scattered by clouds and another portion is absorbed by aerosols. Most of the radiation reach the Earth and transforms into heat, warming the surface. The Earth emits heat (longwave) radiation, only a small portion of this escape directly back to space, most of it gets absorbed by the atmosphere and re-emitted. The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse gases, aerosols), and determines the magnitude of the enhanced warming. This phenomena is know as \textit{the greenhouse effect} (\cite{greenhouse_effect}). 
+The Earth bathes in radiation from the Sun, passing through the atmosphere, a portion gets is scattered by clouds and another portion is absorbed by aerosols. The majority of the radiation reach the Earth and transforms into heat, warming the surface. The Earth emits thermal radiation, a minor portion of this escape directly back to space, most of it gets absorbed by the atmosphere and re-emitted. This phenomena is know as \textit{The greenhouse effect}. The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse gases, aerosols), and determines the magnitude of the enhanced warming.  (\cite{greenhouse_effect}). 
 
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 7]{Chapter1_Intro/images/CRE_wild2019.jpg}
-    \caption{The global mean annual \acrfull{cre} is the difference between the radiative components of the clear-sky and all-sky radiative components. A positive sign can be describes a warming effect and negative a cooling, units in $W m^{-2}$. This is a modified version of Figure 15 in \cite{Wild2019TheModels}.
+    \caption{The global mean annual \acrfull{cre} is the difference between the radiative components of the clear-sky and all-sky radiative components. A positive sign can be describes a warming effect and negative a cooling, units in $W m^{-2}$. This schematic is a modified version of Figure 15 in \cite{Wild2019TheModels}.
     }
     \label{fig:cre}
 \end{figure}
-On the basis of simulations and available observational data, both remote sensed and in-situ measurements,  \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the Earth annual global mean energy budget. Figure \ref{fig:cre} shows a schematic of the cloud radiative effect (\acrshort{cre}) in Earths annual mean energy budget, for the details on the all-sky (cloudy) and clear-sky (cloud-free) energy budgets, please see the paper \textit{The cloud-free global energy balance and inferred cloud radiative effects: an assessment based on direct observations and climate models} (\cite{Wild2019TheModels}). A negative sign in this sketch (see Figure \ref{fig:cre}) denotes a cooling effect and a positive sign can be associated with a warming effect, units are in $W m^{-2}$. \acrshort{cre} is computed by subtracting the components of a cloudy from a cloud-free atmosphere. The altitude along with the composition determines the radiative properties of the cloud. \textbf{add citation from ramanathan }
+On the basis of simulations and available observational data, both remote sensed and in-situ measurements,  \citeauthor{Wild2019TheModels} have quantified the contribution of elements in the Earth annual global mean energy budget. \acrfull{cre} is computed by subtracting the components of a cloudy from a cloud-free atmosphere. The altitude along with the composition determines the radiative properties of the cloud. \textbf{add citation from ramanathan }
 
-The physical properties causing the interaction with radiation is described below. Dense low level clouds reflect solar radiation. This is called the albedo effect. \textit{Albedo} being the ratio between reflected to incoming radiation. The higher number concentrations of droplets in a cloud the larger the total (bedre med accumulated?) surface area of droplets. The more radiation gets reflected back into space. 
+Figure \ref{fig:cre} shows a schematic of the \acrshort{cre} in Earths annual mean energy budget, for the details on the all-sky (cloudy) and clear-sky (cloud-free) energy budgets, please see the paper \textit{The cloud-free global energy balance and inferred cloud radiative effects: an assessment based on direct observations and climate models} by \cite{Wild2019TheModels}. A negative sign in this sketch (see Figure \ref{fig:cre}) denotes a cooling effect and a positive sign can be associated with a warming effect, units are in $W m^{-2}$. 
 
-Clouds absorb longwave radiation and re-emits it.
-The absorbed radiation originates from the surface, a widely used assumption is that the Earth radiates like a black body, thus its radiant flux is given by Stefan-Boltzmann forth-power law, 
+The physical properties causing the interaction with radiation is described below. Dense low level clouds reflect solar radiation. This is called the albedo effect. \textit{Albedo} being the ratio between reflected to incoming radiation. Higher number concentrations of droplets, leads to a increase in accumulated surface area, consequently more radiation is reflected back into space. 
+
+The greenhouse effect of clouds arise from their ability to absorb thermal radiation and re-emit it. The absorbed radiation originates from the surface, a widely used assumption is that the Earth radiates like a black body, thus its radiant flux is given by Stefan-Boltzmann forth-power law, 
 \begin{equation} \label{eq:stefan-boltzmann}
     F = \sigma  T ^4 % \epsilon
 \end{equation}
 here $F$ denotes flux in units of $W m^{-2}$, $T$ denotes temperature in units of $K$ and $\sigma = 5.670 \time 10^{-8} W m^{-2} K^{-4}$ is the Stefan-Boltzmann constant. 
 
-The emissivity of different surfaces depend on frequency and the viewing angle. The emissivity, $\epsilon$ of a medium is the ratio between the actual emission and the black body emission at the same temperature. Most models assume a black body emission of earth and the atmospheric components, this corresponds to a emissivity, $\epsilon=1$. 
+\textit{The emissivity}, $\epsilon$ of a medium is the ratio between the actual emission and the black body emission at the same temperature. It depends on depend on frequency and the viewing angle. Most models assume a black body emission of Earth and the atmospheric components, this corresponds to a emissivity, $\epsilon=1$, providing additional source of uncertainty to the computations of the greenhouse effect of clouds and therefore in \acrshort{ecs}.
 
-Ønsker å fortelle om emmisivitet som begrep, og introdusere det som enda en faktor som skaper usikkerhet i beregninger av radiative transfer calculation and therefor in equilibrium climate sensitivity..
+Mediums like water, snow and ice are not perfect emitters, this requires the need for modifying Equation \eqref{eq:stefan-boltzmann} with a scaling factor, called emissivity, $\epsilon \in [0, 1]$, this depends on the composition, compactness and surface roughness of the medium. The emitted flux is given by $ F = \sigma \epsilon T ^4$. 
 
-Its important to employ different assumptions about emmisivity from the atmosphere model, and not only for the surface variables. It is their belief the
-
-In their assessment of the black body assumption for different surfaces (\cite{Huang2018ImprovedClimate}) they conclude that the
-
-
-% and the intensity of the temperature determines the intensity, whether its short or long wave. 
-% see Equation (\ref{eq:stefan-boltzmann}). 
-%A perfectly emitting medium body, like the Earth or the Sun, emit radiation according to Equation \eqref{eq:stefan-boltzmann}. The temperature of the body determine intensity, in other words whether is shortwave or longwave radiation. $3.9\mu m$ maks the boundary between solar and thermal radiation?
-
-Mediums like water, snow and ice are not perfect emitters, this requires the need for extending Equation \eqref{eq:stefan-boltzmann} with a scaling factor, called emissivity, $\epsilon \in [0, 1]$, this depends on the composition, compactness and surface roughness of the medium. The emitted flux is now given by $ F = \sigma \epsilon T ^4$, at a given temperature the Earth radiates more intensely than a cloud. Researchers are still struggling with determining the exact spectral emissivity of different mediums, this is of utmost importance in the field of remote sensing as well.
-
+To asses the validity of the black body assumption on the Earth surface \citeauthor{Huang2018ImprovedClimate} demonstrated the changes in the radiative transfer calculations by varying the emissivity based on surface types. Their findings are that it makes a considerable change to the radiative transfer calculations and need to be further investigated. Researchers are still struggling with determining the exact spectral emissivity of different mediums, this is of utmost importance in the field of remote sensing, where distinguishing the signal from the reference signal continue to pose as a problem.
 %this property is also being exploited in remote sensing. In remote sensing it is of utmost importance to distinguish the signal from the reference signal, a cloud from its background for instance. 
-%Different parts of the globe are covered by different surfaces and \citeauthor{Huang2016AnSimulations} proved that assuming a constant surface emissivity effects the \acrfull{toa} polar energy budget \textbf{read paper again to detemine why this is of importance}. 
-The greenhouse effect increases with the cloud altitude, since the temperature difference between the surface and cloud increase. High clouds with low temperatures and  re-emitted radiation at a lower intensity than they absorbed, this has a warming effect. Researchers are still working on determine the emissivity of the different phases. 
+%Different parts of the globe are covered by different surfaces and \citeauthor{Huang2016AnSimulations} proved that assuming a constant surface emissivity effects the \acrfull{toa} polar energy budget \textbf{read paper again to determine why this is of importance}. 
 
-
+The greenhouse effect increases with the cloud altitude, enhanced by the temperature difference between the surface and cloud increase. High clouds with low temperatures and  reemitted radiation at a lower intensity than they absorbed, this has a warming effect. Researchers are still working on determine the emissivity of the different phases. 
 %Despite the uncertainties related to emissivity of the medium, the re-emitted radiation is of a lower intensity than what it absorb.
 %This is shown in equations \eqref{eq:cre_sw} and \eqref{eq:cre_lw}. \textbf{drop equations..?}
-
 
 \textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
 
 %Dense low level clouds reduce the amount of solar radiation absorbed by the surface, and the altitude of the clouds determine the amount of heat trapped in the system. 
-Returning to Figure \ref{fig:cre}, \citeauthor{Wild2019TheModels} concludes with a reduction in shortwave radiation of $-47Wm^{-2}$ by clouds. Showing that clouds reflect approximately 50\% of the incoming solar radiation. The amount of radiation emitted by clouds amount to $28Wm^{-2}$. This gives a net \acrshort{cre} of $-19Wm^{-2}$. Proving that the net effects of clouds on the radiative budget is negative. 
+Returning to Figure \ref{fig:cre}, \citeauthor{Wild2019TheModels} concludes with a reduction in solar radiation of $-47Wm^{-2}$ caused by clouds. Showing that clouds reflect approximately 50\% of the incoming solar radiation. The thermal radiation emitted by clouds amount to $28Wm^{-2}$. Resulting in a \acrshort{cre} of $-19Wm^{-2}$. Proving that the net effects of clouds on the radiative budget is negative, and that clouds currently have a cooling effect on climate.
 
 \section{Clouds in future climates} \label{sec:intro_cloud_future_climates}
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 0.8]{Chapter1_Intro/images/Fig7-11_ipcc.jpg}
-    \caption{Cloud climatology in future climate. Developed based feedback's in climate models, the different adjustments have different uncertainty (\cite{IPCC_CH7_clouds}).}
+    \caption{Cloud climatology in future climate. Developed based feedback's in climate models, the different adjustments is associated with levels of confidence.  (\cite{IPCC_CH7_clouds}).}
     \label{fig:cloud_scheme}
 \end{figure}
-As concluded in the previous section, an excess of radiation gets trapped in the Earth system, forcing the atmospheric temperature to increase in order to close the radiative budget. The temperature increase induces climate change and resent estimates finds this imbalance to be $0.6 Wm^{-2}$ (\cite{Wild2019TheModels}).
+As concluded in the previous section, an excess of radiation gets trapped in the Earth system, forcing the atmospheric temperature to increase in order to close the radiative budget. The temperature increase induces climate change and resent estimates finds the imbalance at \acrshort{toa} to be $0.6 Wm^{-2}$ (\cite{Wild2019TheModels}).
 
 % Wild et. al. 2019  \textbf{siter} finds an imbalance of This heat gets trapped in the earth system, forcing the surface temperature to increase in order to close the radiative budget. 
 %The imbalance in the radiative budget at \acrfull{toa} is the radiative forcing. 
-Climate drivers include both natural and anthropogenic forcings. A \textit{forcings} can be everything from natural variability in the solar energy output, volcanic eruptions or greenhouse gas emissions. The climate science community works toward a common goal to determine the \acrshort{ecs} as a function of forcing. %Different emission scenarios result different \acrshort{ecs}.  
-The \acrshort{ipcc} (\cite{IPCC_CH7_clouds}) suggest the following shift in cloud schemes (see Figure \ref{fig:cloud_scheme}). 
+Climate drivers include both natural and anthropogenic forcings. A \textit{forcing} can be everything from natural variability in the solar energy output, volcanic eruptions or greenhouse gas emissions. The climate science community works toward a common goal to determine the \acrshort{ecs} as a function of forcing. %Different emission scenarios result different \acrshort{ecs}.  
 
-Figure \ref{fig:cloud_scheme} shows a summary of the most likely cloud feedback's. First, a broadening of the Hadley cell causes a poleward shift of storms. This dries up the subtropics and moistens the higher latitudes. A reduction in the albedo effect caused as they move north. This can be explained by the spherical geometry of the Earth, the solar radiation available for reflection decrease poleward, until it disappears into the polar night. 
-
+The \acrshort{ipcc} (\cite{IPCC_CH7_clouds}) suggest the following shift in cloud schemes (see Figure \ref{fig:cloud_scheme}), as shown in Figure \ref{fig:cloud_scheme}. This is a summary of the most likely cloud feedback's. First, a broadening of the Hadley cell causes a poleward shift of storms. This dries up the subtropics and moistens the higher latitudes. Northward propagating clouds would explain a reduction in the albedo effect, caused by the spherical geometry of the Earth, the solar radiation available for reflection decrease poleward, until it disappears into the polar night. 
 %proportional with the $sin\left(\theta \right)$, where $\theta$ describes the latitude. 
-The greenhouse effect of clouds still persist without sunlight leading to a net heating in the Arctic. Second, rising higher clouds causing a stronger greenhouse effect. Third, less low level clouds, reflecting sunlight. This is assumed to be partly offset by a increase in the melting layer. Rising of the meltlayer cause ice crystals to melt, the result of this phase transition is more opaque clouds. These have a higher albedo and reflect more sunlight. 
+The greenhouse effect of clouds still persist without sunlight leading to a heating in the Arctic.
+
+Second, ascending higher clouds motivate a stronger greenhouse effect. Third, a reduction in the presence of low level clouds reduce the amount of reflect solar radiation. This is assumed to be partly offset by a increase in the melting layer. Rising of the meltlayer cause ice crystals to melt, this phase transition results in more opaque clouds. These have a higher albedo and reflect more sunlight. 
