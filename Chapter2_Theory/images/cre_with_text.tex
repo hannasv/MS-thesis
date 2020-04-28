@@ -1,0 +1,77 @@
+\begin{figure}[ht]
+    \centering
+    \definecolor{mygray}{gray}{0.8}
+
+    \begin{tikzpicture} %[remember picture,overlay]
+        \node at (current page.center) {\includegraphics[scale = 0.55]{Chapter2_Theory/images/cre_ny_farge.pdf}};
+        \begin{scope}
+            % Grid to help find the positions (remove in final version)
+            \node at (11cm, 19.5cm) {\Large \textcolor{mygray}{Cloud Radiative Effect (CRE)}};
+            
+            \node at (14.2cm, 18.1cm) {\Large \textcolor{orange}{LW CRE = +28}};
+            %\node at (14.7cm, 16cm) {\large 28};
+            
+            \node at (9cm, 18.1cm) {\Large \textcolor{yellow}{SW CRE = -47}};
+            %\node at (8.7cm, 16cm) {\large -47};
+            
+            
+            % Litt usikker på om jeg syns de bidro
+            %\node at (16.5cm, 15.4cm) {\large Atmosphere};
+            %\node at (17cm, 18cm) {\large TOA};
+            %\node at (16.4cm, 10.2cm) {\large Surface};
+            
+            \node [rotate = 70] at (10.5cm, 11.6cm) {\small \textcolor{red}{sensible heat}};
+            \node [rotate = 73] at (9.7cm, 11.7cm) {\small \textcolor{mygray}{latent heat}};
+            \node [rotate = 73] at (8.9cm, 11.5cm) {\small \textcolor{mygray}{solar reflected surface}};
+            
+            \node at (6.1cm, 10.7cm) {\small Imbalance};
+            
+            \node at (15.9cm, 11.2cm) {\Large 28};
+            \node at (15.4cm, 14.1cm) {\Large 0};
+            \node at (7.cm, 14.2cm) {\Large 7};
+            \node at (11.2cm, 13.2cm) {\Large 7};
+            
+            \node at (11.3cm, 15.4cm) {\Large NET CRE};
+            \node at (11.3cm, 14.9cm) {\Large =-19};
+            
+            \node at (11.2cm, 10.8cm) {\Large -26};
+             
+            \node at (16.cm, 10.4cm) {\small thermal};
+            \node at (16.cm, 10.1cm) {\small down};
+            \node at (16.cm, 9.8cm) {\small surface};
+            
+            \node at (13.5cm, 11.4cm) {\small thermal};
+            \node at (13.5cm, 11.1cm) {\small up};
+            \node at (13.5cm, 10.9cm) {\small surface};
+            
+            \node at (7.6cm, 10.4cm) {\small solar}; % down surface
+            \node at (7.6cm, 10.1cm) {\small down};
+            \node at (7.6cm, 9.8cm) {\small surface};
+            \node at (7.3cm, 11.3cm) {\textcolor{black}{\large -54}};
+            
+            \node at (5.9cm, 17.4cm) {\small incomming};
+            \node at (5.9cm, 17.2cm) {\small solar};
+            \node at (5.9cm, 16.90cm) {\small TOA};
+            
+            \node [rotate = 75] at (8.1cm, 16.cm) {\small solar reflected TOA};
+            
+            \node at (14.4cm, 17cm)   {\small thermal};
+            \node at (14.4cm, 16.7cm) {\small outgoing};
+            \node at (14.4cm, 16.4cm) {\small TOA};
+            
+            \node at (4.7cm, 13cm) {\small \textcolor{black}{solar absorbed}}; % atmosphere
+            %\node at (4.38cm, 13.5cm) {\small \textcolor{black}{absored}}; % atmosphere
+            \node at (4.6cm, 12.7cm) {\small \textcolor{black}{atmosphere}}; % atmosphere
+
+            
+            
+        \end{scope}
+  
+        %\node at (13cm,9.75cm) {solar absorberbed surface};
+
+        %\node at (2cm,9.75cm) {thermal outgoing TOA};
+       
+    \end{tikzpicture}
+    \caption{Inspired by Figure 15 in \cite{Wild2019TheModels}. \textbf{Trude:} I wrote latent heat, wild have writtent evaporation. Aren't we inerrested in the heat flux assisiated with evaporation which is latent heat? Det er lett å bytte tilbake hva blir mest riktig..?}
+    \label{fig:cre}
+\end{figure}
