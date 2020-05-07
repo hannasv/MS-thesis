@@ -180,7 +180,7 @@ Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep mem
 % Different approaches for detecting the artefact, separating the land, sea and coastline pixels. Filters to remove artefact in future. Can also use this compute statistics over land and ocean. Add land sea mask as subplot. 
 Leaving the artefact in the data, its a project in itself to remove this without doing to much damage to the parts that are actually clouds that also produce a signal.
 
-\subsection{Statistics}
+\subsection{Climatological Statistics}
 Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all values. Seasonal effects and differences between land and ocean is evident among all variables.
 
 \begin{figure}[ht]
@@ -217,9 +217,10 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 %Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. Follow the instructions on ECMWF homepages on \textit{how to download ERA5}. There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. Choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. The supplementary material only include the domain used in this thesis, because of GitHub has a maximum limit allowed for uploading. 
 
 \section{AR models}
+Can filter pixelwise performance, might me easier to interpret.
 
 \section{Experiments}
-
+Lim inn mail fra hugo when appropriate
 
 
 

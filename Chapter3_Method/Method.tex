@@ -83,6 +83,8 @@ There are several different types of machine learning, each suitable for solving
 \end{itemize}
 
 \section{Artificial Neural Networks} \label{sec:artificial neural networks}
+Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the relevant algorithms using the computational graphs, and relevant equations. 
+
 Artificial neural networks (\acrshort{ann}) are composed of nodes (artificial neurons) and weights. Returning to Figure \ref{fig:one_layer_mlp}, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer \acrshort{ann}. The nodes are structured in layers, illustrated using different colours. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to the the nodes of the following layer. Weights are the relative strength of the connections between nodes in neighbouring layers. Large networks of these simple neurons are able to perform complex calculations.
 %Returning to Figure \ref{fig:one_layer_mlp} again, it illustrates nodes as circles and weights as arrows. It is an example of a 2-layer ANN. The nodes are structured in layers, illustrated using different colors. The input layer contains four input nodes, the hidden layer five nodes, and the output layer three nodes. The dimensions of the input and output layers are determined by the task at hand. The number of hidden layers and the number of nodes are tunable parameters, called hyperparameteres. Nodes of one layer are only connected to adjacent layers. Weights are the relative strength of the connections between nodes in neighbouring layers. %All networks have input, output, and zero or more hidden layers.
 \input{Chapter3_Method/TiKZ/activation_mlp}
@@ -155,6 +157,7 @@ Unlike the fully connected neural network layers (see Figure \ref{fig:one_layer_
 \subsection{Recurrent Nets} \label{sec:reccurent_nets}
 % Recurrent betyr tilbakevendende
 % Sequential modelling has had a great success in applications such as machine translation and speech recognition 
+
 \input{Chapter3_Method/TiKZ/rnn}
 A recurrent neural network (RNN) is a class of artificial neural networks developed for studying patterns in sequential data such as time series, audio, or text. Figure \ref{fig:rnn} shows the structure of a simple RNN. In very simplified terms, the recurrent unit, $A$, receives an input, $x_t$, produces an output, $y_t$ and passes hidden state, $h_t$ back to itself. The hidden state contains the information about what you have learned so far. The output at each time step is dependent on the previous inputs. 
 
@@ -179,7 +182,7 @@ in order to alleviate the issues with exploding or vanishing gradients, this app
 The original memory cell contains input and output gates. A gate is a structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting, releases internal resources and enables you to learn even more. In very simplified terms, the forget gate learns which part of the cell state, the long-term memory, it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
 
 \input{Chapter3_Method/TiKZ/subplot}
-Because of the interdisciplinary nature of this thesis, this section provides a thorough walk through the \acrshort{lstm} unit and its relevant equations, using the computational graphs in Figure \ref{fig:LSTM}. The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
+The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
 The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
 
@@ -360,9 +363,20 @@ Keras-tuner. Tuning hyper-parameters.
 \textit{Learning to forget found the best accuracy when using learning rate decay.}
 
 
-Although theoretically fascinating it remains to see if LSTM provide a clear practical advantage over the autoregressive models.
+Although theoretically fascinating it remains to see if \acrshort{lstm} provide a clear practical advantage over the autoregressive models.
 
 \section{Related work} \label{sec:related_work}
+Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
+
+% De viste at den var bedre enn FC-LSTM for fully connected 
+Convolution LSTM was introduced for applications to precipitation nowcasting. Similar to traditional models the predictors is the target variable at earlier time steps. 
+
+The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. 
+
+In the mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. \textbf{Kjør eksperimentene før du fyller i resten av denne seksjsonen}
+
+
+
 Describe in more detail the work done by others on the inter disciplinary field. \cite{SunAirLSTM}, \cite{precip_nowcasting}, \cite{Liu2014DeepForecasting} ...
 
 
