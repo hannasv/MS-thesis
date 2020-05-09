@@ -199,7 +199,7 @@ Figure \ref{fig:random_week} shows the spatially averaged time series for the fi
     \label{fig:random_week}
 \end{figure}
 
-Figure \ref{fig:temporally_averaged_data} shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterens are very similar. 
+Figure \ref{fig:temporally_averaged_data} shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
 
 \begin{figure}[ht]
     \centering
@@ -218,11 +218,43 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 
 \section{AR models}
 Can filter pixelwise performance, might me easier to interpret.
+% add configuration to the previos theoretical background... 
 
-\section{Experiments}
 Lim inn mail fra hugo when appropriate
 
+Variations in experiments 
+\begin{enumerate}
+    \item Input variables
+    \begin{enumerate}
+        \item Endrer antall datapunkter som er tilgjengelige
+    \end{enumerate}
+    \item Test set
+\end{enumerate}
+
+\subsection{Performance}
 
 
+
+\subsection{Number of samples used in each}
+% Move text to discussion.
+As a consequence of missing cloud fractional cover values, increasing the order of the AR model, reduces the number samples available for a model. \textbf{Si noe om bedre datagtunnlag veier opp for ett reducert data grunnlag- det gjør det skjeldent for denne type modeller for de }
+
+
+
+\subsection{Crossvalidation - best model for three different test sets}
+% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
+
+
+\section{Conv LSTM}
+% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
+batch size = 100
+no epochs = 30
+learning rate = 0.001
+validation split = 0.2
+
+optimizer = 
+
+
+# her er det sånn at du velger en modell du tester på testsettet resten testes på valideringsettet.
 
 
