@@ -206,14 +206,10 @@ Figure \ref{fig:random_week} shows the spatially averaged time series for the fi
     \label{fig:random_week}
 \end{figure}
 
-Figure \ref{fig:temporally_averaged_data} shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
+Figure % \ref{fig:temporally_averaged_data} 
+shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/contour_temporally_averaged.pdf}
-    \caption{Contour plot showing temporally average over one month, redo this to be over the entire period.}
-    \label{fig:temporally_averaged_data}
-\end{figure}
+
 
 % Finished regriddidng files.
 \subsection{Summarise the dataset ECC.}
@@ -254,6 +250,7 @@ As a consequence of missing cloud fractional cover values, increasing the order 
 
 \section{Conv LSTM}
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
+
 batch size = 100
 no epochs = 30
 learning rate = 0.001
@@ -262,6 +259,6 @@ validation split = 0.2
 optimizer = 
 
 
-# her er det sånn at du velger en modell du tester på testsettet resten testes på valideringsettet.
+her er det sånn at du velger en modell du tester på testsettet resten testes på valideringsettet.
 
 
