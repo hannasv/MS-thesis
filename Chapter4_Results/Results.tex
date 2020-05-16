@@ -133,7 +133,19 @@ One can easily prove that if all the mask $m_i = 1$ the cloud fraction, $CF_{ECC
 The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
 
 \subsection{Missing Data} \label{sec:missing_values}
-As always when working with observations. The sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's don't appear too be an issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen. Gaps that not possible to fill in this way are documented in \textbf{X}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small. Figure \ref{fig:heatmap_missing_values} show how many hours, that is missing from each of the month in the relevant time period. 
+\begin{figure}
+    \centering
+    \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values.pdf}
+    \caption[Heatmap showing missing hours for all months or years.]{Heatmap displaying missing hours separated in month and years.}
+    \label{fig:heatmap_missing_values}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values_monthly_sum.pdf}
+    \caption{Barplot showing the monthly sum of missing values. This excludes the contribution from the periode of 2004 before the satellite was operational.}
+    \label{fig:heatmap_missing_values}
+\end{figure}
+As always when working with observations. The sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's don't appear too be an issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen.\textbf{ Gaps that not possible to fill in this way are documented in \textbf{X}}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small. Figure \ref{fig:heatmap_missing_values} show how many hours, that is missing from each of the month in the relevant time period. 
 
 In some cases the data has been destroyed prior to archiving, and can never be recovered. The EUMETSAT staff has been made aware of this problem. The requested data has entered infinity loop without being detected by EUMETSAT along with max pending request restrictions (20), this has slowed things down in addition to create gaps in the data. One request can contain ca. 3.5 months of hourly data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary}
 
@@ -141,19 +153,23 @@ As mentioned in Section \ref{sec:meteosat}, METEOSAT provide a two satellite sys
 Before being rectified to the position of the position of the operational satellite. This introduces some complications related to the parallax. This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. \textbf{Lage denne figuren?}
 
 
-\begin{figure}
-    \centering
-    \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values.pdf}
-    \caption[Heatmap showing missing hours for all months or years.]{Heatmap displaying missing hours separated in month and years.}
-    \label{fig:heatmap_missing_values}
-\end{figure}
 
 
 
 \subsection{ARTEFACT and LAND, SEA and Coastline masks} \label{sec:artefact}
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/example_artefact.pdf}
+    \caption[Artefact in European Cloud Cover dataset.]{Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
+    \label{fig:example_artefact}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/filters.pdf}
+    \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
+    \label{fig:filters_subplot}
+\end{figure}
 The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox developed within the \acrfull{aerocom} project, storing only the domain relevant, available in the project supplementary repository. 
-
-\textbf{TODO:} Running the artefact filters to compute how many times this occurs. Make histogram.
 
 Filters available \textit{land}, \textit{sea}, \textit{coastline} and \textit{artefact}. The coastline is defined to be all pixels that are not 100\% either land or sea. For land pixels, coastline pixels exceeding a 50\% threshold are included, the other pixels are regarded at the sea, argue that this is acceptable since this pixels at a level of at least 50\% most like sufficiently affected by maritime conditions that it is reasonable to classify them as sea pixels.
 
@@ -163,51 +179,76 @@ Defining the artefact according to equation,
 \end{equation}
 Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
 
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/example_artefact.pdf}
-    \caption[Artefact in European Cloud Cover dataset.]{Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
-    \label{fig:example_artefact}
-\end{figure}
+The number of occurenxces of this artefact seem to follow a normal distribution see Figure \ref{fig:signal_artefact}. Keep in min that there has been no attempts to distinguish this signal from when the entire region is cloudy. This could for instance be done by studiyng thie histograms from the ratio the artefact signal and land or no filter? The average cloud cover in the period is? 
 
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/signal_artefact.png}
-    \caption{Occurence of artefact, keep in mind that is not made any effort to distinguish this from when the entire area has cloud cover, this could be done by the ratio of artefact signal to land or something else. }
-    \label{fig:signal_artefact}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/filters.pdf}
-    \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
-    \label{fig:filters_subplot}
-\end{figure}
+\textbf{Signal artefact is not updated with all the cloud cover data.}
 
 % Different approaches for detecting the artefact, separating the land, sea and coastline pixels. Filters to remove artefact in future. Can also use this compute statistics over land and ocean. Add land sea mask as subplot. 
 Leaving the artefact in the data, its a project in itself to remove this without doing to much damage to the parts that are actually clouds that also produce a signal.
 
 \subsection{Climatological Statistics}
-Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all values. Seasonal effects and differences between land and ocean is evident among all variables.
+%%% CORRELATION
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/correlation_figure.pdf}
+    \caption{Contour plot showing the correlation between environmental variables and cloud fractional cover. }
+    \label{fig:correlation_tcc_vs_envio}
+\end{figure}
+Correlation describe how strong a pair of variables are linearly related. A positive correlation tells you that a increase in one variable results in a increase in the other. A negative correlation implies that a increase in one variable cause a decrease in the other. Figure \ref{fig:correlation_tcc_vs_envio} show the linear correlation coefficient from pairs of cloud cover and environmental variables such as temperature, pressure, relative and specific humidity.
+Keep in mind that the environmental values in this study is reanalysis variables. 
 
+Pink illustrates negative correlation while green illustrates a positive correlation. Different patterns emerge from all variables, implying that they could be useful as predictors. Over land relative humidity is positively related to 
+In the same region surface pressure is negatively correlated with cloud cover. This seems reasonable, since high pressure is often caused by sinking motions in the atmosphere and clouds are formed by rising motions. Over land in North Africa, Western Europe and in the Alps specific humidity is positive correlated to cloud cover and in eastern parts and above the ocean they are positively correlated. In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. 
+Dissuasion  --- Related to AR-model re
+
+%%% BAR PLOT GLOBAL STATISTICS
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/bar_plot_global_statistics_new_legend.pdf}
+    \caption{Bar plot showing global statistics for different filters. \textbf{Notice the low std and mad. Can this be explained by the fact that they are generated by a model.}}
+    \label{fig:bar_plot_global_stats}
+\end{figure}
+To study the statistical properties at different parts of the domain the filters shown in Figure \ref{fig:filters_subplot} was applied to the data before computing the statistical properties. Figure \ref{fig:bar_plot_global_stats} shows a barplot summarising the mean, standard deviation (std), min, max, median and mean absolute deviation (mad) for the five variables and four filters including the entire region. It becomes evident that there are differences between the different filter, however they are not ginormous.
+
+%% CLOUD FRACTIONAL COVER
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/all_stat_variable_tcc.pdf}
+    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover.}
+    \label{fig:all_stats_tcc}
+\end{figure}
+Moving from top to bottom, the mean values show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot (see Figure \ref{fig:bar_plot_global_stats}). From the minimum values of cloud cover it becomes evident that there is a  artefact present in the dataset. This is caused by the remapping routine. Figure X shows the patterns of magnitude of the areas contributing to a pixel. The max value is a one over the entire region, this tells you that at some point every pixel is cloudy. No suprises there. 
+The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and mad show similar patterens, with lowest values along the coast.
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/signal_area_pixel.pdf}
+    \caption{Areas contribution to a pixel .}
+    \label{fig:area_pixel_signal}
+\end{figure}
+Thought it is not exactly identical the same, the circular pattern centered around the median shown in the \ref{fig:area_pixel_signal} could be a possible explination of the minimum values in cloud cover. The presence of a artefact caused by the area-weighting regridding sheme.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/monthly_means.pdf}
     \caption{Spatially averaged monthly values. Filters are applied for land and sea.}
     \label{fig:monthly_mean_ts_vars}
 \end{figure}
+Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all values. Seasonal effects and differences between land and ocean is evident among all variables.
+
 
 Figure \ref{fig:random_week} shows the spatially averaged time series for the first week of August in 2012. It is ment to illustrate the relative strength of the signal feed to the input sequence. As a reference, the signal over land and ocean is provided. All variables display diurnal variations.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.pdf}
+    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.png}
     \caption{Spatially averaged time series, the filters are applied for land and sea.}
     \label{fig:random_week}
 \end{figure}
-
 Figure % \ref{fig:temporally_averaged_data} 
 shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
+
+
 
 
 
