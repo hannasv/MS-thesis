@@ -132,9 +132,11 @@ issues/
 # *.eps
 # *.pdf
 
-
-
 #from requirements.txt
 *.swn
 *.swo
 *.swp
+
+# test plots
+
+./python_figs/test/
