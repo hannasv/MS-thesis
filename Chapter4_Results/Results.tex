@@ -13,19 +13,11 @@ This section presents the developed algorithms necessary for the compilation of 
 
 \subsection{Domain}
 For this project the geographical domain has been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the region of Europe included in this dataset, covering the central Europe and north Africa.
-
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 1.0]{python_figs/Domain.png}
     \caption[Map over domain.]{Map showing the domain in the projection available in ECC. The region covers central Europe and north Africa.}
     \label{fig:map}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics{Chapter4_Results/figurs/regridded_raw_satelite_image_to_make_sure_its_correcxt_area.png}
-    \caption{Regridded the raw data including land sea pixels where there is no presence of clouds. A visual test of the regridded scheme, especially useful since different formats provide different rotation of the scan.}
-    \label{fig:correct_area}
 \end{figure}
 
 \subsection{Physical basis of variable decision} \label{sec:ecc}
@@ -54,6 +46,12 @@ The dataset includes both relative and specific humidity. Relative humidity is a
 \subsection{Regridding scheme} \label{sec:remapping}
 \input{Chapter4_Results/figurs/spherical_coord}
 Computing cloud fractions based on cloud mask requires a regridding scheme, common approaches are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/visual_regridding.pdf}
+    \caption{Regridded the raw data including land sea pixels where there is no presence of clouds. A visual test of the regridded scheme, especially useful since different formats provide different rotation of the scan. TEAL - land, yellow is cloud and purple is ocean.}
+    \label{fig:correct_area}
+\end{figure}
 
 %In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
 %\textit{The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. }
@@ -110,8 +108,8 @@ Computing the area weighted average of cloud masks requires detecting the grid$_
 Let the subscripts denote the dataset pertaining to a particular grid. Grid$_{\text{MSG}}$ refers to the space-view grid of the \acrlong{msg} and grid$_{\text{ECC}}$ refers to the uniform grid originating from ERA5. It is worth noting that the grid$_{\text{ECC}}$ would be the same as grid$_{\text{ERA5}}$.
 \begin{figure}
     \centering
-    \includegraphics[scale = 0.6]{Chapter4_Results/figurs/remapping-pixels.JPG}
-    \caption{Remapping one cell, studying the number of pixels contributing to a cell. Want to remove this figure, by adding what is shows to \ref{fig:estimate_dlon} ...  Not really sure how pixels contributing to a cell is detected is of any importance.} 
+    \includegraphics{python_figs/example_remapping_lat45_lon25.pdf}
+    \caption{Remapping one cell, studying the number of pixels contributing to a cell. The pixels from satellite is classified into corner (grey), centre (pink), right (purple), left (yellow), down (green) and up (blue) } 
     \label{fig:pixels_contributing_to_cell.}
 \end{figure}
 
