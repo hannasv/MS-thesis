@@ -255,7 +255,6 @@ shows the temporally averaged time series for all variables in the dataset. The 
 % Finished regriddidng files.
 \subsection{Summarise the dataset ECC.}
 Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METeosat satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
-\input{Chapter4_Results/figurs/estimating_changes_lat_lon} % Move
 
 %\subsection{Licences and Downloading Data} \label{sec:downloading_data}
 %Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. Follow the instructions on ECMWF homepages on \textit{how to download ERA5}. There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. Choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. The supplementary material only include the domain used in this thesis, because of GitHub has a maximum limit allowed for uploading. 
@@ -303,3 +302,4 @@ optimizer =
 her er det sånn at du velger en modell du tester på testsettet resten testes på valideringsettet.
 
 
+\input{Chapter4_Results/figurs/estimating_changes_lat_lon}
