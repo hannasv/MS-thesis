@@ -46,29 +46,6 @@ The dataset includes both relative and specific humidity. Relative humidity is a
 \subsection{Regridding scheme} \label{sec:remapping}
 \input{Chapter4_Results/figurs/spherical_coord}
 Computing cloud fractions based on cloud mask requires a regridding scheme, common approaches are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/visual_regridding.pdf}
-    \caption{Regridded the raw data including land sea pixels where there is no presence of clouds. A visual test of the regridded scheme, especially useful since different formats provide different rotation of the scan. TEAL - land, yellow is cloud and purple is ocean.}
-    \label{fig:correct_area}
-\end{figure}
-
-%In order to build the dataset to cover our needs for this application, the area weighting and regridding to ERA5 grid was implemented in Python.
-%\textit{The regridding functionality was implemented in Python and is publicly available though the project GitHub. Running the code for all year takes a while on a regular computer. Each time step is stored in individual grib-files. One netCDF-file is stored for its coordinate-information. Its done like this because of storage limitations. One netCDF-file take up roughly 1GB of memory. }
-%\textbf{Write summary based on this list to introduce section.}
-
-%\begin{enumerate}
-%    \item Utlede ligningene for areal
-%    \item Area of a square in spherical coordinates
-%    \item Estimating the changes in latitude and longitude. Based on information about the centre of the pixels. 
-%    \item Contributions from boundaries and corners. 
-%    \item Validating the algorithm against cdo compute areas and the focusing on the artefact. Making short videos of 500 frames to look at the evolution of cloud cover, to double check that it looks reasonable. 
-%    \item Cause of many errors, the data is flipped depending on the file-format it is provided in shuffled/reversed (opp ned, bak fram). Similar shape of distribution of cloud cover as other satelite, usnnhetstegn mens skyfracsjon er en stor funksjon av 
-%    item \textbf{Obs Obs - gridtype space view}
-%    \item Has anyone managed to handle this kind of data? Obviously the space view perspective grid is natural choice for products derived from geostationary platforms and thus standard in EUMETSAT. 
-%    \item Bytt curvelinear til space view.
-%    \item Latitude (degrees north), Longitude degrees east.
-%\end{enumerate}
 
 Implementing this algorithm is twofold, first detection algorithms determining the contributing pixel to the particular cells in the other coordinate system. Secondly,  deriving the equation necessary for computing the area weighting. 
 
@@ -85,8 +62,6 @@ In relation to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $
 
 % Estimating the extent of the cell.
 The coordinate information is provided as the latitude, $\theta$ (degrees north) and longitude, $\phi$ (degrees east) of the centre of the pixel. The area computation requires information about the extent of the cell, which requires some simplifications. The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations \eqref{eq:app_lon} and  \eqref{eq:app_lat}. Let the horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
-% Illustrates how neighbouring pixels, of same extent, appear in spherical coordinates. The area decreases poleward. 
-% The below approach underestimates the extent a bit? Jeg tror ikke det .. 
 
 \input{Chapter4_Results/figurs/estimating_changes_in_longitude}
 The cloud mask pixels are smallest at the nadir point, increasing in all other directions. Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. This results in different distances from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \ref{fig:correct_area}, the extent is approximated by taking the average of the right and left distances. From Figure \ref{fig:estimate_dlon} it becomes evident that the squares resembles trapezium. As far as the author know, it doesn't exist a solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method.
@@ -129,6 +104,14 @@ One can easily prove that if all the mask $m_i = 1$ the cloud fraction, $CF_{ECC
 % Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
 
 The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
+\subsection{Testing regridding routine }
+Visual inspection 
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/visual_regridding.pdf}
+    \caption{Regridded the raw data including land sea pixels where there is no presence of clouds. A visual test of the regridded scheme, especially useful since different formats provide different rotation of the scan. TEAL - land, yellow is cloud and purple is ocean.}
+    \label{fig:correct_area}
+\end{figure}
 
 \subsection{Missing Data} \label{sec:missing_values}
 \begin{figure}
