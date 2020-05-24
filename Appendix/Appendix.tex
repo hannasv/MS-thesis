@@ -1,6 +1,6 @@
 \appendix
 \chapter{Statistics}
-\section{Statistics}
+\section{Statistics - can }
 % remove comment if you wish to add Appendix to contentsline.
 %\addcontentsline{toc}{chapter}{Appendix A: How to download ERA5 data}
 %%%% MEAN
@@ -14,7 +14,7 @@
 
 
 
-\section{Alternative 1 - all statistical property for one variable}
+\section{Temporal statistics}
 
 %%% ALL LOCAL STATISTICS FOR VARIABLES 
 %% TEMPERATURE
@@ -50,29 +50,26 @@
     \label{fig:all_stats_q}
 \end{figure}
 
-
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/signal_artefact.png}
-    \caption{Occurence of artefact, keep in mind that is not made any effort to distinguish this from when the entire area has cloud cover, this could be done by the ratio of artefact signal to land or something else. }
-    \label{fig:signal_artefact}
-\end{figure}
-
-%%%%%% CONTOUR PLOTS SHOWING 
-%\input{Appendix/alternativ_staat}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%5 seasonal statistics 
-
 \cleardoublepage
+
+\chapter{Seasonal effects}
+This section has more plots. 
 \begin{figure}[ht]
     \centering
-    \includegraphics{python_figs/contourplot_all_variables_median.pdf}
-    \caption{Contour plot showing the local (pixel) median of all variables.}
-    \label{fig:contour_mean_all_vars}
+    \includegraphics{python_figs/seasonal_mean_all_variables.png}
+    \caption{Seasonal mean}
+    \label{fig:seasonal_mean}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/seasonal_median_all_variables.png}
+    \caption{Seasonal median}
+    \label{fig:seasonal_median}
 \end{figure}
 
 \chapter{Performance of other models}
-
+Currently it show the plots that could be generated to show the performance for other model. The plots below is generated based on dummy data. 
 
 %%%% TARGET PREDICITON HORIZONTAL
 \begin{figure}[ht]
@@ -98,34 +95,10 @@
     \label{fig:target_predict_era5_vertical}
 \end{figure}
 
-%%%%%%%%%% Traditional AR model
-%\begin{figure}[ht]
-%    \centering
-%    \includegraphics{python_figs/test_traditional_ar_r2.png}
-%    \caption{Trained model traditional ar of order 2. Ove land it seems ok, over ocean and montain area seems difficult.}
-%    \label{fig:traditional_ar_model_order_1}
-%\end{figure}
-
-%%%%%%%%%% Dummy model performance plot
-%\begin{figure}[ht]
-%    \centering
-%    \includegraphics{python_figs/dummy_model_performace_plot.pdf}
-%    \caption{Dummy performance plot.}
-%    \label{fig:dummy_performace_plot}
-%\end{figure}
-
-%%%%%%%%%% Dummy model performance plot - CROSSVALIDATION
-%\begin{figure}[ht]
-%    \centering
-%    \includegraphics{python_figs/dummy_model_performace_cross_validation_plot.pdf}
-%    \caption{Dummy performance plot - Crossvalidation edition.}
-%    \label{fig:dummy_performace_plot_crossvalidation}
-%\end{figure}
-
 \cleardoublepage
 
 
-\chapter{Time lapse cloud cover}
+\chapter{Time lapse of \acrlong{tcc}}
 
 \begin{figure}[ht]
     \centering
@@ -136,8 +109,16 @@
 
 
 
-\chapter{Study seasonal signals as temporal sequences - first week of every month in 2012}
+\chapter{First week of every month in 2012}
 %\addcontentsline{toc}{chapter}{Appendix D: Study 2012}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/spatially_averaged_one_week_tcc_seperated_by_filters.png}
+    \caption{First week of every month in 2012 merged into one figure.}
+    \label{fig:all_first_week_one_figure}
+\end{figure}
+
 
 \begin{figure}[ht]
     \centering
@@ -233,20 +214,11 @@
     \label{fig:dec12}
 \end{figure}
 
-\chapter{Seasonal effects}
-%\addcontentsline{toc}{chapter}{Seasonal effects}
-This section has more plots. 
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/seasonal_mean_all_variables.png}
-    \caption{Seasonal mean}
-    \label{fig:seasonal_mean}
-\end{figure}
 
-
-\begin{figure}[ht]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% signal artefact should be redefined if used 
+\begin{figure}
     \centering
-    \includegraphics{python_figs/seperate_colorbar_seasonal_std_all_variables.png}
-    \caption{Need a colorbar for each plot to study the standard deviation, since the model output has so low std. Seasonal standarddeviation. }
-    \label{fig:seasonal_std}
+    \includegraphics{python_figs/signal_artefact.png}
+    \caption{Occurence of artefact, keep in mind that is not made any effort to distinguish this from when the entire area has cloud cover, this could be done by the ratio of artefact signal to land or something else. }
+    \label{fig:signal_artefact}
 \end{figure}

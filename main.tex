@@ -2,6 +2,10 @@
 % subclass of the document class report.
 \pgfplotsset{compat=1.16}
 
+%\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\scalecheck{\resizebox{\widthof{\checkmark}*\ratio{\widthof{x}}{\widthof{\normalsize x}}}{!}{\checkmark}}
+%that's defined it - now for a test
+
 \begin{document}
 
 % Formatting titles and spaces 
@@ -50,11 +54,10 @@
 \cleardoublepage
 
 \pagenumbering{arabic} % page numbering to arabic
-% TRUDE 
-\input{./Chapter1_Intro/Introduction}
+%\input{./Chapter1_Intro/Introduction}
 \cleardoublepage
 
-\input{./Chapter2_Theory/Theory}
+%\input{./Chapter2_Theory/Theory}
 \cleardoublepage
 
 
@@ -62,7 +65,8 @@
 \cleardoublepage
 
  
-%\input{./Chapter4_Results/Results}
+
+\input{./Chapter4_Results/Results}
 \cleardoublepage
 
 %\input{Chapter6_Discussion/discussion.tex}
@@ -71,7 +75,7 @@
 %\input{./Chapter5_Conclusions/Conclusions}
 \cleardoublepage
 
-%\input{./Appendix/Appendix}
+\input{./Appendix/Appendix}
 \cleardoublepage
 
 \addcontentsline{toc}{chapter}{Bibliography}

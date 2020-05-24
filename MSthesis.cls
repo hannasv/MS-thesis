@@ -23,6 +23,7 @@
 % For tikz images
 \usepackage{filecontents}
 \usepackage{tikz}
+\usepackage{calc}
 \usepackage{tikz-3dplot}
 \usepackage{amsmath}
 \usetikzlibrary{arrows}
@@ -71,7 +72,7 @@
  
  % Inserting a line behind paragraph.
 %\let\oldparagraph\paragraph
-%\newcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}\\}
+\newcommand{\citepaper}[1]{\citeauthor{#1} (\citeyear{#1})  }
 
 \linespread{1.5} % Line spacing
 \newgeometry{top=2.5cm, bottom=2.5cm, left=3.0cm, right=2.5cm}
@@ -171,4 +172,3 @@
 
 \input{./Frontpage/my_frontpage}
 
-%\addbibresource{ref.bib} duplicate?

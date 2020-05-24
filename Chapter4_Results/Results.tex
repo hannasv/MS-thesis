@@ -45,7 +45,7 @@ The dataset includes both relative and specific humidity. Relative humidity is a
 
 \subsection{Regridding scheme} \label{sec:remapping}
 \input{Chapter4_Results/figurs/spherical_coord}
-Computing cloud fractions based on cloud mask requires a regridding scheme, common approaches are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
+Computing cloud fractions based on cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
 
 Implementing this algorithm is twofold, first detection algorithms determining the contributing pixel to the particular cells in the other coordinate system. Secondly,  deriving the equation necessary for computing the area weighting. 
 
@@ -54,11 +54,11 @@ Pixel-areas are computed using spherical coordinates. Figure \ref{fig:spherical_
 \begin{equation} \label{eq:sphere_integral}
     A = -R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
 \end{equation}
-This can be rewriting into, \textbf{needs indices $(i, j)$ ..?}
+%This can be rewriting into, \textbf{needs indices $(i, j)$ ..?}
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
 \end{equation}
-In relation to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $d \phi = 2 \delta \phi$. Highlighting the parts necessary to compute an area, here $R=6378km$ denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. Equation \ref{eq:sphere_finish} is implemented scaled by $R$ to be consistent with CDO code used in testing. 
+In relation to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $d \phi = 2 \delta \phi$. Highlighting the parts necessary to compute an area, here $R=6378km$ denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude.
 
 % Estimating the extent of the cell.
 The coordinate information is provided as the latitude, $\theta$ (degrees north) and longitude, $\phi$ (degrees east) of the centre of the pixel. The area computation requires information about the extent of the cell, which requires some simplifications. The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations \eqref{eq:app_lon} and  \eqref{eq:app_lat}. Let the horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
@@ -102,18 +102,34 @@ One can easily prove that if all the mask $m_i = 1$ the cloud fraction, $CF_{ECC
 % The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
 
 % Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
-
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/signal_area_pixel.pdf}
+    \caption{Areas contribution to a pixel. This deacrease northward as illustrated in Figure \ref{fig:relative_size_neigbouring_pixels}.}
+    \label{fig:area_pixel_signal}
+\end{figure} 
+\textbf{Comment this figure}
 The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
-\subsection{Testing regridding routine }
-Visual inspection 
+
+To recap, table \ref{tab:dataset_summary} contains a summary of the data used in the dataset.
+
+\subsection{Testing regridding routine}
+Since the different formats provide different rotations of the data. Recap the raw satelate images in \textit{grib} is provided east to west south to north. This is different from the postprocessed netcdf files providing data in the format east to west north to south, in other word, the rotation we are used to view the earth from space. Figure \ref{fig:visual_inspection_regridding} show the regridding of the raw data, clouds are illustrated in white, land mask in teal and ocean in purple. 
+The original data is provided in four categories, land, ocea, cloud and off-earth disk. By regridded the raw data it quickly becomes apparent if the correct subsection of the dataset is used. 
+
+Other meansures to ensure a correct regridding routine is tes
+
+Equation \ref{eq:sphere_finish} is tested against CDO's the pixel area function, this is only uniform grids and the methods are compare based their computations of the areas in the ERA5 dataset. It is worth noting that the implementation is scaled by $R$ to be consistent with CDO code used in testing. This scaler factor is kept for the . Mutiplying by a large number, for so to divide by the same number provide no additional information, other than introducing additional numerical errors. 
+
 \begin{figure}
     \centering
     \includegraphics{python_figs/visual_regridding.pdf}
     \caption{Regridded the raw data including land sea pixels where there is no presence of clouds. A visual test of the regridded scheme, especially useful since different formats provide different rotation of the scan. TEAL - land, yellow is cloud and purple is ocean.}
-    \label{fig:correct_area}
+    \label{fig:visual_inspection_regridding}
 \end{figure}
 
 \subsection{Missing Data} \label{sec:missing_values}
+Missing valus is inevitable when working with observational data. 
 \begin{figure}
     \centering
     \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values.pdf}
@@ -124,24 +140,27 @@ Visual inspection
     \centering
     \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values_monthly_sum.pdf}
     \caption{Barplot showing the monthly sum of missing values. This excludes the contribution from the periode of 2004 before the satellite was operational.}
-    \label{fig:heatmap_missing_values}
+    \label{fig:barplot_missing_values}
 \end{figure}
-As always when working with observations. The sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. Since the individual pixels are remapped to fractions by using the area weighted mean, NaN's don't appear too be an issue. When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen.\textbf{ Gaps that not possible to fill in this way are documented in \textbf{X}}. Manually generated datasets are prone to human error. The extra documentation is to ensure the user of what data is included and what is not. The missing values was double checked, but there might still be some data available online that is not included, however this amount should be small. Figure \ref{fig:heatmap_missing_values} show how many hours, that is missing from each of the month in the relevant time period. 
+he sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. In this project single NaN pixels are no pressing issue since they are remapped to fractions by using the area weighted mean. 
 
-In some cases the data has been destroyed prior to archiving, and can never be recovered. The EUMETSAT staff has been made aware of this problem. The requested data has entered infinity loop without being detected by EUMETSAT along with max pending request restrictions (20), this has slowed things down in addition to create gaps in the data. One request can contain ca. 3.5 months of hourly data. After downloading the data the author had detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. Based on this experience the author would recommend that the the GUI or API's available for downloading to be taken into account when choosing a dataset.\ref{tab:dataset_summary}
+
+When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen, if available. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of this missing values to month as provided in Figure \ref{fig:barplot_missing_values}. This is ment to illustrate any seasonal biases that might arise. This does not take into account the months before the satellite was operationalised in April of  2004. 
+
+Manually generated datasets are prone to human error, especially since the user need to download individual timesteps to fill the gaps. The missing values was double checked, but there is no guarentee that a few additional timesteps is available. The workflow was as follows, the author downloaded the data, detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. 
+In retrospect the, the downloading options should be wayed in when choosing data, this could avoid some frustration.
+
+In some cases the data has been destroyed prior to archiving, and can never be recovered. The EUMETSAT staff has been made aware of this problem. Other issues arising in the process of downloading, requested data has entered infinity loop without being detected by EUMETSAT. The maximum limit of  pending request restricted to 20, slowed the process further down. One request can contain ca. 3.5 months of hourly data. 
 
 As mentioned in Section \ref{sec:meteosat}, METEOSAT provide a two satellite system, occasionally both standby and the operational scan at the same time. To reduce the perturbations due to parallax of cloud, given a choice the operational satellite is chosen. In cases over technical failures, the standby scan is used, the scans are done from a different nominal position. The coordinate systems are the same, the standby scan is rectified to the position of the operational satellite before the data is provided. 
-Before being rectified to the position of the position of the operational satellite. This introduces some complications related to the parallax. This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. \textbf{Lage denne figuren?}
+Before being rectified to the position of the position of the operational satellite. This introduces some complications related to the parallax. This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. There has been no effort in quatifing this parallax, beyond checking that retrival from the same timestap of different satellites are not identical. Adjusting for this could be moved into further work. Like reclassifiyng isolated pixels in AR results.
 
-
-
-
-
-\subsection{ARTEFACT and LAND, SEA and Coastline masks} \label{sec:artefact}
+\subsection{Masks} \label{sec:mask}
+The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox developed within the \acrfull{aerocom} project, storing only the domain relevant, available in the project supplementary repository. 
 \begin{figure}
     \centering
     \includegraphics{python_figs/example_artefact.pdf}
-    \caption[Artefact in European Cloud Cover dataset.]{Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
+    \caption[Artefact in European Cloud Cover dataset.]{Result from regridding, shows the artefact. Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
     \label{fig:example_artefact}
 \end{figure}
 \begin{figure}
@@ -150,17 +169,17 @@ Before being rectified to the position of the position of the operational satell
     \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
     \label{fig:filters_subplot}
 \end{figure}
-The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox developed within the \acrfull{aerocom} project, storing only the domain relevant, available in the project supplementary repository. 
+
 
 Filters available \textit{land}, \textit{sea}, \textit{coastline} and \textit{artefact}. The coastline is defined to be all pixels that are not 100\% either land or sea. For land pixels, coastline pixels exceeding a 50\% threshold are included, the other pixels are regarded at the sea, argue that this is acceptable since this pixels at a level of at least 50\% most like sufficiently affected by maritime conditions that it is reasonable to classify them as sea pixels.
 
 Defining the artefact according to equation, 
-\begin{equation} \label{eq:artefact}
+\begin{equation} \label{eq:artefact_condition}
     \theta + \frac{1}{3}\phi < 40
 \end{equation}
 Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
 
-The number of occurenxces of this artefact seem to follow a normal distribution see Figure \ref{fig:signal_artefact}. Keep in min that there has been no attempts to distinguish this signal from when the entire region is cloudy. This could for instance be done by studiyng thie histograms from the ratio the artefact signal and land or no filter? The average cloud cover in the period is? 
+The number of occurrences of this artefact seem to follow a normal distribution see Figure \ref{fig:signal_artefact}. Keep in min that there has been no attempts to distinguish this signal from when the entire region is cloudy. This could for instance be done by studiyng thie histograms from the ratio the artefact signal and land or no filter? The average cloud cover in the period is? 
 
 \textbf{Signal artefact is not updated with all the cloud cover data.}
 
@@ -175,7 +194,7 @@ Leaving the artefact in the data, its a project in itself to remove this without
     \caption{Contour plot showing the correlation between environmental variables and cloud fractional cover. }
     \label{fig:correlation_tcc_vs_envio}
 \end{figure}
-Correlation describe how strong a pair of variables are linearly related. A positive correlation tells you that a increase in one variable results in a increase in the other. A negative correlation implies that a increase in one variable cause a decrease in the other. Figure \ref{fig:correlation_tcc_vs_envio} show the linear correlation coefficient from pairs of cloud cover and environmental variables such as temperature, pressure, relative and specific humidity.
+Correlation describe how strong a pair of variables are linearly related. A positive correlation tells you that a increase in one variable results in a increase in the other. A negative correlation describes the opposite connection, implying that a increase in one variable cause a decrease in the other. Figure \ref{fig:correlation_tcc_vs_envio} show the linear correlation coefficient from pairs of cloud cover and environmental variables such as temperature, pressure, relative and specific humidity.
 Keep in mind that the environmental values in this study is reanalysis variables. 
 
 Pink illustrates negative correlation while green illustrates a positive correlation. Different patterns emerge from all variables, implying that they could be useful as predictors. Over land relative humidity is positively related to 
@@ -200,12 +219,7 @@ To study the statistical properties at different parts of the domain the filters
 \end{figure}
 Moving from top to bottom, the mean values show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot (see Figure \ref{fig:bar_plot_global_stats}). From the minimum values of cloud cover it becomes evident that there is a  artefact present in the dataset. This is caused by the remapping routine. Figure X shows the patterns of magnitude of the areas contributing to a pixel. The max value is a one over the entire region, this tells you that at some point every pixel is cloudy. No suprises there. 
 The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and mad show similar patterens, with lowest values along the coast.
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/signal_area_pixel.pdf}
-    \caption{Areas contribution to a pixel .}
-    \label{fig:area_pixel_signal}
-\end{figure}
+
 Thought it is not exactly identical the same, the circular pattern centered around the median shown in the \ref{fig:area_pixel_signal} could be a possible explination of the minimum values in cloud cover. The presence of a artefact caused by the area-weighting regridding sheme.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
@@ -240,47 +254,99 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 %\subsection{Licences and Downloading Data} \label{sec:downloading_data}
 %Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. Follow the instructions on ECMWF homepages on \textit{how to download ERA5}. There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. Choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. The supplementary material only include the domain used in this thesis, because of GitHub has a maximum limit allowed for uploading. 
 
-\section{AR models}
-Can filter pixelwise performance, might me easier to interpret.
-% add configuration to the previos theoretical background... 
 
-Lim inn mail fra hugo when appropriate
+\section{Experimental setup}
+Unless stated otherwise a model is trained on data in the period 2004 to 2013 and tested on 2014 to 2018. 
 
-Variations in experiments 
+Minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a particular model. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$.
+
+\textbf{Make bar plot showing the average number of training and test samples for AR models. This might explain the perforamce of certain models. }
+
+\subsection{ERA5}
+Performance of ERA5 model compared to the satellite. 
+\textbf{Make table from script running on wessel}
+
+\subsection{Autoregressive models}
+The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. 
+
+A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. One AR-model is the combination of 13041 individual regression models. Time consuming task because of the high number of matrix inversions. 
+
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \multicolumn{1}{|c|}{} & \textbf{Scaling predictors} & \textbf{Transforming target} & \textbf{Order} & \textbf{Environmental variables} \\ \hline
+    \textbf{Model 1} & \surd & \surd & 1 & \surd \\ \hline
+    \textbf{Model 2} & \surd & \surd & 0 & $\times$ \\ \hline
+    \textbf{Model 3} & \surd & \surd & 1 & $\times$ \\ \hline
+    \textbf{Model 4} & \surd & \surd & 2 & $\times$   \\ \hline
+    \textbf{Model 5} & \surd & \surd & 3 & $\times$ \\ \hline
+    \textbf{Model 6} & \surd & \surd & 4 & $\times$ \\ \hline
+    \end{tabular}
+    }
+    \caption{Table configuration of models. $\times$ denoted not applied, \surd denotes applied}
+    \label{tab:ar_model_config}
+\end{table}
+
+
+%%%% TARGET PREDICITON HORIZONTAL
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/target_prediction_plot_horizonal.pdf}
+    \caption{Comparison target and predicted cloud fractional cover.}
+    \label{fig:target_predict_horizontal}
+\end{figure}
+
+%%%% TARGET PREDICITON HORIZONTAL
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/target_prediction_plot_vertical.pdf}
+    \caption{Comparison target and predicted vertical cloud fractional cover.}
+    \label{fig:target_predict_vertical}
+\end{figure}
+
+%%%% TARGET PREDICITON ERA5
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
+    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover.}
+    \label{fig:target_predict_era5_vertical}
+\end{figure}
+
+\subsubsection{Crossvalidation - best model for three different test sets}
+% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
+\textbf{Include this if you have the time}
+Kryssvalidering.
+
+Test1 : 2004 - 2008 (5aar)
+Test2 : 2009 - 2013 (5aar)
+Test3 : 2014 - 2018 (5aar)
+
+
+\section{Convolutional LSTM}
+% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
+The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. The model names is given following this structure. most easily described by a example, model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. 
+
+All models use the MSE loss in combination with the Adam optimizer. The list decribes models tested in this experiment. 
+
 \begin{enumerate}
-    \item Input variables
-    \begin{enumerate}
-        \item Endrer antall datapunkter som er tilgjengelige
-    \end{enumerate}
-    \item Test set
+    \item ConvLSTM 1x1-256-2
+    \item ConvLSTM 3x3-256-2
+    \iten ConvLSTM 5x5-256-2
+    \item ConvLSTM 3x3-256-3
+    \item ConvLSTM 5x5-256-3
 \end{enumerate}
 
-\subsection{Performance}
 
 
-
-\subsection{Number of samples used in each}
-% Move text to discussion.
-As a consequence of missing cloud fractional cover values, increasing the order of the AR model, reduces the number samples available for a model. \textbf{Si noe om bedre datagtunnlag veier opp for ett reducert data grunnlag- det gjør det skjeldent for denne type modeller for de }
-
-
-
-\subsection{Crossvalidation - best model for three different test sets}
-% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
-
-
-\section{Conv LSTM}
-% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
 
 batch size = 100
 no epochs = 30
 learning rate = 0.001
 validation split = 0.2
 
-optimizer = 
-
-
-her er det sånn at du velger en modell du tester på testsettet resten testes på valideringsettet.
-
+optimizer = A
 
 \input{Chapter4_Results/figurs/estimating_changes_lat_lon}
