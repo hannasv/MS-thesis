@@ -309,7 +309,16 @@ The optimal solution is the best solution based on the training data available. 
 %Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
 
 
-\section{Framework - model setup}
+\section{Framework - Model Setup}
+The following sections contain the configurations of the two methods used in the experimental setup used in this project, along with description of tunable parameters. Automatic hyper parametertuning is used for the complicated \acrshort{convlstm} models, while the simpler \acrshort{ar}-models, are manually tuned. This is done based on convenience, the parameter space is a lot larger for \acrshort{convlstm} and software for automatic optimixation is provided by Chollet.
+For a small parameter space, manual optimization allows you to become more failiaar with a particular model. 
+
+\subsection{Autoregressive models}
+\textbf{Move first two paragraphs to discussion}
+The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. 
+
+A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. One AR-model is the combination of 13041 individual regression models. Time consuming task because of the high number of matrix inversions. 
+
 %\subsection{Learning algorithm} \label{sec:backprop_learning_algorithm}
 %Learning is a time consuming task. The fundamental trick in deep learning is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example (i.e. the current batch). The adjustment is the job of the optimizer, which implements backpropagation algorithmn which is the central learning algoritmn. This section aims to build a understanding of backpropagation trough time without referring to any significant mathematics. If you are interested in the mathematics behind this, read X and Y. 
 
@@ -317,15 +326,23 @@ The optimal solution is the best solution based on the training data available. 
 
 %\section{Notes - Rewrite this entire thing to be "Automatic hyperparameters optimization" }
 
-\subsubsection{Transforming data} \label{sec:transforming_cloud_cover}
-\textbf{Inverse of sigmoid is often refered to as logistic sigmoid?}
-Transformation of data us useful for avoiding predicting unphysical values. As well as keeping digits from exploding.
+\subsubsection{Feature Scaling} \label{sec:scaling_predictors}
+Feature scaling is used to normalize or scale the predictor variables, this can be done to avoid possible problems related to numerical errors. The predictors was normalized according to the following Equation \ref{eq:scaling_data}. The feature scaling is applied after the partition into training and test dataset. 
+\begin{equation} \label{eq:scaling_data}
+    \mathbf{x} = \frac{\mathbf{x} - \bar{\mathbf{x}}}{\sigma_{\mathbf{x}}}
+\end{equation}
+where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation computed based on the respective predictor in the trainingset. 
+
+The mean and standard deviation is applied to the test dataset. If the statistics of the test dataset would have been included, the model would have a sneak peaked at the test data and the test score would not be general.
+
+\subsubsection{Transforming target} \label{sec:transforming_target}
+Transformation of data us useful for avoiding predicting unphysical values, the reverse/ inverse transformation truncates the values in the range or [0, 1].
 A common approach for values in the range zero to one is using the inverse of the sigmoid function, shown in figure \ref{fig:activation_func_plus}. The transform uses values from the entire real axis $(-\infty, \infty)$. 
 %\input{Chapter2_Theory/tikz/sigmoid.tikz}
 Tranforming the data using sigmoid and then squazing it back between 0 and 1. 
 Continous models can learn out-of-sample values. In this case it would be unphysical.
 
-\subsection{Loss/ Metrics}  \label{sec:metrics}
+\subsection{Loss and Performance Metrics}  \label{sec:metrics}
 In order to acquire a certain skill you need a measure determining how close you are. 
 Use the sum of square or absolute values in order to not penalize point on the lower side of the line. Or not having to deal with negative distances. 
 \begin{equation} \label{eq:mse}
@@ -338,6 +355,27 @@ Use the sum of square or absolute values in order to not penalize point on the l
     R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
 \end{equation} 
 where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model.
+
+\subsubsection{Experimental setup AR-models}
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ccccc}
+    \cline{2-5}
+     & \textbf{Scaling predictors} & \textbf{Transforming target} & \textbf{Order} & \textbf{enviornmental variables} \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 1}} & \checked & $\times$  & 1 & $\times$ \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 2}} & \checked & $\times$  & 0 & \checked   \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 3}} & \checked & $\times$  & 1 & \checked  \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 4}} & \checked & $\times$  & 2 & \checked  \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 5}} & \checked & $\times$  & 3 & \checked  \\ \hline
+    \multicolumn{1}{c}{\textbf{Model 6}} & \checked & $\times$  & 4 & \checked  \\ \hline
+    \end{tabular}%
+    }
+    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied}
+    \label{tab:ar_model_config}
+\end{table}
+
 
 \subsection{Generalization} \label{sec:generalization}
 % Move overfitting here
@@ -354,7 +392,52 @@ Overall goal is to achieve the most general relation. \textit{For prediction pur
 Its relevant for all ML algorithms but easiest to visualize for linear regression.
 \textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
-\subsection{Framework and configuration} \label{sec:hyperparam_tuning}
+
+
+\subsubsection{Varying the test sample}
+% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
+Partition into test-datset, remaining data is used for training. 
+\begin{itemize}[noitemsep, topsep=0pt]
+    \item Test 1 : 2014 - 2018
+    \item Test 2 : 2009 - 2013
+    \item Test 3 : 2004 - 2008
+\end{itemize}
+
+\subsection{Convolutional LSTM}
+% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
+The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. The model names is given following this structure. most easily described by a example, model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. 
+
+All models use the MSE loss in combination with the Adam optimiser. The list describes models tested in this experiment. 
+
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item ConvLSTM 1x1-256-2
+    \item ConvLSTM 3x3-256-2
+    \item ConvLSTM 5x5-256-2
+    \item ConvLSTM 3x3-256-3
+    \item ConvLSTM 5x5-256-3
+\end{enumerate}
+
+batch size = 100
+no epochs = 30
+learning rate = 0.001
+validation split = 0.2
+optimizer = A
+̈́
+\subsubsection{Automatic hyperparameteroptimization}  \label{sec:hyperparam_tuning}
+ML is more complicated and would further benefit 
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Framework and configuration}
 Keras-tuner. Tuning hyper-parameters.
 \textit{A hyperparameter is a constant parameter whose value is set before the learning process begins.}
 

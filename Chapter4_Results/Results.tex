@@ -256,39 +256,16 @@ Fractional cloud cover is computed from the cloud mask product retrieved by the 
 
 
 \section{Experimental setup}
-Unless stated otherwise a model is trained on data in the period 2004 to 2013 and tested on 2014 to 2018. 
+Unless stated otherwise a model is trained on data in the period 2004 to 2013 and tested on 2014 to 2018. This period was chosen based on the assumption that this is most representable for the climate in the near future.
 
 Minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a particular model. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$.
 
-\textbf{Make bar plot showing the average number of training and test samples for AR models. This might explain the perforamce of certain models. }
+\textbf{Make bar plot showing the average number of training and test samples for AR models. This might explain the performans of certain models. }
 
 \subsection{ERA5}
 Performance of ERA5 model compared to the satellite. 
 \textbf{Make table from script running on wessel}
 
-\subsection{Autoregressive models}
-The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. 
-
-A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. One AR-model is the combination of 13041 individual regression models. Time consuming task because of the high number of matrix inversions. 
-
-
-\begin{table}[h]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    \multicolumn{1}{|c|}{} & \textbf{Scaling predictors} & \textbf{Transforming target} & \textbf{Order} & \textbf{Environmental variables} \\ \hline
-    \textbf{Model 1} & \surd & \surd & 1 & \surd \\ \hline
-    \textbf{Model 2} & \surd & \surd & 0 & $\times$ \\ \hline
-    \textbf{Model 3} & \surd & \surd & 1 & $\times$ \\ \hline
-    \textbf{Model 4} & \surd & \surd & 2 & $\times$   \\ \hline
-    \textbf{Model 5} & \surd & \surd & 3 & $\times$ \\ \hline
-    \textbf{Model 6} & \surd & \surd & 4 & $\times$ \\ \hline
-    \end{tabular}
-    }
-    \caption{Table configuration of models. $\times$ denoted not applied, \surd denotes applied}
-    \label{tab:ar_model_config}
-\end{table}
 
 
 %%%% TARGET PREDICITON HORIZONTAL
@@ -315,38 +292,5 @@ A set of models are compiled by varying components like scaling the predictors, 
     \label{fig:target_predict_era5_vertical}
 \end{figure}
 
-\subsubsection{Crossvalidation - best model for three different test sets}
-% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
-\textbf{Include this if you have the time}
-Kryssvalidering.
-
-Test1 : 2004 - 2008 (5aar)
-Test2 : 2009 - 2013 (5aar)
-Test3 : 2014 - 2018 (5aar)
-
-
-\section{Convolutional LSTM}
-% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. The model names is given following this structure. most easily described by a example, model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. 
-
-All models use the MSE loss in combination with the Adam optimizer. The list decribes models tested in this experiment. 
-
-\begin{enumerate}
-    \item ConvLSTM 1x1-256-2
-    \item ConvLSTM 3x3-256-2
-    \iten ConvLSTM 5x5-256-2
-    \item ConvLSTM 3x3-256-3
-    \item ConvLSTM 5x5-256-3
-\end{enumerate}
-
-
-
-
-batch size = 100
-no epochs = 30
-learning rate = 0.001
-validation split = 0.2
-
-optimizer = A
 
 \input{Chapter4_Results/figurs/estimating_changes_lat_lon}
