@@ -1,17 +1,11 @@
-\chapter{Results}
-This chapter presents the developed methodology used in the compilation of the dataset. 
-The results from the experiments conducted based on the setup and configuration presented in Section \ref{sec:hyperparam_tuning}. Finally, each model is evaluated on unseen portion of the dataset presented in the first region.
+\chapter{Dataset - European Cloud Cover }
+%This chapter presents the developed methodology used in the compilation of the dataset. 
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and METeosat second generation cloud mask.
 
 Several candidate satellites were studied before arriving at the combination of datasets presented here. Spatiotemporal consistency and resolution was given high priority. 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice (\cite{lohmann2016}, pp. 19). The finished dataset, described in detail below, is named \acrfull{ecc}.
 
-\section{Dataset - European Cloud Cover }
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and METeosat second generation cloud mask. % This requires the regridding of one of them.
-
-\acrshort{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. The resolution available in ERA5 was preserved, while remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. These computations are described in \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and see section \ref{sec:EUMETSAT_cloud_mask} for more information about cloud mask. 
-\input{Chapter2_Theory/tables/table_transposed.tex}
-
-\subsection{Domain}
+\section{Domain}
 For this project the geographical domain has been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the region of Europe included in this dataset, covering the central Europe and north Africa.
 \begin{figure}[h]
     \centering
@@ -20,7 +14,7 @@ For this project the geographical domain has been restricted to latitude, $\thet
     \label{fig:map}
 \end{figure}
 
-\subsection{Physical basis of variable decision} \label{sec:ecc}
+\section{Physical basis of variable decision} \label{sec:ecc}
 The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. As discussed in Section \ref{sec:cloud_in_climate_system}, cloud dynamics is far more complicated than what can be describes by these variables. 
 
 This is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parametize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be enormous, and even then there would be no guarantee that the model performance would be state-of-the-art.
@@ -43,8 +37,8 @@ Winds transports the substances suspended in air, such as pollution and humidity
 
 The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. It is unitless, and ranges from 0 to 1. Conditions where relative humidity exceeds one are called supersaturated. Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether the relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). 
 
-\subsection{Regridding scheme} \label{sec:remapping}
-\input{Chapter4_Results/figurs/spherical_coord}
+\section{Regridding scheme} \label{sec:remapping}
+\input{Chapter4_Dataset/figurs/spherical_coord}
 Computing cloud fractions based on cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
 
 Implementing this algorithm is twofold, first detection algorithms determining the contributing pixel to the particular cells in the other coordinate system. Secondly,  deriving the equation necessary for computing the area weighting. 
@@ -63,7 +57,7 @@ In relation to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $
 % Estimating the extent of the cell.
 The coordinate information is provided as the latitude, $\theta$ (degrees north) and longitude, $\phi$ (degrees east) of the centre of the pixel. The area computation requires information about the extent of the cell, which requires some simplifications. The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations \eqref{eq:app_lon} and  \eqref{eq:app_lat}. Let the horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
 
-\input{Chapter4_Results/figurs/estimating_changes_in_longitude}
+\input{Chapter4_Dataset/figurs/estimating_changes_in_longitude}
 The cloud mask pixels are smallest at the nadir point, increasing in all other directions. Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. This results in different distances from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \ref{fig:correct_area}, the extent is approximated by taking the average of the right and left distances. From Figure \ref{fig:estimate_dlon} it becomes evident that the squares resembles trapezium. As far as the author know, it doesn't exist a solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method.
 %Since changes in degrees varies linearly this should not affect the extent of the cell. More than the error already present in the data. Det forklarer bare hvorfor buelengde ikke er nødvendig.
 \begin{equation} \label{eq:app_lon}
@@ -113,7 +107,7 @@ The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{gr
 
 To recap, table \ref{tab:dataset_summary} contains a summary of the data used in the dataset.
 
-\subsection{Testing regridding routine}
+\section{Testing regridding routine}
 Since the different formats provide different rotations of the data. Recap the raw satelate images in \textit{grib} is provided east to west south to north. This is different from the postprocessed netcdf files providing data in the format east to west north to south, in other word, the rotation we are used to view the earth from space. Figure \ref{fig:visual_inspection_regridding} show the regridding of the raw data, clouds are illustrated in white, land mask in teal and ocean in purple. 
 The original data is provided in four categories, land, ocea, cloud and off-earth disk. By regridded the raw data it quickly becomes apparent if the correct subsection of the dataset is used. 
 
@@ -128,7 +122,7 @@ Equation \ref{eq:sphere_finish} is tested against CDO's the pixel area function,
     \label{fig:visual_inspection_regridding}
 \end{figure}
 
-\subsection{Missing Data} \label{sec:missing_values}
+\section{Missing Data} \label{sec:missing_values}
 Missing valus is inevitable when working with observational data. 
 \begin{figure}
     \centering
@@ -155,7 +149,7 @@ In some cases the data has been destroyed prior to archiving, and can never be r
 As mentioned in Section \ref{sec:meteosat}, METEOSAT provide a two satellite system, occasionally both standby and the operational scan at the same time. To reduce the perturbations due to parallax of cloud, given a choice the operational satellite is chosen. In cases over technical failures, the standby scan is used, the scans are done from a different nominal position. The coordinate systems are the same, the standby scan is rectified to the position of the operational satellite before the data is provided. 
 Before being rectified to the position of the position of the operational satellite. This introduces some complications related to the parallax. This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. There has been no effort in quatifing this parallax, beyond checking that retrival from the same timestap of different satellites are not identical. Adjusting for this could be moved into further work. Like reclassifiyng isolated pixels in AR results.
 
-\subsection{Masks} \label{sec:mask}
+\section{Masks} \label{sec:mask}
 The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox developed within the \acrfull{aerocom} project, storing only the domain relevant, available in the project supplementary repository. 
 \begin{figure}
     \centering
@@ -186,7 +180,7 @@ The number of occurrences of this artefact seem to follow a normal distribution 
 % Different approaches for detecting the artefact, separating the land, sea and coastline pixels. Filters to remove artefact in future. Can also use this compute statistics over land and ocean. Add land sea mask as subplot. 
 Leaving the artefact in the data, its a project in itself to remove this without doing to much damage to the parts that are actually clouds that also produce a signal.
 
-\subsection{Climatological Statistics}
+\section{Climatological Statistics}
 %%% CORRELATION
 \begin{figure}[ht]
     \centering
@@ -243,54 +237,14 @@ Figure \ref{fig:random_week} shows the spatially averaged time series for the fi
 Figure % \ref{fig:temporally_averaged_data} 
 shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
 
-
-
-
-
 % Finished regriddidng files.
-\subsection{Summarise the dataset ECC.}
-Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METeosat satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
+\section{Summary}
+\acrshort{ecc} comprises of five variables collected from two sources; ERA5 and EUMETSAT. The resolution available in ERA5 was preserved, while remapping the cloud mask to cloud fractions. The final product consist of the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. These computations are described in \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and on Section \ref{sec:EUMETSAT_cloud_mask} for more information about cloud mask. 
+\input{Chapter2_Theory/tables/table_transposed.tex}
+%Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METeosat satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
+
+%\textbf{Something is missing here -- a table?}
 
 %\subsection{Licences and Downloading Data} \label{sec:downloading_data}
 %Scripts for downloading the ERA5 data used in this thesis is available in the project GitHub on \href{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}{https://github.com/hannasv/MS/tree/metos/downloading{\_}RA}. However you will need to create a CDS-user. Follow the instructions on ECMWF homepages on \textit{how to download ERA5}. There are no scripts available for downloading METEOSAT data this is done using satellite retrievals at EUMETSATs Earth Observation Portal. Its freely available in hourly resolution. Scientist can apply for increased resolution up to 15min. Choose the cloud mask product in grb-format. By running \textbf{X - legg inn filnavn} you can generate your own files for regridding. The supplementary material only include the domain used in this thesis, because of GitHub has a maximum limit allowed for uploading. 
-
-
-\section{Experimental setup}
-Unless stated otherwise a model is trained on data in the period 2004 to 2013 and tested on 2014 to 2018. This period was chosen based on the assumption that this is most representable for the climate in the near future.
-
-Minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a particular model. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$.
-
-\textbf{Make bar plot showing the average number of training and test samples for AR models. This might explain the performans of certain models. }
-
-\subsection{ERA5}
-Performance of ERA5 model compared to the satellite. 
-\textbf{Make table from script running on wessel}
-
-
-
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_horizonal.pdf}
-    \caption{Comparison target and predicted cloud fractional cover.}
-    \label{fig:target_predict_horizontal}
-\end{figure}
-
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_vertical.pdf}
-    \caption{Comparison target and predicted vertical cloud fractional cover.}
-    \label{fig:target_predict_vertical}
-\end{figure}
-
-%%%% TARGET PREDICITON ERA5
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
-    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover.}
-    \label{fig:target_predict_era5_vertical}
-\end{figure}
-
-
-\input{Chapter4_Results/figurs/estimating_changes_lat_lon}
+\input{Chapter4_Dataset/figurs/estimating_changes_lat_lon}

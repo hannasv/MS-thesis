@@ -180,8 +180,9 @@ They propose a new method for learning %an approach for constant error flow
 in order to alleviate the issues with exploding or vanishing gradients, this approach is called constant error flow. 
 
 The original memory cell contains input and output gates. A gate is a structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting, releases internal resources and enables you to learn even more. In very simplified terms, the forget gate learns which part of the cell state, the long-term memory, it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
-
+% This figure appear to long down on the list.
 \input{Chapter3_Method/TiKZ/subplot}
+
 The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
 The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
@@ -196,8 +197,6 @@ Figure \ref{fig:input_gate} shows two processes, one determining the candidate i
 Figure \ref{fig:update_memory} shows how the cell state is updated. Using multiplicative gates, first the forget gate removes information. Then the output from input gate adds the useful information from the input to memory. The input gate regulates what information to store from the input. The aim of the input gate is to clean the input by reducing the noise signal. These computations are also shown in Figure \ref{fig:input_gate}.
 
 Figure \ref{fig:output_gate} illustrates how the output gate gets updated. Passing the cell state through the function $tanh$, giving the value a range of from -1 to 1. The output gate determines what to remove from the cell state and pass as the hidden state. This gate aims to remove noise from the output, preventing misrepresentations of the hidden state (short-term memory). This forces the hidden state to always take values in the range minus one to one (\cite{Hochreiter1997LongMemory}).  In summary, at each time step some memories are removed and others are added. 
-
-
 
 % Finish with this
 The process of training is repeated until the network reaches an acceptable performance. The principle of learning is the same as for the simpler architectures. However, the mathematical description of the backpropagation algorithm gets more complicated. The reverse pass measures the error gradients over all connections traversing backward to the input layer. Like before, based on the error signal the weights are adjusted in the direction of the lowest error.
@@ -308,43 +307,11 @@ The optimal solution is the best solution based on the training data available. 
 % The code is implemented using scipys pinv to solve the problems with invertable matrices.
 %Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
 
-
-\section{Framework - Model Setup}
-The following sections contain the configurations of the two methods used in the experimental setup used in this project, along with description of tunable parameters. Automatic hyper parametertuning is used for the complicated \acrshort{convlstm} models, while the simpler \acrshort{ar}-models, are manually tuned. This is done based on convenience, the parameter space is a lot larger for \acrshort{convlstm} and software for automatic optimixation is provided by Chollet.
-For a small parameter space, manual optimization allows you to become more failiaar with a particular model. 
-
-\subsection{Autoregressive models}
-\textbf{Move first two paragraphs to discussion}
-The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. 
-
-A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. One AR-model is the combination of 13041 individual regression models. Time consuming task because of the high number of matrix inversions. 
-
-%\subsection{Learning algorithm} \label{sec:backprop_learning_algorithm}
-%Learning is a time consuming task. The fundamental trick in deep learning is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example (i.e. the current batch). The adjustment is the job of the optimizer, which implements backpropagation algorithmn which is the central learning algoritmn. This section aims to build a understanding of backpropagation trough time without referring to any significant mathematics. If you are interested in the mathematics behind this, read X and Y. 
-
-%\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.}
-
-%\section{Notes - Rewrite this entire thing to be "Automatic hyperparameters optimization" }
-
-\subsubsection{Feature Scaling} \label{sec:scaling_predictors}
-Feature scaling is used to normalize or scale the predictor variables, this can be done to avoid possible problems related to numerical errors. The predictors was normalized according to the following Equation \ref{eq:scaling_data}. The feature scaling is applied after the partition into training and test dataset. 
-\begin{equation} \label{eq:scaling_data}
-    \mathbf{x} = \frac{\mathbf{x} - \bar{\mathbf{x}}}{\sigma_{\mathbf{x}}}
-\end{equation}
-where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation computed based on the respective predictor in the trainingset. 
-
-The mean and standard deviation is applied to the test dataset. If the statistics of the test dataset would have been included, the model would have a sneak peaked at the test data and the test score would not be general.
-
-\subsubsection{Transforming target} \label{sec:transforming_target}
-Transformation of data us useful for avoiding predicting unphysical values, the reverse/ inverse transformation truncates the values in the range or [0, 1].
-A common approach for values in the range zero to one is using the inverse of the sigmoid function, shown in figure \ref{fig:activation_func_plus}. The transform uses values from the entire real axis $(-\infty, \infty)$. 
-%\input{Chapter2_Theory/tikz/sigmoid.tikz}
-Tranforming the data using sigmoid and then squazing it back between 0 and 1. 
-Continous models can learn out-of-sample values. In this case it would be unphysical.
-
 \subsection{Loss and Performance Metrics}  \label{sec:metrics}
+To asses model performance you need to do this based on a criterion, this is naturally 
+
 In order to acquire a certain skill you need a measure determining how close you are. 
-Use the sum of square or absolute values in order to not penalize point on the lower side of the line. Or not having to deal with negative distances. 
+Use the sum of square or absolute values in order to not penalise point on the lower side of the line. Or not having to deal with negative distances. 
 \begin{equation} \label{eq:mse}
     MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
 \end{equation} 
@@ -356,28 +323,8 @@ Use the sum of square or absolute values in order to not penalize point on the l
 \end{equation} 
 where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model.
 
-\subsubsection{Experimental setup AR-models}
 
-\begin{table}[h]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{ccccc}
-    \cline{2-5}
-     & \textbf{Scaling predictors} & \textbf{Transforming target} & \textbf{Order} & \textbf{enviornmental variables} \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 1}} & \checked & $\times$  & 1 & $\times$ \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 2}} & \checked & $\times$  & 0 & \checked   \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 3}} & \checked & $\times$  & 1 & \checked  \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 4}} & \checked & $\times$  & 2 & \checked  \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 5}} & \checked & $\times$  & 3 & \checked  \\ \hline
-    \multicolumn{1}{c}{\textbf{Model 6}} & \checked & $\times$  & 4 & \checked  \\ \hline
-    \end{tabular}%
-    }
-    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied}
-    \label{tab:ar_model_config}
-\end{table}
-
-
-\subsection{Generalization} \label{sec:generalization}
+\subsection{Generalisations} \label{sec:generalization}
 % Move overfitting here
 Finding a suitable curve for a set of points. Working with real data, noise is inevitable. In order to compensate, data is split into training and test (validation) sets. % better to call it something like generalization..?
 Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} (\cite{hastie_statistical-learning}) Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
@@ -393,74 +340,13 @@ Its relevant for all ML algorithms but easiest to visualize for linear regressio
 \textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
 
-
-\subsubsection{Varying the test sample}
-% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
-Partition into test-datset, remaining data is used for training. 
-\begin{itemize}[noitemsep, topsep=0pt]
-    \item Test 1 : 2014 - 2018
-    \item Test 2 : 2009 - 2013
-    \item Test 3 : 2004 - 2008
-\end{itemize}
-
-\subsection{Convolutional LSTM}
-% Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. The model names is given following this structure. most easily described by a example, model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. 
-
-All models use the MSE loss in combination with the Adam optimiser. The list describes models tested in this experiment. 
-
-\begin{enumerate}[noitemsep, topsep=0pt]
-    \item ConvLSTM 1x1-256-2
-    \item ConvLSTM 3x3-256-2
-    \item ConvLSTM 5x5-256-2
-    \item ConvLSTM 3x3-256-3
-    \item ConvLSTM 5x5-256-3
-\end{enumerate}
-
-batch size = 100
-no epochs = 30
-learning rate = 0.001
-validation split = 0.2
-optimizer = A
-̈́
-\subsubsection{Automatic hyperparameteroptimization}  \label{sec:hyperparam_tuning}
-ML is more complicated and would further benefit 
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Framework and configuration}
-Keras-tuner. Tuning hyper-parameters.
-\textit{A hyperparameter is a constant parameter whose value is set before the learning process begins.}
-
-\textbf{Explain all the params you tune. Might be beneficially with a figure. See Rune's MS-thesis.}
-
-\textit{Learning to forget found the best accuracy when using learning rate decay.}
-
-
-Although theoretically fascinating it remains to see if \acrshort{lstm} provide a clear practical advantage over the autoregressive models.
-
-\section{Related work} \label{sec:related_work}
-Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
+%\section{Related work} \label{sec:related_work}
+%Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
 
 % De viste at den var bedre enn FC-LSTM for fully connected 
-Convolution LSTM was introduced for applications to precipitation nowcasting. Similar to traditional models the predictors is the target variable at earlier time steps. 
+%Convolution LSTM was introduced for applications to precipitation nowcasting. Similar to traditional models the predictors is the target variable at earlier time steps. 
 
-The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. 
-
-In the mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. \textbf{Kjør eksperimentene før du fyller i resten av denne seksjsonen}
+%Describe in more detail the work done by others on the inter disciplinary field. \cite{SunAirLSTM}, \cite{precip_nowcasting}, \cite{Liu2014DeepForecasting} ...
 
 
 
-Describe in more detail the work done by others on the inter disciplinary field. \cite{SunAirLSTM}, \cite{precip_nowcasting}, \cite{Liu2014DeepForecasting} ...
-
-
-\input{Chapter2_Theory/practical_implications.tex}
