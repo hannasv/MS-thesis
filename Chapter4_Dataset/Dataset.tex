@@ -1,16 +1,16 @@
 \chapter{Dataset - European Cloud Cover }
 %This chapter presents the developed methodology used in the compilation of the dataset. 
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and METeosat second generation cloud mask.
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrlong{msg} cloud mask.
 
 Several candidate satellites were studied before arriving at the combination of datasets presented here. Spatiotemporal consistency and resolution was given high priority. 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice (\cite{lohmann2016}, pp. 19). The finished dataset, described in detail below, is named \acrfull{ecc}.
 
 \section{Domain}
-For this project the geographical domain has been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the region of Europe included in this dataset, covering the central Europe and north Africa.
+For this project the geographical domain has been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the region of Europe included in this dataset. It covers central Europe and north Africa.
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 1.0]{python_figs/Domain.png}
-    \caption[Map over domain.]{Map showing the domain in the projection available in ECC. The region covers central Europe and north Africa.}
+    \caption[Map over domain.]{Map showing the domain in the projection available in \acrshort{ecc}.}
     \label{fig:map}
 \end{figure}
 
@@ -26,14 +26,14 @@ Precipitation formation and cloud optical thickness is affected by changes on a 
 
 Focusing on the macro-physical aspect of clouds its is reasonable to chose large-scale variables, for which reliable estimates are available from using reanalyse and other climate model, thereby ensuring that it is possible to build usable application of this in the future. 
 
-The variables have been chosen because they are reliable (temperature and pressure) and/or cause the are essential in cloud formation (humidities). Other information may be present implicitly in these variables, being either surface variables or collected from the highest pressure level, the level closest to the surface. All variables are produced by ERA5. This section will give a brief introduction to their role in cloud formation. 
+The variables have been chosen because they are reliable, e.g. temperature and surface pressure,  others because they are essential in cloud formation, e.g. specific and relative humidity. Other information may be present implicitly in these variables, being either surface variables or collected from the highest pressure level, the level closest to the surface. All variables are produced by ERA5. This section will give a brief introduction to their role in cloud formation. 
 
 From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. Due to its spherical geometry the earth is not equally heated. Warmer air rises, this generates a low pressure at the surface. As the air rises the temperature decreases. Based on Equation \eqref{eq:clausius_clapeyron} its shown that, colder air can retain less vapour, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of this vapour condenses, generating cloud water, forming a cloud, and occasionally precipitation. Summer is often associated with these convective motions generating cumulus type clouds. In presence of water at the surface, evaporation rates are also higher in a warmer climate. 
 
-In areas of lower pressure the surrounding air will flow toward the low pressure centre in order to offset the pressure difference. Induced by Earths rotation the Coriolis effect force winds of low pressure system swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system. Pushing it to higher altitudes in the atmosphere. A high pressure system exhibit the exact opposite behaviour, its swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere fill the space.
+In areas of lower pressure the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by Earths rotation the Coriolis effect force winds of low pressure system swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system. Pushing it to higher altitudes in the atmosphere. A high pressure system exhibit the exact opposite behaviour, its swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere fill the space.
 % air from higher in the atmosphere to sink and fill the space left.
 % \textit{Air from higher in the atmosphere sinks down to fill the space left as air moves outward.} 
-Winds transports the substances suspended in air, such as pollution and humidity.
+Winds transports the substances suspended in air, such as pollutants and humidity.
 
 The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. It is unitless, and ranges from 0 to 1. Conditions where relative humidity exceeds one are called supersaturated. Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether the relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). 
 
@@ -44,7 +44,9 @@ Computing cloud fractions based on cloud mask requires a regridding scheme. Comm
 Implementing this algorithm is twofold, first detection algorithms determining the contributing pixel to the particular cells in the other coordinate system. Secondly,  deriving the equation necessary for computing the area weighting. 
 
 %The satellite retrievals are provided in a \textit{space-view} grid. 
-Pixel-areas are computed using spherical coordinates. Figure \ref{fig:spherical_coords} shows how a square looks projected on to a sphere. Deriving the equation for computing the area of an square in spherical coordinates, requires integrating over changes in latitude, $\theta$ and longitude, $\phi$. The general expression for the area of a square in spherical coordinates, is given by the following integral. 
+Pixel-areas are computed using spherical coordinates. Figure \ref{fig:spherical_coords} shows a square projected on to a sphere. Deriving the equation for computing the area of an square in spherical coordinates, requires integrating over changes in latitude, $d\theta$ and longitude, $d\phi$. 
+
+The general expression for the area of a square in spherical coordinates, is given by the following integral. 
 \begin{equation} \label{eq:sphere_integral}
     A = -R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
 \end{equation}
@@ -52,64 +54,69 @@ Pixel-areas are computed using spherical coordinates. Figure \ref{fig:spherical_
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
 \end{equation}
-In relation to Figure \ref{fig:spherical_coords} $d \theta = 2 \delta \theta$, $d \phi = 2 \delta \phi$. Highlighting the parts necessary to compute an area, here $R=6378km$ denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude.
+Here $R=6378km$ denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. Relating Equations \eqref{eq:sphere_integral} and \eqref{eq:sphere_finish} to Figure \ref{fig:spherical_coords} by setting $d \theta = 2 \delta \theta$ and $d \phi = 2 \delta \phi$.
 
 % Estimating the extent of the cell.
-The coordinate information is provided as the latitude, $\theta$ (degrees north) and longitude, $\phi$ (degrees east) of the centre of the pixel. The area computation requires information about the extent of the cell, which requires some simplifications. The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring points in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations \eqref{eq:app_lon} and  \eqref{eq:app_lat}. Let the horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
+The coordinate information is provided in grids of latitudes, $\theta$ (degrees north) and longitudes, $\phi$ (degrees east) values. These represent the centre of a pixel. To acquire the information about the extent of cells in a non-uniform grid require some simplifications. 
 
-\input{Chapter4_Dataset/figurs/estimating_changes_in_longitude}
-The cloud mask pixels are smallest at the nadir point, increasing in all other directions. Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. This results in different distances from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \ref{fig:correct_area}, the extent is approximated by taking the average of the right and left distances. From Figure \ref{fig:estimate_dlon} it becomes evident that the squares resembles trapezium. As far as the author know, it doesn't exist a solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method.
-%Since changes in degrees varies linearly this should not affect the extent of the cell. More than the error already present in the data. Det forklarer bare hvorfor buelengde ikke er nødvendig.
+The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring pixels in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations.% \eqref{eq:app_lon} and  \eqref{eq:app_lat}. 
+%The horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels. 
+%, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
 \begin{equation} \label{eq:app_lon}
     \delta \phi_{i,j} = \left| \frac{\phi_{i+1,j} - \phi_{i-1, j}}{4} \right|
 \end{equation}
 \begin{equation} \label{eq:app_lat}
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
+\input{Chapter4_Dataset/figurs/estimating_changes_in_longitude}
+The cloud mask pixels are smallest at the nadir point, decreasing in all directions.
+Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. This results in different distances from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \ref{fig:correct_area}, the extent is approximated by taking the average of the right and left distances. From Figure \ref{fig:estimate_dlon} it becomes evident that the squares resembles trapezium. As far as the author know, it doesn't exist a solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method. Figure \ref{fig:pixels_contributing_to_cell} providing a visual inspection of the extents of the contributing pixels, it appears to be a reasonable simplification at the latitudes and longitudes of interest. 
+%Since changes in degrees varies linearly this should not affect the extent of the cell. More than the error already present in the data. Det forklarer bare hvorfor buelengde ikke er nødvendig.
 
 %\textbf{Present this as something that would be a minor correction.}
 %A minor improvement, would be to derive the areas of trapezium in spherical coordinate, however this requires additional dependencies of 
 %Failed to derive equations for trapezoidal shapes in spherical coordinate, therefore it never made sense to keep a different left, right, up and down extent. 
 
 % Detecting which pixels that contribute to a cell.
-Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories; \textit{centre}, \textit{left}, \textit{right}, \textit{up} and \textit{down boundary}. 
+Computing the area weighted average of cloud masks requires detecting the grid$_{\text{MGS}}$ contributing to the grid$_{\text{ERA5}}$ cell, and computing their area. The pixels are divided into five categories; \textit{centre}, \textit{left}, \textit{right}, \textit{up} and \textit{down boundary}. This categorisation is illustrated using different colours in Figure \ref{fig:pixels_contributing_to_cell}.
 
-Let the subscripts denote the dataset pertaining to a particular grid. Grid$_{\text{MSG}}$ refers to the space-view grid of the \acrlong{msg} and grid$_{\text{ECC}}$ refers to the uniform grid originating from ERA5. It is worth noting that the grid$_{\text{ECC}}$ would be the same as grid$_{\text{ERA5}}$.
+Let the subscripts denote the dataset pertaining to a particular grid. Grid$_{\text{MSG}}$ refers to the space-view grid of the \acrlong{msg} and grid$_{\text{ECC}}$ refers to the uniform grid originating from ERA5. It is worth noting that the grid$_{\text{ECC}}$ is identical to grid$_{\text{ERA5}}$.
 \begin{figure}
     \centering
     \includegraphics{python_figs/example_remapping_lat45_lon25.pdf}
     \caption{Remapping one cell, studying the number of pixels contributing to a cell. The pixels from satellite is classified into corner (grey), centre (pink), right (purple), left (yellow), down (green) and up (blue) } 
-    \label{fig:pixels_contributing_to_cell.}
+    \label{fig:pixels_contributing_to_cell}
 \end{figure}
-
 \begin{equation} \label{eq:tot_area}
     A = \sum_{i=0}^{N} a_i
 \end{equation}
-
 \begin{equation} \label{eq:area_weighting}
     CF_{ECC} = \frac{1}{A} \sum_{i=0}^{N} a_i m_i
 \end{equation}
 
-One can easily prove that if all the mask $m_i = 1$ the cloud fraction, $CF_{ECC}=1$. This would not be true if the total area $A$, was determine by the extent of ECC/ERA5 cell. This explains why the overlap of neighbouring cell (see Figure \ref{fig:pixels_contributing_to_cell}) is not a cause for concern. The cloud fractions will not give unphysical values. The only affect worth mentioning is that some cloud mask, located at boundary pixels, contribute marginally more to the fraction than they should, but is in argued here that this is of little importance in the big picture.
-% For the boundary categories we only include the contribution from within the cell. This is not actually a strict condition, including the entire area would still keep the fraction within its normal bounds of 0 and 1. However the boundary pixels would have a larger effect on the mean cloud cover since they contribute to several pixels. The footprint size effect on the distribution of cloud cover. For a large pixel size, and less contributing pixels we expect a higher number of grid-cells with close to 0 or 1 cloud amount. Since it alter the number of components you compute the average from.
-
-% The cells in grid$_{\text{MGS}}$ contributing to a particular cell in grid$_{\text{ERA5}i,j}$ is fixed. In order to save computations on areas and detecting contribution pixels these are saved to \acrshort{json}-files. Made available in the the GitHub repository for supplementary material \href{https://github.com/hannasv/MS-suppl}{https://github.com/hannasv/MS-suppl}.
-
-% Since the grid is constant, this is only done once and their indices and computed areas are stored in  Java Script Object Notification, json-files in the GitHub repository for supplementary material.
+Inserting $m_i = 1$ into Equation \eqref{eq:area_weighting} results in a $CF_{ECC}=1$, independently of the values of $a_i$, proving that the minor overlap between pixels in Figure \ref{fig:pixels_contributing_to_cell} doesn't affect the rage of cloud fraction, which remains in the range [0, 1]. The corner pixels are omitted, since in some cases more than four pixels was classified as corners. This has most likely have caused the circular pattern shown in Figure \ref{fig:area_pixel_signal}. This figure also show that the areas decrease in all direction away from the nadir point at $(0,0)$.
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/signal_area_pixel.pdf}
-    \caption{Areas contribution to a pixel. This deacrease northward as illustrated in Figure \ref{fig:relative_size_neigbouring_pixels}.}
+    \caption{Areas contribution to a pixel. This decrease northward as illustrated in Figure \ref{fig:relative_size_neigbouring_pixels}.}
     \label{fig:area_pixel_signal}
 \end{figure} 
-\textbf{Comment this figure}
-The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
 
-To recap, table \ref{tab:dataset_summary} contains a summary of the data used in the dataset.
+\section{Tests}
+%The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
+A cause of errors in the development process is the different formats provide non consistent rotations of the data. Recap the raw satellite images in \textit{grib} is provided  direction of the scan, while the netcdf format is postprosessed. They are mirrored images, shown in Figure \ref{fig:netcdf_vs_grib}. 
 
-\section{Testing regridding routine}
-Since the different formats provide different rotations of the data. Recap the raw satelate images in \textit{grib} is provided east to west south to north. This is different from the postprocessed netcdf files providing data in the format east to west north to south, in other word, the rotation we are used to view the earth from space. Figure \ref{fig:visual_inspection_regridding} show the regridding of the raw data, clouds are illustrated in white, land mask in teal and ocean in purple. 
-The original data is provided in four categories, land, ocea, cloud and off-earth disk. By regridded the raw data it quickly becomes apparent if the correct subsection of the dataset is used. 
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Show the two file formats as mirrored images.}
+    \label{fig:netcdf_vs_grib}
+\end{figure}
+
+\textbf{Add figure} 
+
+Figure \ref{fig:visual_inspection_regridding} show the regridding of the raw data, clouds are illustrated in white, land mask in teal and ocean in purple. 
+The original data is provided in four categories, land, ocean, cloud and off-earth disk. By regridded the raw data it quickly becomes apparent if the correct subsection of the dataset is used. 
 
 Other meansures to ensure a correct regridding routine is tes
 
@@ -123,7 +130,7 @@ Equation \ref{eq:sphere_finish} is tested against CDO's the pixel area function,
 \end{figure}
 
 \section{Missing Data} \label{sec:missing_values}
-Missing valus is inevitable when working with observational data. 
+Missing values is inevitable when working with observational data. Sensors fail to collect measurements and data is missing. This can be either individual pixels or entire disks. In this project single NaN pixels are no pressing issue since they are remapped to fractions by using the area weighted mean. 
 \begin{figure}
     \centering
     \includegraphics[scale = 1.0]{python_figs/heatmap_missing_values.pdf}
@@ -136,25 +143,30 @@ Missing valus is inevitable when working with observational data.
     \caption{Barplot showing the monthly sum of missing values. This excludes the contribution from the periode of 2004 before the satellite was operational.}
     \label{fig:barplot_missing_values}
 \end{figure}
-he sensors fail to collect  measurements and data is missing. This can be either individual pixels or entire disks. In this project single NaN pixels are no pressing issue since they are remapped to fractions by using the area weighted mean. 
 
+In some cases the data has been destroyed prior to archiving, and can never be recovered. 
 
-When the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen, if available. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of this missing values to month as provided in Figure \ref{fig:barplot_missing_values}. This is ment to illustrate any seasonal biases that might arise. This does not take into account the months before the satellite was operationalised in April of  2004. 
+Other issues arising in the process of downloading, requested data has entered infinity loop without being detected by EUMETSAT. The maximum limit of  pending request restricted to 20, slowed the process further down. One request can contain ca. 3.5 months of hourly data. 
 
-Manually generated datasets are prone to human error, especially since the user need to download individual timesteps to fill the gaps. The missing values was double checked, but there is no guarentee that a few additional timesteps is available. The workflow was as follows, the author downloaded the data, detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes are chosen. 
-In retrospect the, the downloading options should be wayed in when choosing data, this could avoid some frustration.
+When sensors experience a technical malfunction the entire disks are missing, the closest time step available within the previous and trailing 45 minutes are chosen, if available. 
 
-In some cases the data has been destroyed prior to archiving, and can never be recovered. The EUMETSAT staff has been made aware of this problem. Other issues arising in the process of downloading, requested data has entered infinity loop without being detected by EUMETSAT. The maximum limit of  pending request restricted to 20, slowed the process further down. One request can contain ca. 3.5 months of hourly data. 
+A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of this missing values to month as provided in Figure \ref{fig:barplot_missing_values}. This is ment to illustrate any seasonal biases. This does not include the months of 2004 prior to the operalisation of the satellite.
 
-As mentioned in Section \ref{sec:meteosat}, METEOSAT provide a two satellite system, occasionally both standby and the operational scan at the same time. To reduce the perturbations due to parallax of cloud, given a choice the operational satellite is chosen. In cases over technical failures, the standby scan is used, the scans are done from a different nominal position. The coordinate systems are the same, the standby scan is rectified to the position of the operational satellite before the data is provided. 
-Before being rectified to the position of the position of the operational satellite. This introduces some complications related to the parallax. This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. There has been no effort in quatifing this parallax, beyond checking that retrival from the same timestap of different satellites are not identical. Adjusting for this could be moved into further work. Like reclassifiyng isolated pixels in AR results.
+As mentioned in Section \ref{sec:meteosat}, METeosat provide a two satellite system, occasionally both standby and the operational scan at the same time. To reduce the perturbations due to parallax (see Section X) of cloud, given a choice the operational satellite is chosen. In cases over technical failures, the standby scan is used, the scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is realised (personal communication EUMETSAT staff). This introduces some complications related to the parallax. Comparing simultaneous measurements for the operation and the standby METeosat satellites.
+
+This becomes evident in comparison of simultaneous measurements for the operation and the standby METeosat satellites. There has been no effort in quatifing this parallax, beyond checking that retrival from the same timestap of different satellites are not identical. Adjusting for this could be moved into further work. 
+
+Manually generated datasets are prone to human error, especially since the user need to download individual time steps to fill the gaps. The missing values was double checked, but there is no guarantee that a few additional time steps is available. The workflow was as follows, the author downloaded the data, detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes. 
+In retrospect the, the downloading options should be a factor when choosing data, this could potentially save a lot of time and frustration.
 
 \section{Masks} \label{sec:mask}
-The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are re-gridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). A python toolbox developed within the \acrfull{aerocom} project, storing only the domain relevant, available in the project supplementary repository. 
+The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}.  In its original format the HTAP masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are regridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM \cite{pyaerocom}. %(\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). 
+This is a python toolbox developed within the \acrfull{aerocom} project.
+To avoid storing redundant data, only domain specific data is made available in the project supplementary repository. %To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
 \begin{figure}
     \centering
     \includegraphics{python_figs/example_artefact.pdf}
-    \caption[Artefact in European Cloud Cover dataset.]{Result from regridding, shows the artefact. Snapshop of artefact that is present in the dataset, ECC. The frequency of occurrence is currently unknown. \textbf{Plan to use the filter on every hour, storing the signal and plotting it in a histogram.}}
+    \caption[Artefact in European Cloud Cover dataset.]{The results after regridding revels a artefact. This is a snapshot from May the second 2004 at noon. The frequency of occurrence is currently unknown.}
     \label{fig:example_artefact}
 \end{figure}
 \begin{figure}
@@ -163,24 +175,70 @@ The land sea masks are regridded from the HTAP-masks provided by \acrfull{metno}
     \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
     \label{fig:filters_subplot}
 \end{figure}
-
-
 Filters available \textit{land}, \textit{sea}, \textit{coastline} and \textit{artefact}. The coastline is defined to be all pixels that are not 100\% either land or sea. For land pixels, coastline pixels exceeding a 50\% threshold are included, the other pixels are regarded at the sea, argue that this is acceptable since this pixels at a level of at least 50\% most like sufficiently affected by maritime conditions that it is reasonable to classify them as sea pixels.
 
-Defining the artefact according to equation, 
+Based on a visual comparison to Figure \ref{fig:example_artefact}, the the artefact is defined to be all coastline pixels obeying the Inequality \eqref{eq:artefact_condition}.
 \begin{equation} \label{eq:artefact_condition}
     \theta + \frac{1}{3}\phi < 40
 \end{equation}
-Figure \ref{fig:filter_artefact} show the artefact detecting filter. To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
-
-The number of occurrences of this artefact seem to follow a normal distribution see Figure \ref{fig:signal_artefact}. Keep in min that there has been no attempts to distinguish this signal from when the entire region is cloudy. This could for instance be done by studiyng thie histograms from the ratio the artefact signal and land or no filter? The average cloud cover in the period is? 
-
-\textbf{Signal artefact is not updated with all the cloud cover data.}
-
+Figure \ref{fig:filters_subplot} show the artefact detecting filter. 
+The number of occurrences of this artefact seem to follow a normal distribution see Figure \ref{fig:signal_artefact}. Keep in min that there has been no attempts to distinguish this signal from when the entire region is cloudy. This could for instance be done by studying the histograms from the ratio the artefact signal and land or no filter? The average cloud cover in the period is? 
 % Different approaches for detecting the artefact, separating the land, sea and coastline pixels. Filters to remove artefact in future. Can also use this compute statistics over land and ocean. Add land sea mask as subplot. 
-Leaving the artefact in the data, its a project in itself to remove this without doing to much damage to the parts that are actually clouds that also produce a signal.
+No efforts have been made to remove the artefact from the data. It is a thesis in itself to remove the artefact without introducing other complications like gaps in the dataset and or removing parts of an actual cloud.
 
 \section{Climatological Statistics}
+Write introduction. A lot of similar figure are generated and can be found in the Appendix. To avoid to much repetition statistical properties are used as a collective term for the following properties, mean, minimum, maximum, median, standard deviation and mean absolute error.
+
+\subsection{Spatial statistics}
+
+%%% BAR PLOT GLOBAL STATISTICS
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/bar_plot_global_statistics_new_legend.pdf}
+    \caption{Bar plot showing global statistics for different filters.}
+    \label{fig:bar_plot_global_stats}
+\end{figure}
+To study the statistical properties at different parts of the domain the filters shown in Figure \ref{fig:filters_subplot} was applied to the data before computing the statistical properties. Figure \ref{fig:bar_plot_global_stats} shows a barplot summarising the statistical properties for the five variables and four filters including the entire region. Shows minor differences between the statistical filters. The largest difference can be seen in the maximum value of relative humidity, having a lot larger max over land than ocean. The relative difference in magnitude between MAD and STD and the other variables from the reanalysis dataset, is quite large. This can most likely be explained since its assimilated modeldata, and has therefore been smoothed out.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
+Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all values. Seasonal effects and differences between land and ocean is evident among all variables. For temperature and relative humidity one can see a more pornounced seasonal cycle over land the ocean. For the remaining variables they appear to be (parallell forskjøvet) shifted a little bit. 
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/monthly_means.pdf}
+    \caption{Spatially averaged monthly values. Filters are applied for land and sea.\textbf{Im looking into why no filter is below both land and ocean and not in the middle}}
+    \label{fig:monthly_mean_ts_vars}
+\end{figure}
+
+Figure \ref{fig:random_week} shows the spatially averaged time series for the first week of August in 2012. Attempting to illustrate the relative strength of the signal feed to the input sequence. As a reference, the signal over land and ocean is provided. All variables display diurnal variations.
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.png}
+    \caption{Spatially averaged time series, the filters are applied for land and sea.}
+    \label{fig:random_week}
+\end{figure}
+Figure % \ref{fig:temporally_averaged_data} 
+shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
+
+\subsection{Temporal statistics}
+Figure \ref{fig:all_stats_tcc} shows the temporal mean, minimum, maximum, median, standard deviation and mean absolute error for the cloud cover in ECC. Similar figures for the remaining variables in the dataset is presented in Section \ref{sec:all_stats} in the Appendix. 
+%% CLOUD FRACTIONAL COVER
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/all_stat_variable_tcc.pdf}
+    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover.}
+    \label{fig:all_stats_tcc}
+\end{figure}
+
+The mean values show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot (see Figure \ref{fig:bar_plot_global_stats}). From the minimum values of cloud cover it becomes evident that there is a  artefact present in the dataset. This is caused by the remapping routine. Figure X shows the patterns of magnitude of the areas contributing to a pixel. The max value is a one over the entire region, this tells you that at some point every pixel is cloudy. No suprises there. 
+The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and mad show similar patterns, with lowest values along the coast.
+
+Thought it is not exactly identical the same, the circular pattern centered around the median shown in the \ref{fig:area_pixel_signal} could be a possible explination of the minimum values in cloud cover. The presence of a artefact caused by the area-weighting regridding sheme.
+
+
+
+
+
+\subsubsection{Correlation - target vs. predictors}
 %%% CORRELATION
 \begin{figure}[ht]
     \centering
@@ -195,47 +253,6 @@ Pink illustrates negative correlation while green illustrates a positive correla
 In the same region surface pressure is negatively correlated with cloud cover. This seems reasonable, since high pressure is often caused by sinking motions in the atmosphere and clouds are formed by rising motions. Over land in North Africa, Western Europe and in the Alps specific humidity is positive correlated to cloud cover and in eastern parts and above the ocean they are positively correlated. In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. 
 Dissuasion  --- Related to AR-model re
 
-%%% BAR PLOT GLOBAL STATISTICS
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/bar_plot_global_statistics_new_legend.pdf}
-    \caption{Bar plot showing global statistics for different filters. \textbf{Notice the low std and mad. Can this be explained by the fact that they are generated by a model.}}
-    \label{fig:bar_plot_global_stats}
-\end{figure}
-To study the statistical properties at different parts of the domain the filters shown in Figure \ref{fig:filters_subplot} was applied to the data before computing the statistical properties. Figure \ref{fig:bar_plot_global_stats} shows a barplot summarising the mean, standard deviation (std), min, max, median and mean absolute deviation (mad) for the five variables and four filters including the entire region. It becomes evident that there are differences between the different filter, however they are not ginormous.
-
-%% CLOUD FRACTIONAL COVER
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/all_stat_variable_tcc.pdf}
-    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover.}
-    \label{fig:all_stats_tcc}
-\end{figure}
-Moving from top to bottom, the mean values show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot (see Figure \ref{fig:bar_plot_global_stats}). From the minimum values of cloud cover it becomes evident that there is a  artefact present in the dataset. This is caused by the remapping routine. Figure X shows the patterns of magnitude of the areas contributing to a pixel. The max value is a one over the entire region, this tells you that at some point every pixel is cloudy. No suprises there. 
-The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and mad show similar patterens, with lowest values along the coast.
-
-Thought it is not exactly identical the same, the circular pattern centered around the median shown in the \ref{fig:area_pixel_signal} could be a possible explination of the minimum values in cloud cover. The presence of a artefact caused by the area-weighting regridding sheme.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/monthly_means.pdf}
-    \caption{Spatially averaged monthly values. Filters are applied for land and sea.}
-    \label{fig:monthly_mean_ts_vars}
-\end{figure}
-Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all values. Seasonal effects and differences between land and ocean is evident among all variables.
-
-
-Figure \ref{fig:random_week} shows the spatially averaged time series for the first week of August in 2012. It is ment to illustrate the relative strength of the signal feed to the input sequence. As a reference, the signal over land and ocean is provided. All variables display diurnal variations.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.png}
-    \caption{Spatially averaged time series, the filters are applied for land and sea.}
-    \label{fig:random_week}
-\end{figure}
-Figure % \ref{fig:temporally_averaged_data} 
-shows the temporally averaged time series for all variables in the dataset. The topography is a clear factor, comparing this contour plot to Figure \ref{fig:map} the patterns are very similar. 
 
 % Finished regriddidng files.
 \section{Summary}
