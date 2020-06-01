@@ -2,10 +2,10 @@
 %This chapter presents the developed methodology used in the compilation of the dataset. 
 This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrlong{msg} cloud mask.
 
-Several candidate satellites were studied before arriving at the combination of datasets presented here. Spatiotemporal consistency and resolution was given high priority. The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice (\cite{lohmann2016}, pp. 19). The finished dataset, described in detail below, is named \acrfull{ecc}.
+Several candidate satellites were studied before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given high priority. The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, it seems like a reasonable choice (\cite{lohmann2016}, pp. 19). The finished dataset, described in detail below, is named \acrfull{ecc}.
 
 \section{Domain}
-For this project the geographical domain has been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. It covers central Europe and north Africa.
+The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. It covers central Europe and north Africa.
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 1.0]{python_figs/Domain.png}
@@ -14,51 +14,75 @@ For this project the geographical domain has been restricted to latitude, $\thet
 \end{figure}
 
 \section{Physical basis of variable decision} \label{sec:ecc}
-The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. As discussed in Section \ref{sec:cloud_in_climate_system}, cloud dynamics is far more complicated than what can be describes by these variables. 
+The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy \textcolor{red}{(Vet ikke om du har skrevet noe om dette i innledningen hvor du presenterer målene dine, men har du definert hva du legger i "reasonable accuracy"? Hvis ikke kan du forvente å få spørsmål rundt dette. Bare en tanke) Det er mange måter og evaluere hva som er en god nok accuracy, blant annet i form av en hel klimamodellen}.
+There are several options when determining what is sufficiently accurate, a method can be evaluated in isolation and in the context of a climate model. In isolation it should be better than a a benchmark (chosen by ??) and in the context of a climate model it would be reducing the spread of uncertainty related to the variable we are predicting. 
 
-This is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parametize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be enormous, and even then there would be no guarantee that the model performance would be state-of-the-art.
+As discussed in Section \ref{sec:cloud_in_climate_system}, cloud dynamics is far more complicated than what can be describes by these variables. 
+
+This project/thesis is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parametize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be enormous, and even then there would be no guarantee that the model performance would be %\textcolor{red}{the?} 
+state-of-the-art.
 %Not feasible in the foreseeable future to incorporate all the effects of micro-physics at a sufficient accuracy. 
 
-Macrophysics properties describes the cloud as a whole. Examples of such properties are base height, top height, thickness, fractional cover and regime also known as type. Microphysical processes are all mechanisms involving the particles making up a cloud. Examples of these variable are cloud condensation nuclei and droplet number concentrations (\cite{Grabowski2019ModelingBetter}). Precipitation formation and cloud optical thickness is affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover? 
+Macrophysics properties describes the cloud as a unit, using properties like base height, top height, thickness, fractional cover and regime also known as type. Microphysical processes are all mechanisms involving the particles forming a cloud. Examples of properties used to quantify the microphysical state
+%\textcolor{red}{Synes "making up" a cloud hørtes litt rart ut, men det er du som er skyeksperten. Ville vurdert en annen beskrivelse hvis du har}. Examples of these variable \textcolor{red}{I setningen før har du kalt det for microphysical processes som er alle mechanisms. ville da også vurdert å bruke det videre "Examples of these mechanisms/microphysiacal processes are...." og evt. " and is treated as variables in the model/study" eller noe lignende} 
+are cloud condensation nuclei and droplet number concentrations (\cite{Grabowski2019ModelingBetter}). Precipitation formation and cloud optical thickness is affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud. Imagine precipitation without a cloud fractional cover? 
 
-Focusing on the macro-physical aspect of clouds its is reasonable to chose large-scale variables, for which reliable estimates are available from using reanalyse or other climate models, thereby ensuring that it is possible to build usable application of this in the future. 
+Reliable estimates of large-scale variables are available from using reanalyse or other climate models. Restricting the focus to macrophysical aspect of cloud makes it reasonable to chose these as explanatory variables and thereby ensuring that it is possible to build usable application of this parameterization in the future.
 
-All variables are produced by ERA5. They are all surface variables or retrived from the pressure level closest to the surface. Some variables have been chosen because they are reliable, e.g. temperature and surface pressure. Others because they are essential in cloud formation, e.g. specific and relative humidity. This section will give a brief introduction to their role in cloud formation. 
+%Focusing on the macrophysical aspect of clouds its is reasonable to chose large-scale variables \textcolor{red}{Rar setning. gir ingen mening å bruke "its". Mener du kanskje "Focusing on the macro-physical aspect of clouds, it is reasonable to chose large-scale variables,..."}, for which reliable estimates are available from using reanalyse or other climate models, thereby ensuring that it is possible to build usable application of this in the future. \textcolor{red}{ALTFOR lang setning. Hele avsnittet er en setning! }
+%\textcolor{red}{Focusing on the macro-physical aspect of clouds, it is reasonable to chose large-scale variables. Because, reliable estimates are available from the use of reanalyse or other climate models. It then ensures that it is possible to build usable application of this (hva er this? the variables?) in the future.}
+For this dataset, all variables are produced by ERA5. Some variables have been chosen because they are reliable and fundamental meteorological variables, e.g. temperature and surface pressure. Others because they are essential in cloud formation, e.g. specific and relative humidity. They are all retrieved from the surface or the closest pressure level (1000hPa). This following section gives a brief introduction to their role in cloud formation. %\textcolor{red}{(Nå er du midt i seksjonen, så føles litt rart at du kommer med dette her, men kan kanskje heller si at "the rest of the section gives a brief ...."}
 
-From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. Due to its spherical geometry the earth is not equally heated. Warmer air rises, this generates a low pressure at the surface. As the air rises the temperature decreases. From on Equation \eqref{eq:clausius_clapeyron} it can be shown that, colder air can retain less vapour, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of this vapour condenses, generating cloud water, forming a cloud, and occasionally precipitation. Summer is often associated with these convective motions generating cumulus type clouds. In presence of water at the surface, evaporation rates are also higher in a warmer climate. 
+From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. The earth is not equally heated due to the earths spherical geometry. Warmer air rises, generating a low pressure at the surface. As the air rises the temperature decreases. From Equation \eqref{eq:clausius_clapeyron} it can be shown that, colder air can retain less vapour, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of the vapour condenses, generating cloud water, forming a cloud, and occasionally precipitation. Summer is often associated with convective motions generating cumulus type clouds. %Evaporation rates 
+%In presence of water at the surface, evaporation rates are also higher in a warmer climate \textcolor{red}{eller ikke? Fordamping drives vel av forskjellen i luftfuktighet ved bakken og luften i tillegg til vind? SElv om det er veldig varmt, men høy luftfuktighet så vil du ha lite fordamping. Så drivkraften er ikke varme. Tror ligningen er noe som fordamping = (e-es)*u hvor e er vannmetning i lufta og es ved overflaten eller noe og u er vind (men dette er tatt ut av hukommelsen og jeg ville sjekket det i Dingman)}. \textcolor{red}{Ellers et veldig bra avsnitt! Tydelig og enkelt forklart på en bra måte}
 
-In areas of lower pressure the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by Earths rotation the Coriolis effect force winds of low pressure system swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system. Pushing it to higher altitudes in the atmosphere. A high pressure system exhibit the exact opposite behaviour, its swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere fill the space.
+In areas of lower pressure, the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by earths rotation the Coriolis effect force winds of low pressure system to swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system. Pushing it to higher altitudes in the atmosphere. A high pressure system exhibit the exact opposite behaviour, it swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere to fill the void. 
 % air from higher in the atmosphere to sink and fill the space left.
 % \textit{Air from higher in the atmosphere sinks down to fill the space left as air moves outward.} 
 Winds transports the substances suspended in air, such as pollutants and humidity.
 
-The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to much it can hold at that temperature. It is unitless and ranges from 0 to 1. Conditions where relative humidity exceeds one are called supersaturated. Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether the relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). 
+The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to \textcolor{red}{how} much it can hold at that \textcolor{red}{that = at a certain} temperature. It is unitless and ranges from 0 to 1. Conditions where relative humidity exceeds one are called supersaturated \textcolor{red}{(Du har tidligere sagt at intervallet er 0 til 1. Da kan du ikke nå si at den kan være mer enn 1? (exceed one?) )}. Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether the relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). 
 
 \section{Regridding scheme} \label{sec:remapping}
-\input{Chapter4_Dataset/figurs/spherical_coord}
-Computing cloud fractions based on cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, since the pixels are of uneven size, the area weighted seemed most appropriate. This section will provided a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of this software.
+Computing cloud fractions based on cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, the pixels are of uneven size and the area weighted scheme seemed most appropriate. 
 
-Implementing this algorithm is twofold, first detection algorithms determining the contributing pixel to the particular cells in the other coordinate system and their classification into the different categories such as \textit{corner}, \textit{centre}, \textit{left}, \textit{right}, \textit{upper and lower boundary}.
-Secondly,  deriving the equation necessary for computing the area weighting and implementing them for each category. 
+This section provides a step-by-step description of the necessary preprocessing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of software with functionality to perform the regridding.
 
+% En take, dersom en hjlrnepixel er cloudy vil den telles fire ganger i ett område med mange nærliggende pixler.
+
+The regridding algorithm is twofold. Part one, the detection algorithmn determining the contributing pixel to the particular cells in the other coordinate system and their classification into the different categories such as \textit{corner}, \textit{centre}, \textit{left}, \textit{right}, \textit{upper and lower boundary}. This is necessary to compute the area of the overlapping pixels. Part two, using the derived equation to estimate areas and implementing the category based area weighting.
+%\textcolor{red}{punktum? Blir en veldig lang setning} first detection algorithms determining the contributing pixel to the particular cells 
+%Secondly,  deriving the equation necessary for computing the area weighting and implementing them for each category. scheme
+
+%%%%%%%%%%%%% PART TWO
+%First things first, what kind of information is required to compute an area.
 %The satellite retrievals are provided in a \textit{space-view} grid. 
-Pixel-areas are computed using spherical coordinates. Figure \ref{fig:spherical_coords} shows a square projected on to a sphere. Deriving the equation for computing the area of an square in spherical coordinates, requires integrating over changes in latitude, $d\theta$ and longitude, $d\phi$. 
 
-The general expression for the area of a square in spherical coordinates, is given by the following integral. 
+Assuming a spherical earth, pixel-areas are most accurately computed using spherical coordinates. Figure \ref{fig:spherical_coords} shows a square projected on to a sphere. 
+
+Deriving the equation for computing the area of a square in spherical coordinates, requires integrating over changes in latitude, $d\theta$ and longitude, $d\phi$. In Equation \eqref{eq:sphere_integral} the variables of integration is given a prime to keep them distinct from the integration boundaries.
+\input{Chapter4_Dataset/figurs/spherical_coord}
+The general expression for the area of a square in spherical coordinates, is given by the following integral,
 \begin{equation} \label{eq:sphere_integral}
-    A = -R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
+    A = R^2\int_{ \theta - \delta \theta }^{\theta + \delta \theta} \int_{ \phi - \delta \phi }^{\phi + \delta \phi} cos\left( \theta' \right) d\phi' d\theta'
 \end{equation}
 %This can be rewriting into, \textbf{needs indices $(i, j)$ ..?}
 rewriting the equation into
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
 \end{equation}
-here $R=6378km$ denotes the distance to earth centre, $\theta$ the latitude and $\phi$ the longitude. Relating Equations \eqref{eq:sphere_integral} and \eqref{eq:sphere_finish} to Figure \ref{fig:spherical_coords} by setting $d \theta = 2 \delta \theta$ and $d \phi = 2 \delta \phi$.
+where $R=6378km$ denotes the distance to earths centre, $\theta$ the latitude and $\phi$ the longitude. Relating Equations \eqref{eq:sphere_integral} and \eqref{eq:sphere_finish} to Figure \ref{fig:spherical_coords} by setting $d \theta = 2 \delta \theta$ and $d \phi = 2 \delta \phi$.
 
 % Estimating the extent of the cell.
-The coordinate information is provided in grids of latitudes, $\theta$ (degrees north) and longitudes, $\phi$ (degrees east) values. These represent the centre of a pixel. To acquire the information about the extent of cells in a non-uniform grid require some simplifications. 
+The coordinate information is provided in grids of latitudes, $\theta$ (degrees north), and longitudes, $\phi$ (degrees east) values. The coordinate represent the centre of a pixel. To acquire the information about the extent of cells in a non-uniform grid require some simplifications. 
 
-The changes in longitude (latitude) at a certain pixel are estimated by the average distance to neighbouring pixels in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations.% \eqref{eq:app_lon} and  \eqref{eq:app_lat}. 
+%%%%%%%%%%%%% PART ONE
+The detection algorithm is trivial, if any boundary overlap with the ERA5 cell its included and labelled with a suitable category.
+The cloud mask pixels are smallest at the nadir point, decreasing in all directions.
+Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. Consequently, the distance from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \eqref{eq:sphere_finish}, the extent is approximated by taking the average of the right and left distances. 
+\input{Chapter4_Dataset/figurs/estimating_changes_in_longitude}
+
+The changes in longitudinal and latitudinal directions for a certain pixel are estimated by the average distance to neighbouring pixels in the relevant directions. Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations.% \eqref{eq:app_lon} and  \eqref{eq:app_lat}. 
 %The horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels. 
 %, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
 \begin{equation} \label{eq:app_lon}
@@ -68,9 +92,9 @@ The changes in longitude (latitude) at a certain pixel are estimated by the aver
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
 
-\input{Chapter4_Dataset/figurs/estimating_changes_in_longitude}
-The cloud mask pixels are smallest at the nadir point, decreasing in all directions.
-Figure \ref{fig:estimate_dlon} shows an example of three neighbouring pixels where the apparent pixel size increases going eastward. This results in different distances from the centre to the right and left neighbour, to take advantage of the analytical expression derived in Equation \ref{fig:correct_area}, the extent is approximated by taking the average of the right and left distances. From Figure \ref{fig:estimate_dlon} it becomes evident that the squares resembles trapezium. As far as the author know, it doesn't exist a solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method. Figure \ref{fig:pixels_contributing_to_cell} providing a visual inspection of the extents of the contributing pixels, it appears to be a reasonable simplification at the latitudes and longitudes of interest. 
+From Figure \ref{fig:estimate_dlon} it becomes 
+evident that the squares resembles trapezium. As far as the author know, it doesn't exist an analytical solution to a area of a trapezium in spherical coordinates, and its not clear if approximating this using using another numerical method. Figure \ref{fig:pixels_contributing_to_cell} providing a visual inspection of the extents of the contributing pixels, it appears to be a reasonable simplification at the latitudes and longitudes of interest. 
+
 %Since changes in degrees varies linearly this should not affect the extent of the cell. More than the error already present in the data. Det forklarer bare hvorfor buelengde ikke er nødvendig.
 
 %\textbf{Present this as something that would be a minor correction.}
@@ -104,18 +128,11 @@ Inserting $m_i = 1$ into Equation \eqref{eq:area_weighting} results in a $CF_{EC
 
 \section{Tests}
 %The cloud masks are provided from EUMETSAT in multiple formats. The \acrshort{grib}-format takes up less disk space. However this format doesn't provide coordinates for grid types such as space view. This information is available in \acrshort{netcdf}-format and is made available for the reader via the supplementary folder. All satellite images are provided using the same grid (personal correspondence with EUMETSAT staff). 
-A cause of errors in the development process is the different formats provide non consistent rotations of the data. Recap the raw satellite images in \textit{grib} is provided  direction of the scan, while the \acrshort{netcdf} format is postprosessed. They are mirrored images, shown in Figure \ref{fig:netcdf_vs_grib}. 
-\begin{figure}
-    \centering
-    \includegraphics{}
-    \caption{Show the two file formats as mirrored images.}
-    \label{fig:netcdf_vs_grib}
-\end{figure}
+A cause of errors in the development process is the different formats provide non consistent rotations of the data. Recap the raw satellite images in \textit{grib} is provided  direction of the scan, while the \acrshort{netcdf} format is postprosessed. They are mirrored images.
 
 Figure \ref{fig:visual_inspection_regridding} show the regridding of the raw data, clouds are illustrated in white, land mask in teal and ocean in purple. The original data is provided in four categories, land, ocean, cloud and off-earth disk. By regridded the raw data it quickly becomes apparent whether the indices correspoding to the domain has been used. 
 
-CDO provide functionality to compute the area of a pixel in a uniform grid. To verify the implementations of Equation \ref{eq:sphere_finish} the results from both routines was compared by comuting the area of the ERA5 grid. The results was identical. It is worth noting that the implementation is scaled by $R$ to be consistent with CDO code used in this test. Multiplying by a large number and then dividing by the same number in the next step, does not make any other changes than the possibility of introducing additional numerical errors. 
-
+CDO provide functionality to compute the area of a pixel in a uniform grid. To verify the implementations of Equation \ref{eq:sphere_finish} the results from both routines was compared by computing the area of the ERA5 grid. The results was identical. It is worth noting that the implementation is scaled by $R$ to be consistent with CDO code used in this test. Multiplying by a large number and then dividing by the same number in the next step, does not make any other changes than the possibility of introducing additional numerical errors. 
 \begin{figure}
     \centering
     \includegraphics{python_figs/visual_regridding.pdf}

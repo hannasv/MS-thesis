@@ -32,37 +32,39 @@
 
     \draw[very thick, color=teal, opacity = 0.3] (O) -- (G) node[above right]  {};
     \draw[very thick, color=teal, opacity = 0.6] (O) -- (dG) node[above right] {};    
-    \draw[very thick, color=teal, opacity = 0.6] (O) -- (P) node[above right]  {};
+    \draw[very thick, color=red, opacity = 0.6] (O) -- (P) node[above left]  {\Large $R$};
     \draw[very thick, color=teal, opacity = 0.6] (O) -- (dP) node[above right] {};
     
     \draw[dashed, color=teal] (O) -- (Pxy);
     \draw[dashed, color=teal] (dP) -- (Pxy);
     %\draw[dashed, color=red] (Pz) -- (Py);
 
-
     %\draw[dashed, color=red] (dP) -- (Pxy);
     
-    \draw[dashed, color=teal] (O) -- (Gxy);
+    \draw[very thick, color=red] (O) -- (Gxy) node[above right] {\Large $Rcos\theta$};
     \draw[dashed, color=teal] (dG) -- (Gxy);
-    \draw[dashed, color=black,looseness = 10, bend left] (z) -- (G)  node[pos = 0.6, above right] {\Large $rsin\theta$};
+    %\draw[dashed, color=black,looseness = 10, bend left] (z) -- (G)  node[pos = 0.6, above right] {\Large $Rsin\theta$};
     \draw[dashed, color=teal,looseness = 10, bend left] (z) -- (G);
     \draw[dashed, color=teal, bend right] (P) -- (z);
     
     
-    \draw [] (\phivec:0.5)  arc (\phivec:\deltaphivec:0.5) node [below right, pos=0.3] {\Large $d\phi$};
+    \draw [very thick, color=blue] (\phivec:0.5)  arc (\phivec:\deltaphivec:0.5) node [below right, pos=0.3] {\Large $Rcos\theta d\phi$};
 
     
     %\tdplotdrawarc[tdplot_rotated_coords, ->]{(dP)}{.7}{(Pxy)}
     
     \draw[dashed, very thick, color=teal, fill = teal, opacity = 0.2] (P) -- (dP) -- (dG) -- (G) -- (P);
     \draw[dashed, very thick, color=teal] (P) -- (dP) -- (dG) -- (G) -- (P);
-    \draw[dashed, color=black] (dG) -- (G) node[pos = 0.5, above right] {\Large $rd\theta$};
+    \draw[very thick, color=blue] (dG) -- (G) node[pos = 0.5, above right] {\Large $Rd\theta$};
     \draw[dashed, color=teal] (dG) -- (G);    \tdplotdrawarc[]{(O)}{0.4}{0}{\phivec}{anchor=north}{\Large $\phi$}
     %\tdplotdrawarc{(O)}{0.2}{0}{\deltathetavec}{anchor=north}{$\theta$}
 
     \tdplotsetthetaplanecoords{\phivec};
     
-    \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.8}{0}%
+    %\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.8}{0}%
+        %{\thetavec}{anchor=south west}{\Large $\theta$};
+    
+    \tdplotdrawarc[tdplot_rotated_coords, pos = 0.01]{(0, 0.5, -0.3)}{0.45}{0.0}%
         {\thetavec}{anchor=south west}{\Large $\theta$};
     
     \tdplotdrawarc[tdplot_rotated_coords, pos = 0.5]{(0,0,0.2)}{0.26}{0}%
