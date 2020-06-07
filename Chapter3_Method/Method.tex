@@ -1,4 +1,4 @@
-\setcounter{chapter}{2}
+%\setcounter{chapter}{2}
 \chapter{Numerical Methods} \label{ch:num_methods}
 This section introduce the computational methods used in generating the numerical experiments conducted in this thesis, starting with a short introduction to artificial intelligence. Followed by a brief introduction to the biological mechanisms the algorithms in this study draw inspiration from. This helps to gain insight to possible applications of different structures.
 %Presenting the autoregressive model and convolutional long short-term memory. The performance metrics used to evaluate their performance and finishing of with automatic optimization routines.
@@ -13,7 +13,7 @@ The aim of this study is to determine whether the aggregation of linear models, 
 
 %The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows deep learning to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied} and also the data its provided. 
 
-\section{Artificial intelligence}
+\section{Artificial Intelligence}
 \input{Chapter3_Method/TiKZ/subcategories_AI}
 In encounters with geoscientists the author often get the question: \textit{What is the difference between machine learning and artificial intelligence?} The short answer is: they are not different fields, but \acrshort{ml} is a subfield of AI. Algorithms developing its own ``knowledge'' from supplied examples falls into the category of ML and not the base category of AI. ML is distinct in that it attempts to deduce rules and go beyond human intuition using a complex net of interactions. 
 
@@ -185,10 +185,10 @@ The original memory cell contains input and output gates. A gate is a structure 
 
 The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
-The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the LSTM receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
+The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the \acrshort{lstm} receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
 
 % The forget gate
-Making a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
+Making a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behaviour as the original \acrshort{lstm} units. 
 %In order to make a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allow you to learn new things. The gate is initialized to 1, thus it can't forget anything until it has learned to forget. Exhibiting the same behavior as the original LSTM units. 
 
 % The input gate 
@@ -268,7 +268,7 @@ Padding zeros along the edges has an additional benefit of including the signal 
 \end{equation}
 
 
-\section{Autoregressive models} \label{sec:ARmodels}
+\section{Autoregressive Models} \label{sec:ARmodels}
 In the following discussion, these conventions are adopted. Typographical emphasis is used to distinguish between dimensions, $y_n$ denotes a discrete value at position or time, $n$, the vector, $\mathbf{y}$ and $\mathbf{Y}$ denotes the matrix. $\mathbf{X}$ always contain the input data, and $\mathbf{y}$ always contain the predicted. The markers $\tilde{ }$, $\hat{ }$ and $\bar{ }$ can be used in combination with the above, describing the $\Tilde{\mathbf{y}}$ denotes the desired value, the predicted $\hat{\mathbf{y}}$ and the mean of $\mathbf{y}$, $\bar{\mathbf{y}}$.
 
 %The dimensions are distinguished by using typographical emphasis.
@@ -326,6 +326,7 @@ where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{
 
 \subsection{Generalisations} \label{sec:generalization}
 % Move overfitting here
+\textbf{Not sure if this should be rewritten and included or discarded.}
 Finding a suitable curve for a set of points. Working with real data, noise is inevitable. In order to compensate, data is split into training and test (validation) sets. % better to call it something like generalization..?
 Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} (\cite{hastie_statistical-learning}) Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
 

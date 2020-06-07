@@ -3,9 +3,8 @@
 \LoadClass[a4paper, 12pt, twoside, english]{report} 
 % twoside - alternating margins 
 % 12pt (same textsize as UiOs word mal)
-\usepackage{wasysym}
+\usepackage[nointegrals]{wasysym}
 \usepackage{enumitem}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx}

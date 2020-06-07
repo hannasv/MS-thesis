@@ -2,7 +2,7 @@
         \begin{subfigure}[b]{\textwidth}   
             \centering 
             \input{Chapter3_Method/TiKZ/legend.tikz}
-            %\caption{Legend. Add concatenation symbol...?}
+            \vspace{-5em}
             \label{fig:legend}
         \end{subfigure}
         \vskip\baselineskip
@@ -24,7 +24,7 @@
         \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
             \input{Chapter3_Method/TiKZ/4_input_gate.tikz}
-            \caption{{\small Candidate information: $\Tilde{C_t} = tanh \left( W_C \dot [ h_{t-1}, x_t ] + b_C \right)$  \newline  The input gate: $i_t = \sigma \left( W_i \dot [ h_{t-1}, x_t ] + b_i \right)$}}
+            \caption{{\small Candidate information:\newline $\Tilde{C_t} = tanh \left( W_C \dot [ h_{t-1}, x_t ] + b_C \right)$  \newline  The input gate: $i_t = \sigma \left( W_i \dot [ h_{t-1}, x_t ] + b_i \right)$}}
 
             \label{fig:input_gate}
         \end{subfigure}
@@ -32,6 +32,7 @@
        \begin{subfigure}[b]{0.475\textwidth}   
             \centering 
             \input{Chapter3_Method/TiKZ/5_update_cell_state.tikz}
+            %\vspace{3em}
             \caption[]%
             {{\small Updating the cell state, $C_t = f_t * C_{t-1} + i_t*\Tilde{C_t}$}}
 
@@ -48,6 +49,7 @@
         \begin{subfigure}[b]{0.475\textwidth}
             \centering
             \input{Chapter3_Method/TiKZ/lstm.tikz}
+            %\vspace{1em}
             \caption{{\small The assembeles \acrshort{lstm} unit.}}
             \label{fig:lstm_unit}
         \end{subfigure}
