@@ -14,13 +14,13 @@
 %
 \begin{tikzpicture}[scale=5,tdplot_main_coords]
     \coordinate (O) at (0,0,0); % origo
-
     \coordinate (z) at (0, 0, 1.0); % origo
     %\draw[thin, <->] (1, 0.7, 1.16) -- (1, 0.52, 1.2) node[pos = 0.8, above right]{\Large $d\theta$};
     
     \draw[very thick,->] (0,0,0) -- (1.7, 0, 0) node[anchor=north east]{\Large $x$};
     \draw[very thick,->] (0,0,0) -- (0, 1.7, 0) node[anchor=north west]{\Large $y$};
     \draw[very thick,->] (0,0,0) -- (0, 0, 1.7) node[anchor=south]{\Large $z$};
+    
     \shade[ball color = teal, opacity = 0.1] (0,0,0) circle [radius=\rvec];
     \draw (0,0,0) circle [radius=\rvec];
     
@@ -71,12 +71,12 @@
         {\thetavec}{anchor = south west,shift={(4mm,-5mm)}}{\Large $d\theta$};
         
     %\tdplotdrawarc[tdplot_rotated_coords, <->]{(0.1, 0.2, 0)}{.5}{0}{\thetavec}{anchor=east}{\Large $d\theta$}
-    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.2] (O) circle[radius=\rvec];
     \foreach \X/\Y in {xy/z,yz/x,zx/y}
         {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
          \fill circle[radius=1pt];
         \end{scope}}
     \end{tikzpicture}
-    \caption{Properties of a square in spherical coordinates.}
+    \caption{Properties of a square projected onto a sphere.}
     \label{fig:spherical_coords}
 \end{figure}

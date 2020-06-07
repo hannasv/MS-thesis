@@ -83,7 +83,7 @@
     (0.5, 0.3, 0.65) -- ((0.5, 0.5, 0.73) node [black,midway,xshift=0cm, yshift = 2.cm, very thick] {\Large $\delta \phi_{(i, j)}$};
 
     \tdplotsetthetaplanecoords{\phivec};
-    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.2] (O) circle[radius=\rvec];
     \foreach \X/\Y in {xy/z,yz/x,zx/y}
         {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
          \fill circle[radius=1pt];

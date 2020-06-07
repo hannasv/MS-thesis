@@ -9,7 +9,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx}
-\usepackage{amsmath}
+%\usepackage{amsmath}
 \usepackage{graphicx}
 \newcommand{\minus}{\scalebox{0.75}[1.0]{$-$}}
 \usepackage{fancyhdr}
@@ -27,7 +27,7 @@
 \usepackage{tikz}
 \usepackage{calc}
 \usepackage{tikz-3dplot}
-\usepackage{amsmath}
+%\usepackage{amsmath}
 \usetikzlibrary{arrows}
 \pagestyle{empty}
 \usepackage{pgfplots}
@@ -44,19 +44,13 @@
 \usepackage[margin=0.9in]{geometry}
 \usepackage[acronym, nonumberlist]{glossaries}
 \makeglossaries
- 
 \usepackage[labelfont=bf]{caption} % Gives bold figure X. 
- 
-\usepackage{amsmath}
 
 % For tikz images
 \usepackage{filecontents}
 \usepackage{tikz}
-\usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{amsmath}
-
 \usetikzlibrary{arrows}
 \usepackage{pgfplots}
 \usetikzlibrary{calc,fadings,decorations.pathreplacing}

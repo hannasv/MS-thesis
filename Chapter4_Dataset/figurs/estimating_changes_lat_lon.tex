@@ -135,13 +135,13 @@
     \draw[thick](0.05, 0.45, 0.73)node[scale=0.8, rotate = 35]{$(i+1,j+1)$};
 
     \tdplotsetthetaplanecoords{\phivec};
-    \shade[ball color=teal,tdplot_screen_coords,opacity=0.1] (O) circle[radius=\rvec];
+    \shade[ball color=teal,tdplot_screen_coords,opacity=0.2] (O) circle[radius=\rvec];
     \foreach \X/\Y in {xy/z,yz/x,zx/y}
         {\begin{scope}[canvas is \X\space plane at \Y=\rvec]
          \fill circle[radius=1pt];
         \end{scope}}
     \end{tikzpicture}
     
-    \caption{Sketch to illustrated the relative size of neighbouring pixels in uniform grid of ECC, projected onto spherical coordinates. The areas of pixels in a uniform grid decrease poleward.}
+    \caption{Sketch to illustrated the relative size of neighbouring pixels in uniform grid of \acrshort{ecc}, projected onto spherical coordinates. The areas of pixels in a uniform grid decrease poleward.}
     \label{fig:relative_size_neigbouring_pixels}
 \end{figure}
