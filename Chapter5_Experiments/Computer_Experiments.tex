@@ -13,7 +13,36 @@ Minor differences for the datasets prepared for the \acrshort{ar} and the \acrsh
 
 \textbf{Make bar plot showing the average number of training and test samples for AR models. This might explain the performans of certain models. }
 
+\section{random notes}
+\textbf{Heavy computations} Theads deadlocking, when they request large amounts of data. Parallel program is necesary to take advantage of clusters. 
 
+Two clusteres are used in this experiment Wessel on UiO and ex3 from simula for the machine learning tasks. See Table \ref{tab:hardware}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c}
+        Device &  Type  \\
+        RAM  & 
+        CPU (32 stk)  &
+    \end{tabular}
+    \caption{Hardware specifications for our testing environment on Wessel. Operativ system er Red Hat Enterprise Linux 7, RHEL7.}
+    \label{tab:hardware_wessel}
+\end{table}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c}
+        Device &  Type  \\
+         & 
+    \end{tabular}
+    \caption{Hardware specifications for our testing environment on eX\textsuperscript{3}. Operativ system er Ubuntu? \href{http://wiki.ex3.simula.no/doku.php?id=wiki:hardware&redirect=1}{http://wiki.ex3.simula.no/doku.php?id=wiki:hardware&redirect=1} og \href{https://www.ex3.simula.no/}{https://www.ex3.simula.no/} er nyttige kilder.
+    }
+    \label{tab:hardware_ex3}
+\end{table}
+
+Scheduling tasks on a gpu is difficult. Without experience working on large clusteres, blir parallerliseringen og schedulering nok suboptimal. Så her er det også forbedringspotensial.
+
+Future work speed up the computations of self implemented modules for computations using  a C or C++ backend. The datasource modules providing data to the tensorflow modules and other 
 
 \section{Framework - Model Setup}
 The following sections contain the configurations of the models compiled for this thesis along with descriptions of hyperparameters. A model is compiled based on a choice of hyperparameters. In the search for the best model, different combinations of hyperparameters are tested. This is done manually for \acrshort{ar}-models, and automatically for \acrshort{convlstm}. The \acrshort{ar}-models have a small search space. The \acrshort{convlstm} models have a larger search space and \citepaper{chollet2015kerastuner} provide suitable software. 
