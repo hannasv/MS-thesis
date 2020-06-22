@@ -39,10 +39,13 @@ Two clusteres are used in this experiment Wessel on UiO and ex3 from simula for 
     \item To choose the correct parameteres for you data pipeline and parallell programming you need to have an understanding of the environment you work on.
     \item I will start with deploy. Deploy should mean take all of my artifacts and either copy them to a server, or execute them on a server. It should truly be a simple process.
     \item Build means, process all of my code/artifacts and prepare them for deployment. Meaning compile, generate code, package, etc.
-    \item A versatile code should support different types of archiitectures, hardware and apis.
+    \item A versatile code should support different types of archiitectures, hardware and api's.
     \item Making your code distribution aware. Having access to more than one GPU you can, create a stategy scope using tf, and with small changes making you model distribution aware.
     \item Two steps, data processing (on cpu) og model computation (on a gpu).
     \item latency = ventetid
     \item $@tf.function$ increases the speed of computations (I think this makes it a C code).
     \item Optimizing the tf.Graph also reduces the device peak memory usage and improves hardware utilization by optimizing the mapping of graph nodes to compute resources. 
+    \item threads are ordered streams of instructions.
+    \item concurrent/simultaneously == samtidig
+    \item Making applications thread safe is diffucult, it essentially means having mutexes on you resources so that no two threads can access the same place in memory/ same process resources at the same time.
 \end{enumerate}

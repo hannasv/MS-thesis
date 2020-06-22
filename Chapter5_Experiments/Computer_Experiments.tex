@@ -2,7 +2,7 @@
 How to deal with big datasets that will easily eat up you memory? ``Big data'' involve processing large amounts of data that does not fit into memory. Processing ginormous amounts of data require expert knowledge about distributed systems and analysing for system bottlenecks. This section describes the computational experiments conducted in this thesis, and related issues encountered during the software development. 
 
 The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. 
-In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthour{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively, this is a lot more.
+In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively, this is a lot more.
 %In comparison to ImageNet 2012 \textbf{source link to tensorflow docs} with downloading size is 144.02 GiB it is small. 
 %However its impossible to work on the full dataset from the authors Lenovo E31 laptop. 
 Conducting experiments on large datasets require external computational resources. %Storing is more important since the raw data used in the compilation of the dataset amount to several hundreds of Gb.
@@ -116,9 +116,6 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \label{tab:ar_model_config}
 \end{table}
 
-
-
-
 \subsection{Convolutional LSTM}
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
 Citation BatchNormalization \cite{ioffe2015batch}. 
@@ -130,13 +127,6 @@ Tensorflow har pakker for å ha prosessert data i cache. For å unngå at det m�
 
 The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. 
 
-
-\subsubsection{Hyperparameter tunnig}  \label{sec:hyperparam_tuning}
-The more complicated models would further benefit from a automatised tuning routine, making decisions based on certain criteria.
-%\textit{Learning to forget found the best accuracy when using learning rate decay.}
-
-
-\textbf{Trenger du hyperparameteroptimisering når du bruker den artikkelen?}
 
 \section{Results}
 Recall that all models are trained on X and tested on Y. The autoregressive model is optimized to get the cloud cover at a certain time, by feeding the model with the result from the previos predictions one can generate sequences with the AR-model. For the convolutional model, two seperate models need to be trained? Det stemmer vell ikke man kan vell bruke en modell som er trent på å return sequence (True) til å bare returne den første? \textbf{Litt usikker på struktur på trening og test data her.}

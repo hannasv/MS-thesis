@@ -307,47 +307,66 @@ The optimal solution is the best solution based on the training data available. 
 % The code is implemented using scipys pinv to solve the problems with invertable matrices.
 %Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
 
-\subsection{Loss and Performance Metrics}  \label{sec:metrics}
-To asses model performance you need to do this based on a criterion, this is naturally 
-
-In order to acquire a certain skill you need a measure determining how close you are. 
-Use the sum of square or absolute values in order to not penalise point on the lower side of the line. Or not having to deal with negative distances. 
+%\subsection{Loss and Performance Metrics}  \label{sec:metrics}
+\subsection{Evaluation} \label{sec:evaluation}
+The goal of optimisation process is to train the model to acquire a certain skill. 
+Model evaluation is done based on criteria, also known as metrics. The above mentioned models output volumes, and the metrics are written in their three-dimensional form.
 \begin{equation} \label{eq:mse}
-    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n} \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
+    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
 \end{equation} 
-\begin{equation} \label{eq:ase}
-    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
-\end{equation} 
+%\begin{equation} \label{eq:ase}
+%    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
+%\end{equation} 
 \begin{equation} \label{eq:r2}
-    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\sum_{i=0}^{n - 1} (y_i - \tilde{y}_i)^2}{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
+    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\bar{y})^2}
+    %{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
 \end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \frac{1}{n} \sum_{i=0}^{n - 1} y_i$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model.
+where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{o-1}y_{i, j, k}^2$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model. The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
 
 
-\subsection{Generalisations} \label{sec:generalization}
+%\subsection{Generalisations} \label{sec:generalization}
 % Move overfitting here
-\textbf{Not sure if this should be rewritten and included or discarded.}
-Finding a suitable curve for a set of points. Working with real data, noise is inevitable. In order to compensate, data is split into training and test (validation) sets. % better to call it something like generalization..?
-Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} (\cite{hastie_statistical-learning}) Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
+%\textbf{Not sure if this should be rewritten and included or discarded.}
+%Model evaluation can be done based on several criteria. 
+%Finding a suitable curve for a set of points. Working with real data, noise is inevitable. In order to compensate, data is split into training and test (validation) sets. % better to call it something like generalization..?
+%Overall goal is to achieve the most general relation. \textit{For prediction purposes they can sometimes outperform fancier non-linear models, especially in situations with small numbers of training cases, low signal-to-noise ratio or sparse data.} (\cite{hastie_statistical-learning}) Overfitting becomes evident when you have a increase in the difference between the test- and training error. In non-mathematical terms, you have adjusted to much to the training data and where not able to find the general relation, program or "rules". See Figure \ref{fig:linreg_overfitting} 
+%\begin{figure}[hp]
+%    \centering
+%    \includegraphics[scale = 0.4]{Chapter3_Method/figs/generalization.png}
+%    \caption{Fitting at different levels. The optimal fit is the most general one. This is applicable to many cases. For the traditional autoregressive models, the predictor variable is the true value in the previous time step. }
+%    \label{fig:linreg_overfitting}
+%\end{figure}
 
-\begin{figure}[hp]
-    \centering
-    \includegraphics[scale = 0.4]{Chapter3_Method/figs/generalization.png}
-    \caption{Fitting at different levels. The optimal fit is the most general one. This is applicable to many cases. For the traditional autoregressive models, the predictor variable is the true value in the previous time step. }
-    \label{fig:linreg_overfitting}
-\end{figure}
-
-Its relevant for all ML algorithms but easiest to visualize for linear regression.
-\textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
+%Its relevant for all ML algorithms but easiest to visualize for linear regression.
+%\textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
 
 \section{Related work} \label{sec:related_work}
-Deep learning is a relatively young field. \acrshort{convlstm} is a relatively new model, most machine learning problems don't involve both space and time dimension, and is purely classification task. This explains why there is so litle litterature on this topic. 
+Deep learning is a relatively young field and \acrshort{convlstm} even younger model, developed in 2015. Few experiments are conducted and there is articles on the topic. Most machine learning works are done on task of classification.
 
-To main works done by \cite{precip_nowcasting}, who developed this model, and \cite{SunAirLSTM} who applied it to the air quiality forecasting problem, quite similar to our own task. 
+The model was developed by \citepaper{precip_nowcasting}, for the task of precipitation nowcasting, and \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. 
 
-In this works the model is trained on a small amount of data. Unlike like dataset.
+\citepaper{precip_nowcasting} use only gridded data and the volume of data is $100\times 100$ after resizing the filters to remove noise. The radar echo dataset have traning samples (8148), validation (2037), test (2037). \textbf{Should i reduce my training dataset.} Each sample consist of 20 frames, 5 used for input and 15 used for prediction. No metrics usefull for comparison.
 
+\citepaper{SunAirLSTM} use both gridded data and point measurements. The weather data volume for each timestep is $(21 \times 31 \times 5)$. 16 months of hourly data divided into sequences of 72 frames, 24 for input and 48 for frames. 
+
+
+Batch size of one will allow you to build a deeper model, but it takes longer to train. Have a mse, r2, num parameters i en tabell når du legger frem resultatene. 
+%Basert på figuren ser det ut som batch sizes er 1, det må ta lang tid å kjøre.
+
+\begin{enumerate}
+    \item learning rate scheduler to 0.001 after 5 epochs
+    \item gradient clipping
+    \item filters of 1, 3, 5
+    \item hidden states 256, 128
+    \item 2 or 3 layers
+    \item optimised to predict hat it gives to outputs. 
+    \item future work ResNet + Rnn -- noen som har gjort noe på dette?
+    \item kan være verd et forsøk å ha batch size på en for å få sjekket ut higher level abstractions.
+\end{enumerate}
+
+%In this works the model is trained on a small amount of data. Unlike like dataset.
+State-of-the art models 
 
 Batch size describes the number of samples used to make a weight update. The number of epochs determines how many times the datasets sees all samples. The learning rate determines the magnitude of the step taken in the direction of the steepest gradient, as described in Section X. 
 
