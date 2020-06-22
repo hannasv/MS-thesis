@@ -341,7 +341,39 @@ Its relevant for all ML algorithms but easiest to visualize for linear regressio
 \textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
 
-%\section{Related work} \label{sec:related_work}
+\section{Related work} \label{sec:related_work}
+Deep learning is a relatively young field. \acrshort{convlstm} is a relatively new model, most machine learning problems don't involve both space and time dimension, and is purely classification task. This explains why there is so litle litterature on this topic. 
+
+To main works done by \cite{precip_nowcasting}, who developed this model, and \cite{SunAirLSTM} who applied it to the air quiality forecasting problem, quite similar to our own task. 
+
+In this works the model is trained on a small amount of data. Unlike like dataset.
+
+
+Batch size describes the number of samples used to make a weight update. The number of epochs determines how many times the datasets sees all samples. The learning rate determines the magnitude of the step taken in the direction of the steepest gradient, as described in Section X. 
+
+\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.} 
+
+Learning is a time consuming task. The fundamental trick in deep learning is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example (i.e. the current batch). The adjustment is the job of the optimizer.
+
+All models use the MSE loss in combination with the Adam optimiser. The list describes models tested in this experiment. 
+
+\begin{enumerate}[noitemsep, topsep=0pt]
+    \item ConvLSTM 1x1-256-2
+    \item ConvLSTM 3x3-256-2
+    \item ConvLSTM 5x5-256-2
+    \item ConvLSTM 3x3-256-3
+    \item ConvLSTM 5x5-256-3
+\end{enumerate}
+
+%%%% summarize precipitation nowcasting 
+
+
+
+%%%%%%%%%%% summarize the 
+The model names is given following this structure, described using a example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. A hyper parameter is a constant set before the training procedure begins. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. 
+
+
+
 %Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
 
 % De viste at den var bedre enn FC-LSTM for fully connected 
