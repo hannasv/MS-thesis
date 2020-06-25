@@ -309,8 +309,12 @@ The optimal solution is the best solution based on the training data available. 
 
 %\subsection{Loss and Performance Metrics}  \label{sec:metrics}
 \subsection{Evaluation} \label{sec:evaluation}
-The goal of optimisation process is to train the model to acquire a certain skill. 
-Model evaluation is done based on criteria, also known as metrics. The above mentioned models output volumes, and the metrics are written in their three-dimensional form.
+%A optimisation process aim to acquire a certain skill. 
+Model evaluation is performed based on metrics, and is necessary to determine the ability of a model to perform a certain task. %It can be done based on several criterias measuring how good the algorithm is to do several things.
+%The goal of optimisation process is to train the model to acquire a certain skill. 
+%Model evaluation is done based on criteria, also known as metrics. 
+These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. 
+The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
 \begin{equation} \label{eq:mse}
     MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
 \end{equation} 
@@ -321,8 +325,8 @@ Model evaluation is done based on criteria, also known as metrics. The above men
     R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\bar{y})^2}
     %{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
 \end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{o-1}y_{i, j, k}^2$. $R^2$ describes how much of the variation in the dataset you are able to capture with your model. The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
-
+where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{o-1}y_{i, j, k}^2$. %$R^2$ describes how much of the variation in the dataset you are able to capture with your model. 
+The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
 
 %\subsection{Generalisations} \label{sec:generalization}
 % Move overfitting here
@@ -340,42 +344,14 @@ where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=
 %Its relevant for all ML algorithms but easiest to visualize for linear regression.
 %\textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
-
 \section{Related work} \label{sec:related_work}
-Deep learning is a relatively young field and \acrshort{convlstm} even younger model, developed in 2015. Few experiments are conducted and there is articles on the topic. Most machine learning works are done on task of classification.
+Deep learning is a young field and \acrshort{convlstm} even younger model. Few studies have been conducted within \acrshort{dl} applied to sequence modelling. The task of object detection or classification receives the most attention.
 
-The model was developed by \citepaper{precip_nowcasting}, for the task of precipitation nowcasting, and \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. 
+The \acrshort{convlstm} was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. Using high resolution data from a period up to two years. Both studies evaluate their models based on case specific metrics. In other words the performance of these models are not comparable across probelems. \textbf{Vil man egentlig noen gang gjøre det..?}
 
-\citepaper{precip_nowcasting} use only gridded data and the volume of data is $100\times 100$ after resizing the filters to remove noise. The radar echo dataset have traning samples (8148), validation (2037), test (2037). \textbf{Should i reduce my training dataset.} Each sample consist of 20 frames, 5 used for input and 15 used for prediction. No metrics usefull for comparison.
+\citepaper{precip_nowcasting} use gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. It is named the radar echo dataset, and have training 8148 sample, 2037 validation and 2037 test samples. Each sample consist of 20 frames, 5 used for input and 15 used for prediction. Based on five frames the model predicts 15. Report that they are training one model $ConvLstm(3\times 3)3\times 3-64-3\times 3-64$, a \acrshort{convlstm} model using a $3\times 3$ filter, in combinations with 64 hidden states, twice. Patch size is 2, this is compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, ROVER. Both LSTM version optimise the crossentropy error of 15 prediction samples. 
 
-\citepaper{SunAirLSTM} use both gridded data and point measurements. The weather data volume for each timestep is $(21 \times 31 \times 5)$. 16 months of hourly data divided into sequences of 72 frames, 24 for input and 48 for frames. 
-
-
-Batch size of one will allow you to build a deeper model, but it takes longer to train. Have a mse, r2, num parameters i en tabell når du legger frem resultatene. 
-%Basert på figuren ser det ut som batch sizes er 1, det må ta lang tid å kjøre.
-
-\begin{enumerate}
-    \item learning rate scheduler to 0.001 after 5 epochs
-    \item gradient clipping
-    \item filters of 1, 3, 5
-    \item hidden states 256, 128
-    \item 2 or 3 layers
-    \item optimised to predict hat it gives to outputs. 
-    \item future work ResNet + Rnn -- noen som har gjort noe på dette?
-    \item kan være verd et forsøk å ha batch size på en for å få sjekket ut higher level abstractions.
-\end{enumerate}
-
-%In this works the model is trained on a small amount of data. Unlike like dataset.
-State-of-the art models 
-
-Batch size describes the number of samples used to make a weight update. The number of epochs determines how many times the datasets sees all samples. The learning rate determines the magnitude of the step taken in the direction of the steepest gradient, as described in Section X. 
-
-\textit{Learning means finding a suitable representation of model parameters that minimize a loss function for a given set of training data samples and their corresponding targets.} 
-
-Learning is a time consuming task. The fundamental trick in deep learning is to use the performance metric as a feedback signal to adjust the weights. It adjusts in the direction of the lowest loss score for the current example (i.e. the current batch). The adjustment is the job of the optimizer.
-
-All models use the MSE loss in combination with the Adam optimiser. The list describes models tested in this experiment. 
-
+\citepaper{SunAirLSTM} use a combination of distributed data. Weather data is provided in grids, and air quality observations are point measurements. The weather data volume per time step is a tensor of shape $(21 \times 31 \times 5)$. 16 months of hourly data divided into sequences of 72 frames, 24 for input and 48 for prediction. Batch size is not mentioned in the paper, but based on Figure X, where one tensor of shape $(21 \times 31 \times 5)$ is sent as input. i.e. one sample. They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs. Gradient clipping to avoid exploding gradients when training longer sequences. Combinations of filters $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states, in more familiar terms the number of filters applied. The model names is given following this structure, described using a example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 2 layers having the same number hidden states, 256.
 \begin{enumerate}[noitemsep, topsep=0pt]
     \item ConvLSTM 1x1-256-2
     \item ConvLSTM 3x3-256-2
@@ -384,21 +360,24 @@ All models use the MSE loss in combination with the Adam optimiser. The list des
     \item ConvLSTM 5x5-256-3
 \end{enumerate}
 
+Include patch size of 4 making 64x64 to 16x16x16 tensors. Choice of optimizer is RMSprop 0.001 and a learning rate decay of 0.9. Performs early stopping on the validation set.
+
+Filter 1x1 result in the state-to-state transitions.
+
+%%%%%%%%%%%%%% above here is ok
+
+%In this works the model is trained on a small amount of data. Unlike like dataset.
+%State-of-the art models 
+
+ 
+
+
 %%%% summarize precipitation nowcasting 
 
 
 
 %%%%%%%%%%% summarize the 
-The model names is given following this structure, described using a example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 256 hidden states and has 2 layers. A hyper parameter is a constant set before the training procedure begins. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. 
 
-
+%A hyper parameter is a constant set before the training procedure begins. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. 
 
 %Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
-
-% De viste at den var bedre enn FC-LSTM for fully connected 
-%Convolution LSTM was introduced for applications to precipitation nowcasting. Similar to traditional models the predictors is the target variable at earlier time steps. 
-
-%Describe in more detail the work done by others on the inter disciplinary field. \cite{SunAirLSTM}, \cite{precip_nowcasting}, \cite{Liu2014DeepForecasting} ...
-
-
-

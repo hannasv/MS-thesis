@@ -1,102 +1,100 @@
-\chapter{Computer Experiments} \label{ch:computer_experiments}
-How to deal with big datasets that will easily eat up you memory? ``Big data'' involve processing large amounts of data that does not fit into memory. Processing ginormous amounts of data require expert knowledge about distributed systems and analysing for system bottlenecks. This section describes the computational experiments conducted in this thesis, and related issues encountered during the software development. 
+\chapter{Computer Experiments - Hugo} \label{ch:computer_experiments}
+How to deal with big datasets that will easily eat up you memory? ``Big data'' involve processing large amounts of data that does not fit into memory. Processing ginormous amounts of data require expert knowledge about distributed systems and analysing for system bottlenecks. This section describes the computational experiments conducted in this study, and related issues encountered during the software development. 
 
-The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. 
-In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively, this is a lot more.
 %In comparison to ImageNet 2012 \textbf{source link to tensorflow docs} with downloading size is 144.02 GiB it is small. 
 %However its impossible to work on the full dataset from the authors Lenovo E31 laptop. 
-Conducting experiments on large datasets require external computational resources. %Storing is more important since the raw data used in the compilation of the dataset amount to several hundreds of Gb.
+ %Storing is more important since the raw data used in the compilation of the dataset amount to several hundreds of Gb.
 
-The results from the experiments conducted based on the setup and configuration. %presented in Section \ref{sec:hyperparam_tuning}. 
+The results from the experiments conducted based on the setup and configuration. %presented in Section \ref{sec:hyperparam_tuning}.
 Finally, each model is evaluated on unseen portion of the dataset. Although theoretically fascinating it remains to see if \acrshort{convlstm} provide a clear practical advantage over the autoregressive models.
 
 \section{Hardware}
-\textit{The best choice of collective implementation depends upon the number and kind of GPUs, and the network interconnect in the cluster.} Efficient pipelines and traning procedyres. This project had access to a DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, each of 32Gb local memory and 1.5Tb shared memory. The resources is availble through the \acrfull{ex3} project hosted at Simula. This project is allowed to use 1 GPU and X part of the memory. 
-
+Conducting experiments on large datasets require external computational resources.  This study had access to a DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, each of 32Gb local memory and 1.5Tb shared memory. The resources is availble through the \acrfull{ex3} project hosted at Simula. This project was awarded access 1 GPU and 1024G part of the memory. The data is stored on a \acrfull{rdma} accessed over Infiniband.
+\textit{The best choice of collective implementation depends upon the number and kind of GPUs, and the network interconnect in the cluster.} The hardware sets the standard for what  efficient pipelines and training prosedyre. 
 %\textit{NVIDIA V100 GPU -- The eX3 infrastructure includes a DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, allowing simultaneous communication between all eight GPU pairs at 300 GBps through the 12 integrated NVSwitches. This gives a theoretical system-wide system bi-directional  bandwidth of 2.4 TBps. All GPUs have 32 GB of local memory (total of 512 GB) and share a 1.5 TB main memory. The total system has 81,920 CUDA cores, and 10,240 Tensor cores delivering 2 Petaflops of tensor performance. The peak performance in double precision is 125 Teraflops.}
 
-\textit{This system designed for billion-way concurrency also represents a major challenge with many features: How to program such computers? How to port existing code, and how to reach a satisfactory level of reliability and efficiency while maintaining an acceptable energy footprint? How do you even debug software running on such a beast? }
+The DGX-2 system is designed for a high level concurrency and scheduling workers competing for system resources. Working on such a monstrosity pose additional challenges related to porting existing code and virtual environments, developing and debugging code. Resulting in %a achieved 
+acceptable level of efficiency and reliability. \textbf{må de siteres? (\cite{ex3docs} and \cite{ex3homepage}).} 
+%\textit{This system designed for billion-way concurrency also represents a major challenge with many features: How to program such computers? How to port existing code, and how to reach a satisfactory level of reliability and efficiency while maintaining an acceptable energy footprint? How do you even debug software running on such a beast? }
 
 %\textit{The exponentially increasing need for computing power in science and society at large has fueled the quest for developing exascale computers capable of performing a billion billion (10\textsuperscript{18}) floating-point operations per second. This upcoming generation of high performance computing (HPC) will rely on an intricate interplay between thousands of sophisticated processing nodes, each with a large number of cores, deep memory hierarchies and equipped with accelerators, organized in complex communication topologies. Heterogeneity is expected on all hardware levels, such as the nodes may also include processors that are tailored for certain types of algorithms, for instance graph-oriented methods for machine learning. While there is no fixed blueprint for exascale computers, the aggregated level of complexity in a strongly heterogeneous system designed for billion-way concurrency also represents a major challenge with many features: How to program such computers? How to port existing code, and how to reach a satisfactory level of reliability and efficiency while maintaining an acceptable energy footprint? How do you even debug software running on such a beast? While competing technologies in hardware, middleware, and software are being driven by major research projects in the United States, China, Japan and the EU, it is essential for Norwegian HPC research groups to keep pace with the frontier research.}
 
-\textit{The eX3 infrastructure will not be an exascale computer by itself, but it will be a carefully curated ecosystem of technology components that will be crucial for embracing exascale computing. It will allow HPC researchers throughout Norway and their collaborators to experiment hands-on with emerging HPC technologies – hardware as well as software.}
-
-In this section \cite{ex3docs} and \cite{ex3homepage}.
+%\textit{The eX3 infrastructure will not be an exascale computer by itself, but it will be a carefully curated ecosystem of technology components that will be crucial for embracing exascale computing. It will allow HPC researchers throughout Norway and their collaborators to experiment hands-on with emerging HPC technologies – hardware as well as software.}
 
 \begin{table}[ht]
     \centering
     \begin{tabular}{c|c}
-        Device &  Type  \\
-        GPU & Tesla V100-SXM3-32GB 
+        Device &  Type  \\ \hline
+        GPU & Tesla V100-SXM3-32GB \\
+        CPU s& DualProcessor AMD Epyc7601 (SMT2) w/2TB ram and 4TB NVMe 
     \end{tabular}
-    \caption{Hardware specifications for our testing environment on eX\textsuperscript{3}. Operativ system er Ubuntu?}
+    \caption{Hardware specifications for our testing environment on eX\textsuperscript{3}. Operating system is Ubuntu 18.04.4.}
     \label{tab:hardware_ex3}
 \end{table}
 
-Working on this cluster requires you to move your files for fst access, create a virtual enviornment to use, relocate you code (here donw using brances on github) and schedule tasks on a GPU using a slurm scheduler. 
-\textbf{Vær forsiktig med å si at du ike trenger å parallellsisere, det er litt mystisk når du leser på egen errormeldingene.}
-
-Its desirable to have a fast access to the data. On ex3 this is done by a Remote Direct Memory Access (RDMA) over Infiniband.
-
-\section{Software -- need to sort content}
-The tensorflow keras API simplifies many aspects of building and executing machine learning models. Its implementation and distribution system aware. 
-
+\section{Software}
+The tensorflow keras API simplifies many aspects of building and executing machine learning models. Its implementation and distribution system aware. This makes the code more versatile, it can easily be ported to other system without many adjustments. This is not the case for the \acrshort{ar}-model and they prove to be more time consuming. \textbf{The task is performed over the entire grid,  .... legg til bedre overgang}
 Distributed programming involves splitting the data into many tasks. These tasks are then executed in parallel by workers also known as threads. Parallel programming is necessary to take advantage of all the cores on a cluster to accelerate computational science. 
 
-Complex computations will cause memory growth, dependant on how many intermediate computations it needs to store.
+Complex computations will cause memory growth, dependant on how many intermediate computations it needs to store. This is the case for \acrshort{convlstm}. To speed up the development process the software is developed on a subset of \acrshort{ecc}. Small adjustments needs to be made, running experiments on the entire data. For instance threads deadlock when extracting large amounts of data. This is a precautionary measure to avoid overloading the system.
 
-For fast debugging, the programs are implemented using dummy data or a subset of the dataset. Expanding the data amount to the entire dataset can require additional adjustments. For instance, the threads run on the problem of linear regression deadlocks upon the extraction of large amount of data. This is a precautionary measure to avoid overloading the system(\textbf{or server or cluster}).
-%, which is a good thing. 
-However, working on dummy data or smaller portion of the dataset might misleading with regard to how close you actually are to a solution. The solution here is to extract the data before the thread is started.
-
-%Implementing a pixel wise regression seems like a straight forward task. And it is, as long as you can keep track of memory requirements, and extract the data before it is sent into the thread.
-
-%Hardware problems; quick data flow (dependant on the disk it is stored on), and enough memory.
-%The choice of software implementation can create a 
-File structure is also important, ideally data should be stored in a fashion that you don't load to much into memory. For the \acrshort{convlstm} case that would be a grid of time series, as done in this project, but for the pixelwise regression case it could be beneficially too store one pixel at a time. Storing the data in this manner will again force you to request data from the storage space more frequent, but it could ease the paralization of the program. However, there is no guarantees this will give you more bang for the buck. 
+%File structure is also important, ideally data should be stored in a fashion that you don't load to much into memory. For the \acrshort{convlstm} case that would be a grid of time series, as done in this project, but for the pixelwise regression case it could be beneficially too store one pixel at a time. Storing the data in this manner will again force you to request data from the storage space more frequent, but it could ease the paralization of the program. However, there is no guarantees this will give you more bang for the buck. 
 
 
 \section{Framework - Model Setup}
-\textbf{Manuel tuning since the computational resources easily get exhausted depending on the architecture}
-\textbf{The architecture is dependant on the problem, but also the memory resources.}
+The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A hyperparameter is a parameter set before the training starts, as mentioned in Section X. A model is compiled based on a choice of hyperparameters. In the search for the best model configuration, different combinations of hyperparameters are tested. This is done manually to begin with since the choice of architecture can easily overload the system memory resources.
+%\textbf{The architecture is dependant on the problem, but also the memory resources.}
 
-The following sections contain the configurations of the models compiled for this thesis along with descriptions of hyperparameters. Recall that a hyperparameter is a parameter set before the training starts, as mentioned in Section X. A model is compiled based on a choice of hyperparameters. In the search for the best model configuration, different combinations of hyperparameters are tested. This is done manually. It is possible since \acrshort{ar}-models have a small search space.  The \acrshort{convlstm} models have a large search space. As a starting point a set of architectures used by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) on a similar problem, air quality forecasting problem was executed. \citepaper{chollet2015kerastuner} provide suitable software for the automatic hyperparameter tuning. 
+%It is possible since \acrshort{ar}-models have a small search space. The \acrshort{convlstm} models have a large search space. 
+As a starting point a set of architectures used by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) described in Section \ref{sec:related_work}.
+%on a similar problem, air quality forecasting problem was executed. \citepaper{chollet2015kerastuner} provide suitable software for the automatic hyperparameter tuning. 
+%\textbf{Man kjører eksperimenter på mange modeller ved å bruke traning og validations dataset. The choice of model is based on this data basis and then it performance is tested on the test dataset.} 
 
-\textbf{Man kjører eksperimenter på mange modeller ved å bruke traning og validations dataset. The choice of model is based on this data basis and then it performance is tested on the test dataset. }
-Inherited from the problem the \acrshort{ar}-models dataset is split into two portions, training and test. This is sufficient, since there exist an analytical solution to this problem, as mentioned in Section \ref{sec:ARmodels}. For the \acrshort{convlstm} there is no analytical solution, there is a numerical solution, this introduce the need for a validation dataset. Both model are tested on 2014 to 2018. For \acrshort{ar}-models this is trained on 2004 to 2013 and the \acrshort{convlstm} trained on  2004 to 2011 and validated on  2012 to 2013. The test period was chosen based on the assumption that the latest period is most representabel for the climate in the near future.
+The partitioning into training and test data is inherited from the model. Since the AR-modelling is done based on a analytical solution there is no need for a validation dataset. Both model are tested on 2014 to 2018. For \acrshort{ar}-models this is trained on 2004 to 2013 and the \acrshort{convlstm} trained on  2004 to 2011 and validated on  2012 to 2013. The test period was chosen based on the assumption that the latest period is most representabel for the climate in the near future.
 
-Other minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a particular model. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$.
+%Inherited from the problem the \acrshort{ar}-models dataset is split into two portions, training and test. This is sufficient, since there exist an analytical solution to this problem, as mentioned in Section \ref{sec:ARmodels}. 
+%For the \acrshort{convlstm} there is no analytical solution, there is a numerical solution, this introduce the need for a validation dataset. 
+Another minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a particular model. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$.
 
 \subsection{Autoregressive models}
 %\textbf{Move first two paragraphs to discussion..?}
-The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. This has major improvement possibilities. 
+The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}. %This has major improvement possibilities. 
 
-A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. One AR-model is the combination of 13041 individual regression models. Time consuming task because of the high number of matrix inversions. A double for loop over this takes to long and \textbf{mention the version of paralelization used on this problem}.
+A set of models are compiled by varying components like scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. A summary of the calibrated models are provided in Table \ref{tab:ar_model_config}. Keep in mind that one AR-model is the combination of 13041 individual regression models.  
 
+%Time consuming task because of the high number of matrix inversions. A double for loop over this takes to long and \textbf{mention the version of paralelization used on this problem}.
+\textbf{Move this to AR model in theoretical background???}
 \subsubsection{Feature Scaling} \label{sec:scaling_predictors}
 %Feature standardization makes the values of each feature in the data have zero-mean 
 
-Feature scaling is used to standardise or scale the predictor variables. By subtracting the mean and dividing by the variance, the distribution is reshaped to a standard normal distribution with zero mean and unit variance. Data transformation can be beneficially in an attempt to achieve numerical stability. When applied the predictors is transformed according to the following Equation \ref{eq:scaling_data}. The feature scaling is applied after the partition into training and test dataset, the mean and standard deviation is computed based on the training set. If it was done based on the entire dataset, the trained model would have sneak peaked at the test data.
+Feature scaling is used to standardise the predictor variables.
+%By subtraecting the mean and dividing by the variance, t
+Applying Equation \ref{eq:scaling_data} to the predictors reshapes the distribution toward a standard normal distribution with zero mean and unit variance. 
+%Data transformation can be beneficially in an attempt 
+Tranformation offers an additional benefit of increased numerical stability. %When applied the predictors is transformed according to the following Equation \ref{eq:scaling_data}. 
+The feature scaling is applied after the partition into training and test dataset, the mean and standard deviation is computed based on the training set. In this manner the trained model avoids sneak peaking at the test data, resulting in a unrepresentative measure on performance.
 \begin{equation} \label{eq:scaling_data}
     \mathbf{x} = \frac{\mathbf{x} - \bar{\mathbf{x}}}{\sigma_{\mathbf{x}}}
 \end{equation}
-where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation.
-The mean and standard deviation is applied to the test dataset. This is necessary to since the model is now trained to find relations in transformed data, the raw data is out-of-sample.
+where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation. The model is trained to find relations in transformed data. Before making predictions based on test data it need to be transformed, using the mean and standard deviation from the training sample.
 
 \subsubsection{Transforming target} \label{sec:transforming_target}
-A trick in avioding prediction unphysical values is fitting agains a transformed target. Since the target, \acrfull{cfc}, is within the ranges of 0 and 1. Can be transformed to values from the entire real axis $(-\infty, \infty)$. The inverse transformation truncates the values in the range or [0, 1], alleviation predictions of out-of-sample values. A function suitable for this task is the sigmoid function, shown in figure \ref{fig:activation_func_plus}. 
+A trick to avoid prediction unphysical values is fitting against a transformed target. In this study, the target, \acrfull{cfc} ranges from 0 to 1. By applying the inverse sigmoid transformation, see Equation \ref{eq:sigmoid} \textbf{update to inverse sigmoid} the target takes values from the entire real axis $(-\infty, \infty)$. 
+The inverse transformation, ordinary sigmoid, truncates the values back to the range [0, 1]. Thereby alleviating predictions of out-of-sample values. The sigmoid function is shown in figure \ref{fig:activation_func_plus}. 
 \begin{figure}
     \centering
     \includegraphics[scale=0.45]{Chapter3_Method/figs/activation_functions_and_derivatives.png}
-    \caption{Activation functions used }
+    \caption{Sigmoid function and other activation functions.}
     \label{fig:activation_func_plus}
 \end{figure}
 
-\subsubsection{Order and Environmental variables}
-The dataset for a particular model is a combination of the order, the number of time steps of previous cloud cover includes as predictors and the inclusion of environmental variables, temperature, surface pressure, specific and relative humidity. All model is trained either on the full set of environmental variables or none of them.
+\subsubsection{Order \textbf{(update to lag?)} and Environmental variables}
+The dataset for a particular model is a combination of the order and whether envoirnmental variables such as $t2m$, $sp$, $q$ and $r$ is included. The eviornmental variables never appear in isolation.
+Order the number of time steps of previous cloud cover includes as predictors.% and the inclusion of environmental variables, temperature, surface pressure, specific and relative humidity. 
+All model is trained either on the full set of environmental variables or none of them.
 
 \subsubsection{Experimental setup AR-models}
-Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models included in this thesis. 
+Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models included in this study. 
 
 \begin{table}[h]
     \centering
@@ -112,30 +110,61 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \multicolumn{1}{c}{\textbf{Model 6}} & \checked & $\times$  & 4 & \checked  \\ \hline
     \end{tabular}%
     }
-    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied \textbf{add bias??} Gi modellen navn basert på configurasjonen $AR_{STEx}$ where x is the order.}
+    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied \textbf{add bias??} Gi modellen navn basert på configurasjonen $AR_{STEx}$ where x is the order. \textbf{add column of number of parameters and score to avoid extra tables?}}
     \label{tab:ar_model_config}
 \end{table}
 
 \subsection{Convolutional LSTM}
+The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. \textbf{Mentioned above .. remove from one of the places...}
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-Citation BatchNormalization \cite{ioffe2015batch}. 
-A lot of architectural decisions can cause (batch size, sequence length, number filterers and number layer) can cause the \acrshort{gpu} to run out of memory. Future work speed up the \acrshort{ar}-model computations of self implemented modules for computations using  a C or C++ backend.
 
-Tensorflow har pakker for å ha prosessert data i cache. For å unngå at det må prosesseres for hver epoch. 
+Citation BatchNormalization is performed between the layers \cite{ioffe2015batch}. A lot of architectural decisions (batch size, sequence length, number filterers and number layer) can cause the \acrshort{gpu} to run out of memory. In that case it didn't learn anything. 
 
-
-
-The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. 
-
+\textbf{TODO: Add list of model configurations which actually learn something}
+\begin{table}[]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{clcccc}
+     & \textbf{Sequence length} & \textbf{batchsize} & \textbf{epochs} & \textbf{MSE} & \textbf{Num Parameters} \\ \hline
+    \textbf{Model 1} &  & fdfdf &  &  &  \\ \hline
+    \textbf{Model 2} &  & $\checkmark$ &  &  &  \\ \hline
+    \textbf{Model 2} &  &  &  &  &  \\ \hline
+    \textbf{Model 2} &  &  &  &  &  \\ \hline
+    \textbf{Model 2} &  &  &  &  &  \\ \hline
+    \textbf{Model 2} &  &  &  &  &  \\ \hline
+    \end{tabular}%
+    }
+    \caption{Configuration of traninable convolutional lstm models. \textbf{r2 er veldig merkelig foreløbig, includere mae?}}
+    \label{tab:convlstm_config}
+\end{table}
 
 \section{Results}
-Recall that all models are trained on X and tested on Y. The autoregressive model is optimized to get the cloud cover at a certain time, by feeding the model with the result from the previos predictions one can generate sequences with the AR-model. For the convolutional model, two seperate models need to be trained? Det stemmer vell ikke man kan vell bruke en modell som er trent på å return sequence (True) til å bare returne den første? \textbf{Litt usikker på struktur på trening og test data her.}
-\subsection{Predicting next timestep}
-Some text ....
+\textbf{Føler det er unødvendig med ekstra tabeller her når du passe så lett sammen med model configurasjons tabellene. Det blir også lettere å tolke om det står sammen.. Hva tenker du..? }
 
-\subsection{Predicting next 24 hours (or another sequence)}
-Some text ....
-input-to-state (input to first layer) and state-to-state transition (internal layer to internal layer)
+This section presents comparisons from the best convolutional lstm model and the best AR-model. Recall that the Convolutional LSTM model is chosen based on its score of predicting the sequence length and the AR-model is currently evaluated on its performance predicting one step a head. \textbf{Dette er en mismatch som kanskje bør ryddes opp i ..}
+
+\subsection{Predicting next timestep -- remove or train convlstm model to predict one step}
+Currently not made any conv lstm models predicting one step ahead....
+%%%% TARGET PREDICITON ERA5
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
+    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
+    \label{fig:target_predict_era5_horizontal}
+\end{figure}
+
+
+
+\subsection{Predicting next 24 hours (or another sequence depend on which models learns this)}
+%%%% TARGET PREDICITON ERA5
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
+    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
+    \label{fig:target_predict_era5_horizontal}
+\end{figure}
+
+
 
 \subsection{Autoregressive models}
 
@@ -155,13 +184,7 @@ input-to-state (input to first layer) and state-to-state transition (internal la
     \label{fig:target_predict_vertical}
 \end{figure}
 
-%%%% TARGET PREDICITON ERA5
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
-    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover.}
-    \label{fig:target_predict_era5_vertical}
-\end{figure}
+
 
 \subsection{Convolutional Long Short-Term Memory network}
 Either summaries the findings into one table 
@@ -171,22 +194,6 @@ Either summaries the findings into one table
 
 
 
-The statistical properties are slightly different for the different test sets.  
-
-Short sequnece length to reduce the computational com-
-plexity of experiments. 
-
-No efforts have been made to assess the impact of the artefact on the performace.
-
-One variable was not found to increase the performance.
-
-
-data sets can be reduced without significant loss of information
-
-A drawback of this study was not to account for correlations between radiomics features and the ROI, but such corrections were
-not performed in this thesis.
-
-Land ocean mask study statistics of subgroups.
 
 
 \input{Chapter2_Theory/practical_implications.tex}

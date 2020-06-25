@@ -1,4 +1,12 @@
 \chapter{Discussion}
+The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. 
+In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively.
+
+Future work speed up the \acrshort{ar}-model computations of self implemented modules for computations using  a C or C++ backend.
+
+Tensorflow har pakker for å ha prosessert data i cache. For å unngå at det må prosesseres for hver epoch. 
+
+
 %\subsubsection{Varying the test sample}
 % Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
 %Partition into test-datset, remaining data is used for training. 
@@ -25,3 +33,20 @@ A method for training deeper models on datasets is to reduce the spatial or temp
     \item Argumenter for at andre ikke har trent denne modellen på så store dataset. 
     \item Skyer har en temporal opplæsning på en time så det er uaktelt å endre på denne for å trene modellen. 
 \end{enumerate}
+
+
+The statistical properties are slightly different for the different test sets.  
+
+Short sequence length to reduce the computational complexity of experiments. 
+
+No efforts have been made to assess the impact of the artefact on the performance.
+
+One variable was not found to increase the performance.
+
+
+data sets can be reduced without significant loss of information
+
+A drawback of this study was not to account for correlations between radiomics features and the ROI, but such corrections were
+not performed in this .
+
+Land ocean mask study statistics of subgroups.
