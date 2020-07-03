@@ -141,6 +141,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 
+\usepackage[export]{adjustbox}
 
 % Page numbering in header 
 % RE = right side, even page numbering
