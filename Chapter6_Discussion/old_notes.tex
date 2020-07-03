@@ -1,7 +1,7 @@
+\section{new notes}
 
 
-
-
+\section{old notes }
 Invariant in time, 
 macroscopical, directly observable level.
 
@@ -120,3 +120,53 @@ network produced for Project 2, see
     \item \textit{You will often gain good insight on the problem by examining data.}
     \item Ensamble methods in climate models and machine learning. It true that for both domains the model mean usually outperform the single model.
 \end{enumerate}
+
+Liste Hugo:
+1. En AR model tar ca. et hundre delsekund etter jeg har reorganisert filene mine. Til å inneholde all dataen for en pixel, så ser ut som vi kan friskmelde den .. Fikke kjørt 161/4 pixler i går. Bare for sikkerhetskyld så har jeg lagt det opp sånn at når jeg først har lastet inn dataen tester den fra lag 0 til lag max. Da kan jeg lett sammenligne de første pixlene som kjører ferdig å gjøre meg noen tanker rundt dette. Testet det uten transformasjon og sigmoid -- det blir prosjektet for helga. 
+
+2. Liste over performance metrics vi skal evaluere metodene på [mse, r2, mae (lettere å tolke enn mse, ), ]
+    * Hvordan får jeg mse ti å være sammenlignbar over flere dimensjoner. 
+    * Kan jeg ha config og resultater i sammme tabell -- spesielt den på convlstm blir litt rar hvis ikke. 
+3. Hva er egentlig mine objectives jeg skal svare på i diskusjonen og kan vi ta en titt på abstract. 
+
+4. Hvordan diskutere datasettet og hvor lang bør en diskusjon være ..?
+
+5. Hvor mye oppramsing kan man ha i Future work?
+    * sesong og tid på dagen 
+
+** Siri hun hadde prediktere til et tidspunkt, informasjon 24 timer tilbake i tid.
+Får man noe mer informasjonp for tidspunktet 24 timspunkt.
+
+Plot korrelasjon mellom skyer og 24 t 
+Autokorrelasjon, Test det for pixels. 
+
+AR modeller som predikerer 6 tidspunkt frem. Da trenger du 
+
+6 modeller, en for å tidspunkt 1 og 2, osv opp til 6.
+
+
+Objective (når man beveger seg inn i ukjent terreng), 
+1. Main objective høy kvalitets dataset for å kunne gjøre klimaprojeksjoner. 
+2. Modellere AR og Evalurer
+3. Modellere en LSTM og Evaluere
+
+
+En måte å se på det på, hvor god er kombinasjonen av dataset og modeller. Er feilen så liten at det har en nytte effekt eller er feilen så stor at det ikke har noe praktisk nytte verdi. Da ligger nok feilen i datasettet. Det er ikke så mye å hente på modell siden om jeg har gjort det slik jeg burde.
+
+Det ville overaske hugo om noen modeller som predikerer dette bedre basert på samme dataset. Det er ikke sikker det finnes data som er tilstrekkelig høy kvalitet grunnlags data datasettet kan bygges på.
+
+Etter min mening er dette så bra dataset man får etter min mening, men idealt sett skule kanskje skyene også være integrert i noe reanalyse. 
+
+For de dataene som finner idag får vi det, kan nok få bedre resultater av mer avanserte preprosseser.
+
+Dataset future work
+1. artefact -
+2. hjørner -
+3. nans -
+  * 
+  
+I dataset. 
+OBS pass på alternative dataset og styrker og svakheter på disse og hvorfor du gjorde det på denne måten. 
+Tabell hvor du oppsummerer dem.
+
+Skriv modellene i tekst og i tabell. 

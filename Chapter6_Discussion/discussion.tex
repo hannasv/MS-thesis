@@ -1,22 +1,17 @@
 \chapter{Discussion}
+\textit{This chapter summarizes the results presented in previous chapter and discusses their implications. It starts with a discussion about the model setup and the performance of the model for different parameters and setup. Afterwards, the input data are discussed before model performance is considered. Lastly, ... uncertainties in parameter choice/ dataset..? Is it possible to get a uncetaity from the ERA5 data and satellite data..?} 
+
+\section{Dataset}
 The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. 
 In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively.
 
-Future work speed up the \acrshort{ar}-model computations of self implemented modules for computations using  a C or C++ backend.
 
-Tensorflow har pakker for å ha prosessert data i cache. For å unngå at det må prosesseres for hver epoch. 
+\section{Numerical models}
+\textbf{A reasonable accurate parameterization should provide a good estimate of the target variable, here cloud cover in isolation. Also on a higher level contribute to a improved model performance in the term of uncertainties attributed to a variable or process.}  
 
+It is not impossible for models to perform equally well. Evaluate how well a model remake a phenomna. Hugo : det er medre optimsere for å treffe et spesilt fenomen of det er veldig viktig. 
 
-%\subsubsection{Varying the test sample}
-% Prøv å gjøre dette plottet ikke en hel side da er det lettere for latex å plassere det tror jeg.
-%Partition into test-datset, remaining data is used for training. 
-%\begin{itemize}[noitemsep, topsep=0pt]
-%    \item Test 1 : 2014 - 2018
-%    \item Test 2 : 2009 - 2013
-%    \item Test 3 : 2004 - 2008
-%\end{itemize}
-
-\textbf{A reasonable accurate parameterization should provide a good estimate of the target variable, here cloud cover in isolation. Also on a higher level contribute to a improved model performance in the term of uncertainties attributed to a variable or process.}  It is possible to achieve the same score with several  models. For this particular case it could be an idea to test the response of the model to particular weather phenomenas, that reflect a lot of sunight and would be necessary to hit to get a good over all performance. \textbf{Få et eksempel fra trude} 
+%It is possible to achieve the same score with several  models. For this particular case it could be an idea to test the response of the model to particular weather phenomenas, that reflect a lot of sunight and would be necessary to hit to get a good over all performance. \textbf{Få et eksempel fra trude} 
 
 It is important to know if the model is performing good for the right reasons.
 
