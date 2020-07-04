@@ -136,7 +136,7 @@ Models are given names based on a extension of the convention from \citepaper{Su
 \end{table}
 
 \begin{enumerate}
-    \item \textbf{TODO: Add drawing of best convolutional lstm model from tikz! Simplyfies the explenation.}
+    %\item \textbf{TODO: Add drawing of best convolutional lstm model from tikz! Simplyfies the explenation.}
     \item \textbf{TODO: Add heatmap of model results, Evaluated on TEST data so its the same as the AR results. To make a heatmap its natural to vary to components Maybee models config and sequence length?}
     %\item \textbf{TODO: Show loss curve for the best model.}
 \end{enumerate}
@@ -145,8 +145,17 @@ Models are given names based on a extension of the convention from \citepaper{Su
     \centering
     \includegraphics{python_figs/test_epoch_loss.pdf}
     \caption{Loss vs epochs for the trained models in this thesis. }
-    \label{fig:mse_loss}
+    \label{fig:convlstm_loss}
 \end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[angle = 90]{ChapterX_Results_and_Conclusion/computational_experiments/example_architecture.jpg}
+    \caption{Example of how I intend to visualise the best architecture generated for this study.}
+    \label{fig:best_ml_architecture}
+\end{figure}
+
+
 
 
 \subsection{Results on Predicting sequence}
@@ -167,30 +176,5 @@ Some text where you comment the results from this comparison. Is it evident that
 If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choises when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
 
 
-\subsection{Other figures}
-%%%% TARGET PREDICITON ERA5
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
-    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
-    \label{fig:target_predict_era5_horizontal}
-\end{figure}
-
-%\subsection{Autoregressive models}
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_horizonal.pdf}
-    \caption{Comparison target and predicted cloud fractional cover.}
-    \label{fig:target_predict_horizontal}
-\end{figure}
-
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_vertical.pdf}
-    \caption{Comparison target and predicted vertical cloud fractional cover.}
-    \label{fig:target_predict_vertical}
-\end{figure}
 
 \input{Chapter2_Theory/practical_implications.tex}
