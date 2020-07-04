@@ -1,15 +1,18 @@
 \chapter{Conclusions}
+%For the purpose of applying data driven learning to predict cloud cover.
+In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing datadriven learning on cloud cover. Two models, \acrfull{ar} and \acrlong{convlstm} models was built and evaluated on predicting a sequence of cloud cover.
+
 Oppsummer hva studien har gått ut på hva. pass på at du svarer på hva som har bitt introdusert som objectives..
 
-The first objective was genererating the dataset. 
+The first objective was genererating the dataset. Without a high quality dataset the methods are useless. 
 
-The second objective was to 
+The second objective was to build and evaluate the statistical models. 
 
 \section{Summary of contributions and main findings }
-The experiments conducted in this thesis lead to the following findings. 
+The computational experiments conducted in this thesis lead to the following findings. 
 \begin{enumerate}
-    \item finding 1
-    \item finding 2
+    \item The \acrfull{awrs}
+    \item Finished compiled dataset
 \end{enumerate}
 
 This study have contributed with the following contributions.
@@ -22,19 +25,18 @@ This study have contributed with the following contributions.
 
 This study shows that model X performed best. However, since such few experiments was conducted it is important to underline the potential of further development of this models. Both efficiency for regression case, and automatic hyperparameter tuning for the machine learning models. Using the keras tuner, it is made available for the reader in the project GitHub repo. It is not performed in this study due to time limitiation and limited computational resources. But here lies great potential to find the best machine learning model. 
 
-Another area, regulationg the flow of data to optimalize the architectures possible.
-
-Using Tensorflow the system easily adapts to other devises, making it easy to run on other clusteres as well. Removing the required knowledge of the user about distributed systems. 
-
+In the case of bad model performance.. In conclusion, a higher quality dataset is necessary to apply these sets of models to the cloud forecasting problem. The models are state-of-the-art 
 
 
 \section{Future work}
+A reasonable accurate model, may prove to have a practical application even though the \acrshort{mae} is imperfect. 
 
-Most important. Investigate model configurations to improve performance on longer sequences -- climate models typically predicts a century.
+
+Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
 
 In future work it would be interesting to asses how data driven parametrisation compare to the existing parametrisaions available in the state of the art climate models. Here both the temporal and spatial resolution is a lot coarser. Other data sets could be considered. The masks in other data sets are computed based on more channels than in METeosat but the temporal resolution is a lot worse. 
 
 
 
-\section{Final remark}
-Text
+\section{Final remark ..? }
+%Text
