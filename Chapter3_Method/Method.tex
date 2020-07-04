@@ -182,7 +182,6 @@ in order to alleviate the issues with exploding or vanishing gradients, this app
 The original memory cell contains input and output gates. A gate is a structure that can be opened or closed. Having values raging from 0 to 1, it truncates the noise signal from the input and the output. \citeauthor{lstm_learning_to_forget} suggested in \citeyear{lstm_learning_to_forget} to add an additional gate, the forget gate. The idea was to enable the \acrshort{lstm} to reset parts its own memory. Resetting, releases internal resources and enables you to learn even more. In very simplified terms, the forget gate learns which part of the cell state, the long-term memory, it should forget. The input gate learns the information from the input it should add to the cell state. The output gate learns which information it should pass to the output. 
 % This figure appear to long down on the list.
 \input{Chapter3_Method/TiKZ/subplot}
-
 The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
 The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the \acrshort{lstm} receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
@@ -230,6 +229,7 @@ The process of training is repeated until the network reaches an acceptable perf
 % \textbf{cite colah blogpost ?}
 % http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 
+\clearpage
 \subsection{Convolutional LSTM}  \label{sec:convolutional_lstm}
 A variant of the \acrshort{lstm} network is the \acrfull{convlstm}, originally developed for the application of precipitation nowcasting in 2015. This architecture has the potential to solve problems varying in time and space. The difference between this and the general LSTM is that the standard \acrshort{ann} (see Figure \ref{fig:one_layer_mlp}) is replaced by \acrshort{cnn} (see Figure \ref{fig:convolution_padding}). This allows the \acrshort{lstm} network to support multi-dimensional data, capturing the spatiotemporal structure in the data. 
 %A variant of the LSTM network is the convolutional LSTM (ConvLSTM). First developed for precipitation nowcasting in 2015. The only difference between this and the general LSTM is that the standard fully connected neural networks (see figure \ref{fig:one_layer_mlp}) is replaced by convolutional neural network (see figure \ref{fig:convolution_padding}). This allows the LSTM network to support multi-dimensional data, capturing the spatiotemporal structure in the data. This architecture is has the potential to solve problems in time and space. 
@@ -314,7 +314,7 @@ Model evaluation is performed based on metrics, and is necessary to determine th
 %The goal of optimisation process is to train the model to acquire a certain skill. 
 %Model evaluation is done based on criteria, also known as metrics. 
 These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. 
-The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
+The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.\textbf{Shold be bold letters since its volumes}
 \begin{equation} \label{eq:mse}
     MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
 \end{equation} 
