@@ -25,7 +25,7 @@ This study was awarded access 1 GPU and 1024G part of the memory. The data is st
 
 \subsection{Framework} \label{sec:framework}
 %\textbf{Make sure this section contains what you intend to say about the software.}
-Details regarded project repository and virtual environments is available in Section \ref{sec:structure_and_implementations}. This section describes the implementation and compilation of the models.
+Details regarding project repository and virtual environments are available in Section \ref{sec:structure_and_implementations}. This section describes the implementation and compilation of the models.
 
 The \acrshort{convlstm} is implemented using Tensorflow's keras API which simplifies many aspects of building and executing machine learning models. Its implementation and distribution system aware, making the code more versatile. %Easily portable between systems.
 The \acrshort{ar}-models are trained and evaluated using self implemented modules. The idea was to utilize the analytical solution of the least squares problem. Many regression modules provide a numerical solution, not the analytical. The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
@@ -34,23 +34,21 @@ The \acrshort{ar}-models are trained and evaluated using self implemented module
 %For a more detailed description please see the project repository described in Section \ref{sec:structure_and_implementations}.
 
 \subsection{Model Setup and Evaluation}
-The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A hyperparameter is a parameter set before the training starts, as mentioned in Section \textbf{ref somewhere in numerical methods}. A model is compiled based on a choice of hyperparameters. In the search for the best model configuration, different combinations of hyperparameters are tested. This is done manually to begin with since the choice of architecture can easily overload the system memory resources.
+The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A hyperparameter is a parameter set before the training starts, as mentioned in Section \ref{sec:artificial neural networks}. A model is compiled based on a choice of hyperparameters. In the search for the best model configuration, different combinations of hyperparameters are tested. This is done manually since the choice of architecture can easily overload the system memory resources.
  
-As a starting point for the \acrshort{convlstm} is the set of architectures provided by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) described in Section \ref{sec:related_work}. For the \acrshort{ar}-models it follows the principal of starting with the simplest model possible and increasing the complexity from there. 
+As a starting point for the \acrshort{convlstm} is the set of architectures provided by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) described in Section \ref{sec:related_work}. The \acrshort{ar}-models follow a different strategy, starting with the simplest models, and gradually increasing the complexity. This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
+%it follows the principal of starting with the simplest model possible and increasing the complexity from there. 
 %Stopping at architectures where increased complexity don't increase the performance? Know stategies are using spaced sampling, attempting lags of 1, 2, 5, 10. The second is naturally to further investigate regons of lags showing the most promise. 
 %on a similar problem, air quality forecasting problem was executed. \citepaper{chollet2015kerastuner} provide suitable software for the automatic hyperparameter tuning. 
 %\textbf{Man kjører eksperimenter på mange modeller ved å bruke traning og validations dataset. The choice of model is based on this data basis and then it performance is tested on the test dataset.} 
 
 The partitioning into training and test data is inherited from the model. Since the AR-modelling is done based on a analytical solution there is no need for a validation dataset. Both model are tested on 2014 to 2018. For \acrshort{ar}-models this is trained on 2004 to 2013 and the \acrshort{convlstm} trained on  2004 to 2011 and validated on  2012 to 2013. The test period was chosen based on the assumption that the latest period is most representable for the climate in the near future. Another minor differences for the datasets prepared for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determine the length of the training sequence. All samples with gaps in the requested sequence is disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with a out-of-sample value, $c=1.5$. 
-\begin{enumerate}
-    \item \textbf{TODO: check if it predicts out of sample valeus if not try and delete samples if it does delete the samples and retrain best model.}
-\end{enumerate}
 
 \subsubsection{Autoregressive models (AR)}
-The set of hyperparameters available for ar models are ....
+The set of hyperparameters available for ar models are
 %A set of models are compiled by varying components such as
-stadard scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. Varying combinations of theses hyperparameters results in the set of models used in this part of the experiments. 
-A summary of the calibrated models are provided in Table \ref{tab:ar_model_config}. Keep in mind that one AR-model is the combination of 13041 individual regression models.  
+standard scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. Varying combinations of theses hyperparameters results in the set of models used in this part of the experiments. 
+A summary of the calibrated models are provided in Table \ref{tab:ar_model_config}. Keep in mind that one AR-model is the aggregation of 13041 individual regression models.  
 
 %Time consuming task because of the high number of matrix inversions. A double for loop over this takes to long and \textbf{mention the version of paralelization used on this problem}.
 
@@ -68,21 +66,18 @@ The feature scaling is applied after the partition into training and test datase
 where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation. The model is trained to find relations in transformed data. Before making predictions based on test data it need to be transformed, using the mean and standard deviation from the training sample.
 
 \subsubsection{Transforming target} \label{sec:transforming_target}
+\begin{equation} \label{eq:sigmoid}
+   \sigma^{-1} \left( x \right) = \frac{1}{1 + e^{-x}}
+\end{equation}
 A trick to avoid prediction unphysical values is fitting against a transformed target. In this study, the target, \acrfull{cfc} ranges from 0 to 1. By applying the inverse sigmoid transformation, see Equation \ref{eq:sigmoid} \textbf{update to inverse sigmoid} the target takes values from the entire real axis $(-\infty, \infty)$. 
-The inverse transformation, ordinary sigmoid, transforms the values back to the range [0, 1]. Thereby alleviating predictions of out-of-sample values. The sigmoid function is shown in figure \ref{fig:activation_func_plus}. 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.45]{Chapter3_Method/figs/activation_functions_and_derivatives.png}
-    \caption{Sigmoid function and other activation functions. \textbf{remove?}}
-    \label{fig:activation_func_plus}
-\end{figure}
+The inverse transformation, ordinary sigmoid, transforms the values back to the range [0, 1]. Thereby alleviating predictions of out-of-sample values. The sigmoid function, is the same function which was described as a activation function in Section X, it is shown in Figure \ref{fig:activation_function_example}. 
 
 \subsubsection{Lags and Environmental variables}
 The dataset for a particular model is a combination of the the number of lags (order of model) and environmental variables such as $t2m$, $sp$, $q$ and $r$ is included. The environmental variables never appear in isolation.
-Order the number of time steps of previous cloud cover includes as predictors. All model is trained either on the full set of environmental variables or none of them. No partical inclusion of enviornmental variables. \textbf{Check magnitude of weights and determine/discuss whether any of them can be excluded.}
+Order the number of time steps of previous cloud cover includes as predictors. All model is trained either on the full set of environmental variables or none of them. No partical inclusion of environmental variables. 
 
 \subsubsection{Experimental setup (AR-models)}
-Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models included in this study. The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previos timestep of cloud cover included. AR og Tr describe whether the enviormental variables are included in the dataset of not. This descrition elaborated in Table \ref{tab:ar_model_config}. Bias and Transformation is mutually exclusive, it doesn't make sense to add bias when transforming the predictores.
+Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models included in this study. The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previous timestep of cloud cover included. AR og Tr describe whether the enviornmental variables are included in the dataset of not. This description elaborated in Table \ref{tab:ar_model_config}. Inherited from the nature of the transformation of the predictors the hyperparameters bias and transform is mutually exclusive. The bias is zero when transformation of predictors are applied. 
 
 \begin{table}[h]
     \centering
@@ -93,8 +88,8 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \multicolumn{1}{c}{\textbf{$TR_{SB_1}$}} & \checked & $\times$  & 1 & $\times$ & \checked   \\ \hline
     \multicolumn{1}{c}{\textbf{$AR_{SB_0}$}} & \checked & $\times$  & 0 & \checked  & \checked  \\ \hline
     \multicolumn{1}{c}{\textbf{$AR_{SB_1}$}} & \checked & $\times$  & 1 & \checked & \checked  \\ \hline
-    \multicolumn{1}{c}{\textbf{$AR_{SB_2}$}} & \checked & $\times$  & 2 & \checked & \checked  \\ \hline
-    \multicolumn{1}{c}{\textbf{$AR_{SB_3}$}} & \checked & $\times$  & 3 & \checked & \checked  \\ \hline
+    %\multicolumn{1}{c}{\textbf{$AR_{SB_2}$}} & \checked & $\times$  & 2 & \checked & \checked  \\ \hline
+    %\multicolumn{1}{c}{\textbf{$AR_{SB_3}$}} & \checked & $\times$  & 3 & \checked & \checked  \\ \hline
     \multicolumn{1}{c}{\textbf{$AR_{SB_4}$}} & \checked & $\times$  & 4 & \checked & \checked  \\ \hline
     \end{tabular}%
     }
@@ -109,6 +104,13 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \label{fig:results_ar_models}
 \end{figure}
 
+\begin{enumerate}
+    \item \textbf{TODO: For the best model plot a grid og MAE and look for patterns n the geographical varying performance.}
+    \item \textbf{Check magnitude of weights and determine/discuss whether any of them can be excluded.}
+    \item \textbf{Rename bias to intercept?}
+\end{enumerate}
+
+
 \subsection{Convolutional LSTM (ConvLSTM)}
 
 The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. 
@@ -116,7 +118,7 @@ The formulation of the Air quality forecasting problem presented by  \citeauthor
 A lot of architectural decisions (batch size, sequence length, number filterers and number layer) can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. Between each layer is a layer of Batch Normalization. According to the paper \citepaper{ioffe2015batch} this shold simplify the trainingprocess. The feature was added between each layer. Epochs is the number of times the model has seen the entire dataset. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. The sequence length is the \textbf{quite selv explanatory, still need to explain it.. } Number of hidden states .. 
 
 \subsubsection{Experimental setup (ConvLSTM)}
-Models are given names based on a extension of the convention from \citepaper{SunAirLSTM}. The paper introduce the convention ConvLSTM-hidden states-filter$\times$filter. Adding the batch size and sequence length as variables, it becomes $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$
+Models are given names based on a extension of the convention from \citepaper{SunAirLSTM}. The paper introduce the convention ConvLSTM-hidden states-filter$\times$filter. Adding the batch size and sequence length as variables, it becomes \newline $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$
 
 \begin{table}[]
     \centering
@@ -134,46 +136,43 @@ Models are given names based on a extension of the convention from \citepaper{Su
     \caption{Give three examples to simplify the explanation of configurations and models.}
     \label{tab:convlstm_config}
 \end{table}
-%\begin{enumerate}
-    %\item \textbf{TODO: Add drawing of best convolutional lstm model from tikz! Simplyfies the explenation.}
-    %\item \textbf{TODO: Add heatmap of model results, Evaluated on TEST data so its the same as the AR results. To make a heatmap its natural to vary to components Maybee models config and sequence length?}
-    %\item \textbf{TODO: Show loss curve for the best model.}
-%\end{enumerate}
 
 \begin{figure}
     \centering
     \includegraphics{python_figs/test_epoch_loss.pdf}
-    \caption{Loss vs epochs for the trained models in this thesis. Subplot train and valid loss. The resulting legend is then only the modelnames.}
+    \caption{Loss vs epochs for the trained models in this thesis. Subplot train and valid loss. The resulting legend is then only the model names.}
     \label{fig:convlstm_loss}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[angle = 90]{ChapterX_Results_and_Conclusion/computational_experiments/example_architecture.jpg}
+    \includegraphics[scale=0.35]{python_figs/example_model.png}
     \caption{Example of how I intend to visualise the best architecture generated for this study.}
     \label{fig:best_ml_architecture}
 \end{figure}
 
-
+\begin{enumerate}
+    \item \textbf{TODO: check if it predicts out of sample valeus if not try and delete samples if it does delete the samples and retrain best model.}
+\end{enumerate}
 
 
 \subsection{Results on Predicting sequence}
 The foundation of the choice of the best model is different for \acrshort{ar} and \acrshort{convlstm}-models. As mentioned in Chapter \ref{ch:num_methods}, the \acrshort{ar}-model is optimized to fit the next timestep, while the \acrshort{convlstm} is trained to fit a sequence or a predescribed length. In this section the best ar model and convlstm model are assed on how well they predict the sequence length og the best convlstm model. By feeding the prediction into the ar model, one can modify its ability to predict sequences. The two best models are X and Y, with performance measured by the MAE metric of A and respectively. 
 
 %\subsubsection{Visual Comparison predicting a sequence of length}
-Visualizing the experiments 
+Visualizing the experiments for sequences.
 %%%% TARGET PREDICITON ERA5
 \begin{figure}[ht]
     \centering
-    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
+    \includegraphics[sale=0.1]{python_figs/example_predicted_sequence_2010-09-01.png}
     \caption{\textbf{Update to AR, ConvLSTM, target - the number of rows is the sequence length} Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
     \label{fig:target_predict_era5_horizontal}
 \end{figure}
 
-Some text where you comment the results from this comparison. Is it evident that the convLSTM is better at predicting spatial patterens as expected or does it all resemble random noise. Is the predicted values in sample or out of sample.
+Some text where you comment the results from this comparison. Is it evident that the \acrshort{convlstm} is better at predicting spatial patterens as expected or does it all resemble random noise. Is the predicted values in sample or out of sample.
 
-If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choises when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
+If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choices when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
 
 
-
+\clearpage
 \input{Chapter2_Theory/practical_implications.tex}
