@@ -63,18 +63,20 @@ The feature scaling is applied after the partition into training and test datase
 \begin{equation} \label{eq:scaling_data}
     \mathbf{x} = \frac{\mathbf{x} - \bar{\mathbf{x}}}{\sigma_{\mathbf{x}}}
 \end{equation}
-where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation. The model is trained to find relations in transformed data. Before making predictions based on test data it need to be transformed, using the mean and standard deviation from the training sample.
+where $\bar{\mathbf{x}}$ is the average and $\sigma$ is the standard deviation. \textbf{OBS! sigma er nå brukt til både standarda avik og the sigmoid function}
+The model is trained to find relations in transformed data. Before making predictions based on test data it need to be transformed, using the mean and standard deviation from the training sample.
 
 \subsubsection{Transforming target} \label{sec:transforming_target}
-\begin{equation} \label{eq:sigmoid}
-   \sigma^{-1} \left( x \right) = \frac{1}{1 + e^{-x}}
+A trick to avoid prediction unphysical values is fitting against a transformed target. In this study, the target, \acrfull{cfc} ranges from 0 to 1. By applying the inverse sigmoid transformation, see Equation \eqref{eq:inv_sigmoid} the target takes values from the entire real axis $(-\infty, \infty)$. 
+\begin{equation} \label{eq:inv_sigmoid}
+   \sigma^{-1} \left( x \right) = ln \left(\frac{x}{x - 1 + \epsilon} \right)
 \end{equation}
-A trick to avoid prediction unphysical values is fitting against a transformed target. In this study, the target, \acrfull{cfc} ranges from 0 to 1. By applying the inverse sigmoid transformation, see Equation \ref{eq:sigmoid} \textbf{update to inverse sigmoid} the target takes values from the entire real axis $(-\infty, \infty)$. 
-The inverse transformation, ordinary sigmoid, transforms the values back to the range [0, 1]. Thereby alleviating predictions of out-of-sample values. The sigmoid function, is the same function which was described as a activation function in Section X, it is shown in Figure \ref{fig:activation_function_example}. 
+where $\epsilon = 0.01$ \textbf{TODO: update this number} is precaution for when $x=1$ and division by zero would occur. 
+The inverse transformation of this is ordinary sigmoid, see Equation \eqref{eq:sigmoid}. By applying this equation values return to the range from 0 to 1. Thereby alleviating predictions of out-of-sample values. The graph is displayed in Figure \ref{fig:activation_function_example}. The sigmoid function is described in Section \ref{} in the context of its abilities as an activation function in machine learning models. 
 
 \subsubsection{Lags and Environmental variables}
 The dataset for a particular model is a combination of the the number of lags (order of model) and environmental variables such as $t2m$, $sp$, $q$ and $r$ is included. The environmental variables never appear in isolation.
-Order the number of time steps of previous cloud cover includes as predictors. All model is trained either on the full set of environmental variables or none of them. No partical inclusion of environmental variables. 
+Order the number of time steps of previous cloud cover includes as predictors. All model is trained either on the full set of environmental variables or none of them. No partial inclusion of environmental variables. 
 
 \subsubsection{Experimental setup (AR-models)}
 Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models included in this study. The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previous timestep of cloud cover included. AR og Tr describe whether the enviornmental variables are included in the dataset of not. This description elaborated in Table \ref{tab:ar_model_config}. Inherited from the nature of the transformation of the predictors the hyperparameters bias and transform is mutually exclusive. The bias is zero when transformation of predictors are applied. 
@@ -104,23 +106,44 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \label{fig:results_ar_models}
 \end{figure}
 
+
+
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/signal_area_pixel.pdf}
+    \caption{Reuse this plotting routine to plot the distributed score of the overall best model, \textbf{named X}.}
+    \label{fig:grid_mse_best_model}
+\end{figure}
+
 \begin{enumerate}
-    \item \textbf{TODO: For the best model plot a grid og MAE and look for patterns n the geographical varying performance.}
-    \item \textbf{Check magnitude of weights and determine/discuss whether any of them can be excluded.}
+    %\item \textbf{TODO: For the best model plot a grid og MAE and look for patterns n the geographical varying performance.}
+    %\item \textbf{Check magnitude of weights and determine/discuss whether any of them can be excluded. Include this as a table}
     \item \textbf{Rename bias to intercept?}
 \end{enumerate}
 
+\begin{table}[hp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{cccccc}
+     & \textbf{W1} & \textbf{W2} & \textbf{W3} & \textbf{W4} & \textbf{W5} \\ \hline
+    \textbf{Best model} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
+    \end{tabular}%
+    }
+    \caption{Add the weights of the best model.}
+    \label{tab:weights_best_model}
+\end{table}
 
 \subsection{Convolutional LSTM (ConvLSTM)}
 
 The formulation of the Air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}. 
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-A lot of architectural decisions (batch size, sequence length, number filterers and number layer) can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. Between each layer is a layer of Batch Normalization. According to the paper \citepaper{ioffe2015batch} this shold simplify the trainingprocess. The feature was added between each layer. Epochs is the number of times the model has seen the entire dataset. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. The sequence length is the \textbf{quite selv explanatory, still need to explain it.. } Number of hidden states .. 
+A lot of architectural decisions (batch size, sequence length, number filterers and number layer) can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. Between each layer is a layer of Batch Normalization. According to the paper \citepaper{ioffe2015batch} this should simplify the trainingprocess. The feature was added between each layer. Epochs is the number of times the model has seen the entire dataset. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. The sequence length is the number of timestap a model aim to learn to predict. Number of hidden states it the number of filters it learns in each layer. The filter size determine the number of neigbours allowed to affect each other. A more detailed description on this is provided in Sections \ref{sec:convolutional neural network} to 
+\ref{sec:convolutional_lstm}. \textbf{TODO: Sjekk om de funker å sitere hele 3.2..}
 
 \subsubsection{Experimental setup (ConvLSTM)}
 Models are given names based on a extension of the convention from \citepaper{SunAirLSTM}. The paper introduce the convention ConvLSTM-hidden states-filter$\times$filter. Adding the batch size and sequence length as variables, it becomes \newline $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$
 
-\begin{table}[]
+\begin{table}[hp]
     \centering
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{cccccc}
