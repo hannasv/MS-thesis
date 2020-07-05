@@ -14,7 +14,7 @@ The geographical domain has, for this project, been restricted to latitude, $\th
 \end{figure}
 
 \subsection{Physical basis of variable decision} \label{sec:ecc}
-The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. As discussed in Section \ref{sec:cloud_in_climate_system}, cloud dynamics is far more complicated than what can be describes by these variables. 
+The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. Cloud dynamics is far more complicated than what can be describes by these variables, as discussed in Section \ref{sec:cloud_in_climate_system}.
 %What is believed to be a sufficiently accurate model is further explained in Chapter \ref{ch:computer_experiments}.
 The condition describing what is ``sufficiently accurate'' is further explained in Chapter \ref{ch:computer_experiments}.
 %Reasonable accuracy can mean so much and it is different based on the method of evaluation and the chosen metric. A parametrization can be evaluated in isolation or in the context of a \acrshort{esm}-model. 
@@ -44,14 +44,14 @@ Winds transports the substances suspended in air, such as pollutants and humidit
 
 The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form, under such supersaturated conditions it is often referred to as \textbf{X}, and therefore it is common to limit the range of relative humidity to be between 0 and 1. However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
 
-Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). 
+Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa (\cite{lohmann2016}, pp. 81-84). \textbf{Les sidene igjen. Siteringen er nok på feil plass...}
 
 \subsection{Area Weighting Regridding Scheme (AWRS)} \label{sec:remapping}
 Computing cloud fractions based on cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, the pixels are of uneven size and the area weighted scheme seemed most appropriate. 
 
 This section provides a step-by-step description of the necessary data processing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of software with functionality to perform the regridding, described in detail below, named the \acrfull{awrs}.
 
-The regridding algorithm consist of two modules; \textit{(1) detection} and \textit{(2) area weighting algorithmn}. Let the subscripts denote the dataset pertaining to a particular grid. Grid\textsubscript{MSG} refers to the space-view grid of the \acrlong{msg} and grid\textsubscript{ECC} refers to the uniform grid originating from ERA5. Note that the grid\textsubscript{ECC} is identical to  grid\textsubscript{ERA5}. The \textit{detection algorithmn}, determines the contributing pixel from grid\textsubscript{MSG} 
+The regridding algorithm consist of two modules; \textit{(1) detection} and \textit{(2) area weighting algorithmn}. Let the subscripts denote the dataset pertaining to a particular grid. Grid\textsubscript{MSG} refers to the space-view grid of the \acrlong{msg} and grid\textsubscript{ECC} refers to the uniform grid originating from ERA5. Note that grid\textsubscript{ECC} is identical to  grid\textsubscript{ERA5}. The \textit{detection algorithmn}, determines the contributing pixel from grid\textsubscript{MSG} 
 to the particular cells in the other coordinate system,
 grid\textsubscript{ERA5} 
 and their classification into the different categories such as \textit{corner}, \textit{centre}, \textit{left}, \textit{right}, \textit{upper} and \textit{lower boundary}. These categories are later used to isolate the portion of the pixel contributing to grid\textsubscript{ECC}.
@@ -101,7 +101,7 @@ The cloud mask pixels are smallest at the nadir point, decreasing in all directi
 \end{figure}
 
 Approximation of $d\phi$ and $d\theta$ have been done based on the two-dimensional fields of latitude and longitude values according to the below equations.
-Longitudinal values vary along the first dimension, denoted with index i. The estimated half the extent of a pixel in grid\textsubscript{MSG} is approximated by Equation \ref{eq:app_lon}. Latitudinal changes are in north-south direction, along the second-axis, here denoted with index, j. Equation \eqref{eq:app_lat} describes the distance from the centre to the upper and lower boundary.
+Longitudinal values vary along the first dimension, denoted with index i. The estimated half the extent of a pixel in grid\textsubscript{MSG} is approximated by Equation \eqref{eq:app_lon}. Latitudinal changes are in north-south direction, along the second-axis, here denoted with index, j. Equation \eqref{eq:app_lat} describes the distance from the centre to the upper and lower boundary.
 % \eqref{eq:app_lon} and  \eqref{eq:app_lat}. 
 %The horizontal extent of a pixel $(i,j)$ be determined by the the averaged distance between the longitude of neighbouring pixels. 
 %, see Equation \eqref{eq:app_lon}. The same principles applies in the latitudinal direction, this version is shown in Equation \ref{eq:app_lat}.
@@ -112,9 +112,9 @@ Longitudinal values vary along the first dimension, denoted with index i. The es
     \delta \theta_{i,j} = \left| \frac{\theta_{i,j+1} - \theta_{i, j-1}}{4} \right|
 \end{equation}
 
-The ``square'' in grid\textsubscript{MSG} resembles a trapezium, as illustrated in Figure \ref{fig:estimate_dlon}. As far as the author know, it doesn't exist an analytical solution to an area of a trapezium in spherical coordinates. Also, it is not clear if approximating the area with another numerical method would reduce the overall uncertainty. However, it would most likely increase the computational time. \input{ChapterX_Results_and_Conclusion/dataset/figurs/estimating_changes_lat_lon}
+The ``square'' in grid\textsubscript{MSG} resembles a trapezium, as illustrated in Figure \ref{fig:estimate_dlon}. As far as the author know, it doesn't exist an analytical solution to an area of a trapezium in spherical coordinates. Also, it is not clear if approximating the area with another numerical method would reduce the overall uncertainty. However, it would most likely increase the computational time. 
 A visual inspection of the relation between both grids is provided in 
-Figure \ref{fig:pixels_contributing_to_cell}. Based on the small overlapping areas, it appears to be a reasonable simplification at the latitudes and longitudes of interest. This particular pixel was chosen since the largest overlap is expected in the periphery of grid\textsubscript{ECC}. The inclusion of the boundary pixels involve estimating the ``new'' centre and the extent of the contributing portion. Defined as the subset falling within the boundaries of grid\textsubscript{ECC}. Due to the small overlap between contribution pixel, occasionally more than four pixels are classified as corners. For the sake of simplicity the corner pixels where omitted from the calculations of cloud fraction. This may have led to the circular pattern shown in Figure \ref{fig:area_pixel_signal}. The areas decrease poleward, as illustrated in Figure \ref{fig:relative_size_neigbouring_pixels}. This again have most likely enlarged the radius of the circular pattern.
+Figure \ref{fig:pixels_contributing_to_cell}. Based on the small overlapping areas, it appears to be a reasonable simplification at the latitudes and longitudes of interest. This particular pixel was chosen since the largest overlap is expected in the periphery of grid\textsubscript{ECC}. The inclusion of the boundary pixels involve estimating the ``new'' centre and the extent of the contributing portion. Defined as the subset falling within the boundaries of grid\textsubscript{ECC}. Due to the small overlap between contribution pixel, occasionally more than four pixels are classified as corners. For the sake of simplicity the corner pixels where omitted from the calculations of cloud fraction. This may have caused the circular pattern shown in Figure \ref{fig:area_pixel_signal}. The areas decrease poleward, as illustrated in Figure \ref{fig:relative_size_neigbouring_pixels}. This again have most likely enlarged the radius of the circular pattern.
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/signal_area_pixel.pdf}
@@ -122,11 +122,13 @@ Figure \ref{fig:pixels_contributing_to_cell}. Based on the small overlapping are
     \label{fig:area_pixel_signal}
 \end{figure} 
 
+\input{ChapterX_Results_and_Conclusion/dataset/figurs/estimating_changes_lat_lon}
+
 \subsection{Verification of AWRS}
 The regridding scheme is a set of algorithms. Before the production of the full dataset it is important verify the correctness the algorithms of \acrshort{awrs}.
 
 %%%%%%%%%%%%%%%%%%%%%% TEST 1 - Formula to compute the area 
-The computations of the areas are the very foundation of the \acrshort{awrs}, and it it crucial to verify that the algorithm is correct. CDO (\cite{cdo}) provide functionality to compute gridarea using the line inserted below.
+The computations of the areas are the foundation of the \acrshort{awrs}, and it it crucial to verify that the algorithm is correct. CDO (\cite{cdo}) provide functionality to compute gridarea of a uniform grid using the code inserted below.
 \begin{verbatim}
 $ cdo gridarea era5data.nc gridarea.nc     
 \end{verbatim}
@@ -135,7 +137,7 @@ To verify the implementations of Equation \eqref{eq:sphere_finish}, the grid are
 Emphazising that the self implemented code is scaled by $R$ to be consistent CDO. Multiplication followed by division of the same number provides no additional information, and there is the off chance of introducing additional numerical errors. 
 
 %%%%%%%%%%%%%%%%% TEST 2 -- vis regridding
-A reason of confusion in the process of developing the algorithm of the \acrshort{awrs} algorithm arose from the different rotations of the data provided by the \acrshort{grib} and \acrshort{netcdf} files. The coordinate information is availble in \acrshort{netcdf}, but the file-size is to large to store all data in this format, therefore the data is downloaded in \acrshort{grib}, as mention in Section \textbf{X}. The \acrshort{grib}-file is provided as the left and right flipped version of the  \acrshort{netcdf}-file. A fast modular test to check the regridding routine is to insert the raw data including the land and sea masks. Figure \ref{fig:visual_inspection_regridding} shows a example of the regridding of the raw data from 2\textsuperscript{nd} May 2009. Clouds are illustrated in white, land mask in teal and ocean in purple. The original data also include the category off-earth disk, this is not a member of the chosen subset. By regridded the raw data it quickly becomes apparent whether correct domain has been used, and evident if the algorithm generates any discontinuities in space. 
+A reason of confusion in the process of developing the algorithm of the \acrshort{awrs} algorithm arose from the different rotations of the data provided by the \acrshort{grib} and \acrshort{netcdf} files. The coordinate information is availble in \acrshort{netcdf}, but the file-size is to large to store all data in this format, therefore the data is downloaded in \acrshort{grib}, as mention in Section \ref{sec:EUMETSAT_cloud_mask}. The \acrshort{grib}-file is provided as the left and right flipped version of the  \acrshort{netcdf}-file. A fast modular test to check the regridding routine is to insert the raw data including the land and sea masks. Figure \ref{fig:visual_inspection_regridding} shows a example of the regridding of the raw data from 2\textsuperscript{nd} May 2009. Clouds are illustrated in white, land mask in teal and ocean in purple. The original data also include the category off-earth disk, this is not a member of the chosen subset. By regridded the raw data it quickly becomes apparent whether correct domain has been used, and evident if the algorithm generates any discontinuities in space. 
 \begin{figure}
     \centering
     \includegraphics{python_figs/visual_regridding.pdf}
@@ -157,13 +159,14 @@ Missing values is inevitable when working with observational data. Sensors fail 
     \caption{Barplot showing the monthly sum of missing values. This excludes the contribution from the period of 2004 before the satellite was operational.}
     \label{fig:barplot_missing_values}
 \end{figure}
-In some cases the sensor fail to scan and in other cases the data has been destroyed prior to archiving. Independant of the cause, the result is the same, the data can never be recovered. Further down the chain of supply, the missing data can cause issues for the process of downloading. Consequently, the requested data has entered infinity loop without being detected by \acrshort{eumetsat}. In combination with the maximum limit of pending request restricted to 20, this has caused some delay. 
+In some cases the sensor fail to scan and in other cases the data has been destroyed prior to archiving. Independant of the cause, the result is the same, the data can never be recovered. %Further down the chain of supply, the missing data can cause issues for the process of downloading. Consequently, the requested data has entered infinity loop without being detected by \acrshort{eumetsat}. In combination with 
+The maximum limit of pending request restricted to 20 have caused some delay. The data in each request amount to approximately 3.5 months of hourly data. 
 
-The data in each request amount to approximately 3.5 months of hourly data. Missing timestamps, results in missing disks, when available the closest time step within the previous and trailing 45 minutes is used to fill the gap. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of missing values per month is presented in Figure \ref{fig:barplot_missing_values}. The plot is ment to illustrate any seasonal biases. The months of 2004 prior to the operalization of the satellite is not included as missing values.
+Missing timestamps results in missing disks. When available the closest time step within the previous and trailing 45 minutes is used to fill the gap. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of missing values per month is presented in Figure \ref{fig:barplot_missing_values}. The plot is ment to illustrate any seasonal biases. The months of 2004 prior to the operalization of the satellite is not included as missing values.
 
 METeosat provide a two satellite system, occasionally both standby and the operational scan at the same time, as mentioned in Section \ref{sec:meteosat}.
 %To reduce the perturbations due to parallax (see Section X) of cloud, given a choice the operational satellite is chosen \textcolor{red}{(skjønte ikke setningen)}. 
-In cases over technical failures, the standby scan is used. The scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is released (personal communication \acrshort{eumetsat} staff). Comparing simultaneous measurements for the operational and the standby METeosat satellites, it becomes clear that they are disimilar. However, this doesn't occur to frequently and there has been no effort in quantifying the magnitude of the parallax, to correcting for for the bias it may introduce.
+In cases of technical failures, the standby scan is used. The scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is released (personal communication \acrshort{eumetsat} staff). Comparing simultaneous measurements for the operational and the standby METeosat satellites, it becomes clear that they are disimilar. However, this doesn't occur to frequently and there has been no effort in quantifying the magnitude of the parallax, to correcting for for the bias it may introduce.
 % again you have no numbers on the times the standby satellite is used.... 
 
 Manually generated datasets are prone to human error, especially in the case where user need to download individual time steps to fill the gaps. The missing values was were double checked, but there is no guarantee that a few additional time steps is available. In summary the workflow has been as follows, the author downloaded the data, detect missing times and manually choose the closest time step available within the previous and trailing 45 minutes. In retrospect the, the downloading options (API or GUI) provided by the satellite service should be taken into account when choosing the data. A great API can potentially be a large time saver.
@@ -198,7 +201,7 @@ No efforts have been made to remove the artefact from the data. %It is a thesis 
 %without introducing other complications like gaps in the dataset and or removing parts of an actual cloud.\textcolor{red}{Tenker det er unødvendig å ta med.... De skjønner at du har gjort mye jobb og at det er mye du kunne gjort, men ved å fortelle dem hvor mye jobb det er ved ulike oppgaver er ikke din oppgave her. Hold deg til problemstillingen din. }
 
 \subsection{Statistical Properties in ECC}
-To summarise and present the content of \acrshort{ecc} statistical properties are used. The properties selected in this study is mean, minimum (min), maximum (max), median, \acrfull{std} and \acrfull{mad}. The most important results is presented in this section, and complementary figures can be found in the Appendix \ref{ch:appendix_statistic}. 
+To summarise and present the content of \acrshort{ecc} statistical properties are used. For clarity, the period used in this section is 2004 to 2018. The properties selected in this study is mean, minimum (min), maximum (max), median, \acrfull{std} and \acrfull{mad}. The most important results is presented in this section, and complementary figures can be found in the Appendix \ref{ch:appendix_statistic}. 
 The data varies in space an time. Statistical properties are calculated over one or both these axis. %Determines the dimensions of the results. 
 %\textbf{ Computing the statistical properties over one dimension, for instance time, leaves the spatial distribution of this property. Computing the statistics over space, leaves the temporal dimension. Computing the statistics over space and time leaves one value.} 
 
@@ -234,7 +237,8 @@ The spatially averaged time series for the first week of August in 2012 is shown
 
 \subsubsection{Temporal statistics}
 All the statistical properties computed over time for the variable \acrshort{cfc} in \acrshort{ecc} is plotted in 
-Figure \ref{fig:all_stats_tcc}. Similar figures for the remaining variables in the dataset is presented in Section \ref{sec:all_stats} in the Appendix \ref{ch:appendix_statistic}. With the exception of minimum and maximum value, the cloud cover is affect by the coastline. 
+Figure \ref{fig:all_stats_tcc}. Similar figures for the remaining variables in the dataset is presented in Section \ref{sec:all_stats}. %in the Appendix \ref{ch:appendix_statistic}. 
+With the exception of minimum and maximum value, the cloud cover is affect by the coastline. 
 %% CLOUD FRACTIONAL COVER
 \begin{figure}[ht]
     \centering
@@ -243,7 +247,7 @@ Figure \ref{fig:all_stats_tcc}. Similar figures for the remaining variables in t
     \label{fig:all_stats_tcc}
 \end{figure}
 
-The mean values, in figure \ref{fig:all_stats_tcc}, show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
+The mean values displayed in figure \ref{fig:all_stats_tcc}, show that on average the coastline have a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
 
 From the minimum values of \acrshort{cfc} it becomes evident that there is another artefact present in the dataset. This pattern is most likely caused by the remapping routine. Figure \ref{fig:area_pixel_signal} shows the patterns of magnitude of the areas contributing to a pixel. One might expect all pixels to be without cloud cover for at least on hour over the period of 14 years, but this is not the case. The maximum value is as expected, one over the entire region, indicating that at some point every pixel is full of clouds. The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and \acrshort{mad} 
 % Det er jo ikke rart for mad er medianen av en differanse.
@@ -259,7 +263,7 @@ Correlation describes how strong a pair of variables are linearly related. A pos
     \label{fig:correlation_tcc_vs_envio}
 \end{figure}
 
-The linear correlation coefficient from pairs of cloud cover and environmental variables such as temperature, pressure, relative and specific humidity is shown in Figure \ref{fig:correlation_tcc_vs_envio}. Recall that all environmental variables is produced by reanalysis. Pink illustrates negative correlation while green illustrates a positive correlation. Different patterns emerge from all variables. %, implying that they could be useful as predictors. 
+The linear correlation coefficient from pairs of cloud cover and environmental variables such as temperature, pressure, relative and specific humidity is shown in Figure \ref{fig:correlation_tcc_vs_envio}. Recall that all environmental variables is produced by reanalysis. Pink illustrates negative correlation while green illustrates a positive correlation. Note that different patterns emerge from all variables. %, implying that they could be useful as predictors. 
 
 Over land relative humidity is dominated by positive correlation to cloud cover, some part of Africa and the ocean in eastern Mediterranean has a negative correlation. The image of the surface pressure is remarkable similar, they share a pattern, but have opposite signs. The negative sign seems reasonable, since high pressure is often caused by sinking motions in the atmosphere and clouds are formed by rising motions. 
 
@@ -272,7 +276,7 @@ In most locations temperature is negatively correlated with cloud cover except i
 \acrshort{ecc} comprises of five variables; temperature, pressure, cloud fractional cover, relative and specific humidity. These are collected from two sources; ERA5 and EUMETSAT. The resolution available in ERA5 was preserved, while remapping the cloud mask to cloud fractions cover. 
 % duplication
 The final product consist of %the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available
-hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. These computations are described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
+hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
 \input{Chapter2_Theory/tables/table_transposed.tex}
 %Fractional cloud cover is computed from the cloud mask product retrieved by the second generations METeosat satellites. You can read more about this data in section \ref{sec:meteosat}. For simplicity we will refer to this dataset as European Cloud Cover Dataset, ECC from now on. The visual comparison between raw satellite images and cloud amount seem to agree. The cloud fractional distribution also retain the same shape as ERA5 and MODIS 6.1 Terra in the period from 2004 to 2018. \textbf{kilde?}
 

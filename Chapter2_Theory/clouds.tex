@@ -1,10 +1,10 @@
 \section{Clouds role in the climate system} \label{sec:cloud_in_climate_system}
 % Clouds, climate and machine learning
-Clouds play an important role in the climate system both affecting the radiative budget and the hydrological cycle. Understanding how clouds form in the complex system of the atmosphere involves both knowledge about the large scale influence by the circulation and the small scale influence by aerosols. Clouds exist in countless number of shapes and sizes, and has fascinated mankind since the beginning of time. Figure \ref{fig:cloud_cover_jotunheimen} shows the view from Store Smørstabbtinden in Jotunheimen. The sky is covered by cumulus type clouds, a common sight in summer.
+Clouds play an important role in the climate system both affecting the radiative budget and the hydrological cycle. Understanding how clouds form in the complex system of the atmosphere involves both knowledge about the large scale influence by the circulation and the small scale influence by aerosols. Clouds exist in countless number of shapes and sizes, and has fascinated mankind since the beginning of time. Figure \ref{fig:cloud_cover_jotunheimen} shows the stunning view from Store Smørstabbtinden in Jotunheimen. The sky is covered by cumulus type clouds, a common sight in summer.
 \begin{figure}
     \centering
     \adjincludegraphics[scale=0.1, trim={0 {.3\height} 0 0}, clip]{Chapter1_Intro/images/cloud_cover_ina.jpg}
-    \caption[Cumulus deck at Store Smørstabbtinden in Jotunheimen]{Cumulus deck at Store Smørstabbtinden in Jotunheimen, photo by Ina Storteig. \textbf{Burde jeg late som jeg har tatt det? Det er bestevenninna mi så er innafor om det spiller en rolle. }}
+    \caption[Cumulus deck at Store Smørstabbtinden in Jotunheimen]{Cumulus deck at Store Smørstabbtinden in Jotunheimen, photo by Ina Storteig. \textbf{Burde jeg late som jeg har tatt det? Det er bestevenninna mi så er innafor om det spiller en rolle. Trude }}
     \label{fig:cloud_cover_jotunheimen}
 \end{figure}
 %Climate models are the most useful tool for studying the past, present and future climate. Clouds and aerosols are acknowledged as the factors contributing with the largest uncertainty to the \acrfull{ecs}. Also known as global mean temperature increase as a consequence of doubling of the pre-industrial levels of $CO_2$ (280 \acrshort{ppm}). \textbf{kilde AR4 which ch?} \textit{It remains unclear to which level of sophistication is adequate to model their effect om climate.} (\cite{IPCC_CH7_clouds}).
@@ -25,16 +25,12 @@ Saturation is usually achieved by a temperature decrease in rising air masses. T
 \end{equation}
 Here $l_v = 40.8 \cdot 10^3 J mol^{-1}$ and the universal gas constant $R= 8.314 J mol^{-1} K^{-1}$ (\cite{cloud_phys_book_johanne}, p. 42). 
 
-The solution to Equation \eqref{eq:clausius_clapeyron_differentias}, shown in Equation \eqref{eq:clausius_clapeyron}, is derived by integrating from $T_0 = 273.15K \left(0 ^{\circ}C \right)$ to a arbitrary temperature, $T$. The integral is intractable for varying $l_v$, however a constant $l_v$ is in most cases a reasonable assumption for the ranges of temperatures in atmospheric interest.
-
-The lower boundary, $T_0$, is chosen based on convenience, motivated by the fact that the constant of integration,  $e_0$, needs to origin from measurements. At $T_0$, the equilibrium of a mixture of water and ice at a total pressure of $1$ $atm$ is $e_0 = 611Pa$. 
-
+A solution to Equation \eqref{eq:clausius_clapeyron_differentias} is given in Equation \eqref{eq:clausius_clapeyron}. It is derived by integrating from $T_0 = 273.15K \left(0 ^{\circ}C \right)$ to a arbitrary temperature, $T$. The integral is intractable for varying $l_v$. However a constant $l_v$ is %in most cases 
+a reasonable assumption for the ranges of temperatures in atmospheric interest. The lower boundary, $T_0$, is chosen based on convenience, motivated by the fact that the constant of integration,  $e_0$, needs to origin from measurements. At $T_0$, the equilibrium of a mixture of water and ice at a total pressure of $1$ $atm$ is $e_0 = 611Pa$. 
 \begin{equation} \label{eq:clausius_clapeyron}
     e_s\left( T \right) = e_0 e^{\frac{l_v}{R} \left( \frac{1}{T_0} - \frac{1}{T} \right) }
 \end{equation}
-From Equation \eqref{eq:clausius_clapeyron} it is clear that the $e_s$ increase with rising temperature, resulting in the phenomena that warmer air retain more vapour. The same principles apply for the phase change sublimation, but its entalphy, $l_s$, has a distinct value (\cite{cloud_phys_book_johanne}, p.135). The saturation vapour pressure with respect to ice, $e_i$, can be derived by replacing $l_v$ by $l_s$.
-
-The reverse process results in cloud dissipation. Subsaturated conditions cause the cloud liquid water to evaporate, and ultimately the cloud disappears. 
+From Equation \eqref{eq:clausius_clapeyron} it is clear that the $e_s$ increase with rising temperature, resulting in the phenomena that warmer air retain more vapour. The same principles apply for the phase change sublimation, but its entalphy, $l_s$, has a distinct value (\cite{cloud_phys_book_johanne}, p.135). The saturation vapour pressure with respect to ice, $e_i$, can be derived by replacing $l_v$ by $l_s$. The reverse process results in cloud dissipation. Subsaturated conditions cause the cloud liquid water to evaporate, and ultimately the cloud disappears. 
 
 %From Equation \eqref{eq:clausius_clapeyron} it becomes clear that the  is inversely proportional with the second power of the temperature, meaning that for decreasing temperatures the vapour pressure 
 %Double check if this id only valid for adiabatic processes, is there any other assumptions..?
@@ -42,7 +38,7 @@ The reverse process results in cloud dissipation. Subsaturated conditions cause 
 %gas constant divided by the mean atmospheric molecular
 %weight).  
 Growth processes are phase dependant. Liquid droplet grows by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}) droplets spontaneously freeze and can act as \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, Wegeron-Bergeron-Findeisen process describe the mechanism where droplets evaporate and deposit on to the ice crystals. %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
-This mechanism exist because the saturation vapour pressure is lower with respect to ice than water, $e_i < e_s$. It is most efficient at -12$^{\circ}C$ when the difference is largest.
+This mechanism exist because the saturation vapour pressure is lower with respect to ice than water, $e_i < e_s$. The process is most efficient at -12$^{\circ}C$ when the difference is largest.
 
 %\section{Clouds role in the energy budget}
 
@@ -50,7 +46,6 @@ This mechanism exist because the saturation vapour pressure is lower with respec
 The characteristic white colour of the clouds has it nature in its ability to  effectively scatter solar radiation. %(explains why they appear white - because the backscatter radiation of all wavelenght in the visible spectrum)
 %In part, this mechanism describes the important role in the Earth radiative budget. 
 The Earth bathes in radiation from the Sun. Passing through the atmosphere, a small portion of the radiation gets absorbed while another portion get scattered by clouds and aerosols. The majority of the radiation reaches the Earth and transforms into heat, warming the surface. The Earth emits thermal radiation, a minor portion of this escape directly back to space, most of it gets absorbed by the atmosphere and is reemitted. This phenomena is know as \textit{the greenhouse effect}. 
-
 
 The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse gases, aerosols), and determines the magnitude of the enhanced warming (\cite{greenhouse_effect}).
 %\textcolor{red}{Snakket med Katie og det er ikke vanlig å bruke "Earth" eller "Sun" med mindre det er navnet på planten ellers hvsi det er objekter/intetkjønn burde man bruke liten bokstav. Så her får du føle deg frem :)}
@@ -74,7 +69,7 @@ The greenhouse effect increases with the cloud altitude, enhanced by the increas
 \textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
 
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
-On the basis of simulations and available observational data, both remote sensed and in-situ measurements, \cite{Wild2019TheModels} have quantified the contribution of elements in the Earthsannual global mean energy budget. Cloud radiative effect (\acrshort{cre}) is computed by subtracting the components of a cloudy atmosphere from a cloud-free atmosphere (Ramanathan, 1989?). The altitude along with the composition of the atmosphere determines the optical properties of the cloud and in terms its interactions with radiation.
+On the basis of simulations and available observational data, both remote sensed and in-situ measurements, \citepaper{Wild2019TheModels} have quantified the contribution of elements in the Earths annual global mean energy budget. Cloud radiative effect (\acrshort{cre}) is computed by subtracting the components of a cloudy atmosphere from a cloud-free atmosphere \textbf{(Ramanathan, 1989 - LES)}. The altitude along with the composition of the atmosphere determines the optical properties of the cloud and in terms its interactions with radiation.
 
 \input{Chapter2_Theory/images/cre_with_text}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% WILD FIGURE 

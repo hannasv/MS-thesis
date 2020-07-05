@@ -13,7 +13,7 @@ The aim of this study is to determine whether the aggregation of linear models, 
 
 %The popularity of \acrshort{dl} can be partly explained by its flexibility. This flexibility allows deep learning to be applied across many domains. The algorithms discussed here are simply a mathematical framework for learning model representations in data. The process of training is repeated until the network reaches an acceptable performance. In other words \textit{the extent to which this potential can be exploited is limited to the effectiveness of the training procedure applied} and also the data its provided. 
 
-\section{Artificial Intelligence}
+\section{Artificial Intelligence} \label{sec:ai}
 \input{Chapter3_Method/TiKZ/subcategories_AI}
 In encounters with geoscientists the author often get the question: \textit{What is the difference between machine learning and artificial intelligence?} The short answer is: they are not different fields, but \acrshort{ml} is a subfield of AI. Algorithms developing its own ``knowledge'' from supplied examples falls into the category of ML and not the base category of AI. ML is distinct in that it attempts to deduce rules and go beyond human intuition using a complex net of interactions. 
 
@@ -48,8 +48,8 @@ Geoscientists may be more familiar with the concept of ``calibration'' when it c
 \input{Chapter3_Method/TiKZ/multilayer_mlp}
 Figure \ref{fig:multilayer_mlp} illustrates a deeper version of the network displayed in Figure \ref{fig:one_layer_mlp}. A layer is a set of nodes. The connections between the layers are the trained units, also known as weights. 
 
-To distinguish from deep learning, traditional \acrshort{ml} is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
-\textbf{Hugo: ML three categories: 1) Methods that are not based on artificial neural networks such as linear regression models and other regression models, decision trees, random forest, support vector machine etc 2) Artificial neural networks with few layers (shallow) and generally few parameters. 3) Artificial neural networks with many layers and a lot of parameters in each layer (deep learning)}
+%To distinguish from deep learning, traditional \acrshort{ml} is sometimes referred to as shallow learning. Linear regression (LR) is a ML algorithm predating computers which is still useful today. Traditional LR can be derived using shallow learning methods. 
+%\textbf{Hugo: ML three categories: 1) Methods that are not based on artificial neural networks such as linear regression models and other regression models, decision trees, random forest, support vector machine etc 2) Artificial neural networks with few layers (shallow) and generally few parameters. 3) Artificial neural networks with many layers and a lot of parameters in each layer (deep learning)}
 
 ``Intelligence'', in the context of artificial intelligence, is still a topic of debate. Traditionally, a machine would be considered intelligent if it could beat a human at a given task (\cite{Chollet2019OnIntelligence}). For computer chess, this was achieved in 1997 when IBM's DeepBlue beat Gary Karsparov. Researchers had learned how to build a ``rule-based'' chess-playing AI, but not a program that could generalize to anything beyond similar boardgames. In retrospect, scientists have realized that most architectures are not well matched to human intelligence. 
 %\textbf{Raymond: DeepBlue var i hovedsak regel-basert, men Google's AlphaZero er (delvis) basert på DL.}
@@ -95,7 +95,7 @@ Artificial neural networks (\acrshort{ann}) are composed of nodes (artificial ne
     \label{fig:activation_function_example}
 \end{figure}
 
-Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, focusing on a circle in the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted inputs and bias are sent trough the activation function, $g$, producing the activation. This function, $g$, is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), sigmoid function  ($\sigma$) or hyperbolic tangent (tanh), their graphs are shown in Figure \ref{fig:activation_function_example} and their mathematical expressions in Equations \eqref{eq:ReLU}, \eqref{eq:sigmoid} and \eqref{eq:tanh} respectively.
+Figure \ref{fig:activation_one_node} shows the computation which takes place in a node in the hidden layer, focusing on a circle in the middle column in Figure \ref{fig:one_layer_mlp}. The sum of the weighted inputs and bias are sent trough the activation function, $g$, producing the activation. This function, $g$, is a hyperparameter, set before the training starts. Popular choices are rectified linear unit (ReLU), Sigmoid function  ($\sigma$) or hyperbolic tangent (tanh), their graphs are shown in Figure \ref{fig:activation_function_example} and their mathematical expressions in Equations \eqref{eq:ReLU}, \eqref{eq:sigmoid} and \eqref{eq:tanh} respectively. It is called Sigmoid function, named after the greek letter sigma, shaped like an S. 
 \begin{equation} \label{eq:ReLU}
    ReLU\left(x\right) = 
      \begin{cases}
@@ -125,7 +125,7 @@ Repeating the procedure for the next layer, $L+1$, the activation, $a_L$ from th
 
 The choice of activation function, $g$, in the output layer is task specific. Regression problems use linear activation. Classification problem need functions able to discriminate between the number of classes.
 
-Backpropagation is the fundamental mechanism used in ``teaching'' neural networks. First appreciated in its full importance in \citeyear{RumelhartBackProp} when it was published by \citeauthor{RumelhartBackProp}. The trick is to use the performance metric as a feedback signal to adjust the weights in the direction of the lowest loss score for the current example. A training instance is passed trough the network producing a output (red node). The networks output error is computed as difference between the computed output and the corresponding targets. For each consecutive layer, moving in reverse from the output to the input, the contribution from every connection between adjacent layers is computed.
+Backpropagation is the fundamental mechanism used in ``teaching'' neural networks. First appreciated in its full importance in \citeyear{RumelhartBackProp} when it was published by \citeauthor{RumelhartBackProp}. The trick is to use the performance metric as a feedback signal to adjust the weights in the direction of the lowest loss score for the current example. A training instance is passed trough the network producing a output (red node). The networks output error is computed as difference between the produced output and the corresponding targets. For each consecutive layer, moving in reverse from the output to the input, the contribution from every connection between adjacent layers is computed.
 For a more mathematical description of the backpropagation algorithm see \cite{nielsen_back_prop}.
 
 \subsection{Convolutional neural networks} \label{sec:convolutional neural network}
@@ -143,9 +143,9 @@ Convolving a filter over the input image generates a feature map, a 2-dimensiona
 \input{Chapter3_Method/TiKZ/2_layer_convolutional}
 %It is worth noting that the same structures are given different names, based on their position in the network. The output is the feature map resulting from convolving the last layer. They are both activations, computed from the values and weights from the previous layer. The number of channels in the first layer and the numbers of feature maps in the subsequent layers are both simply stacks of grids containing values.
 
-Working with RGB images requires 3D convolution; since the dimensions of the input determines the dimensions of the convolution, it is commonly referred to as simply convolution. As mentioned earlier, neural networks are structured as a stack of layers. Each layer is again a stack of channels or feature maps. The output from the previous layer becomes the input to the next layer. Feature maps, activations, and outputs are all the result of a convolution, produced at different points within a neural net. The activations are computed based on an input volume, including information across channels. A 3D convolution collapses information on multiple colours into a single value.
+Working with \acrshort{rgb} images requires 3D convolution; since the dimensions of the input determines the dimensions of the convolution, it is commonly referred to as simply convolution. As mentioned earlier, neural networks are structured as a stack of layers. Each layer is again a stack of channels or feature maps. The output from the previous layer becomes the input to the next layer. Feature maps, activations, and outputs are all the result of a convolution, produced at different points within a neural net. The activations are computed based on an input volume, including information across channels. A 3D convolution collapses information on multiple colours into a single value.
 
-Figure \ref{fig:conv_layers} shows a two layer convolutional neural network trained on RGB-images. The input layer is an RGB-image. The first convolutional layer has seven channels (feature maps), these are produced by seven filters. Filters are trained to extract useful features. The second convolutional layer is produced by five filters, all convolving layer 1. This is a simplified network, made shallow for for the purpose of illustration; a functional CNN would require many layers to extract useful information from an image. %Networks are usually a lot deeper.
+Figure \ref{fig:conv_layers} shows a two layer convolutional neural network trained on \acrshort{rgb}-images. The input layer is an RGB-image. The first convolutional layer has seven channels (feature maps), these are produced by seven filters. Filters are trained to extract useful features. The second convolutional layer is produced by five filters, all convolving layer 1. This is a simplified network, made shallow for for the purpose of illustration; a functional CNN would require many layers to extract useful information from an image. %Networks are usually a lot deeper.
 
 %Figure \ref{fig:conv_layers} shows a two layer convolutional neural network trained on RGB-images. The input layer is an RGB-image. The first convolutional layer has seven channels (feature maps), these are produced by seven filters. Filters are trained to extract useful features. The second convolutional layer is produced by five filters, all convolving layer 1. This is a simplified network, made shallow for illustrative purposes. Function CNNs require many layers to extract useful information from an image. %Networks are usually a lot deeper. 
 Given raw input (\textit{i.e,} normalized images), the first layers detect low level features like edges, corners and circles. Later layers assemble the features to more complex structures like houses or dogs. The dashed volumes represent the receptive field for different pixels, illustrated as circles. Since each of the layers depend on the previous one, the receptive field of the a node, ``P'' depends on a large portion of the input image. Small filters allow you to focus on small features in the data, while larger filters allow you to identify coarser relations.
@@ -184,7 +184,9 @@ The original memory cell contains input and output gates. A gate is a structure 
 \input{Chapter3_Method/TiKZ/subplot}
 The assembled memory unit is displayed in Figure \ref{fig:lstm_unit}. The information flow thought the cell is regulated by three gates; the forget gate (see Figure \ref{fig:forget_gate}), the input gate (see Figure \ref{fig:input_gate}) and the output gate (see Figure \ref{fig:output_gate}). These gates are neural networks. 
 
-The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. The gates are neural networks layers with a particular activation function. It is called sigmoid function, named after the greek letter sigma, shaped like an S. Truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the \acrshort{lstm} receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
+The long-term memory is shown in Figure \ref{fig:cell_state_information_flow} and the short term memory referred to as the hidden state. The cell state is affected by some linear interactions, this is very simple, thus the flow often remain unchanged. The hidden state is the output passed to the next cell. Structures like gates regulate the flow of information. 
+
+The gates are neural networks layers with a particular activation function. The Sigmoid-function discussed in Section \ref{sec:artificial neural networks} truncating the output from the gates to range between zero and one. Recall, Figure \ref{fig:activation_function_example} shows the sigmoid and tanh functions. Zero represents a closed gate, while one describes a fully open gate. At each time step in the sequence the \acrshort{lstm} receives input $x_t$ and the previous hidden state, $h_{t-1}$. These are passed trough all gates.
 
 % The forget gate
 Making a prediction requires the forward propagation of information through the network. Figure \ref{fig:forget_gate} shows that based on the new input and the previous hidden state, the forget gate determines which instances from the memory to remove. Regulating the information that stays in memory frees up space, allowing you to learn new things. The weight of the gate, $W_f$, is initialized to 1, thus it cannot forget anything until it has learned to forget. Exhibiting the same behaviour as the original \acrshort{lstm} units. 
@@ -258,15 +260,15 @@ Here $\circ$ denoted the Hademand product, which is a component wise multiplicat
 
 \subsection{Padding} \label{sec:padding}
 % Add equation to calculate how much zero padding is needed to make a prediction of the same size.
-As mentioned earlier related to Figure \ref{fig:convolution_padding}, the convolution operation shrinks the dimensions of the feature map, according to Equation \eqref{eq:output_size}. The degree of shrinking depends on the filter size, $f\times f$, padding, $p$ and stride, $s$. Stride determine how you convolve around the input volume. It is the step length between applied filters. For a input of dimensions $n\times n$, the resulting output dimension, $o\times o$ is given by Equation \eqref{eq:output_size}.
+As mentioned related to Figure \ref{fig:convolution_padding}, the convolution operation shrinks the dimensions of the feature map, according to Equation \eqref{eq:output_size}. The degree of shrinking depends on the filter size, $f\times f$, padding, $p$ and stride, $s$. Stride determine how you convolve around the input volume. It is the step length between applied filters. For a input of dimensions $n\times n$, the resulting output dimension, $o\times o$ is given by Equation \eqref{eq:output_size}.
 \begin{equation} \label{eq:output_size}
     o = \frac{n+2p-f}{s} + 1
 \end{equation}
-Padding zeros along the edges has an additional benefit of including the signal originating at the boundaries. For some applications it is useful to have the same shape of input and output. This is called ``padding same''. Equation \eqref{eq:padding_same} calculates the amount of padding necessary to preserve the dimension of the input volume. It can be derived by inserting $o=n$ in Equation \ref{eq:output_size} and solving for $p$.
+Padding zeros along the edges has an additional benefit of including the signal originating at the boundaries. For some applications it is useful to have the same shape of input and output. This is called ``padding same''. Equation \eqref{eq:padding_same} calculates the amount of padding necessary to preserve the dimension of the input volume. 
+Derived from Equation \eqref{eq:output_size} inserting $o=n$ and solving for $p$.
 \begin{equation} \label{eq:padding_same}
     p = \frac{n\left(s-1\right)-s+f}{2}
 \end{equation}
-
 
 \section{Autoregressive Models} \label{sec:ARmodels}
 In the following discussion, these conventions are adopted. Typographical emphasis is used to distinguish between dimensions, $y_n$ denotes a discrete value at position or time, $n$, the vector, $\mathbf{y}$ and $\mathbf{Y}$ denotes the matrix. $\mathbf{X}$ always contain the input data, and $\mathbf{y}$ always contain the predicted. The markers $\tilde{ }$, $\hat{ }$ and $\bar{ }$ can be used in combination with the above, describing the $\Tilde{\mathbf{y}}$ denotes the desired value, the predicted $\hat{\mathbf{y}}$ and the mean of $\mathbf{y}$, $\bar{\mathbf{y}}$.
@@ -302,7 +304,7 @@ where $\hat{y} = \mathbf{X}^T \mathbf{\beta}$. Equation \eqref{eq:AR_solution} d
 \begin{equation} \label{eq:AR_solution}
     \mathbf{\beta}  = \left( \mathbf{X}^T\mathbf{X}\right)^{-1} \mathbf{X}\tilde{\mathbf{y}}
 \end{equation}
-The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits. For the problem considered in this master thesis we have far more observations than the number of parameters and do not expect to run into inversion problems of $\mathbf{X}^T\mathbf{X}$. Further please note that the matrix is only inverted when the parameters are estimated (model training) and not when the model later is used to do predictions.
+The optimal solution is the best solution based on the training data available. The analytical solution is computationally very fast, as long as the matrix $\mathbf{X}^T\mathbf{X}$ is non-singular and thus its inverse exits. For the problem considered in this study there are far more observations than the number of parameters. This is a indication that $\mathbf{X}^T\mathbf{X}$ is invertible. %Further please note that the matrix is only inverted when the parameters are estimated (model training) and not when the model later is used to do predictions.
 
 % The code is implemented using scipys pinv to solve the problems with invertable matrices.
 %Unfortunately, for many practical applications the inverse doesn't exit. The Moore-Penrose psudoinverse, $A^+$ of matrices is used to approximate the inverse of singular matrices. It is based on the foundation of singular value decomposition. The Moore-Penrose pseudoinverse exists and is unique for both square and rectangular matrices (\cite{Golan2012}). For invertible matrices, $A$, the psudoinverse becomes the inverse, $A^+=A^{-1}$.
@@ -310,10 +312,13 @@ The optimal solution is the best solution based on the training data available. 
 %\subsection{Loss and Performance Metrics}  \label{sec:metrics}
 \subsection{Evaluation} \label{sec:evaluation}
 %A optimisation process aim to acquire a certain skill. 
-Model evaluation is performed based on metrics, and is necessary to determine the ability of a model to perform a certain task. %It can be done based on several criterias measuring how good the algorithm is to do several things.
+Model evaluation is done based on metrics. This metric is used to determine the ability of a model to perform a certain task. Varying in space and time, the metrics used to evaluate the models in this study need to be 3-dimesional.
+%It can be done based on several criterias measuring how good the algorithm is to do several things.
 %The goal of optimisation process is to train the model to acquire a certain skill. 
 %Model evaluation is done based on criteria, also known as metrics. 
-These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. \textbf{Since numbers between 0 and 1 shrink when multiplied with itsself \acrfull{mae} is included, it the absolute value of the distance. The Equation is displayed i \eqref{eq:mae}.} R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
+These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. \acrshort{mse} is non-linear and numbers in the range between 0 and 1 shrink, other grows exponentially.  \acrfull{mae} is the absolute value between the same distances, see Equation \eqref{eq:mae}. 
+
+R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
 \begin{equation} \label{eq:mse}
     MSE(\hat{Y},\hat{\tilde{Y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
 \end{equation} 
@@ -327,7 +332,7 @@ These metrics are set criterion measuring properties of the algorithm, for insta
     R^2(\hat{Y}, \tilde{\hat{Y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\bar{y})^2}
     %{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
 \end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{t-1}y_{i, j, k}^2$. \textbf{Double check the mean, 3D?}
+where mean value of $\hat{y}$ is defined as $\bar{y} =   \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}y_{i, j, k}$. 
 %$R^2$ describes how much of the variation in the dataset you are able to capture with your model. 
 The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
 
@@ -348,24 +353,24 @@ The absolute value or sum of squares is to avoid penalising points on the lower 
 %\textit{Overfitting a model is a condition where a statistical model begins to describe the random error in the data rather than the relationships between variables.}
 
 \section{Related work} \label{sec:related_work}
-Deep learning is a young field and \acrshort{convlstm} even younger model. Few studies have been conducted within \acrshort{dl} applied to sequence modelling. The task of object detection or classification receives the most attention.
+Deep learning is a young field and \acrshort{convlstm} even younger model (architecture?). Few studies have been conducted within \acrshort{dl} applied to sequence modelling. The task of object detection or classification receives the most attention.
 
 The \acrshort{convlstm} was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. Using high resolution data from a period up to two years. Both studies evaluate their models based on case specific metrics. % Results from model is not transmissible across problem, in this case datasets.
 
-\citepaper{precip_nowcasting} use gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. It is named the radar echo dataset, and have training 8148 sample, 2037 validation and 2037 test samples. Each sample consist of 20 frames, 5 used for input and 15 used for prediction. Based on five frames the model predicts 15. Report that they are training one model $ConvLstm(3\times 3)3\times 3-64-3\times 3-64$, a \acrshort{convlstm} model using a $3\times 3$ filter, in combinations with 64 hidden states, twice. Patch size is 2, this is compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, ROVER. Both LSTM version optimise the crossentropy error of 15 prediction samples. 
+\citepaper{precip_nowcasting} use gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. The Radar Echo dataset used, have 8148 training, 2037 validation and 2037 test samples. Each sample consist of 20 frames, 5 used for input and 15 used for prediction, in other words based on five frames the model predicts 15. Report that they are training one model $ConvLstm 3\times 3-64-3\times 3-64$, a three layer model using a $3\times 3$ filter, in combinations with 64 hidden states. Patch size is 2, this is compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, ROVER. Both LSTM version optimise the crossentropy error of 15 prediction samples. \textbf{Du har ikke forklart crossentropy noen plass. A common metric in classification problems.}
 
-\citepaper{SunAirLSTM} use a combination of distributed data. Weather data is provided in grids, and air quality observations are point measurements. The weather data volume per time step is a tensor of shape $(21 \times 31 \times 5)$. 16 months of hourly data divided into sequences of 72 frames, 24 for input and 48 for prediction. Batch size is not mentioned in the paper, but based on Figure X, where one tensor of shape $(21 \times 31 \times 5)$ is sent as input. i.e. one sample. They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs. Gradient clipping to avoid exploding gradients when training longer sequences. Combinations of filters $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states, in more familiar terms the number of filters applied. The model names is given following this structure, described using a example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 2 layers having the same number hidden states, 256.
-\begin{enumerate}[noitemsep, topsep=0pt]
-    \item ConvLSTM 1x1-256-2
-    \item ConvLSTM 3x3-256-2
-    \item ConvLSTM 5x5-256-2
-    \item ConvLSTM 3x3-256-3
-    \item ConvLSTM 5x5-256-3
-\end{enumerate}
-
+\citepaper{SunAirLSTM} use a combination of distributed data. Weather data is provided in grids, and air quality observations are point measurements. The weather data volume per time step is a tensor of shape $(21 \times 31 \times 5)$. 16 months of hourly data divided into sequences of 72 frames, 24 for input and 48 for prediction. %Batch size is not mentioned in the paper, but based on Figure X, where one tensor of shape $(21 \times 31 \times 5)$ is sent as input. i.e. one sample. 
+They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs. Gradient clipping to avoid exploding gradients when training longer sequences. Combinations of kernels with dimensions $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states. The model names is given following this structure, described using a example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 2 layers having the same number hidden states, 256.
+%\begin{enumerate}[noitemsep, topsep=0pt]
+%    \item ConvLSTM 1x1-256-2
+%    \item ConvLSTM 3x3-256-2
+%    \item ConvLSTM 5x5-256-2
+%    \item ConvLSTM 3x3-256-3
+%    \item ConvLSTM 5x5-256-3
+%\end{enumerate}
+\textbf{Les igjen, hva er patch size..?}
 Include patch size of 4 making 64x64 to 16x16x16 tensors. Choice of optimizer is RMSprop 0.001 and a learning rate decay of 0.9. Performs early stopping on the validation set.
 
-Filter 1x1 result in the state-to-state transitions.
 
 %%%%%%%%%%%%%% above here is ok
 
