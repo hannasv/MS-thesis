@@ -1,6 +1,18 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. Two types of statistical models, \acrshort{convlstm} and \acrshort{ar}-model are trained and evaluated on a unseen portion of the dataset. 
 
+
+\subsection{Framework} \label{sec:framework}
+%\textbf{Make sure this section contains what you intend to say about the software.}
+Details regarding project repository and virtual environments are available in Section \ref{sec:structure_and_implementations}. This section describes the implementation and compilation of the models.
+
+The \acrshort{convlstm} is implemented using Tensorflow's keras API which simplifies many aspects of building and executing machine learning models. Its implementation and distribution system aware, making the code more versatile. %Easily portable between systems.
+The \acrshort{ar}-models are trained and evaluated using self implemented modules. The idea was to utilize the analytical solution of the least squares problem. Many regression modules provide a numerical solution, not the analytical. The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
+
+%Complex computations will cause memory growth, dependant on how many intermediate computations it needs to store. This is the case for \acrshort{convlstm}. To speed up the development process the software is developed on a subset of \acrshort{ecc}. Small adjustments needs to be made, running experiments on the entire data. For instance threads deadlock when extracting large amounts of data. This is a precautionary measure to avoid overloading the system. \textbf{Possible to develop code to do Hyperparameter tuning based on }
+%For a more detailed description please see the project repository described in Section \ref{sec:structure_and_implementations}.
+\input{Chapter1_Intro/structure_implementations.tex}
+
 \subsection{Hardware} \label{sec:hardware}
 %How to deal with big datasets that will easily eat up you memory? ``Big data'' involve processing large amounts of data that does not fit into memory. Processing substantial amounts of data require expert knowledge about distributed systems and analysing for system bottlenecks.  %Although theoretically fascinating it remains to see if \acrshort{convlstm} provide a clear practical advantage over the autoregressive models.
 %Conducting experiments on big datasets require external computational resources.  
@@ -22,16 +34,6 @@ This study was awarded access 1 GPU and 1024G part of the memory. The data is st
     \caption{Hardware specifications for the environment used on \acrshort{ex3}. Operating system is Ubuntu 18.04.4.}
     \label{tab:hardware_ex3}
 \end{table}
-
-\subsection{Framework} \label{sec:framework}
-%\textbf{Make sure this section contains what you intend to say about the software.}
-Details regarding project repository and virtual environments are available in Section \ref{sec:structure_and_implementations}. This section describes the implementation and compilation of the models.
-
-The \acrshort{convlstm} is implemented using Tensorflow's keras API which simplifies many aspects of building and executing machine learning models. Its implementation and distribution system aware, making the code more versatile. %Easily portable between systems.
-The \acrshort{ar}-models are trained and evaluated using self implemented modules. The idea was to utilize the analytical solution of the least squares problem. Many regression modules provide a numerical solution, not the analytical. The python package ``sciclouds'' provide a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
-
-%Complex computations will cause memory growth, dependant on how many intermediate computations it needs to store. This is the case for \acrshort{convlstm}. To speed up the development process the software is developed on a subset of \acrshort{ecc}. Small adjustments needs to be made, running experiments on the entire data. For instance threads deadlock when extracting large amounts of data. This is a precautionary measure to avoid overloading the system. \textbf{Possible to develop code to do Hyperparameter tuning based on }
-%For a more detailed description please see the project repository described in Section \ref{sec:structure_and_implementations}.
 
 \subsection{Model Setup and Evaluation}
 The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A hyperparameter is a parameter set before the training starts, as mentioned in Section \ref{sec:artificial neural networks}. A model is compiled based on a choice of hyperparameters. In the search for the best model configuration, different combinations of hyperparameters are tested. This is done manually since the choice of architecture can easily overload the system memory resources.
@@ -56,7 +58,7 @@ A summary of the calibrated models are provided in Table \ref{tab:ar_model_confi
 %Feature standardization makes the values of each feature in the data have zero-mean 
 Feature scaling is used to standardise the predictor variables.
 %By subtraecting the mean and dividing by the variance, t
-Applying Equation \ref{eq:scaling_data} to the predictors reshapes the distribution toward a standard normal distribution with zero mean and unit variance. 
+Applying Equation \eqref{eq:scaling_data} to the predictors reshapes the distribution toward a standard normal distribution with zero mean and unit variance. 
 %Data transformation can be beneficially in an attempt 
 The transformation offers an additional benefit of increased numerical stability. %When applied the predictors is transformed according to the following Equation \ref{eq:scaling_data}. 
 The feature scaling is applied after the partition into training and test dataset, the mean and standard deviation is computed based on the training set. In this manner the trained model avoids sneak peaking at the test data, resulting in a unrepresentative measure on performance.
@@ -106,12 +108,12 @@ Table \ref{tab:ar_model_config} shows a summary of the \acrshort{ar}-models incl
     \label{fig:results_ar_models}
 \end{figure}
 
-
+Mention that the results are computed by using Equations \eqref{eq:mse} and \eqref{eq:mae}, setting the parameters $m = 81$, $n=161$ and $t=\text{seq length}$. 
 
 \begin{figure}
     \centering
-    \includegraphics{python_figs/signal_area_pixel.pdf}
-    \caption{Reuse this plotting routine to plot the distributed score of the overall best model, \textbf{named X}.}
+    \includegraphics{python_figs/example_artefact.pdf}
+    \caption{Reuse this plotting routine to plot the distributed MAE score of the overall best model, \textbf{named X}.}
     \label{fig:grid_mse_best_model}
 \end{figure}
 
@@ -169,13 +171,13 @@ Models are given names based on a extension of the convention from \citepaper{Su
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.35]{python_figs/example_model.png}
+    \includegraphics[scale=0.4]{python_figs/example_model.png}
     \caption{Example of how I intend to visualise the best architecture generated for this study.}
     \label{fig:best_ml_architecture}
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{TODO: check if it predicts out of sample valeus if not try and delete samples if it does delete the samples and retrain best model.}
+    \item \textbf{TODO: check if it predicts out of sample values if not try and delete samples if it does delete the samples and retrain best model. MAKE table showing mak min predicted value over the entire dataset and maybee how many values in percent is out of sample}
 \end{enumerate}
 
 
@@ -188,14 +190,18 @@ Visualizing the experiments for sequences.
 \begin{figure}[ht]
     \centering
     \includegraphics[sale=0.1]{python_figs/example_predicted_sequence_2010-09-01.png}
-    \caption{\textbf{Update to AR, ConvLSTM, target - the number of rows is the sequence length} Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
+    \caption{Update figure with real data. Don't think i want to add labels or colorbars the pattern is the most import. }
     \label{fig:target_predict_era5_horizontal}
 \end{figure}
 
 Some text where you comment the results from this comparison. Is it evident that the \acrshort{convlstm} is better at predicting spatial patterens as expected or does it all resemble random noise. Is the predicted values in sample or out of sample.
 
+
+
 If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choices when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
 
+The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. 
+In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively. A method for training deeper models on datasets is to reduce the spatial or temporal resolution. This is done in precipitation nowcasting, moving from 300x300 pixels to 100x100. Arguing that they want to remove noise. Since cloud cover have a average lifetime as mentioned in Section \ref{sec:cloud_in_climate_system} I argue that \acrshort{ecc} can't be reduced without significant loss of information.
 
 \clearpage
 \input{Chapter2_Theory/practical_implications.tex}

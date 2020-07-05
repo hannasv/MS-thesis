@@ -313,19 +313,22 @@ The optimal solution is the best solution based on the training data available. 
 Model evaluation is performed based on metrics, and is necessary to determine the ability of a model to perform a certain task. %It can be done based on several criterias measuring how good the algorithm is to do several things.
 %The goal of optimisation process is to train the model to acquire a certain skill. 
 %Model evaluation is done based on criteria, also known as metrics. 
-These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. 
-The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.\textbf{Shold be bold letters since its volumes}
+These metrics are set criterion measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. \textbf{Since numbers between 0 and 1 shrink when multiplied with itsself \acrfull{mae} is included, it the absolute value of the distance. The Equation is displayed i \eqref{eq:mae}.} R2-score also known ad the coefficient of determination, shown in Equation \eqref{eq:r2},  determine how much of the variation in the dataset captured by the model. The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
 \begin{equation} \label{eq:mse}
-    MSE(\hat{y},\hat{\tilde{y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
+    MSE(\hat{Y},\hat{\tilde{Y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
+\end{equation} 
+\begin{equation} \label{eq:mae}
+    MAE(\hat{Y},\hat{\tilde{Y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}\left|y_{i, j, k}-\tilde{y}_{i, j, k}\right|
 \end{equation} 
 %\begin{equation} \label{eq:ase}
 %    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
 %\end{equation} 
 \begin{equation} \label{eq:r2}
-    R^2(\hat{y}, \tilde{\hat{y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{o-1}(y_{i, j, k}-\bar{y})^2}
+    R^2(\hat{Y}, \tilde{\hat{Y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\bar{y})^2}
     %{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
 \end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{o-1}y_{i, j, k}^2$. %$R^2$ describes how much of the variation in the dataset you are able to capture with your model. 
+where mean value of $\hat{y}$ is defined as $\bar{y} =  \sum_{j=0}^{m-1}\sum_{k=0}^{t-1}y_{i, j, k}^2$. \textbf{Double check the mean, 3D?}
+%$R^2$ describes how much of the variation in the dataset you are able to capture with your model. 
 The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
 
 %\subsection{Generalisations} \label{sec:generalization}
@@ -347,7 +350,7 @@ The absolute value or sum of squares is to avoid penalising points on the lower 
 \section{Related work} \label{sec:related_work}
 Deep learning is a young field and \acrshort{convlstm} even younger model. Few studies have been conducted within \acrshort{dl} applied to sequence modelling. The task of object detection or classification receives the most attention.
 
-The \acrshort{convlstm} was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. Using high resolution data from a period up to two years. Both studies evaluate their models based on case specific metrics. In other words the performance of these models are not comparable across probelems. \textbf{Vil man egentlig noen gang gjøre det..?}
+The \acrshort{convlstm} was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. \citepaper{SunAirLSTM} applied it to the air quality forecasting problem. Using high resolution data from a period up to two years. Both studies evaluate their models based on case specific metrics. % Results from model is not transmissible across problem, in this case datasets.
 
 \citepaper{precip_nowcasting} use gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. It is named the radar echo dataset, and have training 8148 sample, 2037 validation and 2037 test samples. Each sample consist of 20 frames, 5 used for input and 15 used for prediction. Based on five frames the model predicts 15. Report that they are training one model $ConvLstm(3\times 3)3\times 3-64-3\times 3-64$, a \acrshort{convlstm} model using a $3\times 3$ filter, in combinations with 64 hidden states, twice. Patch size is 2, this is compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, ROVER. Both LSTM version optimise the crossentropy error of 15 prediction samples. 
 

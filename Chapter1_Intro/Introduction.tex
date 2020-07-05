@@ -1,8 +1,10 @@
 \chapter{Introduction} \label{ch:introduction}
 %\textbf{The uncertain cloud feedback prevents us from predicting future climate with confidence - Geographycal distribution of cloud feedbacks}
-Weather and climate have a major influence of life on Earth. While the globe struggles to support the needs of a increasing population, human activity continue to change the environment. %Emissions of greenhouse gases have a delayed influence on temperature. %For the current atmospheric composition, the surface temperature required to close the energy budget is higher than the global mean temperature of $255K$. \textbf{dette er -18 tempen jordkloden hadde hatt uten atmosphere}
+Weather and climate have a major influence of life on Earth. While the globe struggles to support the needs of an increasing population, human activity continues to change the environment. %Emissions of greenhouse gases have a delayed influence on temperature. %For the current atmospheric composition, the surface temperature required to close the energy budget is higher than the global mean temperature of $255K$. \textbf{dette er -18 tempen jordkloden hadde hatt uten atmosphere}
 % The \acrfull{ecs} is the amount of warming that will occur ones all 
-Global warming is in progress. Greenhouse gas emission have a delayed effect on temperature and it will keep rising until it has reached the equilibrium temperature, closing the energy budget. 
+Global warming is in progress. Greenhouse gas emissions have a delayed effect on temperature and it will keep rising until it has reached the equilibrium temperature, closing the energy budget. 
+%TS: Det går litt raskt i svingene her - først må du si at økningen i utslipp har ført til en økning av CO2 i atmosfæren. Deretter at denne økningen gir en ubalanse i energibudsjettet fordi CO2 er en drivhusgass. Så kommer du til den forsinkede temperatur-responsen 
+
 
 Providing a realistic estimate of future climates is important for motivating mitigation and limiting the global temperature increase. 
 % avoiding tipping points. 
@@ -23,7 +25,7 @@ After decades of being mainly a research area of limited use, today \acrfull{ai}
 Self-driving buses are used in metropolitan areas around the world, including Oslo city centre.  %(\href{https://www.letsholo.com/oslo}{https://www.letsholo.com/oslo}). 
 Image manipulation allows you to transform Monet paintings to pictures and back (\cite{zhu2017_cycleGAN_monet_zebra}). Video manipulation can make people appear to say and do things they never did. 
 
-\acrshort{dl} has already proven its value in many fields. The scope of this thesis is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions. For this task \acrfull{ar} models and \acrfull{convlstm} are considered. 
+\acrshort{dl} has already proven its value in many fields. The scope of this study is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions. For this task \acrfull{ar} models and \acrfull{convlstm} are considered. 
 %\textit{This thesis attempts to answer if its a appropriate method for solving cloud predictions.} \textit{It remains a open question if its the best model for tackling this task, predicting cloud cover.} %Even thought machine leaning is has proven able for great advances in certain fields. 
 Occam's razor is an old philosophical concept. It states that if two hypothesises are equally likely, the simplest one should be preferred. \textbf{kilde (ikke wikipedia)}. For this application, the compilation of a new dataset was deemed necessary. Named \acrfull{ecc}, and composed of reanalysis data from ERA5 and satellite retrievals from \acrfull{msg}. The dataset has a temporal resolution of one hour and spatial resolution of $0.25^o$. Clouds have a average lifetime of one hour (\cite{lohmann2016}), thus it should be achievable to extract suitable features to make reasonable predictions. 
 
@@ -32,4 +34,4 @@ There is currently a huge interest in and activities around \acrfull{ml} and \ac
 There is a high confidence that a lot if the spread is attributed to cloud feedback's (\cite{IPCC_CH9_climate_models}, pp.?). Developing new methods for cloud cover predictions is believed to produce more reliable estimates of future climates. Focusing on a small part of the processes, stands the best chance of reducing the spread. This thesis is a ``proof of concept'' study investigating the potential for using a data driven approach for parameterizing \acrfull{cfc} based on environmental variables. 
 %at a satisfactory precision.
 
-\input{Chapter1_Intro/structure_implementations.tex}
+
