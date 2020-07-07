@@ -4,8 +4,7 @@ Clouds play an important role in the climate system both affecting the radiative
 \begin{figure}
     \centering
     \adjincludegraphics[scale=0.1, trim={0 {.3\height} 0 0}, clip]{Chapter1_Intro/images/cloud_cover_ina.jpg}
-    \caption[Cumulus deck at Store Smørstabbtinden in Jotunheimen]{Cumulus deck at Store Smørstabbtinden in Jotunheimen, photo by Ina Storteig. \textbf{Burde jeg late som jeg har tatt det? Det er bestevenninna mi så er innafor om det spiller en rolle. Trude }}
-    %TS: Fint som du har skrevet det nå
+    \caption[Cumulus deck at Store Smørstabbtinden in Jotunheimen]{Cumulus deck at Store Smørstabbtinden in Jotunheimen, photo by Ina Storteig.}
     \label{fig:cloud_cover_jotunheimen}
 \end{figure}
 %Climate models are the most useful tool for studying the past, present and future climate. Clouds and aerosols are acknowledged as the factors contributing with the largest uncertainty to the \acrfull{ecs}. Also known as global mean temperature increase as a consequence of doubling of the pre-industrial levels of $CO_2$ (280 \acrshort{ppm}). \textbf{kilde AR4 which ch?} \textit{It remains unclear to which level of sophistication is adequate to model their effect om climate.} (\cite{IPCC_CH7_clouds}).
@@ -51,33 +50,31 @@ The characteristic white colour of the clouds has it nature in its ability to  e
 The Earth bathes in radiation from the Sun. Passing through the atmosphere, a small portion of the radiation gets absorbed while another portion gets scattered by clouds and aerosols. The majority of the radiation reaches the Earth and transforms into heat, warming the surface. The Earth emits thermal radiation, a minor portion of which escapes directly back to space, while most of it gets absorbed by the atmosphere and is re-emitted. This phenomena is known as \textit{the greenhouse effect}. 
 
 The amount of heat trapped in the Earth system depends fundamentally on the spectral properties of its components (i.e. clouds, greenhouse gases, aerosols), and determines the magnitude of the enhanced warming (\cite{greenhouse_effect}).
-%\textcolor{red}{Snakket med Katie og det er ikke vanlig å bruke "Earth" eller "Sun" med mindre det er navnet på planten ellers hvsi det er objekter/intetkjønn burde man bruke liten bokstav. Så her får du føle deg frem :)}
+
 %The physical properties of the atmospheric components determine their interactions with radiation. 
 \textit{Albedo} is the ratio of reflected to incoming radiation. Dense low level clouds have high number concentrations of droplet, which corresponds to a large surface area. This results in enhanced scattering of radiation and thus a higher albedo. The greenhouse effect of clouds follows the principals of the greenhouse effect described above. It arises from their ability to absorb thermal radiation and re-emit it. The absorbed radiation originates from the surface or the atmosphere below. A widely used assumption is that the Earth (and most clouds) radiate like a black body, thus its radiant flux is given by Stefan-Boltzmann fourth-power law, 
 \begin{equation} \label{eq:stefan-boltzmann}
-    F = \sigma  T ^4 % \epsilon
+    F = \sigma T ^4 % \epsilon
 \end{equation}
 here $F$ denotes flux in units of $W m^{-2}$, $T$ denotes temperature in units of $K$ and \\  $\sigma = 5.670 \time 10^{-8} W m^{-2} K^{-4}$ is the Stefan-Boltzmann constant. 
-
-The \textit{emissivity}, $\epsilon$, of a medium is the ratio between the actual emission and the black body emission at the same temperature. It depends on the beams frequency and the viewing angle. Most models assume a black body emission of the Earth and the atmospheric components, this corresponds to an emissivity, $\epsilon=1$. 
+%The \textit{emissivity}, $\epsilon$, of a medium is the ratio between the actual emission and the black body emission at the same temperature. It depends on the beams frequency and the viewing angle.
+ %Most models assume a black body emission of the Earth and the atmospheric components, this corresponds to an emissivity, $\epsilon=1$. 
 %TS: Her ville jeg ikke sagt at modeller antar en emissivitet på 1 for alle "atmospheric components" for det er ikke riktig. For drivhusgassene varierer emissiviteten for ulike diskrete bølgelengde-bånd, men det er jo riktig at disse beregningene er forenklinger og dermed bidrar med usikkerhet
-This provides an additional source of uncertainty to the computations of the greenhouse effect of clouds and therefore also the \acrshort{ecs}.
+
 
 Mediums like water, snow and ice are not necessarily perfect emitters, this requires the need for modifying Equation \eqref{eq:stefan-boltzmann} with a scaling factor, called emissivity, $\epsilon \in [0, 1]$,
 %TS: Du har jo allerede introdusert epsilon ovenfor, så litt rart å gjøre det igjen her
 this depends on the composition and density of the medium. The emitted flux is given by $ F = \sigma \epsilon T ^4$. 
+This provides an additional source of uncertainty to the computations of the greenhouse effect of clouds and therefore also the \acrshort{ecs}.
 
-To asses the validity of the black body assumption on the Earth surface, \citepaper{Huang2018ImprovedClimate} demonstrated the changes in the radiative transfer calculations by varying the emissivity based on surface types. Their findings show that it makes a considerable change to the radiative transfer calculations, and in conclusion it need to be further investigated. 
+%To asses the validity of the black body assumption on the Earth surface, \citepaper{Huang2018ImprovedClimate} demonstrated the changes in the radiative transfer calculations by varying the emissivity based on surface types. Their findings show that it makes a considerable change to the radiative transfer calculations, and in conclusion it need to be further investigated. 
 %TS: Teksten ovenfor tar forsåvidt opp et interessant tema, men det er ikke veldig relevant for denne oppgaven...
 Researchers are still struggling with determining the exact spectral emissivity of different mediums. This is of interest for both implications to the radiative transfer calculation, but it is also of utmost importance in the field of remote sensing, where distinguishing the signal from the reference signal continues to pose as a problem.
 %this property is also being exploited in remote sensing. In remote sensing it is of utmost importance to distinguish the signal from the reference signal, a cloud from its background for instance. 
 %Different parts of the globe are covered by different surfaces and \citeauthor{Huang2016AnSimulations} proved that assuming a constant surface emissivity effects the \acrfull{toa} polar energy budget \textbf{read paper again to determine why this is of importance}. 
-The greenhouse effect increases with the cloud altitude, enhanced by the increased temperature difference between the surface and cloud. High clouds with low temperatures reemit radiation at a lower intensity than they absorbed. Energy thereby gets trapped in the Earth system, which has a warming effect. 
+The greenhouse effect increases with the cloud altitude, enhanced by the increased temperature difference between the surface and cloud. High clouds with low temperatures re-emit radiation at a lower intensity than they absorbed. Energy thereby gets trapped in the Earth system, which has a warming effect. 
 %Despite the uncertainties related to emissivity of the medium, the re-emitted radiation is of a lower intensity than what it absorb.
 %This is shown in equations \eqref{eq:cre_sw} and \eqref{eq:cre_lw}. \textbf{drop equations..?}
-%TS: Teksten nedenfor passer ikke inn her - dette gjelder jo for responsen på pådriv, som ikke har vært introdusert ennå
-\textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
-
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
 On the basis of simulations and available observational data, both remote sensing and in-situ measurements, \citepaper{Wild2019TheModels} have quantified the contribution of elements in the Earth's annual global mean energy budget. The Cloud radiative effect (\acrshort{cre}) is computed by subtracting the components of a cloudy atmosphere from a cloud-free atmosphere \textbf{(Ramanathan, 1989 - LES)}, usually at the top-of-the-atmosphere (TOA). The altitude along with the composition of clouds determine their optical properties and in turn their interactions with radiation.
 
@@ -105,8 +102,8 @@ Figure \ref{fig:cre} shows a schematic illustration of the \acrshort{cre} in the
 \end{figure}
 As concluded in the previous section, an excess of radiation currently gets trapped in the Earth system, forcing the atmospheric temperature to increase in order to ultimately close the radiative budget. The temperature increase induces climate change and recent estimates find the imbalance at \acrshort{toa} to be $0.6 Wm^{-2}$ (\cite{Wild2019TheModels}).
 
-% Wild et. al. 2019  \textbf{siter} finds an imbalance of This heat gets trapped in the earth system, forcing the surface temperature to increase in order to close the radiative budget. 
-%The imbalance in the radiative budget at \acrfull{toa} is the radiative forcing. 
+Wild et. al. 2019  \textbf{siter} finds an imbalance of This heat gets trapped in the earth system, forcing the surface temperature to increase in order to close the radiative budget. 
+The imbalance in the radiative budget at \acrfull{toa} is the radiative forcing. 
 %TS: Hvorfor er teksten ovenfor kommentert ut? Den trengs jo for å definere "forcing"..
 Climate drivers include both natural and anthropogenic forcings. A \textit{forcing} can be everything from natural variability in the solar energy output, volcanic eruptions or greenhouse gas emissions. The climate science community works toward a common goal to determine the magnitude of the forcings responsible for the observed climate change since pre-industrial times, and the associated climate response as quantified by the \arcshort{ecs}. The latter is controlled by climate feedback processes, of which those associated with clouds are the most uncertain. %Different emission scenarios result different \acrshort{ecs}.  
 
@@ -120,3 +117,7 @@ The greenhouse effect of clouds still persist without sunlight leading to a heat
 %TS: ta med en referanse her
 Second, rising high clouds motivate a stronger greenhouse effect. Third, a reduction in the presence of low level clouds reduces the amount of reflected solar radiation.The reduced reflection of solar radiaton is assumed to be partly offset by an lifting of the melting layer. Consequently, ice crystals are replaced by liquid droplets and the phase transition results in more opaque clouds. 
 %TS: legg til en referanse eller to her
+
+
+
+\textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.

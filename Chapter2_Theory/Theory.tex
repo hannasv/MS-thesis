@@ -1,8 +1,8 @@
 \setcounter{chapter}{1} 
-\chapter{Theoretical Background - Hugo foreslå tittel "Climate and Cloud physics" evt slå det sammen med numerical background} \label{ch:theoretical_back}
-This chapter describes the necessary background for this study. It is organised as follows. The three first sections describe  the clouds' role in both present and future climate systems. Beginning with cloud formation and dissipation, including the cloud effects on Earth's radiative budget in the current climate and the suggestion of future cloud climatologies as proposed by \acrshort{ipcc} in \acrshort{ar5}. This is followed by a brief introduction to parameterization of clouds, i.e. the method used to incorporate clouds into climate models.
+\chapter{Theoretical Background/ Climate and Cloud Physcis} \label{ch:theoretical_back}
+This chapter describes the necessary background for this study. It is organised as follows. The three first sections describe the cloud's role in both present and future climate systems. Beginning with cloud formation and dissipation, including the cloud effects on Earth's radiative budget in the current climate and the suggestion of future cloud climatologies as proposed by \acrshort{ipcc} in \acrshort{ar5}. This is followed by a brief introduction to parameterization of clouds, i.e. the method used to incorporate clouds into climate models.
 % Therefore necessary in studies of cloud feedback's. %in future climates. 
-Finally, the data used in the compilation of the ECC dataset is introduced. 
+Finally, the data used in the compilation of the \acrshort{ecc} dataset is introduced. 
 
 \input{Chapter2_Theory/clouds.tex}
 \input{Chapter2_Theory/parameterizations}
@@ -42,11 +42,11 @@ Differences in sensitivity and retrieval algorithms contribute to a large spread
 \subsection{METeosat Second Generation, MSG} \label{sec:meteosat}
 The \acrfull{msg} was established as a corporation between \acrfull{esa} and \acrfull{eumetsat}. \acrshort{esa} was in charge of developing the prototype of MSG-1. \acrshort{eumetsat} is responsible for maintaining the user requirements, launch procedures, developing ground segments, ensuring overall system consistency and day to day operations. 
 
-The primary function of \acrshort{msg} is to provide continuous observations of the Earth's full disk. Near-constant sampling frequency and a geostationary orbit allows for observing weather phenomena occurring on short timescales. Located at $0^o$ \arcshort{msg} provides a varying spatial resolution, unlike the polar orbiting satellites. The resolution gets coarser with increasing off-nadir viewing angle (\cite{Stubenrauch2013AssessmentPanel}). There are efforts invested in extending the MSG dataset with the MFG, in order to make use of the time series all the way back to 1980. \textbf{kilde, launched 1977} This requires new cloud detection algorithms since they only have three common channels and only two of them are useful for detecting clouds (\cite{Stockli2019CloudApplications}). 
+The primary function of \acrshort{msg} is to provide continuous observations of the Earth's full disk. Near-constant sampling frequency and a geostationary orbit allows for observing weather phenomena occurring on short timescales. Located at $0^o$ \arcshort{msg} provides a varying spatial resolution, unlike the polar orbiting satellites. The resolution gets coarser with increasing off-nadir viewing angle (\cite{Stubenrauch2013AssessmentPanel}). There are efforts invested in extending the MSG dataset with the \acrfull{mfg}, in order to make use of the time series all the way back to 1980. \textbf{kilde, launched 1977} This requires new cloud detection algorithms since they only have three common channels and only two of them are useful for detecting clouds (\cite{Stockli2019CloudApplications}). 
 
 On board the \acrshort{msg} is the \acrfull{seviri} imaging radiometer. It has 12 spectral channels. The scan is done south to north, east to west. The wavelengths of the discrete channels are chosen based on heritage from other sensors. \arcshort{seviri} has one broadband visible channel, three solar channels (0.6, 0.8 and 1.6 $\mu m$) and 8 thermal infrared channels (3.9, 6.2, 7.3, 8.7, 9.7, 10.8, 12.0 and 13.4 $\mu m$) (\cite{Taravat2015MultilayerMasking}). This is of great advantage since much of the community already knows how to use the \acrshort{seviri} radiance observations. The channels have been chosen based on their ability to detect clouds, water vapour and ozone. More information about what the different channels detect is available in the paper \textit{An introduction to METeosat second generation (MSG)} published in \acrshort{bams} by \citepaper{Schmetz_meteosat_intro}.
 
-Prior to the launch of the METeosat researchers discussed the temporal frequency suitable for observing weather phenomena. The METeosat first generation had a temporal resolution of 30min (\cite{Stockli2019CloudApplications}). For the second generation, 15min intervals were chosen to best cope with the short lifetime and rapid deformation of clouds. It was also suggested that a temporal frequency of 1 to 10min is necessary for tracking cumulus type clouds. \textbf{kilde stubenau - dobbelsjekk må være en annen kilde}. This is in agreement with the Table 1.3 (see \cite{lohmann2016}, pp. 19) stating the lifetimes of different types of clouds.
+Prior to the launch of the METeosat researchers discussed the temporal frequency suitable for observing weather phenomena. The METeosat first generation had a temporal resolution of 30min (\cite{Stockli2019CloudApplications}). For the second generation, 15min intervals were chosen to best cope with the short lifetime and rapid deformation of clouds. It was also suggested that a temporal frequency of 1 to 10min is necessary for tracking cumulus type clouds. \textbf{kilde stubenau - dobbelsjekk må være en annen kilde}. This is in agreement with the Table 1.3 (see \cite{lohmann2016}, pp. 19) \textbf{Få frem at tabellen er i Lohman} stating the lifetimes of different types of clouds.
 
 A \textit{ring} of geostationary satellites located at equator together provide global coverage (excluding polar regions). The altitude of the satellite determines its forward velocity. To achieve a geosynchronous orbit, a satellite needs to maintain a height of $\sim 36 000km$ (\cite{Bley2013ASEVIRI}).  
 
@@ -61,8 +61,11 @@ The operational satellite at nadir points at $0^o$ latitude. A full disk is $371
 \end{figure}
 The operational cloud detection algorithm is carried out pixel by pixel. Post processing involves re-classifying isolated pixels. There is a lot of effort invested in new detection algorithms including spatial structures. One of the methods that show potential here is deep learning (\cite{Dronner2018FastNetworks}, \cite{jeppesen_deep_cloud_masking}).
 
-\textbf{Hugo foreslo å oppsummere før valget av dataset, med hva som er bra og hva som er dårlig med flere av dem for å få tydeligere frem hvilke jeg har undersøkt.}
+
+\textbf{Summerize the choice of cloud data.}
+
 %TS: Vel, det hadde i hvert fall vært bra å forklare hvorfor valget falt på dette datasettet
+
 \subsection{EUMETSAT Cloud Mask} \label{sec:EUMETSAT_cloud_mask}
 The \acrshort{eumetsat} cloud mask, CLM consist of four classes, described in Table \ref{tab:classes_clm}.
 \input{Chapter2_Theory/tables/description_EUMETSAT_cloud_mask}
