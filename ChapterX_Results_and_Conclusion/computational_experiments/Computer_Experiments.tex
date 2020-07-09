@@ -105,9 +105,9 @@ The inverse transformation of this is ordinary sigmoid, see Equation \eqref{eq:s
 
 \subsubsection{Lags and Environmental variables}
 The dataset for a particular model is a combination of the number of lags (order of model) and environmental variables such as $t2m$, $sp$, $q$ and $r$ \textbf{(TODO alle andre plasser har du skrevet det helt ut)} is included. The environmental variables never appear in isolation.
-Order the number of time steps of previous cloud cover includes as predictors. All models are trained either on the full set of environmental variables or none of them, such that no partial inclusion of environmental variables occurs. 
+Order or Lags describes the number of time steps of previous cloud cover included as a predictor. All models are trained either on the full set of environmental variables or none of them, such that no partial inclusion of environmental variables occurs. 
 
-\section{Til Trude. Resten er en kladd - jeg har lagt inn notater for å få en følelse på hvordan det blir seende ut til slutt. Noen plot er kun dummy data evt. screenshot fordi resultatene ikke er klare. Du må gjerne komme med inspill på ideene.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUDE RETTET OVER HER
 
 \subsubsection{Experimental setup (AR-models)}
 The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previous timestep of cloud cover included. AR og Tr describe whether the environmental variables are included in the dataset of not. %This description elaborated in Table \ref{tab:ar_model_config}.

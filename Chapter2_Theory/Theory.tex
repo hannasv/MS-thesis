@@ -67,13 +67,13 @@ The operational cloud detection algorithm is carried out pixel by pixel. Post pr
 The \acrshort{eumetsat} cloud mask, CLM consist of four classes, described in Table \ref{tab:classes_clm}.
 \input{Chapter2_Theory/tables/description_EUMETSAT_cloud_mask}
 \input{Chapter2_Theory/tables/msg_spectral_bands}
-These classes are derived from almost all channels except the broadband HRV and isolated pixels are reclassified \textbf{cite article 10 in Tavarat, 2015}. The cloud mask is distributed in \acrfull{grib},  without coordinates and \acrfull{netcdf}, processed with coordinates and reshaped into the standard rotation, as displayed i Figure \ref{fig:sat_view} The data is available via Earth Observation Portal on EUMETSATS web pages. 
+These classes are derived from almost all channels except the broadband HRV and isolated pixels are reclassified (\cite{Tavarat10_Derrien}). The cloud mask is distributed in \acrfull{grib},  without coordinates and \acrfull{netcdf}, processed with coordinates and reshaped into the standard rotation, as displayed i Figure \ref{fig:sat_view} The data is available via Earth Observation Portal on \acrshort{eumetsat}'s web pages. 
 
 \clearpage
 \subsection{WHY I CHOSE COMBINATION OF REANALYSIS AND msg - FEIL PLASS?}
-Using reanalysis data for the envionmental variable is a clear choice, there is no other products providing gridded data, coherent in time and space. 
+Using reanalysis data for the environmental variable is a clear choice, there is no other products providing distributed data, coherent in time and space. 
 
-Satelite data is the only platform (?) providing (almost) simultaneous global measurments, necessary for this task. 
-Having demonstrated its usefullness for task of \textbf{Les i \cite{Stockli2019CloudApplications}}.
-Secondly, the usefulness of rapid scans was given hight priority when making the choices for the databasis of \acrshort{ecc}. This has been demonstrated for nowcasting and other application \textbf{add citations from \cite{Stockli2019CloudApplications}}.
+Satelite data is the only platform (?) providing (almost) simultaneous global measurements, necessary for this task. 
+Having demonstrated its usefulness for task of \textbf{Les i \cite{Stockli2019CloudApplications}}.
+Secondly, the usefulness of rapid scans was given height priority when making the choices for the databasis of \acrshort{ecc}. This has been demonstrated for nowcasting and other application \textbf{add citations from \cite{Stockli2019CloudApplications}}.
 %TS: Vel, det hadde i hvert fall vært bra å forklare hvorfor valget falt på dette datasettet
