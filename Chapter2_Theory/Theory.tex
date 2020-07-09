@@ -12,7 +12,8 @@ Finally, the data used in the compilation of the \acrshort{ecc} dataset is intro
 This section presents the data used in the compilation of the dataset, including background information about remote sensing of cloud properties and the method used to retrieve the data. 
 
 \subsection{ERA5} \label{sec:era5}
-ERA5 is the latest in the series of reanalyses produced by \acrfull{ecmwf}. Reanalysis is as close to observations as one can get while still obtaining data that is complete and coherent in both space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations as input and tries to make an accurate estimate of the state of the system that is as consistent as possible with the available observations at all times. This includes observations retrieved from satellites, ships, buoys, airplanes and ground-based stations. The analysis is produced in the operational forecast system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available at a horizontal resolution of $0.25^o$ degree and hourly temporal resolution. It is an important product for the continuous monitoring of the Earth system (\cite{Hersbach2018OperationalStatus}).
+ERA5 is the latest in the series of reanalyses produced by \acrfull{ecmwf}. Reanalysis is as close to observations as one can get while still obtaining data that is complete and coherent in both space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations as input and tries to make an accurate estimate of the state of the system that is as consistent as possible with the available observations at all times. This includes observations retrieved from satellites, ships, buoys, airplanes and ground-based stations. The analysis is produced in the operational forecast system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available at a horizontal resolution of $0.25^o$ degree and hourly temporal resolution. It is an important product for the continuous monitoring of the Earth system 
+(\cite{Hersbach2018OperationalStatus}).
 
 Reanalyses data is often mistakenly referred to as observations. \citeauthor{Parker2016ReanalysesDifference} published an essay in \acrfull{bams} on this topic in \citeyear{Parker2016ReanalysesDifference}. Based on the following three points they conclude that observations and reanalyses are not too different. First, both involve inference, in other words, theory-based calculations. Second, reanalysis relies on forecast and observations do not. This is not a significant difference as long as the forecast is sufficiently accurate. Third, it is important to be aware that the uncertainty of the reanalyses is less well known than for observations. This makes it harder to judge the appropriate use of the reanalyses (\cite{Parker2016ReanalysesDifference}). 
 
@@ -46,28 +47,33 @@ The primary function of \acrshort{msg} is to provide continuous observations of 
 
 On board the \acrshort{msg} is the \acrfull{seviri} imaging radiometer. It has 12 spectral channels. The scan is done south to north, east to west. The wavelengths of the discrete channels are chosen based on heritage from other sensors. \arcshort{seviri} has one broadband visible channel, three solar channels (0.6, 0.8 and 1.6 $\mu m$) and 8 thermal infrared channels (3.9, 6.2, 7.3, 8.7, 9.7, 10.8, 12.0 and 13.4 $\mu m$) (\cite{Taravat2015MultilayerMasking}). This is of great advantage since much of the community already knows how to use the \acrshort{seviri} radiance observations. The channels have been chosen based on their ability to detect clouds, water vapour and ozone. More information about what the different channels detect is available in the paper \textit{An introduction to METeosat second generation (MSG)} published in \acrshort{bams} by \citepaper{Schmetz_meteosat_intro}.
 
-Prior to the launch of the METeosat researchers discussed the temporal frequency suitable for observing weather phenomena. The METeosat first generation had a temporal resolution of 30min (\cite{Stockli2019CloudApplications}). For the second generation, 15min intervals were chosen to best cope with the short lifetime and rapid deformation of clouds. It was also suggested that a temporal frequency of 1 to 10min is necessary for tracking cumulus type clouds. \textbf{kilde stubenau - dobbelsjekk må være en annen kilde}. This is in agreement with the Table 1.3 (see \cite{lohmann2016}, pp. 19) \textbf{Få frem at tabellen er i Lohman} stating the lifetimes of different types of clouds.
+Prior to the launch of the METeosat researchers discussed the temporal frequency suitable for observing weather phenomena. The METeosat first generation had a temporal resolution of 30min (\cite{Stockli2019CloudApplications}). For the second generation, 15min intervals were chosen to best cope with the short lifetime and rapid deformation of clouds. It was also suggested that a temporal frequency of 1 to 10min is necessary for tracking cumulus type clouds (\cite{Schmetz_meteosat_intro}). % 987 
+This is in agreement with the Table 1.3 in \citeauthor{lohmann2016} (\citeyear{lohmann2016}, p. 19) stating the lifetimes of different types of clouds.
 
 A \textit{ring} of geostationary satellites located at equator together provide global coverage (excluding polar regions). The altitude of the satellite determines its forward velocity. To achieve a geosynchronous orbit, a satellite needs to maintain a height of $\sim 36 000km$ (\cite{Bley2013ASEVIRI}).  
 
-The first Meteosat Second Generation (MSG-1) was launched 28 August 2002, and became operational 29 January 2004 when it was renamed Meteosat-8. As a measure to reduce gaps, the \acrshort{msg} system provides a two-satellite system, one operational and one standby. The standby satellite scans when the operational satellite experiences technical failures. 
+The first METeosat Second Generation (MSG-1) was launched 28 August 2002, and became operational 29 January 2004 when it was renamed METeosat-8. As a measure to reduce gaps, the \acrshort{msg} system provides a two-satellite system, one operational and one standby. The standby satellite scans when the operational satellite experiences technical failures. 
 The operational satellite at nadir points at $0^o$ latitude. A full disk is $3712\times 3712$ pixels, and is sampled in cycles of 15min (\cite{Schmetz_meteosat_intro}).
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.11]{Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_20191123120000.jpg}    
+    \includegraphics[scale=0.11]{Chapter2_Theory/images/MET10_RGBNatColourEnhncd_FullResolution_20191123120000.jpg}
     \caption{The view of Earth by \acrshort{seviri} on \acrshort{msg}, in naturally enhanced colours. This snapshot is dated noon 23rd of November 2019. By studying this image it becomes clear that clouds are influenced by circulation  (\cite{eumetcast_image_gallery}).}
     \label{fig:sat_view}
 \end{figure}
 The operational cloud detection algorithm is carried out pixel by pixel. Post processing involves re-classifying isolated pixels. There is a lot of effort invested in new detection algorithms including spatial structures. One of the methods that show potential here is deep learning (\cite{Dronner2018FastNetworks}, \cite{jeppesen_deep_cloud_masking}).
-
-
-\textbf{Summerize the choice of cloud data.}
-
-%TS: Vel, det hadde i hvert fall vært bra å forklare hvorfor valget falt på dette datasettet
 
 \subsection{EUMETSAT Cloud Mask} \label{sec:EUMETSAT_cloud_mask}
 The \acrshort{eumetsat} cloud mask, CLM consist of four classes, described in Table \ref{tab:classes_clm}.
 \input{Chapter2_Theory/tables/description_EUMETSAT_cloud_mask}
 \input{Chapter2_Theory/tables/msg_spectral_bands}
 These classes are derived from almost all channels except the broadband HRV and isolated pixels are reclassified \textbf{cite article 10 in Tavarat, 2015}. The cloud mask is distributed in \acrfull{grib},  without coordinates and \acrfull{netcdf}, processed with coordinates and reshaped into the standard rotation, as displayed i Figure \ref{fig:sat_view} The data is available via Earth Observation Portal on EUMETSATS web pages. 
+
+\clearpage
+\subsection{WHY I CHOSE COMBINATION OF REANALYSIS AND msg - FEIL PLASS?}
+Using reanalysis data for the envionmental variable is a clear choice, there is no other products providing gridded data, coherent in time and space. 
+
+Satelite data is the only platform (?) providing (almost) simultaneous global measurments, necessary for this task. 
+Having demonstrated its usefullness for task of \textbf{Les i \cite{Stockli2019CloudApplications}}.
+Secondly, the usefulness of rapid scans was given hight priority when making the choices for the databasis of \acrshort{ecc}. This has been demonstrated for nowcasting and other application \textbf{add citations from \cite{Stockli2019CloudApplications}}.
+%TS: Vel, det hadde i hvert fall vært bra å forklare hvorfor valget falt på dette datasettet

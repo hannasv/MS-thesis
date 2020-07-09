@@ -2,16 +2,13 @@
 %\textit{In doing so, we do not include the effects of changes to the cloud microphysics explicitly.} Building a model based on meteorological variables provided by a reliable estimate from reanalysis datasets.
 All global climate simulations are limited by computational power and the typical model grids are much too coarse to resolve all relevant processes governing clouds. Parameterization allows us to nevertheless simulate the effects of clouds on the climate, through simplified representations of cloud processes that are a function of resolved model variables. The development of both observational and modelling systems requires a understanding of the physical and biogeochemical processes that take place in the earth system (\cite{Simmons2016Observation2016-2025}). New ideas are implemented into models and tested. The simulated climate should be in accordance with observations and be able to recreate previous climate. 
 
-The complex nature of clouds originates from lots of different processes occurring simultaneously on different scales. Incorporating all these interactions into a model framework has proven to be difficult (\cite{IPCC_CH9_climate_models} +++ ). \textbf{Finn multiple sources} 
+The complex nature of clouds originates from lots of different processes occurring simultaneously on different scales. Incorporating all these interactions into a model framework has proven to be difficult (\cite{IPCC_CH9_climate_models}, \cite{IPCC_CH7_clouds} +++ ). \textbf{Finn multiple sources} 
 
 % https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
 % https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
-
 % Due to small scale of the processes involved, modelling the effects of clouds on the earth system requires parameterizations. 
 % Due to the large uncertainty in \acrfull{ecs} related to clouds. 
-
 %This area has received a lot of attention the last few years. A consequence of increasing the complexity of the models is the trailing increase in uncertainty. Popular approaches are saturation threshold, \acrfull{pdf} and \acrfull{crm}. 
-
 %The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. When you one as seperate parameterizations for different cloud regimens, a consequence of this is that the cloud fraction might exceed 1.
 
 \subsection{Relative humidity schemes}
@@ -31,11 +28,11 @@ Based on observations from airplane campaigns, researchers have attempted to dra
 %TS: Hva prøver du egentlig å si her over ("Virtually all...")? Jeg henger ikke helt med i resonnementet
 A reproduction of the summary from \cite{Tompkins2009CloudParametrization}, describing distribution used in a selection of papers is given in Table \ref{tab:summary_PDF}.
 \input{Chapter2_Theory/tables/param_summary_tomkins}
-Researchers have not been successful in finding an adequate representation of cloud cover using these approaches (\cite{Tompkins2009CloudParametrization}) \textbf{Dobbelsjekk at det står der}. 
+Researchers have not been successful in finding an adequate representation of cloud cover using these approaches (\cite{Tompkins2009CloudParametrization}). 
 
-\cite{Golaz2002_part1} derived a joint \acrshort{pdf} of the sub-gridscale variability, serving as the base for parameterizing boundary layer clouds. This scheme is implemented in \acrfull{noresm} and \acrfull{cesm}, to recognised \acrshort{esm} (\textbf{citation ask Trude})
+\cite{Golaz2002_part1} derived a joint \acrshort{pdf} of the sub-gridscale variability, serving as the base for parameterizing boundary layer clouds. This scheme is implemented in \acrfull{noresm} (\cite{SelandNORESM}) and \acrfull{cesm}, to recognised \acrshort{esm} (\cite{DanabasogluCESM}).
 %TS: For NorESM kan du referere til Seland et al. (2002), og for CESM2 kan du referere til Danabasoglu et al. (2020)
-. The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment. For more details see \cite{Golaz2002_part1} and \cite{Golaz2002_part2}.
+The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment. For more details see \cite{Golaz2002_part1} and \cite{Golaz2002_part2}.
 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
 \subsection{Cloud resolving models} \label{sec:params_climate_models}
