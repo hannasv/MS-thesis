@@ -182,7 +182,7 @@ Models are given names based on an extension of the convention from \citepaper{p
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{cccccc}
      & \textbf{Sequence Length} & \textbf{Batch Size} & \textbf{Hidden States} & \textbf{Kernels} & \textbf{Num. Parameters} \\ \hline
-    \textbf{$ConvLSTM-B_{5}-SL_{24}-256-3\times3-256-3\times3$} & 24 & 5 & [256, 256]   & [3, 3] & 98347984 \\ \hline
+    \textbf{$ConvLSTM-B_{5}-SL_{24}$ \newline $-256-3\times3-256-3\times3$} & 24 & 5 & [256, 256]   & [3, 3] & 98347984 \\ \hline
     \textbf{$ConvLSTM-B_{15}-SL_{24}-256-5\times5-256-5\times5$} & 24 & 15 & [256, 256]  & [5, 5] & 4244308 \\ \hline
     \textbf{$ConvLSTM-B_{10}-SL_{24}-128-1\times1-128-1\times1$} & 24 & 10 &  [128, 128] & [1, 1] & 0927502 \\ \hline
     \textbf{$ConvLSTM-B_{5}-SL_{6}-64-3\times3-64-3\times3$} & 6 & 5 & [64, 64]      & [3, 3] & 9472 \\ \hline
@@ -203,8 +203,8 @@ Models are given names based on an extension of the convention from \citepaper{p
 
 \begin{figure}
     \centering
-    \includegraphics[scale=0.4]{python_figs/example_model.png}
-    \caption{Example of how I intend to visualise the best architecture generated for this study. One expect the largest decrease to happen after the first epoch, this difference shows how much it has learned by looking at the entire dataset once (or twice..z)}
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model.tikz}
+    \caption{Stucture of cloud cover forecasting model. \textbf{Add tekst}}
     \label{fig:best_ml_architecture}
 \end{figure}
 

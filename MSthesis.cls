@@ -33,7 +33,7 @@
 %\usetizlibrary{calc,fadings,decorations.pathreplacing}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{matrix,positioning,fit,backgrounds,intersections, fit, arrows.meta, shapes}
-
+\usetikzlibrary{3d,decorations.text,shapes.arrows,positioning,fit,backgrounds}
 \usepackage{titlesec}
 
 %\setcounter{secnumdepth}{4} % gives numbers to subsubsections
