@@ -78,4 +78,9 @@ coordinate(-front-bottom-right) -- cycle;
 
 \foreach \X in {1,2,3}
 {\draw[-latex] (A\X) -- (B2);}
+
+\draw[thick](0.7, 3)node[scale=1.]{\small $81\times 161 \times 4 $};
+\draw[thick](2.8, 3)node[scale=1.]{\small $81\times 161 \times 16 $};
+\draw[thick](5, 3)node[scale=1.]{\small $81\times 161 \times 16 $};
+\draw[thick](7, 3)node[scale=1.]{\small $81\times 161 \times 1 $};
 \end{tikzpicture}
