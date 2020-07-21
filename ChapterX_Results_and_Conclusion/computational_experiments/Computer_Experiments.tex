@@ -136,7 +136,8 @@ Inherited from the nature of the transformation of the predictors the hyperparam
 
 \begin{figure}
     \centering
-    \includegraphics[scale = 0.5]{python_figs/MSE_score_AR_models.png}
+    \includegraphics[scale = 0.5]{python_figs/MSE_score_AR_models.png. %\textbf{same colormap as MAE or obly for grids} 
+    }
     \label{fig:results_ar_models}
 \end{figure}
 
@@ -148,12 +149,6 @@ Mention that the results are computed by using Equations \eqref{eq:mse} and \eqr
     \caption{Reuse this plotting routine to plot the distributed MAE score of the overall best model, \textbf{named X}.}
     \label{fig:grid_mse_best_model}
 \end{figure}
-
-\begin{enumerate}
-    %\item \textbf{TODO: For the best model plot a grid og MAE and look for patterns n the geographical varying performance.}
-    %\item \textbf{Check magnitude of weights and determine/discuss whether any of them can be excluded. Include this as a table}
-    \item \textbf{Rename bias to intercept? write bias (intercept)!}
-\end{enumerate}
 
 \begin{table}[hp]
     \centering
@@ -173,7 +168,31 @@ Mention that the results are computed by using Equations \eqref{eq:mse} and \eqr
 The formulation of the air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. %The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}.
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
 A lot of architectural decisions such as batch size, sequence length, number of filters and number of layers can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. Between each layer is a Batch Normalization layer. According to the paper \citepaper{ioffe2015batch} this should simplify the training process. Padding same is applied to all layers, to make sure the input and output dimensions are the same. This is described in more detail in Section \ref{sec:padding}. The feature was added between each layer. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. Epochs is the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model aims to learn to predict. Number of hidden states it the number of filters it learns in each layer. Cite Section \ref{sec:convolutional neural network} for description of hidden states. 
-The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions, similar to \acrshort{ar}-models without interactions between adjacent pixels. A more detailed description on this is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. \textbf{Look in the model on other hyperparameters set as constants, like weight init +++ no shuffle on input data, should not help with may epochs then?}
+The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions, similar to \acrshort{ar}-models without interactions between adjacent pixels. A more detailed description on this is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
+\newline \newline
+List of hyperparameters kept constant
+\begin{enumerate}
+    \item padding = 'same'
+    \item kernel init = lecun uniform
+    \item return sequence = True % False defies the purpose if the LSTM 
+    \item Output filter and utput kernel size = 1
+    \item Callbacks:  Early stopping with patience of 10 (rerun model run on patience 3)
+    \item Callbacks: Terminate on Nan's 
+    \item shuffle input data = False
+    \item optimizer ADAM with default settings, 
+    learning rate 0.001, beta = 0.9, beta2 = 0.999, epsilon = 1e-7, amsgrad = False 
+    \item loss mean squared error, penalize larger deviations more hence the loss function mae is used as metric since its easier to interpred. 
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume.tikz}
+    \caption{Thoughts, would this be usefull when finished or not. It is ment to illustrate the 5 dimensional input voume im having trouble illustrating in Figure \ref{fig:best_ml_architecture} Improvement use a dark colored box to incapsule the sequences.}
+    \label{fig:input_volume_conv_lstm}
+\end{figure}
+
+
+\textbf{Look in the model on other hyperparameters set as constants, like weight init +++ no shuffle on input data, should not help with may epochs then?}
 
 \subsubsection{Experimental setup (ConvLSTM)}
 Models are given names based on an extension of the convention from \citepaper{precip_nowcasting}. The paper introduces the convention ConvLSTM-hidden states-filter$\times$filter, adding the batch size and sequence length as tunable parameters. The resulting naming convention is \newline $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$
@@ -205,7 +224,7 @@ Models are given names based on an extension of the convention from \citepaper{p
 \begin{figure}
     \centering
     \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model.tikz}
-    \caption{Stucture of cloud cover forecasting model. \textbf{Add tekst} Four input variables, 16 hidden states in each convolutional LSTM layer and $3\times 3 kernel$. The output is not exactly two dimensional this should be a volume of the sequence length}
+    \caption{Stucture of cloud cover forecasting model. \textbf{Add tekst} Four input variables, 16 hidden states in each convolutional LSTM layer and $3\times 3 kernel$. \textbf{Help how to best include the dimension sequence length and batch size}. The input shape is 10x24x81x161x4 and output 24x81x161x1}
     \label{fig:best_ml_architecture}
 \end{figure}
 
