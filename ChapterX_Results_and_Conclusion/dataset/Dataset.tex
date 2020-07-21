@@ -123,7 +123,7 @@ Figure \ref{fig:pixels_contributing_to_cell}. Based on the small overlapping are
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/signal_area_pixel.pdf}
-    \caption{Pixel areas decreasing poleward, also the pattern appears to be more pronounced close to the meridian decreasing in both east and west direction.}
+    \caption{The surface areas of pixels decreasing poleward. Note, the pattern appears to be more pronounced close to the meridian decreasing in both east and west direction.}
     \label{fig:area_pixel_signal}
 \end{figure} 
 
@@ -146,7 +146,7 @@ A reason for confusion in the process of developing the \acrshort{awrs} algorith
 \begin{figure}
     \centering
     \includegraphics{python_figs/visual_regridding.pdf}
-    \caption{Result from regridding raw data, provided with land and sea masks in the absence of clouds. Land is illustrated in teal, ocean in purple and clouds in white.}
+    \caption{Result from regridding the raw product, which includes land and sea masks in the absence of clouds. Land is illustrated in teal, ocean in purple and clouds in white.}
     \label{fig:visual_inspection_regridding}
 \end{figure}
 
@@ -234,9 +234,16 @@ The spatially averaged time series for the first week of August in 2012 is shown
 \textit{Because of the different intervals of the axes, the magnitude of the signal proves difficult to determine from such a plot. The surface pressure over land and ocean appear to be a scaling of the ``no filter''. A common factor for all variables is the position if the filters relevant to each other, ``sea'' > ``no filter'' > ``land''. In some cases the monthly average temperature over land is higher than over ocean.}
 \begin{figure}[ht]
     \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.png}
-    \caption{Spatially averaged time series from the first week of August 2012.}
-    \label{fig:first_week_august_2012}
+    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-09-01.png}
+    \caption{Spatially averaged time series from the first week of September 2012.}
+    \label{fig:first_week_sep_2012}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/timelapse_tcc_spike_09_2012.pdf}
+    \caption{Timeseries for the spike detected in Figure \ref{fig:first_week_sep_2012}. It does not look like a unphyscal hendelsesforløp}
+    \label{fig:spike_sep_2012}
 \end{figure}
 
 
@@ -279,9 +286,25 @@ Specific humidity shows a clear shift at longitudinal degree 10. The land area i
 In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. This seems reasonable since warmer air can retain more vapour.%, on the other hand this could enhance evaporation rate, making more vapour available for condensing onto particles. 
 
 % Finished regriddidng files.
+\subsection{Comparison to ERA5 - fractional cloud cover}
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/mae_era_vs_target_test_period_2014_to_2018.png}
+    \caption{\acrshort{mae} between the \acrshort{cfc} in ERA5 and \acrshort{ecc}. Revealing systematic errors in regions over the \textbf{add regions with systematic errors}, Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systematic errors appear to be in region fewer observation, i.e. mountainous regions and over the sea. Dust storm causing the red ocean off the coast of Sahara..?}
+    \label{fig:mae_era_target}
+\end{figure}
+
+\begin{enumerate}
+    \item Compute statistics for ERA5 to compare the average. 
+    \item Compute correlations in pixels back in time.
+\end{enumerate}
+
+
+% Finished regriddidng files.
 \subsection{Summary}
 \acrshort{ecc} is comprised of five variables; temperature, pressure, cloud fractional cover, relative and specific humidity. These are collected from two sources; ERA5 and EUMETSAT. The resolution available in ERA5 was preserved, while remapping the cloud mask to cloud fractional cover. 
 % duplication
 The final product consist of %the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available
 hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
+\clearpage
 \input{Chapter2_Theory/tables/table_transposed.tex}

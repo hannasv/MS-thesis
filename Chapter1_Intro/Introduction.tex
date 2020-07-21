@@ -3,22 +3,22 @@
 Weather and climate have a major influence of life on Earth. While the globe struggles to support the needs of an increasing population, human activity continues to change the environment. %Emissions of greenhouse gases have a delayed influence on temperature. %For the current atmospheric composition, the surface temperature required to close the energy budget is higher than the global mean temperature of $255K$. \textbf{dette er -18 tempen jordkloden hadde hatt uten atmosphere}
 % The \acrfull{ecs} is the amount of warming that will occur ones all 
 
-Technological advances starting with the industrial revolution have caused a steady increase in fossil fuel emissions since the late 18\textsuperscript{th} century. %(1701–1800)
-Resulting in a rise of $CO_2$-concentration in the atmosphere. $CO_2$ is a greenhouse gas and the emissions cause a imbalance in the energy budget, driving global warming.
+Technological advances starting with the industrial revolution have caused a steady increase in anthropogenic emissions since the 18\textsuperscript{th} century. %(1701–1800)
+Consequently (Leading to) a increase in the atmosphere $CO_2$-concentration. $CO_2$ is a greenhouse gas and the emissions cause a imbalance in the energy budget. Greenhouse gases case a decrease in longwave radiation emitted to space, driving global warming.
 %Global warming is in progress. 
 Greenhouse gas emissions have a delayed effect on temperature and it will keep rising until it has reached the equilibrium temperature, closing the energy budget. 
 %TS: Det går litt raskt i svingene her - først må du si at økningen i utslipp har ført til en økning av CO2 i atmosfæren. Deretter at denne økningen gir en ubalanse i energibudsjettet fordi CO2 er en drivhusgass. Så kommer du til den forsinkede temperatur-responsen 
 
 Providing a realistic estimate of future climates is important for motivating mitigation and limiting the global temperature increase. 
 % avoiding tipping points. 
-This introduces the need for studying potential futures using a combination of models and idealised experiments. A common, yet not very intuitive quantity used to describe this temperature increase is the \acrfull{ecs}. The \acrshort{ecs} is computed as the linear fit between perturbed global mean surface temperature and the radiative imbalance at \acrfull{toa}.
+This introduces the need for studying potential futures using a combination of models and idealised experiments. A common, yet not very intuitive quantity used to describe this temperature increase is the \acrfull{ecs}. The \acrshort{ecs} is computed as the linear fit between perturbed global mean surface temperature and the radiative imbalance at \acrfull{toa}. 
 %TS: Må si her hva ECS faktisk er
 
 Estimates based on %an ensemble of models, \acrfull{cmip5}, 
 simulations prepared for the latest assessment report (\acrshort{ar5}) produced by the \acrfull{ipcc} puts \acrshort{ecs}s in the range from $2.1^oC$ to $4.7^oC$ (\cite{IPCC_CH9_climate_models}, p.817). These runs are forced with instantaneous quadrupling of the $CO_2$ concentration %(of pre-industrial levels 
 and keeping it constant for 150 years.  
 %from runs forced with a 
-\acrshort{ar5} was published in \citeyear{IPCC_entire_book}, since then a lot of research efforts have been invested in reducing the spread (\cite{Hall2019}, \cite{Cox2018}) (\textbf{Trude suggestion citation - LES}).
+\acrshort{ar5} was published in \citeyear{IPCC_entire_book}, since then a lot of research efforts have been invested in reducing the spread (\cite{Cox2018}). % Removed hall
 %TS: Ja, f.eks. Hall et al. (Nature Climate Change, 2018) og Cox et al. (Nature, 2018)
 The socio-economic consequences related to the uncertainty is enormous (\cite{bony2015}). 
 
@@ -35,17 +35,18 @@ Image manipulation allows you to transform Monet paintings to pictures and back 
 \acrshort{dl} has already proven its value in many fields. The scope of this study is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions. For this task \acrfull{ar} models and \acrfull{convlstm} are considered. 
 
 Compared to existing cloud parameterizations implemented in \acrshort{gcm}'s these models provide a substantial simplification.
-However it is a requirement to enable the use of \acrshort{dl}.
-This study attempts to answer if its a appropriate method for solving cloud cover predictions.
+However, this simplification is requirement to enable the use of \acrshort{dl}. This study attempts to answer if it is an appropriate method for solving cloud cover predictions.
 %\textit{} \textit{It remains a open question if its the best model for tackling this task, predicting cloud cover.} Even thought machine leaning is has proven able for great advances in certain fields. 
 %TS: Du trenger teksten ovenfor. Det er viktig å få frem at metoden du prøver ut er veldig forenklet sammenliknet med sky-parameteriseringene som finnes i GCMer i dag, men at forenklingen netopp muliggjør bruk av data gjennom DL
-Occam's razor is an old philosophical concept. It states that if two hypotheses are equally likely, the simplest one should be preferred (\cite{noauthor_occams_nodate}). For this application, the compilation of a new dataset was deemed necessary. The dataset is named \acrfull{ecc}, and is composed of reanalysis data from ERA5 (\cite{Hersbach2018OperationalStatus}) and satellite retrievals from \acrfull{msg} (\cite{Schmetz_meteosat_intro}).
+Occam's razor is an old philosophical concept. It states that if two hypotheses are equally likely, the simplest one should be preferred (\cite{noauthor_occams_nodate}). 
+
+For this application, the compilation of a new dataset was deemed necessary. The dataset is named \acrfull{ecc}, and is composed of reanalysis data from ERA5 (\cite{Hersbach2018OperationalStatus}) and satellite retrievals from \acrfull{msg} (\cite{Schmetz_meteosat_intro}).
 %TS Includer referanser her
 The dataset has a temporal resolution of one hour and spatial resolution of $0.25^o$. Clouds have an average lifetime of less than one hour (\cite{lohmann2016}, p. 19), thus it should be achievable to extract suitable features to make reasonable predictions. 
 
 There is currently considerable interest in and activities around \acrfull{ml} and \acrshort{ai}. The practical applications to climate research are under investigation. The last few years researchers have attempted to incorporate \acrshort{dl} into Geosciences, with the goal of solving a wide range of problems, from rainfall runoff modelling (\cite{hess-23-5089-2019}) to  high-resolution weather forecasting (\cite{Rodrigues2018DeepDownscale:Forecast}). Another more comprehensive \acrshort{ml} project is led by Tapio Schneider at \acrfull{caltech}. Along with his team he has ambitions to create a next-generation \acrfull{esm} using \acrshort{ml}, by creating a platform that can resolve clouds and hopefully reduce the uncertainty in climate sensitivity (\cite{Voosen2018ScienceIntelligence}).
 
-There is high confidence that a lot of the spread in \acrshort{ecs} can be attributed to cloud feedbacks (\cite{IPCC_CH9_climate_models},p.817). Developing new methods for cloud cover predictions is thus believed to potentially produce more reliable estimates of future climates. Focusing on a simplified representation that still captures the most relevant processes stands the best chance of reducing the spread. This thesis is a ``proof of concept'' study investigating the potential for using a data driven approach for parameterizing \acrfull{cfc} based on standard environmental variables. 
+There is high confidence that a lot of the spread in \acrshort{ecs} can be attributed to cloud feedbacks (\cite{IPCC_CH9_climate_models},p.817). Developing new methods for cloud cover predictions is believed to produce more reliable estimates of future climates. Focusing on a simplified representation that still captures the most relevant processes stands the best chance of reducing the spread. This thesis is a ``proof of concept'' study investigating the potential for using a data driven approach for parameterizing \acrfull{cfc} based on standard environmental variables. 
 %at a satisfactory precision.
 
 

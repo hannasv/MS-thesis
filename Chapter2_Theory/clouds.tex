@@ -11,7 +11,7 @@ Clouds play an important role in the climate system both affecting the radiative
 %\newpage
 
 \subsection{Evolution of clouds}
-Clouds are composed of liquid droplets, ice crystal or both. To this day the microphysics of all phases are not fully understood \textcolor{red}{\textbf{kilde - les å sjekk at den kan brukes} \cite{ReviewMicroPhys}}. Here mixed phase clouds, consisting of both liquid and ice, have proven to be the most difficult to fully understand. 
+Clouds are composed of liquid droplets, ice crystal or both. To this day the microphysics of all phases are not fully understood. Here mixed phase clouds, consisting of both liquid and ice, have proven to be the most difficult to fully understand (\cite{IPCC_CH7_clouds}). 
 
 \textit{Aerosols} include both liquid and solid particles suspended in the air. They interact with the clouds by serving as particles which vapour and ice can condensate or deposit upon. The different phases require different properties and the nuclei are called \acrfull{ccn} for liquid droplets and \acrfull{inp} for ice crystals. 
 % Chemistry definition of saturation - the degree or extent to which something is dissolved or absorbed compared with the maximum possible, usually expressed as a percentage.
@@ -19,7 +19,7 @@ In the following discussion, \textit{saturation} describes the equilibrium state
 For phases such as liquid water and vapour, saturation implies equal rates of condensation and evaporation. Phase changes occur when the system deviates from the equilibrium state. Under supersaturated conditions, the rate of condensation exceeds the rate of evaporation, facilitating vapour to condense onto suitable aerosols and initiating the formation of clouds. 
 % The energy barrier needed to overcome (surface tension) to homogeneous nucleation 
 
-Saturation is usually achieved by a temperature decrease in rising air masses. The saturation vapour pressure, $e_s$, is the quantity describing the maximum amount of vapour air can retain at a certain temperature. The way in which $e_s$ depends on the temperature, $T$, is described by the Clausius-Clapeyron equation for water, see Equation \eqref{eq:clausius_clapeyron_differentias}. The entalphy of vaporization, $l_v$, is the amount of energy needed to evaporate one unit (e.g one mole) of molecules from the liquid. This is also known as the latent heat of vaporization. 
+Saturation is usually achieved by a temperature decrease in rising air masses. The saturation vapour pressure, $e_s$, is the quantity describing the maximum amount of vapour air can retain at a certain temperature. The way in which $e_s$ depends on the temperature, $T$, is described by the Clausius-Clapeyron equation for water, see Equation \eqref{eq:clausius_clapeyron_differentias}. The entalphy of vaporization, $l_v$, is the amount of energy needed to evaporate one unit of molecules (e.g one mole) from the liquid. This is also known as the latent heat of vaporization. 
 \begin{equation} \label{eq:clausius_clapeyron_differentias}
     \frac{de_s}{dT} = \frac{l_v e_s}{R T^2}
 \end{equation}
@@ -30,21 +30,18 @@ a reasonable assumption for the ranges of temperatures of atmospheric interest. 
 \begin{equation} \label{eq:clausius_clapeyron}
     e_s\left( T \right) = e_0 e^{\frac{l_v}{R} \left( \frac{1}{T_0} - \frac{1}{T} \right) }
 \end{equation}
-From Equation \eqref{eq:clausius_clapeyron} it is clear that $e_s$ increases with rising temperature, resulting in the phenomena that warmer air can retain more vapour. The same principles apply for the phase change sublimation, but its entalphy, $l_s$, has a distinct value (\cite{cloud_phys_book_johanne}, p.135). The saturation vapour pressure with respect to ice, $e_i$, can be derived by replacing $l_v$ by $l_s$. Subsaturated conditions cause the cloud liquid water to evaporate, and ultimately the cloud disappears. This can happen when the cloud mixes with dry air or the temperature increase. The reverse process of adiabatic cooling, caused by sinking air masses in cloud. 
-
+From Equation \eqref{eq:clausius_clapeyron} it is clear that $e_s$ increases with rising temperature, resulting in the phenomena that warmer air can retain more vapour. The same principles apply for the phase change sublimation, but its entalphy, $l_s$, has a distinct value (\cite{cloud_phys_book_johanne}, p.135). The saturation vapour pressure with respect to ice, $e_i$, can be derived by replacing $l_v$ by $l_s$. Subsaturated conditions cause the cloud liquid water to evaporate, and ultimately the cloud disappears. Often caused by a mixed with dry ambient air or a temperature increase initiated by sinking airmasses among other mechanisms.
+%This can happen when the cloud mixes with dry air or the temperature increase. The reverse process of adiabatic cooling, caused by sinking air masses in cloud. 
 %From Equation \eqref{eq:clausius_clapeyron} it becomes clear that the  is inversely proportional with the second power of the temperature, meaning that for decreasing temperatures the vapour pressure 
 %Double check if this id only valid for adiabatic processes, is there any other assumptions..?
 %$R^*$ is the specific gas constant (the universal
 %gas constant divided by the mean atmospheric molecular
 %weight).  
-Growth processes are phase dependent. Liquid droplets grow by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}, \textbf{p.222}, men det referes til pruppacher og klett 1997) droplets spontaneously freeze, while at warmer temperatures freezing can only occur with the aid of an  \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour and then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, the Wegeron-Bergeron-Findeisen process describes the mechanism where droplets evaporate and the vapour deposits on to the ice crystals. %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
-This mechanism exists because the saturation vapour pressure is lower with respect to ice than water, $e_i < e_s$. The process is most efficient at -12$^{\circ}C$ when the difference is largest.
-
-%\section{Clouds role in the energy budget}
+Growth processes are phase dependent. Liquid droplets grow by diffusion and later by collision and coalescence. At temperatures around -38 $^oC$ (\cite{lohmann2016}, \textbf{p.222}) droplets spontaneously freeze, while at warmer temperatures freezing can only occur with the aid of an  \acrshort{inp}. Clouds consisting purely of ice crystals first grow by deposition of vapour and then by aggregation (\cite{Fowler1996LiquidAssumptions}). In the presence of both phases, the Wegeron-Bergeron-Findeisen process describes the mechanism where droplets evaporate and the vapour deposits on to the ice crystals. %When both phases are present in a cloud, the saturation vapour pressure over ice is higher than over liquid. This may cause the droplets to evaporate and deposit on to the ice crystals. 
+This mechanism exists because the saturation vapour pressure is lower with respect to ice than water, $e_i < e_s$. The process is most efficient at -12$^{\circ}C$ when the difference is largest. Macrophysical properties describe the clouds as units, using properties like base height, top height, thickness, fractional cover and regime (also known as type). Microphysical processes are all mechanisms involving the particles forming a cloud. Examples of properties used to quantify the microphysical state
+are \acrshort{ccn} and droplet number concentrations (\cite{Grabowski2019ModelingBetter}).
 
 \subsection{Clouds role in the radiative budget}
-\textbf{MOVE TO THE MOST SUITABLE SPOT. Macrophysical properties describe the clouds as units, using properties like base height, top height, thickness, fractional cover and regime (also known as type). Microphysical processes are all mechanisms involving the particles forming a cloud. Examples of properties used to quantify the microphysical state
-are \acrshort{ccn} and droplet number concentrations (\cite{Grabowski2019ModelingBetter}).}
 The characteristic white colour of the clouds has it nature in its ability to  effectively scatter solar radiation. %(explains why they appear white - because the backscatter radiation of all wavelenght in the visible spectrum)
 %In part, this mechanism describes the important role in the Earth radiative budget. 
 The Earth bathes in radiation from the Sun. Passing through the atmosphere, a small portion of the radiation gets absorbed while another portion gets scattered by clouds and aerosols. The majority of the radiation reaches the Earth and transforms into heat, warming the surface. The Earth emits thermal radiation, a minor portion of which escapes directly back to space, while most of it gets absorbed by the atmosphere and is re-emitted. This phenomena is known as \textit{the greenhouse effect}. 
@@ -75,7 +72,7 @@ The greenhouse effect increases with the cloud altitude, enhanced by the increas
 %Despite the uncertainties related to emissivity of the medium, the re-emitted radiation is of a lower intensity than what it absorb.
 %This is shown in equations \eqref{eq:cre_sw} and \eqref{eq:cre_lw}. \textbf{drop equations..?}
 \section{Clouds in the current climate} \label{sec:intro_cloud_current_climate}
-On the basis of simulations and available observational data, both remote sensing and in-situ measurements, \citepaper{Wild2019TheModels} have quantified the contribution of elements in the Earth's annual global mean energy budget. The Cloud radiative effect (\acrshort{cre}) is computed by subtracting the components of a cloudy atmosphere from a cloud-free atmosphere (\cite{RAMANATHAN1989}), usually at the top-of-the-atmosphere (\acrshort{toa}). The altitude along with the composition of clouds determine their optical properties and in turn their interactions with radiation.
+On the basis of simulations and available observational data, both remote sensing and in-situ measurements, \citepaper{Wild2019TheModels} have quantified the contribution of elements in the Earth's annual global mean energy budget. The \acrfull{cre} is computed by subtracting the components of a cloudy atmosphere from a cloud-free atmosphere (\cite{RAMANATHAN1989}), usually at the top-of-the-atmosphere (\acrshort{toa}). The altitude along with the composition of clouds determine their optical properties and in turn their interactions with radiation.
 
 \input{Chapter2_Theory/images/cre_with_text}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% WILD FIGURE 
@@ -103,7 +100,8 @@ This proves that the net effect of clouds on the \acrshort{toa} radiative budget
     \caption{Expected cloud changes in future climate. This figure was developed based on feedbacks in climate models, and the different adjustments are associated with different levels of confidence.  (\cite{IPCC_CH7_clouds}).}
     \label{fig:cloud_scheme}
 \end{figure}
-As concluded in the previous section, an excess of radiation currently gets trapped in the Earth system, forcing the atmospheric temperature to increase in order to ultimately close the radiative budget. The temperature increase induces climate change and recent estimates find the imbalance at \acrshort{toa} to be $0.6 Wm^{-2}$ (\cite{Wild2019TheModels}).
+As concluded in the previous section, an excess of radiation currently gets trapped in the Earth system, forcing the atmospheric temperature to increase in order to ultimately close the radiative budget. The temperature increase induces climate change and recent estimates find the current imbalance at \acrshort{toa} to be $0.6 Wm^{-2}$ (\cite{Wild2019TheModels}).  \textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
+
 
 %\citepaper{Wild2019TheModels} finds an imbalance of 
 This heat gets trapped in the earth system, forcing the surface temperature to increase in order to close the radiative budget. The imbalance in the radiative budget at \acrfull{toa} is the radiative forcing. 
@@ -120,5 +118,3 @@ The greenhouse effect of clouds still persist without sunlight leading to a heat
 %TS: ta med en referanse her
 Second, rising high clouds motivate a stronger greenhouse effect. Third, a reduction in the presence of low level clouds reduces the amount of reflected solar radiation.The reduced reflection of solar radiaton is assumed to be partly offset by an lifting of the melting layer. Consequently, ice crystals are replaced by liquid droplets and the phase transition results in more opaque clouds. \textbf{Add one or more sources here, see (\cite{IPCC_CH7_clouds}) for inspiration.} 
 %TS: legg til en referanse eller to her
-
-\textit{Global radiative equilibrium} is reached when the temperature of the atmosphere is adjusted such that the radiation emitted to space is equal to the portion absorbed by the surface.
