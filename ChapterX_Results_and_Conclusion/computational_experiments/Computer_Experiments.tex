@@ -3,18 +3,20 @@ This section describes the setup and configuration of the computational experime
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
 %\section{Structure and Implementations} 
-The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading reanalysis (ERA5) data using python is provided.
+The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading reanalysis (ERA5) data using python is provided. Due to licence requirements on the \acrshort{msg} data, no part of \acrshort{ecc} is made available for downloading. The reader need to aquire their own \acrshort{msg} data throught the eumetcast portal and can regridd the product using the code made availble.
 
 %The repository contains everything need to reproduce the results in this study.
 %The experiments are conducted in notebooks and the developed modules are stored in the package ``sciclouds''. Descriptions on how to acquire the data (scripts if possible) and project environment is provided to simplify the process.
 
-The code is developed in Python3.7, a popular language for scientific software development. The source code is stored in the package \textit{sciclouds}, made available on Github trought the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}).
+The code is developed in Python 3.7, a popular language for scientific software development. The source code is stored in the package \textit{sciclouds}, made available on Github through the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}).
 %and the \textit{keras-tuner} (\cite{chollet2015kerastuner}). 
 %The \acrshort{convlstm} is implemented %in \textit{keras} (\cite{chollet2015keras})
 %using \textit{tensorflow v 2.0} . %The \textit{keras-tuner} is used to automize the hyperparameter search (\cite{chollet2015kerastuner}). 
 The \acrshort{convlstm} is implemented using Tensorflow's keras API (\cite{tensorflow2015}) which simplifies many aspects of building and executing machine learning models. The \acrshort{ar}-models are trained and evaluated using self implemented modules. The idea was to utilize the analytical solution of the least squares problem. Many regression modules provide a numerical solution, not the analytical. The python package ``sciclouds'' provides a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
 
-Visualizations are generated using \textit{Matplotlib} (\cite{matplotlib}), \textit{Seaborn} (\cite{seaborn}) and maps using the package \textit{Cartopy} (\cite{Cartopy}). Other illustrations are developed using TIkZ, a language used for producing technical illustrations within the environment of LaTEX.
+\textbf{Due to liscence on the MSG data in finer than X resolution, the full dataset is not made aailable. The code for regridding and thedescriptions for downloading the data is made available.}
+
+Visualizations are generated using \textit{Matplotlib} (\cite{matplotlib}),  \textit{Seaborn} (\cite{seaborn}) and maps using the package \textit{Cartopy} (\cite{Cartopy}). Other illustrations are developed using TIkZ, a language used for producing technical illustrations within the environment of LaTeX.
 
 The package versions are documented in the \textit{requirements.txt} and the project environment called ``sciclouds'' is ready for installation. This is a conda environment, the yaml-file lists the Python packages and requirements necessary for running this code. Below you find the code example for cloning the project and installing the environment.
 
@@ -40,7 +42,8 @@ The filters are generated from within the environment of PyAEROCOM (\cite{pyaero
 The experiments described below, are conducted on a 
 %This study had access to a 
 DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, each of 32Gb local memory and 1.5Tb shared memory. %The resources was available through the \acrfull{ex3} project hosted at Simula. 
-This study was awarded access to 1 GPU and 1024G part of the memory. The data is stored on a \acrfull{rdma} accessed over Infiniband. \textit{The best choice of collective implementation depends upon the number and kind of \acrshort{gpu}s, and the network interconnect in the cluster.} The DGX-2 system is designed for a high level concurrency and scheduling workers competing for system resources.
+%This study was awarded access to 1 GPU and 1024G part of the memory. 
+The data is stored on a \acrfull{rdma} accessed over Infiniband. \textit{The best choice of collective implementation depends upon the number and kind of \acrshort{gpu}s, and the network interconnect in the cluster.} The DGX-2 system is designed for a high level concurrency and scheduling workers competing for system resources.
 %The hardware sets the limitations for efficiency of pipelines and training procedure. 
 %\textit{NVIDIA V100 GPU -- The eX3 infrastructure includes a DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, allowing simultaneous communication between all eight GPU pairs at 300 GBps through the 12 integrated NVSwitches. This gives a theoretical system-wide system bi-directional  bandwidth of 2.4 TBps. All GPUs have 32 GB of local memory (total of 512 GB) and share a 1.5 TB main memory. The total system has 81,920 CUDA cores, and 10,240 Tensor cores delivering 2 Petaflops of tensor performance. The peak performance in double precision is 125 Teraflops.}
 %Working on such a monstrosity pose additional challenges related to porting existing code and virtual environments, developing and debugging code. To eventually end up with an%a achieved 
@@ -58,7 +61,7 @@ This study was awarded access to 1 GPU and 1024G part of the memory. The data is
 %\textbf{TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix}
 %TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix
 \subsection{Model Setup and Evaluation}
-The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A model is compiled based on a choice of hyperparameters, which is a parameter set used before the training starts, as mentioned in Section \ref{sec:artificial neural networks}. In the search for the best model configuration, different combinations of hyperparameters are evaluated. This is done manually since the choice of architecture can easily overload the system memory resources.
+The following sections contain the configurations of the models compiled for this study along with descriptions of hyperparameters. A model is compiled based on a choice of hyperparameters. It is a set of decisions made prior to training, as mentioned in Section \ref{sec:artificial neural networks}. In the search for the best model configuration, different combinations of hyperparameters are evaluated. This is done manually since the choice of architecture easily overload the system memory resources.
  
 A starting point for the \acrshort{convlstm} is the set of architectures provided by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) described in Section \ref{sec:related_work}. The \acrshort{ar}-models follow a different strategy, starting with the simplest models, and gradually increasing the complexity. %This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
 
@@ -68,18 +71,27 @@ A starting point for the \acrshort{convlstm} is the set of architectures provide
 %\textbf{Man kjører eksperimenter på mange modeller ved å bruke traning og validations dataset. The choice of model is based on this data basis and then it performance is tested on the test dataset.} 
 \subsection{Training, validation and test split}
 % Gradient methods are at the heart of every machine learning algorithms -- need 
-The partitioning into training, validation and test data is different for the models. \acrshort{ar}-models are computed based on an analytical solution, so there is no need for validation data. 
+The partitioning into training, validation and test data is different for the models. \acrshort{ar}-models are computed based on an analytical solution, consequently there is no need for validation data. The \acrshort{convlstm} is a numerical solution, continuously evaluated against the validation dataset and adjusted to reduce the loss. This is all mentioned in Section \ref{??}. The weight resience information of the validation dataset indirectly via the adjustments made and this raise the need for a third dataportion the model can be individually evaluated on.
 
-Both models are tested on 2014 to 2018. The \acrshort{ar}-model is trained on the period 2004 to 2013, while the \acrshort{convlstm} is trained on  2004 to 2011 and validated on 2012 to 2013. \textbf{The validation data is necessary because of the numerical approximation used in ConvLSTM when optimising.} The test period was chosen based on the assumption that the latest period is most representative for the climate in the near future. The handling \textbf{(nytt ord)} of gaps, provide an additional difference to the datasets used as input for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determines the length of the training sequence. All samples with gaps in the requested sequence are disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with an out-of-sample value, $c=1.5$. 
+Both models are tested on 2014 to 2018. The \acrshort{ar}-model is trained on the period 2004 to 2013, while the \acrshort{convlstm} is trained on  2004 to 2011 and validated on 2012 to 2013. 
 
-The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. Due to liscence on the MSG data in finer than X resolution, the full dataset is not made aailable. The code for regridding and thedescriptions for downloading the data is made available.
+The test period is chosen to be the most resent, based on the assumption that it is most representative for the near future. 
 
-\textbf{Ufulstendig setning. In comparison to related works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), using datasets of size X and Y respectively.} A method for training deeper models on datasets is to reduce the spatial or temporal resolution. This is done in precipitation nowcasting, moving from 300x300 pixels to 100x100, based on the argument that this  removes noise. Since cloud cover has an average lifetime as mentioned in Section \ref{sec:cloud_in_climate_system} I argue that \acrshort{ecc} cannot be reduced without significant loss of information. \textbf{Make this a more accurate comparison between the three datasets in volumes.}
+Another small difference in the input volumes to the models, is the handling of missing data. Samples containing gaps are removed for the \acrshort{ar}-models and for \acrshort{convlstm} it is replaced by the out-of-sample value, $c=1.5$. 
+
+%The test period was chosen based on the assumption that the latest period is most representative for the climate in the near future. The handling \textbf{(nytt ord)} of gaps, provide an additional difference to the datasets used as input for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determines the length of the training sequence. All samples with gaps in the requested sequence are disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with an out-of-sample value, $c=1.5$. 
+
+The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files. Comarisons to the works by  by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), need to by done on the basis of input volumes. \textbf{Add the input volume}
+
+A method to successfully train deeper models is to reduce the spatial or temporal resolution. This was applied in ``precipitation nowcasting'', arguing that it reduce noise, the make the reduction from 300x300 pixels to 100x100. As mentioned in Section \ref{sec:cloud_in_climate_system}, cloud cover has an average lifetime of one hour, and the mentioned approach is not applicable to this task. It would most likely produce a significant loss of information.
 
 \subsubsection{Autoregressive models (AR)}
 The set of hyperparameters available for \acrshort{ar}-models are
 %A set of models are compiled by varying components such as
-standard scaling the predictors, transforming the target, the inclusion of intercept, order of the models and environmental variables. Varying combinations of these parameters results in the set of models used in this part of the experiments. A summary of the performance of the calibrated models is provided in Figure \ref{fig:results_ar_models}. Keep in mind that one \acrshort{ar}-models is the aggregation of 13041 individual regression models. The displayed score is an average over the entire grid, resulting in the average pixels score.
+standard scaling the predictors (T), transforming the target (S), the inclusion of intercept (B), order of the models (L) and environmental variables (AR vs. TR). Varying combinations of these parameters results in the set of models used in this part of the experiments. 
+
+
+A summary of the performance of the calibrated models is provided in Figure \ref{fig:results_ar_models}. Keep in mind that one \acrshort{ar}-models is the aggregation of 13041 individual regression models. The displayed score is an average over the entire grid, resulting in the average pixels score.
 
 %Time consuming task because of the high number of matrix inversions. A double for loop over this takes to long and \textbf{mention the version of paralelization used on this problem}.
 
@@ -106,14 +118,20 @@ where $\epsilon = 0.01$ \textbf{TODO: update this number} is precaution for when
 The inverse transformation of this is ordinary sigmoid, see Equation \eqref{eq:sigmoid}. By applying this equation values return to the range from 0 to 1. Thereby alleviating predictions of out-of-sample values. The graph is displayed in Figure \ref{fig:activation_function_example}. The sigmoid function is described in Section \ref{sec:artificial neural networks} in the context of its abilities as an activation function in machine learning models. 
 
 \subsubsection{Lags and Environmental variables}
-The dataset for a particular model is a combination of the number of lags (order of model) and environmental variables such as $t2m$, $sp$, $q$ and $r$ \textbf{(TODO alle andre plasser har du skrevet det helt ut)} is included. The environmental variables never appear in isolation.
-\textbf{Rewrite. Order or Lags describes the number of time steps of previous cloud cover included as a predictor.}  All models are trained either on the full set of environmental variables or none of them, such that no partial inclusion of environmental variables occurs. 
+The dataset for a particular model is a combination of the number of lags (order of model) and environmental variables such as temperature, surface pressure, relative and specific humidity
+%$t2m$, $sp$, $q$ and $r$ \textbf{(TODO alle andre plasser har du skrevet det helt ut)}
+is included. All models are trained either on the full set of environmental variables or none of them. %such that no partial inclusion of environmental variables occurs. 
+The environmental variables never appear in isolation. Lags describe the number of previos timesteps of fractional cloud cover included as a predictor. For example, if lags is one, $L=1$, then the CFC of the previous hour is included along with eviornmental variable for the current hour.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUDE RETTET OVER HER
 
 \subsubsection{Experimental setup (AR-models)}
-The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previous timestep of cloud cover included. AR og Tr describe whether the environmental variables are included in the dataset of not. %This description elaborated in Table \ref{tab:ar_model_config}.
-To make it easier to understand the naming convention used, Table \ref{tab:ar_model_config} shows a three examples of the naming conventions udes in this study. %\acrshort{ar}-models included in this study.
+\textbf{Move naming convention to the introductioon of ar models?}
+The naming conventions used $AR_{STB_L}$ or $TR_{STB_L}$. B stands for bias, T for scaling predictors, S for sigmoid transformation of the target and L for the number of lags, previous timestep of cloud cover. AR og Tr describe whether the environmental variables are included in the dataset of not. AR denotes that it is includen and TR denotes that it is omitted.
+
+%This description elaborated in Table \ref{tab:ar_model_config}.
+To make it easier to understand the naming convention used, Table \ref{tab:ar_model_config} provide three examples. Applying the following convention $\times$ denoted not applied, \checked denotes applied.
+%of the naming conventions udes in this study. %\acrshort{ar}-models included in this study.
 Inherited from the nature of the transformation of the predictors the hyperparameters bias and transform is mutually exclusive. The bias is zero when transformation of predictors are applied. 
 
 \begin{table}[h]
@@ -130,19 +148,18 @@ Inherited from the nature of the transformation of the predictors the hyperparam
     \multicolumn{1}{c}{\textbf{$AR_{SB_4}$}} & \checked & $\times$  & 4 & \checked & \checked  \\ \hline
     \end{tabular}%
     }
-    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied. \textbf{Bruk denne for tre eksempler, gjør de mer ulike, velg gjerne best ++ .}}
+    \caption{Configuration of \acrshort{ar}-models. $\times$ denoted not applied, \checked denotes applied.}
     \label{tab:ar_model_config}
 \end{table}
 
 \begin{figure}
     \centering
     \includegraphics[scale = 0.5]{python_figs/MSE_score_AR_models.png} %\textbf{same colormap as MAE or obly for grids} 
-    \caption{MSE score ar models.}
+    \caption{DUMMY DATA MSE score ar models.}
     \label{fig:results_ar_models}
 \end{figure}
 
-Mention that the results are computed by using Equations \eqref{eq:mse} and \eqref{eq:mae}, setting the parameters $m = 81$, $n=161$ and $t=\text{seq length}$. 
-
+Figure \ref{fig:results_ar_models} is computed using Equations \eqref{eq:mse} and \eqref{eq:mae}, and setting the parameters $m = 81$, $n=161$ and $t=\text{hours in testset}$.
 \begin{figure}
     \centering
     \includegraphics{python_figs/example_artefact.pdf}
@@ -150,6 +167,7 @@ Mention that the results are computed by using Equations \eqref{eq:mse} and \eqr
     \label{fig:grid_mse_best_model}
 \end{figure}
 
+Figure \ref{fig:grid_mse_best_model} show the score of each pixel in the best model. Table \ref{tab:weights_best_model} illustrates the best weights 
 \begin{table}[hp]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -164,55 +182,62 @@ Mention that the results are computed by using Equations \eqref{eq:mse} and \eqr
 \end{table}
 
 \subsection{Convolutional LSTM (ConvLSTM)}
+The formulation of the air quality forecasting problem presented by \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. 
 
-The formulation of the air quality forecasting problem presented by  \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover prediction problem presented in this project. %The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}.
+%The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}.
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-A lot of architectural decisions such as batch size, sequence length, number of filters and number of layers can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. Between each layer is a Batch Normalization layer. According to the paper \citepaper{ioffe2015batch} this should simplify the training process. Padding same is applied to all layers, to make sure the input and output dimensions are the same. This is described in more detail in Section \ref{sec:padding}. The feature was added between each layer. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. Epochs is the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model aims to learn to predict. Number of hidden states it the number of filters it learns in each layer. Cite Section \ref{sec:convolutional neural network} for description of hidden states. 
+A lot of architectural decisions such as batch size, sequence length, number of filters and number of layers can cause the \acrshort{gpu} to run out of memory. In these cases the compiled model is not trainable. 
+
+Between each \acrshort{convlstm}-layer there is aBatch Normalization layer. According to the \citepaper{ioffe2015batch} this should simplify the training process. 
+
+The list of hyperparameter is long, consequently a subset of them is tuned in this study and the rest is kept constant.
+
+The following section describe the tuned portion. The dataset is partitioned into subsets called batches. The batch size is the number of samples a weight update is based on. Epochs is the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model aims to learn to predict. Number of hidden states it the number of filters it learns in each layer. Cite Section \ref{sec:convolutional neural network} for description of hidden states. 
 The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions, similar to \acrshort{ar}-models without interactions between adjacent pixels. A more detailed description on this is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
 \newline \newline
-List of hyperparameters kept constant
-\begin{enumerate}
-    \item padding = 'same'
-    \item kernel init = lecun uniform
-    \item return sequence = True % False defies the purpose if the LSTM 
-    \item Output filter and utput kernel size = 1
-    \item Callbacks:  Early stopping with patience of 10 (rerun model run on patience 3)
-    \item Callbacks: Terminate on Nan's 
-    \item shuffle input data = False
-    \item optimizer ADAM with default settings, 
-    learning rate 0.001, beta = 0.9, beta2 = 0.999, epsilon = 1e-7, amsgrad = False 
-    \item loss mean squared error, penalize larger deviations more hence the loss function mae is used as metric since its easier to interpred. 
-\end{enumerate}
 
-\begin{figure}
-    \centering
-    \input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume.tikz}
-    \caption{Thoughts, would this be usefull when finished or not. It is ment to illustrate the 5 dimensional input voume im having trouble illustrating in Figure \ref{fig:best_ml_architecture} Improvement use a dark colored box to incapsule the sequences.}
-    \label{fig:input_volume_conv_lstm}
-\end{figure}
+This section describe the hyperparameters kept constant.
+Padding same is applied to all layers, to make sure the input and output dimensions are the same. This is described in more detail in Section \ref{sec:padding}. The model returns a sequence. The input sequences are not shuffled. The output filter and kernal size is one to concatenate all the previos hidden states to one without altering the output dimension. This is necesary for the predictions made.
+
+The weights are initilized based on the scheme ``LeCunn uniform''. \textbf{cite paper} Callbacks such as early stopping with patience of 10 epochs and terminate on nans have been applied to avoid prolonged training time. The optimizer ADAM is used with default settings. The loss is means squared error function and MAE is used to evaluate the models. MSE penalize points further away, but it is harder to interpret. 
 
 
-\textbf{Look in the model on other hyperparameters set as constants, like weight init +++ no shuffle on input data, should not help with may epochs then?}
+
+%List of hyperparameters kept constant
+%\begin{enumerate}
+    %\item padding = 'same'
+    %\item kernel init = lecun uniform
+    %\item return sequence = True % False defies the purpose if the LSTM 
+    %\item Output filter and utput kernel size = 1
+    %\item Callbacks:  Early stopping with patience of 10 (rerun model run on patience 3)
+    %\item Callbacks: Terminate on Nan's 
+    %\item shuffle input data = False
+    %\item optimizer ADAM with default settings, 
+    %learning rate 0.001, beta = 0.9, beta2 = 0.999, epsilon = 1e-7, amsgrad = False 
+    %\item loss mean squared error, penalize larger deviations more hence the loss function mae is used as metric since its easier to interpred. 
+%\end{enumerate}
 
 \subsubsection{Experimental setup (ConvLSTM)}
-Models are given names based on an extension of the convention from \citepaper{precip_nowcasting}. The paper introduces the convention ConvLSTM-hidden states-filter$\times$filter, adding the batch size and sequence length as tunable parameters. The resulting naming convention is \newline $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$
+Models are given names based on an extension of the convention from \citepaper{precip_nowcasting}. The paper introduces the convention ConvLSTM-hidden states-filter$\times$filter, adding the batch size and sequence length as tunable parameters. The resulting naming convention is \newline $ConvLSTM-B_{x}-SL_{y}-hidden states-filter$\times$filter$. Table \ref{tab:convlstm_config} provide a set of example to 
 
 \begin{table}[hp]
     \centering
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{cccccc}
-     & \textbf{Sequence Length} & \textbf{Batch Size} & \textbf{Hidden States} & \textbf{Kernels} & \textbf{Num. Parameters} \\ \hline
-    \textbf{$ConvLSTM-B_{5}-SL_{24}$ \newline $-256-3\times3-256-3\times3$} & 24 & 5 & [256, 256]   & [3, 3] & 98347984 \\ \hline
-    \textbf{$ConvLSTM-B_{15}-SL_{24}-256-5\times5-256-5\times5$} & 24 & 15 & [256, 256]  & [5, 5] & 4244308 \\ \hline
-    \textbf{$ConvLSTM-B_{10}-SL_{24}-128-1\times1-128-1\times1$} & 24 & 10 &  [128, 128] & [1, 1] & 0927502 \\ \hline
-    \textbf{$ConvLSTM-B_{5}-SL_{6}-64-3\times3-64-3\times3$} & 6 & 5 & [64, 64]      & [3, 3] & 9472 \\ \hline
-    \textbf{$ConvLSTM-B_{5}-SL_{6}-256-3\times3-256-3\times3$} & 6 & 5 & [64, 32]      & [3, 3] & 380495 \\ \hline
-    \textbf{$ConvLSTM-B_{5}-SL_{6}-8-3\times3-8-3\times3-8-3\times3$} & 6 & 5 & [8, 8, 8]     & [3, 3, 3] &  20934802\\ \hline
+    \begin{tabular}{ccccc}
+     & \textbf{Sequence Length} & \textbf{Batch Size} & \textbf{Hidden States} & \textbf{Kernels} \\ \hline
+    \textbf{$ConvLSTM-B_{5}-SL_{24}$ \newline $-256-3\times3-256-3\times3$} & 24 & 5 & [256, 256]   & [3, 3] \\ \hline
+    \textbf{$ConvLSTM-B_{15}-SL_{24}-256-5\times5-256-5\times5$} & 24 & 15 & [256, 256]  & [5, 5] \\ \hline
+    \textbf{$ConvLSTM-B_{10}-SL_{24}-128-1\times1-128-1\times1$} & 24 & 10 &  [128, 128] & [1, 1] \\ \hline
+    \textbf{$ConvLSTM-B_{5}-SL_{6}-64-3\times3-64-3\times3$} & 6 & 5 & [64, 64] & [3, 3] \\ \hline
+    \textbf{$ConvLSTM-B_{5}-SL_{6}-256-3\times3-256-3\times3$} & 6 & 5 & [64, 32] & [3, 3] \\ \hline
+    \textbf{$ConvLSTM-B_{5}-SL_{6}-8-3\times3-8-3\times3-8-3\times3$} & 6 & 5 & [8, 8, 8] & [3, 3, 3] \\ \hline
     \end{tabular}%
     }
-    \caption{Give three examples to simplify the explanation of configurations and models.}
+    \caption{Examples to simplify the explanation of configurations and models. \textbf{Remove num. params. should be in a separate table containing m}}
     \label{tab:convlstm_config}
 \end{table}
+
+Figure \ref{fig:convlstm_loss} show the loss curves in the training prosess for all the compiled models in this study. The training loss is higher than the validation loss since there is a higher number of samples in the training set than the validation set and it is not scaled.
 
 \begin{figure}
     \centering
@@ -221,15 +246,27 @@ Models are given names based on an extension of the convention from \citepaper{p
     \label{fig:convlstm_loss}
 \end{figure}
 
+\textbf{Make table containing all losses.}
+
+\begin{figure}
+    \centering
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume.tikz}
+    \caption{Thoughts, would this be usefull when finished or not. It is ment to illustrate the 5 dimensional input voume im having trouble illustrating in Figure \ref{fig:best_ml_architecture} Improvement use a dark colored box to incapsule the sequences.}
+    \label{fig:input_volume_conv_lstm}
+\end{figure}
+
+The best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-16-3\times3-16-3 times3$. It architecture is shown in Figure \ref{fig:best_ml_architecture}, the input volume is currently very simplified. The real input volume is provided in Figure \ref{fig:input_volume_conv_lstm}. \textbf{Adjust both of them, mayby add a opach blu box illustrating a batch. }
+
 \begin{figure}
     \centering
     \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model.tikz}
-    \caption{Stucture of cloud cover forecasting model. \textbf{Add tekst} Four input variables, 16 hidden states in each convolutional LSTM layer and $3\times 3 kernel$. \textbf{Help how to best include the dimension sequence length and batch size}. The input shape is 10x24x81x161x4 and output 24x81x161x1}
+    \caption{Structure of cloud cover forecasting model. \textbf{Add tekst} Four input variables, 16 hidden states in each convolutional LSTM layer and $3\times 3 kernel$. \textbf{Help how to best include the dimension sequence length and batch size}. The input shape is 10x24x81x161x4 and output 24x81x161x1}
     \label{fig:best_ml_architecture}
 \end{figure}
 
 \begin{enumerate}
     \item \textbf{TODO: check if it predicts out of sample values if not try and delete samples if it does delete the samples and retrain best model. MAKE table showing max min predicted value over the entire dataset and maybee how many values in percent is out of sample}
+    \item Check number of prediction below 0
 \end{enumerate}
 
 List of non-trainable models attempted:
