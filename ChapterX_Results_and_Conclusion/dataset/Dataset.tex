@@ -183,7 +183,7 @@ Missing timestamps result in missing disks. When available the closest time step
 METeosat provides a two satellite system, and occasionally both the standby and the operational sensors scan at the same time, as mentioned in Section \ref{sec:meteosat}.
 In cases of technical failures, the standby scan is used. The scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is released (personal communication \acrshort{eumetsat} staff). Comparing simultaneous measurements for the operational and the standby METeosat satellites, it becomes clear that they are dissimilar. However, this does not occur very frequently and there has been no effort in quantifying the magnitude of the parallax, to correct for the bias this may introduce.
 
-Manually generated datasets are prone to human error, especially in the case where users need to download individual time steps to fill the gaps. The instances of missing values were double checked. In summary the workflow has been as follows: the author downloaded the data, detected missing times and manually chose the closest time step available within the previous and trailing 45 minutes. In retrospect, the downloading options (API or GUI) provided by the satellite service should be taken into account when choosing the data. \textbf{A great API can potentially be a large time saver. Remove?}
+Manually generated datasets are prone to human error, especially in the case where users need to download individual time steps to fill the gaps. The instances of missing values were double checked. In summary the workflow has been as follows: the author downloaded the data, detected missing times and manually chose the closest time step available within the previous and trailing 45 minutes. In retrospect, the downloading options (API or GUI) provided by the satellite service should be taken into account when choosing the data.
 
 \subsection{Masks} \label{sec:mask}
 The land sea masks are provided by \acrfull{metno}. In its original format the masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are regridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\cite{pyaerocom}). %(\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). 
@@ -264,6 +264,7 @@ Figure \ref{fig:first_week_sep_2012} shows small diurnal variations for all vari
 
 A smaller case study of the spink detected at mightnight to the second of september, evident in the cloud cover plot in Figure \ref{fig:first_week_sep_2012}. By looking at Figure \ref{fig:spike_sep_2012} is simply looks like a low pressure system centred in Europe. Within on hour it raises the cloud cover from 0.4 to 0.7.  
 
+The series of first weeks of the remainding months of 2012 is shown in Appendix \ref{app:first_week}. Under the assuption thhat the first week of a month is representative for that month. This series show that the diurnal changes of temperature and relative humidity vary most within the course of the year. 
 
 \subsubsection{Temporal statistics}
 All the statistical properties computed over time for the variable \acrshort{cfc} in \acrshort{ecc} are plotted in 
@@ -273,7 +274,7 @@ With the exception of minimum and maximum values, the cloud cover is affected by
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/all_stat_variable_tcc.pdf}
-    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. FIX axes!! \textbf{TS: Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre} }
+    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. FIX axes!! }
     \label{fig:all_stats_tcc}
 \end{figure}
 %TS: Du må gjøre noe med aksene for denne figuren, de er tilnærmer uleselige nå. Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre

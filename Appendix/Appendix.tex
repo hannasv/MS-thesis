@@ -1,18 +1,8 @@
 \appendix
 \chapter{Statistics} \label{ch:appendix_statistic}
-\section{Statistics - can }
-% remove comment if you wish to add Appendix to contentsline.
-%\addcontentsline{toc}{chapter}{Appendix A: How to download ERA5 data}
-%%%% MEAN
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/contourplot_all_variables_mean.pdf}
-    \caption{Contour plot showing the local (pixel) mean of all variables.}
-    \label{fig:contour_mean_all_vars}
-\end{figure}
+TODO: Rewrite this to contain plots of one variables divided into statistics and deviation - both having a single colorbar on the right
 
 \section{Temporal statistics} \label{sec:all_stats}
-
 %%% ALL LOCAL STATISTICS FOR VARIABLES 
 %% TEMPERATURE
 \begin{figure}[ht]
@@ -37,7 +27,6 @@
     \caption{Contour plot showing the local (pixel) statistics for relative humidity.}
     \label{fig:all_stats_r}
 \end{figure}
-
 
 %% SPECIFIC HUMIDITY 
 \begin{figure}[ht]
@@ -106,16 +95,8 @@ Currently it show the plots that could be generated to show the performance for 
 
 
 
-\chapter{First week of every month in 2012}
+\chapter{First week of every month in 2012} \label{app:first_week}
 %\addcontentsline{toc}{chapter}{Appendix D: Study 2012}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_tcc_seperated_by_filters.png}
-    \caption{First week of every month in 2012 merged into one figure.}
-    \label{fig:all_first_week_one_figure}
-\end{figure}
-
 
 \begin{figure}[ht]
     \centering
@@ -133,24 +114,17 @@ Currently it show the plots that could be generated to show the performance for 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-01-01.png}
-    \caption{Signal March 2012.}
-    \label{fig:jan12}
-\end{figure}
-\begin{figure}[ht]
-    \centering
     \includegraphics{python_figs/spatially_averaged_one_week_from_2012-03-01.png}
-    \caption{Signal January 2012.}
-    \label{fig:jan12}
+    \caption{Signal March 2012.}
+    \label{fig:mar12}
 \end{figure}
+
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/spatially_averaged_one_week_from_2012-04-01.png}
     \caption{Signal April 2012.}
     \label{fig:april12}
 \end{figure}
-
-
 
 \begin{figure}[ht]
     \centering
@@ -174,20 +148,15 @@ Currently it show the plots that could be generated to show the performance for 
     \label{fig:jul12}
 \end{figure}
 
+
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/spatially_averaged_one_week_from_2012-08-01.png}
     \caption{Signal August 2012.}
-    \label{fig:jan12}
+    \label{fig:aug12}
 \end{figure}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/spatially_averaged_one_week_from_2012-09-01.png}
-    \caption{Signal September 2012. \textbf{Plot timelapse of this spike.}}
-    \label{fig:sep12}
-\end{figure}
-
+% September is in the text
 
 \begin{figure}[ht]
     \centering
@@ -211,38 +180,18 @@ Currently it show the plots that could be generated to show the performance for 
     \label{fig:dec12}
 \end{figure}
 
+\cleardoublepage
+
+\chapter{All four parts of example prediction} \label{app:misc}
+\textbf{OBS this duplicates the first one}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% signal artefact should be redefined if used 
+\chapter{Miscellaneous} \label{app:misc}
+
 \begin{figure}
     \centering
     \includegraphics{python_figs/signal_artefact.png}
     \caption{Occurrence of artefact, keep in mind that is not made any effort to distinguish this from when the entire area has cloud cover, this could be done by the ratio of artefact signal to land or something else. }
     \label{fig:signal_artefact}
-\end{figure}
-
-
-\subsection{Other figures}
-%%%% TARGET PREDICITON ERA5
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_era5_plot_horizonal.pdf}
-    \caption{Comparison target, predicted and era5 horizontal cloud fractional cover. Imagine this plot, with a row for each step in the predicted sequence and each column being (AR, Convlstm, target)}
-    \label{fig:target_predict_era5_horizontal}
-\end{figure}
-
-%\subsection{Autoregressive models}
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_horizonal.pdf}
-    \caption{Comparison target and predicted cloud fractional cover.}
-    \label{fig:target_predict_horizontal}
-\end{figure}
-
-%%%% TARGET PREDICITON HORIZONTAL
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/target_prediction_plot_vertical.pdf}
-    \caption{Comparison target and predicted vertical cloud fractional cover.}
-    \label{fig:target_predict_vertical}
 \end{figure}
