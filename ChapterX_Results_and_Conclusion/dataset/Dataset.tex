@@ -1,9 +1,11 @@
 \section{Dataset - European Cloud Cover }
 %This chapter presents the developed methodology used in the compilation of the dataset. 
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrlong{msg} cloud mask. The common period of 2004 to 2018 is selected.
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected.
 
-\textbf{Add the scientific reasoning making the foundation of you choice.}
-Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given high priority. The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
+%\textbf{Add the scientific reasoning making the foundation of you choice.}
+Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. \textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. ERA5 providet the highest spatial and temporal resolution. }
+
+The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
 \subsection{Domain}
 The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers central Europe and north Africa.
@@ -18,13 +20,11 @@ The geographical domain has, for this project, been restricted to latitude, $\th
 The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. Cloud dynamics is far more complicated than what can be describes by these variables, as discussed in Section \ref{sec:cloud_in_climate_system}.
 %The condition describing what is ``sufficiently accurate'' is further explained in Chapter \ref{ch:computer_experiments}.
 
-This project is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parameterize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be large and there is no guarantees of state-of-the-art performance. However, large amounts of data is collected on a daily basis. Understanding how to utilise the information in these measurements despite their flaws (gaps and artefacts) is of major importance. 
+This project is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parameterize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be large and there is no guarantees of state-of-the-art performance. However, large amounts of data is collected on a daily basis. Understanding how to utilise the information in these measurements despite its flaws (gaps and artefacts) is of major importance. 
 %However the real value lies in understanding with how you work with these large amounts of data. 
 %\textbf{TS: Dette følte jeg var et litt i overkant negativt syn på potensialet til AI i forbindelse med sky-parameteriseringer, som nesten undergraver verdien av studiet ditt litt. Det finnes jo enorme mengder med sky-data som hentes inn daglig, men utfordringen ligger i hvordan disse datasettene, med sine huller og mangler, kan brukes på best mulig måte.}
 
 %Not feasible in the foreseeable future to incorporate all the effects of micro-physics at a sufficient accuracy. 
-\textbf{Trenger ny overgang siden jeg flytta beskrivelsen av macro og micro. Using macrophysical values to predict cloud cover is a simplification.}
-Pre
 Precipitation formation and cloud optical thickness are affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud as well. Imagine precipitation without a cloud fractional cover. 
 
 Reliable estimates of large-scale variables are available from using reanalyses or other climate models. Restricting the focus here to the macrophysical aspects of clouds makes it reasonable to choose these as explanatory variables, thereby ensuring that it is possible to build usable application of this parameterization in the future.
@@ -35,21 +35,31 @@ From the weather maps on the news, low and high pressure systems might be famili
 %\textbf{TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala nedsynkning}
 %TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala
 
-In areas of lower pressure, the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by \textbf{earths (feil?)} rotation the Coriolis effect forces winds of low pressure systems to swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system, pushing it to higher altitudes in the atmosphere. A high pressure system exhibits the exact opposite behaviour, it swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere to fill the void. 
+In areas of lower pressure, the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by Earth's rotation the Coriolis effect forces winds of low pressure systems to swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system, pushing it to higher altitudes in the atmosphere. A high pressure system exhibits the exact opposite behaviour, it swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere to fill the void. 
 
-The large scale circulation generate zonal bands of sinking and rising air masses. Warm air rises at the equator as a result of the earths spherical geometry, this air move poleward, cools and sinks. The Saharan desert is located in an area of sinking air masses. Despite its warm temperatures, there is little to no cloud formation and associated precipitation. 
+The large scale circulation generate zonal bands of sinking and rising air masses. Warm air rises at the equator as a result of the Earths' spherical geometry, this air move poleward, cools and sinks. The Saharan desert is located in an area of sinking air masses. Despite its warm temperatures, there is little to no cloud formation and associated precipitation. 
 
 In zones of rising air, bands of low pressure systems clouds are concentrated on fronts. A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
 Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by orography or fonts (warm and cold) (\cite{lohmann2016}, p. 79). Norway lies within the prevailing westerlies a band or rising air. Low pressure systems frequently appear along the coast from the Atlantic ocean, resulting in a cloudy and wet region. The warm moist air associated with the gulf stream amplifies this effect. Winds transports the substances suspended in air, such as pollutants and humidity. 
 
-The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form, under such supersaturated conditions it is often referred to as \textbf{X}, and therefore it is common to limit the range of relative humidity to be between 0 and 1. However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
+The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity 
+%under such supersaturated conditions it is often referred to as \textbf{X}, and 
+Therefore it is common to limit the range of relative humidity to be between 0 and 1. However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
 
 Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. For large scale motions, when friction and the centrifugal force are less important, the wind field can be derived from the pressure gradients, this is know as geostrophical winds  (\cite{lohmann2016}, pp. 81-84).
 
-\textbf{The large scale surface variable pressure can provide useful information for detecting fronts, and wind patterns potensially revealing usfull information in prediction the movement of clouds. Temperature is thought to revels cumulus type clouds in regions without sinking air masses. The clouds responsible for afternoon showers in summer}. \textbf{Due to the combination of large and small scale patterens its important to study the geographical distribbution of the best model.}
-\textbf{Can make heatmap showing the best model, one color at a time. }
+Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to have 
+
+For instance surface pressure is thought to explain frontal systems, but since the air originates from high in the atmosphere, so surface humidity is not thought to play a role in saturation the airmasses. Resulting in a low predictability for this event. 
+
+Cold front occurs where cold air replace warm air, and warm front is the opposite process. In shallow (and deep) convection systems, the air rises from the surface and the temperature and surface humidity is though to explain this phenomena well. Rising airmasses also generate low pressure at the surface. The clouds responsible for afternoon showers in summer. Surface pressure for wind patterens transporting the clouds. 
+
+A smaller amount of saturation need to be lifted to higher altitudes.
+
+%\textbf{The large scale surface variable pressure can provide useful information for detecting fronts, and wind patterns potentially revealing usfull information in prediction the movement of clouds. Temperature is thought to revels cumulus type clouds in regions without sinking air masses. }. \textbf{Due to the combination of large and small scale patterens its important to study the geographical distribbution of the best model.}
+%\textbf{Can make heatmap showing the best model, one color at a time. }
 %TS: Her trengs en tydeligere diskusjon av hvilke skytyper man forventer at de storskala bakke-varaiblene er mest relevante for, og hvilke de eventuelt er mindre
-\textbf{Check out ch clouds in the IPCC hvor de beskriver hva som er problemet med de ulike parameteriseringene.}
+\textbf{Check out clouds in the IPCC hvor de beskriver hva som er problemet med de ulike parameteriseringene.}
 
 \subsection{Area Weighting Regridding Scheme (AWRS)} \label{sec:remapping}
 Computing cloud fractions based on the cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, the pixels are of uneven size and the area weighted scheme seemed most appropriate. 
@@ -173,7 +183,7 @@ Missing timestamps result in missing disks. When available the closest time step
 METeosat provides a two satellite system, and occasionally both the standby and the operational sensors scan at the same time, as mentioned in Section \ref{sec:meteosat}.
 In cases of technical failures, the standby scan is used. The scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is released (personal communication \acrshort{eumetsat} staff). Comparing simultaneous measurements for the operational and the standby METeosat satellites, it becomes clear that they are dissimilar. However, this does not occur very frequently and there has been no effort in quantifying the magnitude of the parallax, to correct for the bias this may introduce.
 
-Manually generated datasets are prone to human error, especially in the case where users need to download individual time steps to fill the gaps. The instances of missing values were double checked. In summary the workflow has been as follows: the author downloaded the data, detected missing times and manually chose the closest time step available within the previous and trailing 45 minutes. In retrospect, the downloading options (API or GUI) provided by the satellite service should be taken into account when choosing the data. \textbf{A great API can potentially be a large time saver. Remove?}
+Manually generated datasets are prone to human error, especially in the case where users need to download individual time steps to fill the gaps. The instances of missing values were double checked. In summary the workflow has been as follows: the author downloaded the data, detected missing times and manually chose the closest time step available within the previous and trailing 45 minutes. In retrospect, the downloading options (API or GUI) provided by the satellite service should be taken into account when choosing the data.
 
 \subsection{Masks} \label{sec:mask}
 The land sea masks are provided by \acrfull{metno}. In its original format the masks have a $0.1^o$ resolution and global coverage, not including the polar regions. These are regridded to a suitable resolution of $0.25^o$ using functionality available in PyAEROCOM (\cite{pyaerocom}). %(\href{https://pyaerocom.met.no/}{https://pyaerocom.met.no/}). 
@@ -181,18 +191,19 @@ This is a python toolbox developed within the \acrfull{aerocom} project. To avoi
 %To keep memory-requirements to a minimum only the parts of the filters relevant domain is stored in the supplementary material for this project.
 \begin{figure}
     \centering
-    \includegraphics{python_figs/filters.pdf}
-    \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
-    \label{fig:filters_subplot}
+    \includegraphics{python_figs/example_artefact.pdf}
+    \caption[Artefact in European Cloud Cover dataset.]{The results after regridding reveal an artefact. This is a snapshot from May 2\textsuperscript{nd} 2004 at noon. The frequency of occurrence is currently unknown.}
+    \label{fig:example_artefact}
 \end{figure}
 
 Filters available in the supplementary material are \textit{land}, \textit{sea}, \textit{coastline} and \textit{artefact}. The coastline is defined to be all pixels that are not either 100\% land or sea. A threshold based binary classification is used to separate the coastline pixels into land or ocean. The threshold is set to 50\%. Pixels containing at least 50\% of sea are most likely affected by maritime conditions, making it reasonable to classify them as sea pixels.
 \begin{figure}
     \centering
-    \includegraphics{python_figs/example_artefact.pdf}
-    \caption[Artefact in European Cloud Cover dataset.]{The results after regridding reveal an artefact. This is a snapshot from May 2\textsuperscript{nd} 2004 at noon. The frequency of occurrence is currently unknown.}
-    \label{fig:example_artefact}
+    \includegraphics{python_figs/filters.pdf}
+    \caption{Figure shows all filters, in white, available in the python package ``sciclouds''.}
+    \label{fig:filters_subplot}
 \end{figure}
+
 Based on a visual comparison to Figure \ref{fig:example_artefact}, the artefact is defined to be all coastline pixels obeying the following inequality,  %\eqref{eq:artefact_condition}.
 \begin{equation} \label{eq:artefact_condition}
     \theta + \frac{1}{3}\phi < 40
@@ -220,7 +231,7 @@ To study the statistical properties at different parts of the domain the filters
 
 \subsubsection{Temporal statistics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
-Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all variables. Seasonal effects and differences between land and ocean are evident among all variables. For temperature and relative humidity, a more pronounced seasonal cycle over land, compared to ocean, is evident. The remaining variables appear to have a small shift towards higher values over the ocean. \textbf{TS: Fint om du kommenterer på om disse forskjellene er som forventet her}
+Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all variables. As expected, seasonal effects and differences between land and ocean are evident among all variables. For temperature and relative humidity, a more pronounced seasonal cycle over land, compared to ocean, is evident. The remaining variables appear to have a small shift towards higher values over the ocean. \textbf{TS: Fint om du kommenterer på om disse forskjellene er som forventet her}
 %TS: Fint om du kommenterer på om disse forskjellene er som forventet her
 \begin{figure}[ht]
     \centering
@@ -229,23 +240,31 @@ Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean 
     \label{fig:monthly_mean_ts_vars}
 \end{figure}
 
+%As a reference the global cloud cover over land is X and over ocean is Y. 
 The spatially averaged time series for the first week of August in 2012 is shown in Figure \ref{fig:first_week_august_2012}, illustrating the relative strength of the signal fed into the input sequence. As a reference, the signals over land and ocean are provided. All variables display diurnal variations. 
-\textbf{Rewrite kursiv}
-\textit{Because of the different intervals of the axes, the magnitude of the signal proves difficult to determine from such a plot. The surface pressure over land and ocean appear to be a scaling of the ``no filter''. A common factor for all variables is the position if the filters relevant to each other, ``sea'' > ``no filter'' > ``land''. In some cases the monthly average temperature over land is higher than over ocean.}
+
+On a monthly average the temperature over land is higher than the ocean, but the difference is small, a couple degrees. For the other variables the surface pressure, humidity's and cloud cover is higher over land. 
+
+This is not suprising the pressure decrease with altitude and sea level id the lowest one can get. The ocean is a source of humidity and \textbf{can you explain the clouds..?}
+
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/spatially_averaged_one_week_from_2012-09-01.png}
     \caption{Spatially averaged time series from the first week of September 2012.}
     \label{fig:first_week_sep_2012}
 \end{figure}
+Figure \ref{fig:first_week_sep_2012} shows small diurnal variations for all variables except clouds. The trend of the mean follow the data over land, with a smaller amplitude. The mean gets smoothed by the small diurnal variations over land. 
 
 \begin{figure}
     \centering
     \includegraphics{python_figs/timelapse_tcc_spike_09_2012.pdf}
-    \caption{Timeseries for the spike detected in Figure \ref{fig:first_week_sep_2012}. It does not look like a unphyscal hendelsesforløp}
+    \caption{Timeseries for the spike detected in Figure \ref{fig:first_week_sep_2012}.}
     \label{fig:spike_sep_2012}
 \end{figure}
 
+A smaller case study of the spink detected at mightnight to the second of september, evident in the cloud cover plot in Figure \ref{fig:first_week_sep_2012}. By looking at Figure \ref{fig:spike_sep_2012} is simply looks like a low pressure system centred in Europe. Within on hour it raises the cloud cover from 0.4 to 0.7.  
+
+The series of first weeks of the remainding months of 2012 is shown in Appendix \ref{app:first_week}. Under the assuption thhat the first week of a month is representative for that month. This series show that the diurnal changes of temperature and relative humidity vary most within the course of the year. 
 
 \subsubsection{Temporal statistics}
 All the statistical properties computed over time for the variable \acrshort{cfc} in \acrshort{ecc} are plotted in 
@@ -255,14 +274,15 @@ With the exception of minimum and maximum values, the cloud cover is affected by
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/all_stat_variable_tcc.pdf}
-    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. FIX axes!! \textbf{TS: Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre} }
+    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. FIX axes!! }
     \label{fig:all_stats_tcc}
 \end{figure}
 %TS: Du må gjøre noe med aksene for denne figuren, de er tilnærmer uleselige nå. Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre
 
 The mean values displayed in figure \ref{fig:all_stats_tcc} show that on average the coastline has a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
 
-From the minimum values of \acrshort{cfc} it becomes evident that there is another artefact present in the dataset. This pattern is most likely caused by the remapping routine. \textbf{Dette temaet etterlater du litt i løse lufta - du må berolige leseren her med at dette ikke fører til store feil og at analysen dermed fortsatt gir mening} 
+From the minimum values of \acrshort{cfc} it becomes evident that there is another artefact present in the dataset. This pattern is most likely caused by the remapping routine. However by looking at the axis it is incrementally small and is not likely to affect the quality of the dataset much.
+
 Figure \ref{fig:area_pixel_signal} shows the patterns of magnitude of the areas contributing to a pixel. One might expect all pixels to be without cloud cover for at least one hour over the period of 14 years, but this is not the case. The maximum value is as expected, one over the entire region, indicating that at some point every pixel is full of clouds. The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and \acrshort{mad} 
 % Det er jo ikke rart for mad er medianen av en differanse.
 show similar patterns, this is not surprising since \acrshort{mad} is short for \acrlong{mad}, where the lowest values are found along the coast.
@@ -290,9 +310,11 @@ In most locations temperature is negatively correlated with cloud cover except i
 \begin{figure}
     \centering
     \includegraphics{python_figs/mae_era_vs_target_test_period_2014_to_2018.png}
-    \caption{\acrshort{mae} between the \acrshort{cfc} in ERA5 and \acrshort{ecc}. Revealing systematic errors in regions over the \textbf{add regions with systematic errors}, Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systematic errors appear to be in region fewer observation, i.e. mountainous regions and over the sea. Dust storm causing the red ocean off the coast of Sahara..?}
+    \caption{MAE between ERA5 and \acrshort{ecc} in the period from 01.01.2014 to 31.12.2018.}
     \label{fig:mae_era_target}
 \end{figure}
+
+Figure \ref{fig:mae_era_target} show the MAE between the \acrshort{cfc} in ERA5 and \acrshort{ecc}. It reveals systematic errors over the mediteranean and in the atlantic ocean of the coast of Gibraltar. Montainous areas in the french and italian apls and some other spots indicated in brigth red.. Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systematic errors appear to be in region fewer observation, i.e. mountainous regions and over the sea. Dust storm causing the red ocean off the coast of Sahara..?
 
 \begin{enumerate}
     \item Compute statistics for ERA5 to compare the average. 

@@ -28,9 +28,9 @@ Based on observations from airplane campaigns, researchers have attempted to dra
 \input{Chapter2_Theory/tables/param_summary_tomkins}
 Researchers have not been successful in finding an adequate representation of cloud cover using these approaches (\cite{Tompkins2009CloudParametrization}). 
 
-\cite{Golaz2002_part1} derived a joint \acrshort{pdf} of the sub-gridscale variability, serving as the base for parameterizing boundary layer clouds. This scheme is implemented in \acrfull{noresm} (\cite{SelandNORESM}) and \acrfull{cesm}, to recognised \acrshort{esm} (\cite{DanabasogluCESM}).
+\citepaper{Golaz2002_part1} derived a joint \acrshort{pdf} of the sub-gridscale variability, serving as the base for parameterizing boundary layer clouds. This scheme is implemented in \acrfull{noresm} (\cite{SelandNORESM}) and \acrfull{cesm}, to recognised \acrshort{esm} (\cite{DanabasogluCESM}).
 %TS: For NorESM kan du referere til Seland et al. (2002), og for CESM2 kan du referere til Danabasoglu et al. (2020)
-The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment. For more details see \cite{Golaz2002_part1} and \cite{Golaz2002_part2}.
+The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment. For more details see \citepaper{Golaz2002_part1} and \citepaper{Golaz2002_part2}.
 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
 \subsection{Cloud resolving models} \label{sec:params_climate_models}
