@@ -3,7 +3,14 @@
 This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected.
 
 %\textbf{Add the scientific reasoning making the foundation of you choice.}
-Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. \textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. ERA5 providet the highest spatial and temporal resolution. }
+Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. \textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. See other arguments below}
+\begin{enumerate}
+    \item Vinkling at det er den nyeste, det finnes derfor lite forskning på dette enda 
+    \item OG det er derfor mest spennende om det funker på denne. Alle reanalyser er forskjellige, det er helt avhenging av observasjonen og modellen som er brukt til assimilering. 
+    \item Kommer til å bli utvidet tilbake til 1950
+    \item Siter Fuijwara, 2017
+\end{enumerate}
+
 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
@@ -264,11 +271,11 @@ Figure \ref{fig:first_week_sep_2012} shows small diurnal variations for all vari
 
 A smaller case study of the spink detected at mightnight to the second of september, evident in the cloud cover plot in Figure \ref{fig:first_week_sep_2012}. By looking at Figure \ref{fig:spike_sep_2012} is simply looks like a low pressure system centred in Europe. Within on hour it raises the cloud cover from 0.4 to 0.7.  
 
-The series of first weeks of the remainding months of 2012 is shown in Appendix \ref{app:first_week}. Under the assuption thhat the first week of a month is representative for that month. This series show that the diurnal changes of temperature and relative humidity vary most within the course of the year. 
+The series of first weeks of the remaining months of 2012 is shown in Appendix \ref{app:first_week}. Under the assumption that the first week of a month is representative for that month. This series show that the diurnal changes of temperature and relative humidity vary most within the course of the year. 
 
 \subsubsection{Temporal statistics}
 All the statistical properties computed over time for the variable \acrshort{cfc} in \acrshort{ecc} are plotted in 
-Figure \ref{fig:all_stats_tcc}. Similar figures for the remaining variables in the dataset are presented in Section \ref{sec:all_stats}. %in the Appendix \ref{ch:appendix_statistic}. 
+Figures \ref{fig:all_stats_tcc} and \ref{fig:deviation_tcc}. Similar figures for the remaining variables in the dataset are presented in Section \ref{sec:all_stats}. 
 With the exception of minimum and maximum values, the cloud cover is affected by the coastline. 
 %% CLOUD FRACTIONAL COVER
 \begin{figure}[ht]
@@ -278,6 +285,13 @@ With the exception of minimum and maximum values, the cloud cover is affected by
     \label{fig:all_stats_tcc}
 \end{figure}
 %TS: Du må gjøre noe med aksene for denne figuren, de er tilnærmer uleselige nå. Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/DEVIATION_all_stat_variable_tcc.pdf}
+    \caption{Deviations in cloud cover, tcc}
+    \label{fig:deviation_tcc}
+\end{figure}
+
 
 The mean values displayed in figure \ref{fig:all_stats_tcc} show that on average the coastline has a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
 
