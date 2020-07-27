@@ -187,8 +187,8 @@ A trained \acrshort{ar}-model provide a set of weights for each pixel. In total 
 Figure \ref{fig:grid_mse_best_model} show the score of each pixel in the best model. Table \ref{tab:weights_best_model} provide the statisics of the weights in this model.
 \begin{figure}
     \centering
-    \includegraphics{python_figs/status_AR/AR-5-o0_mae_test.png}
-    \caption{Grid showing the best models performance for all individual pixels. \textbf{Update this to be the best model}.}
+    \includegraphics{python_figs/TEST_tcc.png}
+    \caption{Grid showing the best models performance for all individual pixels. \textbf{Update this to be the best model}. Feilen her ligger i at latitude longitude informasjone er lagret som string i nc filene og sorteres derfor ikke når det leses inn pixelvis til et dataset. FIX dette kun for den beste modellen.}
     \label{fig:grid_mse_best_model}
 \end{figure}
 
@@ -206,7 +206,7 @@ Figure \ref{fig:grid_mse_best_model} show the score of each pixel in the best mo
     \textbf{Median} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
     \end{tabular}%
     }
-    \caption{Update the statistics of the best AR-model.}
+    \caption{Update the statistics of the best AR-model. \textbf{Ville det vært interresant?}}
     \label{tab:weights_best_model}
 \end{table}
 
@@ -227,7 +227,7 @@ The filter size determines the number of neighbours influencing an activation. U
 
 This section describe the hyperparameters kept constant. Between each \acrshort{convlstm}-layer there is a Batch Normalization layer (with its default settings). According to the \citepaper{ioffe2015batch} this should simplify the training process. Padding same is applied to all layers, to make sure the input and output dimensions are the same. This is described in more detail in Section \ref{sec:padding}. The model returns a sequence. The input sequences are not shuffled. The output filter and kernal size is one to concatenate all the previous hidden states to one without altering the output dimension. This is necessary for the predictions made.
 
-The weights are initilized based on the scheme ``LeCun uniform'', see paper for more descriptions (\cite{Lecun98efficientbackprop}). Callbacks such as early stopping with patience of 10 epochs and terminate on nans have been applied to avoid prolonged training time. The optimizer ADAM (\cite{Kingma2015Adam:Optimization}) is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$. The only difference from the default settings in tensorflow is epsilon not being $1e-08$. The loss function is \acrfull{mse}, and the models are evaluate based on \acrfull{mae}.
+The weights was initialized based on the scheme ``LeCun uniform'', see paper for more descriptions (\cite{Lecun98efficientbackprop}). Callbacks such as early stopping with patience of 10 epochs and terminate on NaN's have been applied to avoid prolonged training time. The optimizer ADAM (\cite{Kingma2015Adam:Optimization}) is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$. The only difference from the default settings in Tensorflow is epsilon not being $1e-08$. The loss function is \acrfull{mse}, and the models are evaluate based on \acrfull{mae}.
 Both functions are described in more detail in Section \ref{sec:metrics}. %The main difference between these functions is that \acrshort{mse} penalize points further away. This has its advantages in training the model, but makes it more difficult to interpret the results. The squared numbers in the range 0 to 1 shrink.
 
 \subsubsection{Experimental setup (ConvLSTM)}
@@ -270,7 +270,7 @@ As a reference to future studies below is a listing of non-trainable architectur
     \item $ConvLSTM-B_{5}-SL_{6}-256-3\times3-256-3\times3$
 \end{enumerate}
 
-% \cellcolor{green!25}
+%%%%%%%%%%%%%%%%%%%%%%%%% The copied dictionary is the result from tf.evaluate. 
 \begin{table}[]
     \centering
     \resizebox{\textwidth}{!}{
@@ -278,8 +278,25 @@ As a reference to future studies below is a listing of non-trainable architectur
     \textbf{ConvLSTM Model} & \textbf{Train Loss} & \textbf{Val Loss} & \textbf{Test Loss} & \textbf{Num. Params.} \\ \hline 
     \rowcolor{cyan!15}
     $B_{10}-SL_{24}-16-3\times3-16-3\times3$ &  &  &  &  30 296\\ \hline
+    % {"loss": 0.15752051770687103, "mean_squared_error": 0.15752056241035461, "r2_keras": 0.15506696701049805, "mean_absolute_error": 0.34570422768592834}
+    
     $B_{10}-SL_{24}-16-1\times1-16-1\times1$ &  &  &  &  \\ \hline
+    
+    $B_{10}-SL_{24}-32-1\times1-32-1\times1$ & 0.16490 &  & 0.350855 &  \\ \hline
+    % {"loss": 0.1649022251367569, "mean_squared_error": 0.1649022400379181, "r2_keras": 0.1159096509218216, "mean_absolute_error": 0.35085538029670715}
+    
+    $B_{10}-SL_{24}-32-3\times3-32-3\times3$ &  &  &  &  \\ \hline
+    %{"loss": 0.15340088307857513, "mean_squared_error": 0.15340085327625275, "r2_keras": 0.17754235863685608, "mean_absolute_error": 0.33814743161201477}
+    
+    $B_{10}-SL_{24}-32-5\times5-32-5\times5$ &  &  &  &  \\ \hline
+    % {"loss": 0.15889282524585724, "mean_squared_error": 0.15889279544353485, "r2_keras": 0.147248774766922, "mean_absolute_error": 0.34079509973526}
+    
     $B_{10}-SL_{24}-8-3\times3-8-3\times3-8-3\times3$ &  &  &  &  \\ \hline
+    % {"loss": 0.16335555911064148, "mean_squared_error": 0.16335561871528625, "r2_keras": 0.12448494136333466, "mean_absolute_error": 0.3477591276168823}
+    
+    $B_{10}-SL_{24}-32-5\times5-32-5\times5$ &  &  &  &  \\ \hline
+    %{"loss": 0.1632702797651291, "mean_squared_error": 0.16327014565467834, "r2_keras": 0.09565786272287369, "mean_absolute_error": 0.3411720395088196}
+    
     $B_{10}-SL_{24}-256-3\times3$ &  &  &  &  \\ \hline
     $B_{5}-SL_{6}-64-3\times3-64-3\times3$ &  &  &  &  \\ \hline
     $B_{5}-SL_{6}-64-5\times5-64-5\times5$ &  &  &  &  \\ \hline
@@ -300,12 +317,13 @@ As a reference to future studies below is a listing of non-trainable architectur
     \label{fig:input_volume_conv_lstm}
 \end{figure}
 
-The best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-16-3\times3-16-3 times3$. It architecture is shown in Figure \ref{fig:best_ml_architecture}, the input volume is currently very simplified. The real input volume is provided in Figure \ref{fig:input_volume_conv_lstm}. \textbf{Adjust both of them, maybe add a opach blu box illustrating a batch. }
+The best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-16-3\times3-16-3 times3$. It architecture is shown in Figure \ref{fig:best_ml_architecture}, the input volume is currently very simplified. The real input volume is provided in Figure \ref{fig:input_volume_conv_lstm}. 
 
 \begin{figure}
     \centering
-    \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model.tikz}
-    \caption{Structure of cloud cover forecasting model. \textbf{Add tekst} Four input variables, 16 hidden states in each convolutional LSTM layer and $3\times 3 kernel$. \textbf{Help how to best include the dimension sequence length and batch size}. The input shape is 10x24x81x161x4 and output 24x81x161x1. Update the input volume to be a green box in the same color as Figure \ref{fig:input_volume_conv_lstm}. And update the output to be the length of the sequences?}
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model_v2.tikz}
+    \caption{The architecture of the cloud cover forecasting model developed in this study. The content of the input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}, 16 hidden states in each \acrshort{convlstm} layer and $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$ kernel.
+    The input shape is 10x24x81x161x4 and output 24x81x161x1.  }
     \label{fig:best_ml_architecture}
 \end{figure}
 
