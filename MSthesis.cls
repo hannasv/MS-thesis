@@ -142,7 +142,7 @@
 \fancyhf{}
 
 \usepackage[export]{adjustbox}
-
+\usepackage{color, colortbl}
 % Page numbering in header 
 % RE = right side, even page numbering
 % LO = left side, odd page numbering

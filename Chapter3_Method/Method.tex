@@ -235,7 +235,7 @@ Model evaluation is done based on metrics. This metric is used to determine the 
 
 These metrics are set based on criteria measuring properties of the algorithm, for instance mean squared error measures the squared distance to the true value, giving a idea on how well it fits to the target. shown in Equation \eqref{eq:mse}, notice that it is not scaled. \acrshort{mse} is non-linear and numbers in the range between 0 and 1 shrink, while others grow exponentially.  \acrfull{mae} is the absolute value between the same distances, see Equation \eqref{eq:mae}. 
 
-The R2-score, also known as the coefficient of determination, shown in Equation \eqref{eq:r2},  determines how much of the variation in the dataset is captured by the model. The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
+%The R2-score, also known as the coefficient of determination, shown in Equation \eqref{eq:r2},  determines how much of the variation in the dataset is captured by the model. The above mentioned models output volumes, and metrics are written in their three-dimensional form accordingly.
 \begin{equation} \label{eq:mse}
     MSE(\hat{Y},\hat{\tilde{Y}}) = \frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2
 \end{equation} 
@@ -245,11 +245,12 @@ The R2-score, also known as the coefficient of determination, shown in Equation 
 %\begin{equation} \label{eq:ase}
 %    ASE(\hat{y},\hat{\tilde{y}}) =  \sum_{i=0}^{n-1}(y_i-\tilde{y}_i)^2
 %\end{equation} 
-\begin{equation} \label{eq:r2}
-    R^2(\hat{Y}, \tilde{\hat{Y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\bar{y})^2}
+%%%%% R2 is not used anywhere in this study
+%\begin{equation} \label{eq:r2}
+%    R^2(\hat{Y}, \tilde{\hat{Y}}) = 1 - \frac{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\tilde{y}_{i, j, k})^2}{\frac{1}{n\cdot m \cdot k} \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}(y_{i, j, k}-\bar{y})^2}
     %{\sum_{i=0}^{n - 1} (y_i - \bar{y})^2}
-\end{equation} 
-where mean value of $\hat{y}$ is defined as $\bar{y} =   \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}y_{i, j, k}$. 
+%\end{equation} 
+%where mean value of $\hat{y}$ is defined as $\bar{y} =   \sum_{i=0}^{n-1}\sum_{j=0}^{m-1}\sum_{k=0}^{t-1}y_{i, j, k}$. 
 %$R^2$ describes how much of the variation in the dataset you are able to capture with your model. 
 The absolute value or sum of squares is to avoid penalising points on the lower side of the line, it has an additional benefit of not having to deal with negative distances. 
 

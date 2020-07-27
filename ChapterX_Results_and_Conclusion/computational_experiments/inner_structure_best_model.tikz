@@ -1,5 +1,5 @@
 \begin{tikzpicture}[x={(1,0)},y={(0,1)},z={({cos(60)},{sin(60)})},
-font=\sffamily\small,scale=2]
+font=\sffamily\small,scale=2.0] % 1.7 passer bra på siden.
 
 \tikzset{circle dotted/.style={dash pattern=on .05mm off 2mm,
                                          line cap=round}}
@@ -56,8 +56,6 @@ coordinate(-front-bottom-right) -- cycle;
 \draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!70!gray with dimensions 0.5 and {2*\X} and 1*\X};
 }
 
-
-
 \foreach \X/\Col in {0.0/red,0.2/green,0.4/cyan, 0.6/yellow, 6.8/blue} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
@@ -79,8 +77,8 @@ coordinate(-front-bottom-right) -- cycle;
 \foreach \X in {1,2,3}
 {\draw[-latex] (A\X) -- (B2);}
 
-\draw[thick](0.7, 3)node[scale=1.]{\small $81\times 161 \times 4 $};
-\draw[thick](2.8, 3)node[scale=1.]{\small $81\times 161 \times 16 $};
-\draw[thick](5, 3)node[scale=1.]{\small $81\times 161 \times 16 $};
-\draw[thick](7, 3)node[scale=1.]{\small $81\times 161 \times 1 $};
+\draw[thick](0.7, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 4 $};
+\draw[thick](2.8, 3)node[scale=1.]{\small $10\times 24\times81\times 161 \times 16 $};
+\draw[thick](5, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 16 $};
+\draw[thick](7, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
 \end{tikzpicture}
