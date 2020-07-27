@@ -98,7 +98,7 @@ coordinate(-front-bottom-right) -- cycle;
  coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
 \draw[gray,ultra thin,fill=#1!80!black] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
 --++ (0,#3,0) --++ (0,0,-#4) -- cycle;
-\path[gray,decorate,decoration={text effects along path,text={OUTPUT}}] (#2/2,{2.+(#3-2)/2},0) -- (#2/2,0,0);
+\path[gray,decorate,decoration={text effects along path,text={OUTPUT}}] (#2/2,{2.4+(#3-2)/2},0) -- (#2/2,0,0);
 }
 }}
 
