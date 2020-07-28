@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%% The copied dictionary is the result from tf.evaluate. 
+\begin{table}[]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{c|lccc}
+    \textbf{ConvLSTM Model} & \textbf{Train Loss} & \textbf{Val Loss} & \textbf{Test Loss} & \textbf{Num. Params.} \\ \hline 
+    $B_{10}-SL_{24}-16-3\times3-16-3\times3$ & 0.1779 & 0.1547 & 0.1575 &  30 296\\ \hline
+    % {"loss": 0.15752051770687103, "mean_squared_error": 0.15752056241035461, "r2_keras": 0.15506696701049805, "mean_absolute_error": 0.34570422768592834}
+
+    $B_{10}-SL_{24}-32-1\times1-32-1\times1$ & 0.1817 & 0.1617 & 0.1649 & 13 464 \\ \hline
+    % {"loss": 0.1649022251367569, "mean_squared_error": 0.1649022400379181, "r2_keras": 0.1159096509218216, "mean_absolute_error": 0.35085538029670715}
+    \rowcolor{cyan!15}
+    $B_{10}-SL_{24}-32-3\times3-32-3\times3$ & 0.1731 & 0.1497 & 0.1534 & 115 864 \\ \hline
+    %{"loss": 0.15340088307857513, "mean_squared_error": 0.15340085327625275, "r2_keras": 0.17754235863685608, "mean_absolute_error": 0.33814743161201477}
+    
+    $B_{10}-SL_{24}-32-5\times5-32-5\times5$ & 0.1755 & 0.1564 & 0.1589 & 320 664 \\ \hline
+    % {"loss": 0.15889282524585724, "mean_squared_error": 0.15889279544353485, "r2_keras": 0.147248774766922, "mean_absolute_error": 0.34079509973526}
+    
+    $B_{10}-SL_{24}-8-3\times3-8-3\times3-8-3\times3$ &  0.1817 & 0.1615 & 0.1634 & 12 920 \\ \hline
+    % {"loss": 0.16335555911064148, "mean_squared_error": 0.16335561871528625, "r2_keras": 0.12448494136333466, "mean_absolute_error": 0.3477591276168823}
+    
+    $B_{5}-SL_{6}-32-3\times3-32-3\times3-32-3\times3$ & 0.1686 & 0.1615  & 0.1633 &  189 848 \\ \hline
+    %{"loss": 0.1632702797651291, "mean_squared_error": 0.16327014565467834, "r2_keras": 0.09565786272287369, "mean_absolute_error": 0.3411720395088196}
+    
+      \end{tabular}
+    }
+    \caption{Results, metrics and number of parameters for the trained models. The best model \acrshort{convlstm}-model is highlighted in light blue. \textbf{Update to best-model.} X denotes models finished running, others are in progress. }
+    \label{tab:convlstmLoss}
+\end{table}

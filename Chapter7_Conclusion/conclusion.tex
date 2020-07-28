@@ -7,6 +7,7 @@ The fist objective in this study, was to generate a high quality dataset. Withou
 %Alternative, at its current state, inhomogenities renders, \acrshort{ecc}, inappropriate for cloud cover forecasting. This is not the same as stating its of low quality, however its not suitable for the applications in this study. 
 
 %If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choices when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
+$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ 
 This study shows that model X performed best. The models where able to learn, however dataset, \acrshort{ecc}, is not of high enough quality and they couldn't compete with ERA5.
 
 Spending more time tuning the \acrshort{convlstm}-model, expesiaclly the optimizer and changing the weight init scheme to xavier according to paper in download its important. 
@@ -22,6 +23,8 @@ Based on the small set of experiments run in this section, there is
 Datasets publish have different versions. Propose a suggestion for the content on \acrshort{ecc} v2.
 
 Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
+
+Sensitivitets test på input variablene.
 
 %Unfortunately, the best model is not sufficiently accurate to predict cloud cover. 
 %For future work it would be interesting to investigate how ..?

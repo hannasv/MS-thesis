@@ -98,12 +98,11 @@ coordinate(-front-bottom-right) -- cycle;
  coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
 \draw[gray,ultra thin,fill=#1!80!black] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
 --++ (0,#3,0) --++ (0,0,-#4) -- cycle;
-\path[gray,decorate,decoration={text effects along path,text={OUTPUT}}] (#2/2,{2.4+(#3-2)/2},0) -- (#2/2,0,0);
+\path[gray,decorate,decoration={text effects along path,text={OUTPUT}}] (#2/2,{2.6+(#3-2)/2},0) -- (#2/2,0,0);
 }
 }}
 
-
-\foreach \X / \Y in {3.0/6.}
+\foreach \X / \Y in {3.0/6.1}
 %2.2,2.2,2.0
 {
 \draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!70!blue with dimensions 1.0 and {2*\X} and 1*\X};
