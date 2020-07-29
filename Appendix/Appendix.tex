@@ -1,7 +1,5 @@
 \appendix
 \chapter{Statistics} \label{ch:appendix_statistic}
-TODO: Rewrite this to contain plots of one variables divided into statistics and deviation - both having a single colorbar on the right
-
 \section{Temporal statistics} \label{sec:all_stats}
 %%% ALL LOCAL STATISTICS FOR VARIABLES 
 %% TEMPERATURE
@@ -40,7 +38,7 @@ TODO: Rewrite this to contain plots of one variables divided into statistics and
 \begin{figure}
     \centering
     \includegraphics{python_figs/DEVIATION_all_stat_variable_t2m.pdf}
-    \caption{Deviations in tempreature, t2m.}
+    \caption{Deviations in two meter temperature, $t_2m$.}
     \label{fig:deviation_t2m}
 \end{figure}
 
@@ -69,8 +67,7 @@ TODO: Rewrite this to contain plots of one variables divided into statistics and
 
 \cleardoublepage
 
-\chapter{Seasonal effects}
-This section has more plots. 
+\chapter{Seasonal effects} \label{app:seasonal_plots}
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/seasonal_mean_all_variables.png}
@@ -185,10 +182,10 @@ This section has more plots.
 
 
 
-\chapter{Performance of other models}
+\chapter{Performance of other models} 
 Currently it show the plots that could be generated to show the performance for other model. The plots below is generated based on dummy data. 
 
-\section{Listing of non-trainable architectures}
+\section{Listing of non-trainable architectures} \label{app:list_non_trainable_architectures}
 As a reference to future studies below is a listing of non-trainable architectures.
 \begin{enumerate}
     \item $ConvLSTM-B_{10}-SL_{24}-128-3\times3$
@@ -205,10 +202,35 @@ As a reference to future studies below is a listing of non-trainable architectur
 %\end{enumerate}
 
 \section{Prediction sequence ConvLSTM 1x1 filter}
-\textbf{TODO add}
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/timelapse_convlstm_1x1_24hrs_from_2014-01-01.png}
+    \caption{Timelapse prediction, same configuration as best model except for the $1\times1$ filter.}
+    \label{fig:timelapse_1x1}
+\end{figure}
 
-\section{Griddplot MAE OF OTHER MODELS}
-\textbf{TODO add en god, en middels og en dårlig, har de samme møsnter?}
+\section{Performance of AR-models}
+
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/mea_best_ar_model_tcc_AR_L1_in_folder_AR-5.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/mea_best_ar_model_tcc_AR_L1_in_folder_AR-S-5.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{python_figs/mea_best_ar_model_tcc_AR_L1_in_folder_AR-T-5.png}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
 \cleardoublepage
 

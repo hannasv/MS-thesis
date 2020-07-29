@@ -1,0 +1,17 @@
+
+\begin{table}[hp]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ccccc}
+     \textbf{ConvLSTM Model} & \textbf{Sequence Length} & \textbf{Batch Size} & \textbf{Hidden States} & \textbf{Kernels} \\ \hline
+    $B_{10}-SL_{24}-16-3\times3-16-3\times3$ & 24 & 10 & [16, 16]   & [3, 3] \\ \hline
+    $B_{10}-SL_{24}-32-1\times1-32-1\times1$ & 24 & 10 & [32, 32]  & [1, 1] \\ \hline
+    $B_{10}-SL_{24}-32-3\times3-32-3\times3$ & 24 & 10 & [32, 32] & [3, 3] \\ \hline
+    $B_{10}-SL_{24}-32-5\times5-32-5\times5$ & 24 & 10 & [32, 32] & [5, 5] \\ \hline
+    $B_{10}-SL_{24}-8-3\times3-8-3\times3-8-3\times3$ & 24 & 10 & [8, 8, 8] & [3, 3, 3] \\ \hline
+    $B_{5}-SL_{6}-32-3\times3-32-3\times3-32-3\times3$ & 6 & 5 & [32, 32, 32] & [3, 3, 3] \\ \hline
+    \end{tabular}%
+    }
+    \caption{Examples of model names and their configurations.}
+    \label{tab:convlstm_config}
+\end{table}

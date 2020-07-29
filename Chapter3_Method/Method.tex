@@ -266,10 +266,6 @@ Theses results are compared to a FC-LSTM-2000-2000 and a traditional model for p
 \citepaper{SunAirLSTM} use a combination of distributed data. Weather data is provided in grids, and air quality observations are point measurements. The weather data volume per time step is a tensor of shape $(21 \times 31 \times 5)$. Sixteen months of hourly data were divided into sequences of 72 frames, 24 for input and 48 for prediction. %Batch size is not mentioned in the paper, but based on Figure X, where one tensor of shape $(21 \times 31 \times 5)$ is sent as input. i.e. one sample. 
 They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs, and gradient clipping to avoid exploding gradients when training longer sequences. This is combined with the following kernels; $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states. The model names are given following this structure, described using an example. The model \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, 2 layers having the same number hidden states, 256.
 
-%\textbf{Les igjen, hva er patch size..?}
-%Include patch size of 4 making 64x64 to 16x16x16 tensors. Choice of optimizer is RMSprop 0.001 and a learning rate decay of 0.9. Performs early stopping on the validation set.
-
-
 %%%%%%%%%%%%%% above here is ok
 
 %In this works the model is trained on a small amount of data. Unlike like dataset.
