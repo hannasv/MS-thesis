@@ -1,4 +1,6 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
+\textbf{Litt usikker på inndeling i seksjoner, blir noen paragraphs etter jeg slo sammen }
+\textbf{OBSBOBS Trude vi må snakke om titellern til kap 2}
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. Two types of statistical models, \acrshort{convlstm} and \acrshort{ar}-model are trained and evaluated on an unseen portion of the dataset. 
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
@@ -76,7 +78,7 @@ The following sections contain the configurations of the models compiled for thi
 In the search for the best model configuration, different combinations of hyperparameters are evaluated based on a metric. % mention why you chose M;A;E?
 This study evaluate models based on \acrfull{mae}, see Section \ref{sec:metrics} for more details.
 
-For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. Therefore the tuning of \acrshort{convlstm}-models was performed manually using the set of architectures provided by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}) as a starting point.
+For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. Therefore the tuning of \acrshort{convlstm}-models was done manually. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}).
 The models are described in Section \ref{sec:related_work}.
 The \acrshort{ar}-models follow another strategy. For this study the simplest models was trained first, followed by a gradual increase in complexity.
 %This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
@@ -175,27 +177,17 @@ Table \ref{tab:weights_best_model} provide the statisics of the weights in this 
 \begin{figure}
     \centering
     \includegraphics{python_figs/mea_best_ar_model_tcc.png}
-    \caption{Grid showing the best models performance for all individual pixels. \textbf{Antar at hullene tettes når det gjelder den ordentlige beste modelen.}}
+    \caption{Grid showing the best models performance for all individual pixels. \textbf{Antar at hullene tettes når det gjelder den ordentlige beste modelen.} \textbf{This figure shows the mean, this will be updated with }}
     \label{fig:grid_mse_best_model}
 \end{figure}
 
-\begin{table}[hp]
+\begin{figure}
     \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{cccccc}
-    \cline{2-6}
-     & \textbf{W1} & \textbf{W2} & \textbf{W3} & \textbf{W4} & \textbf{W5} \\ \hline
-    %\textbf{Best model} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \textbf{Mean} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \textbf{Min} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \textbf{Max} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \textbf{STD} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \textbf{Median} & 0.3424 & 0.5 & 0.439839   & 0.83247 & 0.98347984 \\ \hline
-    \end{tabular}%
-    }
-    \caption{Update the statistics of the best AR-model. \textbf{Ville det vært interresant?}}
+    \includegraphics{python_figs/test_weights_heatmap.png}
+    \caption{Update the statistics of the best AR-model.}
     \label{tab:weights_best_model}
-\end{table}
+\end{figure}
+
 \clearpage
 
 \subsection{Convolutional LSTM (ConvLSTM)}
@@ -207,15 +199,15 @@ The formulation of the air quality forecasting problem presented by \citeauthor{
 Architectural decisions %such as batch size, sequence length, number of filters and number of layers 
 can cause the \acrshort{gpu} to run out of memory, resulting in non-trainable models.
 %In these cases the compiled model is not trainable. 
-To circumvent related issues, the \acrshort{convlstm}-models in this study was tuned manually. The list of hyperparameter to tune when working with \acrshort{convlstm}-model is long. In the initial experiments conducted in this study a subset of them is tuned and the rest is kept constant.
+To circumvent related issues, the \acrshort{convlstm}-models in this study was tuned manually. The list of hyperparameter is long when working with \acrshort{convlstm}-model. In the experiments conducted in this study a subset of them is tuned and the rest is kept constant.
 
-The following section describe the tuned hyperparameters. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model aims to learn to predict. Number of hidden states it the number of filters it learns in each layer, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. 
-The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions, similar to \acrshort{ar}-models without interactions between adjacent pixels. A more detailed description on these parameters is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
+The following section describe the tuned hyperparameters. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model is optimized to learn to predict. Number of hidden states it the number of filters it learns in each layer, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. 
+The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions similar to \acrshort{ar}-models by removing interactions between adjacent pixels. A more detailed description on these parameters is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
 
-This section describe the hyperparameters kept constant. Between each \acrshort{convlstm}-layer there is a Batch Normalization layer (using default settings). According to the \citepaper{ioffe2015batch} this should simplify the training process. ``Padding same'' is applied to all \acrshort{convlstm}-layer, to make sure the input and output dimensions are the same, see Section \ref{sec:padding}. The model returns a sequence and the input sequences are not shuffled. The output filter and kernel size is one to concatenate all the previous hidden states to one without altering the output dimension. This is necessary to predict a sequence of cloud fractional covers. 
+This section describe the hyperparameters kept constant. Between each \acrshort{convlstm}-layer there is a Batch Normalization layer, implemented using default settings. According to the \citepaper{ioffe2015batch} this should simplify the training process. ``Padding same'' is applied to all \acrshort{convlstm}-layer, to make sure the input and output dimensions are the same, see Section \ref{sec:padding}. The model returns a sequence and the input sequences are not shuffled. The output filter and kernel size is one to concatenate all the previous hidden states to one without altering the output dimension. This is necessary to predict a sequence of cloud fractional covers. 
 
-The weights was initialized based on the scheme ``LeCun uniform'', see the paper for more descriptions (\cite{Lecun98efficientbackprop}). Callbacks such as %early stopping was impleme with patience \textbf{forgot to apply this when rerunning the models..} of 10 epochs and 
-terminate on NaN's have been applied to avoid prolonged training time. The optimizer ADAM (\cite{Kingma2015Adam:Optimization}) is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$. The default settings in Tensorflow use $\text{epsilon}=1e-08$. The loss function is \acrfull{mse}, and the models are evaluate based on \acrfull{mae}.
+The weights were initialized based on the scheme ``LeCun uniform'', see the paper for more descriptions (\cite{Lecun98efficientbackprop}). Callbacks such as %early stopping was impleme with patience \textbf{forgot to apply this when rerunning the models..} of 10 epochs and 
+terminate on NaN's have been applied to avoid prolonged training time. The optimizer ADAM is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$ (\cite{Kingma2015Adam:Optimization}). The default settings in Tensorflow use $\text{epsilon}=1e-08$. The loss function is \acrfull{mse}, and the models are evaluate based on \acrfull{mae}.
 Both functions are described in more detail in Section \ref{sec:metrics}. %The main difference between these functions is that \acrshort{mse} penalize points further away. This has its advantages in training the model, but makes it more difficult to interpret the results. The squared numbers in the range 0 to 1 shrink.
 
 \subsubsection{Experimental setup (ConvLSTM)}
@@ -223,42 +215,29 @@ Models are given names based on an extension of the convention from \citepaper{p
 % Trenge kanskje ikke nevne hva de hadde..?
 By including batch size and sequence length %to $ConvLSTM-\text{hidden states}-filter$\times$filter$, 
 the resulting naming convention becomes  $ConvLSTM-B_{x}-SL_{y}-\text{hidden states}-filter$\times$filter$. To clear any confusion Table \ref{tab:convlstm_config} provide a set of example configurations.
-
-\begin{table}[hp]
-    \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{ccccc}
-     \textbf{ConvLSTM Model} & \textbf{Sequence Length} & \textbf{Batch Size} & \textbf{Hidden States} & \textbf{Kernels} \\ \hline
-    \textbf{$B_{5}-SL_{24}$ \newline $-256-3\times3-256-3\times3$} & 24 & 5 & [256, 256]   & [3, 3] \\ \hline
-    \textbf{$B_{15}-SL_{24}-256-5\times5-256-5\times5$} & 24 & 15 & [256, 256]  & [5, 5] \\ \hline
-    \textbf{$B_{10}-SL_{24}-128-1\times1-128-1\times1$} & 24 & 10 &  [128, 128] & [1, 1] \\ \hline
-    \textbf{$B_{5}-SL_{6}-64-3\times3-64-3\times3$} & 6 & 5 & [64, 64] & [3, 3] \\ \hline
-    \textbf{$B_{5}-SL_{6}-256-3\times3-256-3\times3$} & 6 & 5 & [64, 32] & [3, 3] \\ \hline
-    \textbf{$B_{5}-SL_{6}-8-3\times3-8-3\times3-8-3\times3$} & 6 & 5 & [8, 8, 8] & [3, 3, 3] \\ \hline
-    \end{tabular}%
-    }
-    \caption{Examples to simplify the explanation of configurations and models. \textbf{Update this to be the models tuned in this study.}}
-    \label{tab:convlstm_config}
-\end{table}
-
+\input{ChapterX_Results_and_Conclusion/computational_experiments/conv_ltsm_example_table}
 %\subsubsection{}
-
-Figure \ref{fig:convlstm_loss} show the loss curves in the training process for all the compiled models in this study. The training loss is higher than the validation loss since there is a higher number of samples in the training set than the validation set and it is not scaled.
-
-Another means to further increase performance of train deeper models is to reduce the spatial or temporal resolution. This will reduce the noise in the input data, and the number of trainable parameters in the model. This trick was applied in \citepaper{precip_nowcasting}, they reduced the grid from $300\times300$ to $100\times100$ pixels. As mentioned in Section \ref{sec:cloud_in_climate_system}, cloud cover has an average lifetime of one hour. The above mentioned trick is not applicable to this task. If it was applied it would most likely produce a significant loss of information. \textbf{In its current state this text looks stupid, but its quite common to do this as a first attempt if you model doesn't learn ... so i think it should be included, but rewritten.}
 \begin{figure}
     \centering
     \includegraphics{python_figs/epoch_vs_loss.pdf}
     \caption{The loss for the trained model against epochs.}
     \label{fig:convlstm_loss}
 \end{figure}
-%List of non-trainable models attempted:
+Figure \ref{fig:convlstm_loss} show the loss curves in the training process for all the compiled models in this study. They all ``learn'' the most in the first epoch, this is visible in the largest drop in loss at the beginning of the figure. Note that the training loss is higher than the validation loss since there is a higher number of samples in this set and the loss is not scaled by the number of samples. 
 
-
+Another means to further increase performance of train deeper models is to reduce the spatial or temporal resolution. This will reduce the noise in the input data, and the number of trainable parameters in the model. This trick was applied in \citepaper{precip_nowcasting}, they reduced the grid from $300\times300$ to $100\times100$ pixels. This is arguably not applicable for this task, since cloud cover has an average lifetime of one hour, as mentioned in Section \ref{sec:cloud_in_climate_system}. If applied it would most likely produce a significant loss of information.
 \input{ChapterX_Results_and_Conclusion/computational_experiments/convltsm_table_summary}
 
-\textbf{Comment on the difference using a filter 1 by 1, it has the effect that it removen knowledge of neigbours more similat to AR.} \textbf{This sequence is plotted in appendix}
+From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss} (highlighted in blue) its clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$. It has the lowest test and validation loss after 40 epochs. One model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ had a better training loss. As you can see based on the names it has a similar architecture, but an additional layer, this may have allowed it to learn a better representation on the training data presented, however the models are evaluated on unseen data and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ goes out winning.
 
+$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown in Figure \ref{fig:best_ml_architecture}. The model consist of three layers pairs, of Batch Normalization and a \acrshort{convlstm}-layer. The model consist of 32 hidden states in each \acrshort{convlstm} layer and $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$ kernel. The input shape is $10x24x81x161x4$ and output $24x81x161x1$. 
+\begin{figure}
+    \centering
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model_v2.tikz}
+    \caption{The architecture of the cloud cover forecasting model developed in this study. }
+    \label{fig:best_ml_architecture}
+\end{figure}
+Note that input volume is simplified as a green box. One batch, of the fully detailed 5-dimensional input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}. One batch (green), consist of a batch size number of sequences, here 10. A sequence is composed of a sequence length, of here 24, hourly weather data volumes of $81\time161\times4$-dimensions.
 \begin{figure}
     \centering
     %\input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume_v2.tikz}
@@ -267,36 +246,47 @@ Another means to further increase performance of train deeper models is to reduc
     \label{fig:input_volume_conv_lstm}
 \end{figure}
 
-The best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ \textbf{update to new best model}. Its architecture is shown in Figure \ref{fig:best_ml_architecture}. The input volume is simplified, the more detailed version is provided in Figure \ref{fig:input_volume_conv_lstm}. 
 
-\begin{figure}
-    \centering
-    \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model_v2.tikz}
-    \caption{The architecture of the cloud cover forecasting model developed in this study. The content of the input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}, 16 hidden states in each \acrshort{convlstm} layer and $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$ kernel.
-    The input shape is 10x24x81x161x4 and output 24x81x161x1.  }
-    \label{fig:best_ml_architecture}
-\end{figure}
+\textbf{Comment on the difference using a filter 1 by 1, it has the effect that it removen knowledge of neigbours more similar to AR.} \textbf{This sequence is plotted in appendix}
 
 Of the predicted sequence 2014-2018 $0.5\%$ is below zero (never below -1) but non is above 1. %17140/3129840 = 0.005476318278250646
+\clearpage
 
-\subsection{Results on Predicting sequence}
-The foundation of the choice of the best model is different for \acrshort{ar} and \acrshort{convlstm}-models. As mentioned in Chapter \ref{ch:num_methods}, the \acrshort{ar}-model is optimized to fit the next timestep, while the \acrshort{convlstm} is optimised to fit a sequence or a prescribed length. In this section the best \acrshort{ar}-model and \acrshort{convlstm}-model are assessed on how well they predict the sequence length of the best \acrshort{convlstm}-model. \textbf{Note, that the choise of the best AR-model is made on its ability to predict the next timestep}. By feeding the prediction into the \acrshort{ar}-model, one can modify its ability to predict sequences. The two best models are X and Y, with performance measured by the MAE metric of A and B respectively. 
+\subsection{Compare all GRIDS OF MAE }
+\textbf{TODO BETTER TO PUT ALL GRIDS MAE COMPARISONS IN ONE PLOT and ONE section}
+\textbf{Pga. drop remainder batch num samples of MAE is 43 680 vs 43 824 in others}
+\subsection{Visual comparison predicting sequence}
+In this section provide a visual comparison of the best \acrshort{ar}-model, \acrshort{convlstm}-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:target_predict_era5_horizontal} show the first of a series of four plots generated to illustrate a step by step comparison of the \acrshort{cfc}. The full series is shown in Appendix \ref{app:pred_sequence}. The series is 24 hours of January first 2014.
 
-%\subsubsection{Visual Comparison predicting a sequence of length}
-Visualizing the experiments for sequences.
+Enabling the \acrshort{ar}-model to predict sequences by feeding it the prediction made at the previous timestep along with environmental variables \textbf{only if this is the ar model use this}.
+
+The two best models in this study are the \textbf{update with best AR model} and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model.
+
+The similarity between \acrshort{ecc} and ERA5 is impressive. They capture a similar spatial patteren, the ecc show a smoother version and the ERA5 have a higher fraction of cloud cover and sharper boundaries. 
 %%%% TARGET PREDICITON ERA5
 \begin{figure}[ht]
     \centering
     \includegraphics[sale=0.1]{python_figs/comparting_seq_part_1_of4.png}
-    \caption{First of 4 part since the sequence is 24 hours long, the full series of plots for this sequence can be found in Appendix \ref{app:pred_sequence} }
+    \caption{First of 4 part since the sequence is 24 hours long, the full series of plots for this sequence can be found in Appendix \ref{app:pred_sequence} \textbf{OBS rerunning this plot mixed ERA and ECC ...}}
     \label{fig:target_predict_era5_horizontal}
 \end{figure}
+At first glance it clear that the \acrshort{convlstm}-model have learned which pixels are land and which is ocean. After a few hours its gets more distinct in its cloud cover and a weaker version of the triangle structure found in ECC and ERA5 is beginning to reveal itself. As the time pass by the cloud cover progress onto the continent and the \acrshort{convlstm} show signs of increased clod cover over parts of Spain and France.
+The values are smoother and they are in this series are in the middle range.
 
-Some text where you comment the results from this comparison. Is it evident that the \acrshort{convlstm} is better at predicting spatial patterns as expected or does it all resemble random noise. Is the predicted values in sample or out of sample.
+\textbf{Comment on AR when its updated}
+\textbf{sjekk appendix om det skjer noe som er ver å påpeke lenger ut i serien.}
 
+The \acrshort{convlstm}-model is optimized to fit a sequence, while the \acrshort{ar}-model is optimized to fit the next timestep, not a sequence.
+\textbf{Can you see this in Figure \ref{fig:target_predict_era5_horizontal} ..? Does the ar gradually become worse?}
+
+\textbf{Run av med en oppsummerende setning om AR og ConvLSTM}
+Is it evident that the \acrshort{convlstm} is better at predicting spatial patterns as expected or does it all resemble random noise. Is the predicted values in sample or out of sample.
 
 \subsection{Summary} \label{sec:summary_num}
-
+\textbf{Hva skal med}
+\begin{itemize}
+    \item 
+\end{itemize}
 
 Comparisons of inputdata to the works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), is done based on input volumes. %\textbf{Add the input volume}
 The dimensions are flattened to generalize the comparison. \citepaper{precip_nowcasting} is trained on $1,629,600,000$ data points, \citepaper{SunAirLSTM} on $28,513,800$ and \acrshort{ecc} on $21,220,315,200$. The models in this study is trained on more than 10 times the amount of data. \textbf{Understrek at detter er en achievement siden er er vanskeligere å trene en model på mer data.}

@@ -111,7 +111,7 @@ coordinate(-front-bottom-right) -- cycle;
 %\foreach \X in {4,1,3}
 %{\draw[gray!60,thick] (1-\X) -- (2-\X);}
 
-\node[draw,single arrow, orange,fill=orange!30] at (0.8, 0.5,0) {input};
+\node[draw,single arrow, orange,fill=orange!30] at (0.8, 0.5,0) {BATCH};
 \node[draw,single arrow, orange,fill=orange!30] at (2.4, 0.5,0) {$3\times 3$};
 \node[draw,single arrow, orange,fill=orange!30] at (4., 0.5,0) {$3\times 3$};
 \node[draw,single arrow, orange,fill=orange!30] at (5.6, 0.5,0) {$1\times 1$};
@@ -124,8 +124,9 @@ coordinate(-front-bottom-right) -- cycle;
 %\foreach \X in {1,2,3}
 %{\draw[-latex] (A\X) -- (B2);}
 
-\draw[thick](0.2, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 4 $};
-\draw[thick](2.4, 3)node[scale=1.]{\small $10\times 24\times81\times 161 \times 16 $};
-\draw[thick](4.6, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 16 $};
+\draw[thick](0.2, 3)node[scale=1.]{\small $None\times 24\times 81\times 161 \times 4 $};
+\draw[thick](2.0, -2)node[scale=1.]{\small $10\times 24\times81\times 161 \times 32 $};
+\draw[thick](3.8, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 32 $};
+\draw[thick](5.0, -2)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
 \draw[thick](6.6, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
 \end{tikzpicture}
