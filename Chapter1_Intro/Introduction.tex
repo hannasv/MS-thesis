@@ -4,14 +4,13 @@ Weather and climate have a major influence of life on Earth. While the globe str
 % The \acrfull{ecs} is the amount of warming that will occur ones all 
 
 Technological advances starting with the industrial revolution have caused a steady increase in anthropogenic emissions since the 18\textsuperscript{th} century. %(1701–1800)
-Consequently (Leading to) a increase in the atmosphere $CO_2$-concentration. $CO_2$ is a greenhouse gas and the emissions cause a imbalance in the energy budget. Greenhouse gases case a decrease in longwave radiation emitted to space, driving global warming.
-%Global warming is in progress. 
-Greenhouse gas emissions have a delayed effect on temperature and it will keep rising until it has reached the equilibrium temperature, closing the energy budget. 
-%TS: Det går litt raskt i svingene her - først må du si at økningen i utslipp har ført til en økning av CO2 i atmosfæren. Deretter at denne økningen gir en ubalanse i energibudsjettet fordi CO2 er en drivhusgass. Så kommer du til den forsinkede temperatur-responsen 
+This has lead to a increase in the atmosphere $CO_2$-concentration. $CO_2$ is a greenhouse gas and the emissions cause a imbalance in the energy budget. Greenhouse gases cause a decrease in longwave radiation emitted to space, driving global warming. Greenhouse gas emissions have a delayed effect on temperature and it will keep rising until it has reached the equilibrium temperature, closing the energy budget. 
 
 Providing a realistic estimate of future climates is important for motivating mitigation and limiting the global temperature increase. 
 % avoiding tipping points. 
-This introduces the need for studying potential futures using a combination of models and idealised experiments. A common, yet not very intuitive quantity used to describe this temperature increase is the \acrfull{ecs}. The \acrshort{ecs} is computed as the linear fit between perturbed global mean surface temperature and the radiative imbalance at \acrfull{toa}. 
+This introduces the need for studying potential futures using a combination of models and idealised experiments. A common, yet not very intuitive quantity used to describe this temperature increase is the \acrfull{ecs}. 
+% Wikipedia explains climate sensitivity as how much the climate cool or warms as a respone to a climate change.
+The \acrshort{ecs} is computed as the linear fit between perturbed global mean surface temperature and the radiative imbalance at \acrfull{toa}. 
 %TS: Må si her hva ECS faktisk er
 
 Estimates based on %an ensemble of models, \acrfull{cmip5}, 
@@ -22,13 +21,10 @@ and keeping it constant for 150 years.
 %TS: Ja, f.eks. Hall et al. (Nature Climate Change, 2018) og Cox et al. (Nature, 2018)
 The socio-economic consequences related to the uncertainty is enormous (\cite{bony2015}). 
 
-% Despite decades of research efforts this uncertainty has been reduced from \textbf{mistenkter at perioden klimasensitiviten representerer er helt forskjellig.} % The first estimates of \acrshort{ecs} made by \cite{hansen} where in the range []. This is not major improvement based on the decades of research provided in this period. 
-
-%\section{Scope of this study}
 Including the effects of clouds on large scale processes in climate models, has proven difficult. The \citepaper{IPCC_CH9_climate_models} associate a high confidence to the claim stating that uncertainties attributed cloud processes explain much of the spread in modelled climate sensitivity. 
 %TS: Biten ovenfor (om at usikkerhet knyttet til skyer forklarer mye av usikkerheten i ECS) må være med, ellers blir ikke linken til arbeidet ditt tydelig nok
 
-After decades of being mainly a research area of limited use, today \acrfull{ai} in the form of \acrfull{dl} has become a part of our daily life. Face recognition technology has the ability to unlock your phone. Speech recognition allows you to dictate text messages. % (\cite{Sak2014LongRecognition}).
+After decades of being mainly a research area of limited use, today \acrfull{ai} in the form of \acrfull{dl} has become a part of our daily life. Face recognition technology has the ability to unlock your phone. Speech recognition allows you to dictate text messages. %(\cite{Sak2014LongRecognition}).
 Self-driving buses are used in metropolitan areas around the world, including Oslo city centre.  %(\href{https://www.letsholo.com/oslo}{https://www.letsholo.com/oslo}). 
 Image manipulation allows you to transform Monet paintings to pictures and back (\cite{zhu2017_cycleGAN_monet_zebra}). Video manipulation can make people appear to say and do things they never did. 
 
@@ -41,12 +37,10 @@ However, this simplification is requirement to enable the use of \acrshort{dl}. 
 Occam's razor is an old philosophical concept. It states that if two hypotheses are equally likely, the simplest one should be preferred (\cite{noauthor_occams_nodate}). 
 
 For this application, the compilation of a new dataset was deemed necessary. The dataset is named \acrfull{ecc}, and is composed of reanalysis data from ERA5 (\cite{Hersbach2018OperationalStatus}) and satellite retrievals from \acrfull{msg} (\cite{Schmetz_meteosat_intro}).
-%TS Includer referanser her
 The dataset has a temporal resolution of one hour and spatial resolution of $0.25^o$. Clouds have an average lifetime of less than one hour (\cite{lohmann2016}, p. 19), thus it should be achievable to extract suitable features to make reasonable predictions. 
 
 There is currently considerable interest in and activities around \acrfull{ml} and \acrshort{ai}. The practical applications to climate research are under investigation. The last few years researchers have attempted to incorporate \acrshort{dl} into Geosciences, with the goal of solving a wide range of problems, from rainfall runoff modelling (\cite{hess-23-5089-2019}) to  high-resolution weather forecasting (\cite{Rodrigues2018DeepDownscale:Forecast}). Another more comprehensive \acrshort{ml} project is led by Tapio Schneider at \acrfull{caltech}. Along with his team he has ambitions to create a next-generation \acrfull{esm} using \acrshort{ml}, by creating a platform that can resolve clouds and hopefully reduce the uncertainty in climate sensitivity (\cite{Voosen2018ScienceIntelligence}).
 
 There is high confidence that a lot of the spread in \acrshort{ecs} can be attributed to cloud feedbacks (\cite{IPCC_CH9_climate_models},p.817). Developing new methods for cloud cover predictions is believed to produce more reliable estimates of future climates. Focusing on a simplified representation that still captures the most relevant processes stands the best chance of reducing the spread. This thesis is a ``proof of concept'' study investigating the potential for using a data driven approach for parameterizing \acrfull{cfc} based on standard environmental variables. 
-%at a satisfactory precision.
 
 

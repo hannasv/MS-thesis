@@ -1,17 +1,12 @@
 \section{Dataset - European Cloud Cover }
 %This chapter presents the developed methodology used in the compilation of the dataset. 
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected.
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected. The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files.
 
 %\textbf{Add the scientific reasoning making the foundation of you choice.}
-Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. \textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. See other arguments below}
-\begin{enumerate}
-    \item Vinkling at det er den nyeste, det finnes derfor lite forskning på dette enda 
-    \item OG det er derfor mest spennende om det funker på denne. Alle reanalyser er forskjellige, det er helt avhenging av observasjonen og modellen som er brukt til assimilering. 
-    \item Kommer til å bli utvidet tilbake til 1950
-    \item Siter Fuijwara, 2017
-    \item Pass på at dette er med \textbf{The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files.}
-\end{enumerate}
+Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. %\textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. See other arguments below}
 
+There are multiple global reanalysis datasets available. ERA5 was chosen since its the latest within reanalysis products and it has the highest resolution. %above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
+All reanalysis product are different. They are all dependant on the forecast assimilation system and observations used (\cite{Fujiwara2017IntroductionSystems}).
 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
@@ -239,7 +234,7 @@ To study the statistical properties at different parts of the domain the filters
 
 \subsubsection{Temporal statistics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MONTHLY MEANS
-Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all variables. As expected, seasonal effects and differences between land and ocean are evident among all variables. For temperature and relative humidity, a more pronounced seasonal cycle over land, compared to ocean, is evident. The remaining variables appear to have a small shift towards higher values over the ocean. \textbf{TS: Fint om du kommenterer på om disse forskjellene er som forventet her}
+Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean values for all variables. As expected, seasonal effects and differences between land and ocean are evident among all variables. For temperature and relative humidity, a more pronounced seasonal cycle over land, compared to ocean, is evident. The remaining variables appear to have a small shift towards higher values over the ocean. \textbf{This is as expected by the heat capacity of the ocean.}
 %TS: Fint om du kommenterer på om disse forskjellene er som forventet her
 \begin{figure}[ht]
     \centering
@@ -251,9 +246,7 @@ Figure \ref{fig:monthly_mean_ts_vars} shows the spatially averaged monthly mean 
 %As a reference the global cloud cover over land is X and over ocean is Y. 
 The spatially averaged time series for the first week of August in 2012 is shown in Figure \ref{fig:first_week_august_2012}, illustrating the relative strength of the signal fed into the input sequence. As a reference, the signals over land and ocean are provided. All variables display diurnal variations. 
 
-On a monthly average the temperature over land is higher than the ocean, but the difference is small, a couple degrees. For the other variables the surface pressure, humidity's and cloud cover is higher over land. 
-
-This is not suprising the pressure decrease with altitude and sea level id the lowest one can get. The ocean is a source of humidity and \textbf{can you explain the clouds..?}
+On a monthly average the temperature over land is higher than the ocean, but the difference is small, a couple degrees. For the other variables the surface pressure, humidity's and cloud cover is higher over land. This is not surprising, the ocean is a source of humidity, and the pressure decrease with altitude. Sea level has the highest pressure. 
 
 \begin{figure}[ht]
     \centering
@@ -282,17 +275,16 @@ With the exception of minimum and maximum values, the cloud cover is affected by
 \begin{figure}[ht]
     \centering
     \includegraphics{python_figs/all_stat_variable_tcc.pdf}
-    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. FIX axes!! }
+    \caption{Contour plot showing the local (pixel) statistics for cloud fractional cover. }
     \label{fig:all_stats_tcc}
 \end{figure}
 %TS: Du må gjøre noe med aksene for denne figuren, de er tilnærmer uleselige nå. Jeg ville faktisk ha brukt samme akse for alle plotene, så leseren kan vurdere dem opp mot hverandre
 \begin{figure}
     \centering
     \includegraphics{python_figs/DEVIATION_all_stat_variable_tcc.pdf}
-    \caption{Deviations in cloud cover, tcc}
+    \caption{Deviations in  cloud fractional cover.}
     \label{fig:deviation_tcc}
 \end{figure}
-
 
 The mean values displayed in figure \ref{fig:all_stats_tcc} show that on average the coastline has a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
 
@@ -319,22 +311,6 @@ Over land relative humidity is dominated by positive correlation with cloud cove
 Specific humidity shows a clear shift at longitudinal degree 10. The land area in the west shows positive correlation with cloud cover while the eastern part shows a negative correlation. 
 
 In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. This seems reasonable since warmer air can retain more vapour.%, on the other hand this could enhance evaporation rate, making more vapour available for condensing onto particles. 
-
-% Finished regriddidng files.
-\subsection{Comparison to ERA5 - fractional cloud cover}
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/mae_era_vs_target_test_period_2014_to_2018.png}
-    \caption{MAE between ERA5 and \acrshort{ecc} in the period from 01.01.2014 to 31.12.2018.}
-    \label{fig:mae_era_target}
-\end{figure}
-
-Figure \ref{fig:mae_era_target} show the MAE between the \acrshort{cfc} in ERA5 and \acrshort{ecc}. It reveals systematic errors over the mediteranean and in the atlantic ocean of the coast of Gibraltar. Montainous areas in the french and italian apls and some other spots indicated in brigth red.. Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systematic errors appear to be in region fewer observation, i.e. mountainous regions and over the sea. Dust storm causing the red ocean off the coast of Sahara..?
-
-\begin{enumerate}
-    \item Compute statistics for ERA5 to compare the average. 
-    \item Compute correlations in pixels back in time.
-\end{enumerate}
 
 
 % Finished regriddidng files.

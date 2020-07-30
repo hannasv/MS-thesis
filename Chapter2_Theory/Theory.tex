@@ -27,17 +27,13 @@ Measurements are collected by sensors, of which two types exist; passive and act
 
 \citepaper{Karlsson2015AdvancingData} list the five key properties exploited in remote sensing of clouds using passive imagery, these will be explained drawing examples from Figure \ref{fig:SEVIRI_channels}. High radiances are displayed in white and lower in darker colours. In general anything that appears bright has a higher reflection at the \acrshort{toa} than the surface. 
 
-(1) Clouds appear bright as opposed to ice free water surfaces and vegetated Earth's surface in \acrshort{vis} and \acrshort{nir}. The detection from VIS 0.6 is shown in Figure \ref{fig:VIS_0.6}.
+First, clouds appear bright as opposed to ice free water surfaces and vegetated Earth's surface in \acrshort{vis} and \acrshort{nir}. The detection from VIS 0.6 is shown in Figure \ref{fig:VIS_0.6}. Secondly, clouds consisting of liquid droplets reflect strongly in \acrfull{swir} and \acrfull{mwir}. The signal from MIR 3.9 is displayed in Figure \ref{fig:MIR_3.9}. Here the Earth's surface, including snow and ice, appear dark. Clouds are not perfectly emmiting black bodies and this allows for detection of low level clouds at night.
 
-(2) Clouds consisting of liquid droplets reflect strongly in \acrfull{swir} and \acrfull{mwir}. The signal from MIR 3.9 is displayed in Figure \ref{fig:MIR_3.9}. Here the Earth's surface, including snow and ice, appear dark. Clouds are not perfectly emmiting black bodies and this allows for detection of low level clouds at night.
+Another property exploited is that clouds are typically colder than the Earth's surface. Therefore they appear bright in IR channels, when displayed in reverse i.e. with low radiences shown as bright. 
 
-(3) Clouds are typically colder than the Earth's surface. Therefore they appear bright in IR channels, when displayed in reverse i.e. with low radiences shown as bright.
+The fourth property is that cirrus cloud are optically thin, but can be detected using split window channels (\acrshort{ir}10.8 and \acrshort{ir}12.0) differences (see Figure \ref{fig:IR_10.8}). The last property is not shown in this figure, but it is that in general broken clouds typically give rise to scattered patterns or texture in images with otherwise homogeneous, ice-free ocean for instance. 
 
-(4) Cirrus cloud are optically thin, but can be detected using split window channels (\acrshort{ir}10.8 and \acrshort{ir}12.0) differences (see Figure \ref{fig:IR_10.8}). 
-
-(5) The last property not shown in this figure is the fact that broken clouds typically give rise to scattered patterns or texture in images with otherwise homogeneous, ice-free ocean for instance. 
-
-Figure \ref{fig:WV_6.2} also show the signal detected from WV 6.2, water  vapour have a absorbtion band at these wavelength useull for detected water vapour. 
+Figure \ref{fig:WV_6.2} also show the signal detected from WV 6.2, water  vapour have a absorption band at these wavelength usefull for detected water vapour. 
 
 To summarise, the success of a screening is dependent on the illumination, the state of the surface and atmosphere. And it has proven most difficult over bright surfaces like snow and dessert (\cite{Karlsson2015AdvancingData}). 
 
@@ -54,7 +50,7 @@ Differences in sensitivity and retrieval algorithms contribute to a large spread
 \subsection{METeosat Second Generation, MSG} \label{sec:meteosat}
 The \acrfull{msg} was established as a corporation between \acrfull{esa} and \acrfull{eumetsat}. \acrshort{esa} was in charge of developing the prototype of MSG-1. \acrshort{eumetsat} is responsible for maintaining the user requirements, launch procedures, developing ground segments, ensuring overall system consistency and day to day operations. 
 
-The primary function of \acrshort{msg} is to provide continuous observations of the Earth's full disk. Near-constant sampling frequency and a geostationary orbit allows for observing weather phenomena occurring on short timescales. Located at $0^o$ \acrshort{msg} provides a varying spatial resolution, unlike the polar orbiting satellites. The resolution gets coarser with increasing off-nadir viewing angle (\cite{Stubenrauch2013AssessmentPanel}). \textbf{This is a direct consequensce of the altitude the satellite needs to maintain in order to stay in geostationary orbit. DUPliCATED now}
+The primary function of \acrshort{msg} is to provide continuous observations of the Earth's full disk. Near-constant sampling frequency and a geostationary orbit allows for observing weather phenomena occurring on short timescales. Located at $0^o$ \acrshort{msg} provides a varying spatial resolution, unlike the polar orbiting satellites. The resolution gets coarser with increasing off-nadir viewing angle (\cite{Stubenrauch2013AssessmentPanel}). %\textbf{This is a direct consequensce of the altitude the satellite needs to maintain in order to stay in geostationary orbit. DUPliCATED now}
 
 There are efforts invested in extending the MSG dataset with the \acrfull{mfg}, in order to make use of the time series all the way back to 1980 (\cite{Bojanowski2018PerformanceGenerations}). This requires new cloud detection algorithms since they only have three common channels and only two of them are useful for detecting clouds (\cite{Stockli2019CloudApplications}). 
 \input{Chapter2_Theory/tables/msg_spectral_bands}
