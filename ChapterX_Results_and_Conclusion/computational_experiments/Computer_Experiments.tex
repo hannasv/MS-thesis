@@ -1,6 +1,5 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
-\textbf{Litt usikker på inndeling i seksjoner, blir noen paragraphs etter jeg slo sammen }
-\textbf{OBSBOBS Trude vi må snakke om titellern til kap 2}
+
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. Two types of statistical models, \acrshort{convlstm} and \acrshort{ar}-model are trained and evaluated on an unseen portion of the dataset. 
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
@@ -184,7 +183,7 @@ Table \ref{tab:weights_best_model} provide the statisics of the weights in this 
 
 \begin{figure}
     \centering
-    \includegraphics{python_figs/test_weights_heatmap.png}
+    \includegraphics{python_figs/weights_best_ar_model.png}
     \caption{Update the statistics of the best AR-model.}
     \label{tab:weights_best_model}
 \end{figure}
@@ -285,7 +284,7 @@ Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systema
     \centering
     \begin{tabular}{llll}
     \multicolumn{1}{c}{\textbf{}} & \textbf{ERA5} & \multicolumn{1}{c}{\textbf{AR}} & \multicolumn{1}{c}{\textbf{ConvLSTM}} \\ \hline
-    MAE & $1.16508643\cdot10^8$  & $1.91520128 \cdot 10^8$ & 
+    MAE & $1.16508643\cdot10^8$ &  X & $1.91520128 \cdot 10^8$ 
     \end{tabular}
     \caption{Total \acrfull{mae} in the period ...}
     \label{tab:tot_mae_score}
@@ -293,13 +292,11 @@ Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systema
 
 
 \subsection{Visual comparison predicting sequence}
-In this section provide a visual comparison of the best \acrshort{ar}-model, \acrshort{convlstm}-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:target_predict_era5_horizontal} show the first of a series of four plots generated to illustrate a step by step comparison of the \acrshort{cfc}. The full series is shown in Appendix \ref{app:pred_sequence}. The series is 24 hours of January first 2014.
+In this section provide a visual comparison of the \textbf{best} \acrshort{ar}-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:target_predict_era5_horizontal} show the first of a series of four plots generated to illustrate a step by step comparison of the \acrshort{cfc}. The full series is shown in Appendix \ref{app:pred_sequence}. The series is 24 hours of January first 2014.
 
-Enabling the \acrshort{ar}-model to predict sequences by feeding it the prediction made at the previous timestep along with environmental variables \textbf{only if this is the ar model use this}.
+The similarity between \acrshort{ecc}, \acrshort{ar}, and ERA5 is impressive. They capture a similar spatial pattern, ERA5 is a 
 
-The two best models in this study are the \textbf{update with best AR model} and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model.
-
-The similarity between \acrshort{ecc} and ERA5 is impressive. They capture a similar spatial patteren, the ecc show a smoother version and the ERA5 have a higher fraction of cloud cover and sharper boundaries. 
+the \acrshort{ecc} show a smoother version and the ERA5 have a higher fraction of cloud cover and sharper boundaries. 
 %%%% TARGET PREDICITON ERA5
 \begin{figure}[ht]
     \centering
@@ -307,7 +304,7 @@ The similarity between \acrshort{ecc} and ERA5 is impressive. They capture a sim
     \caption{First of 4 part since the sequence is 24 hours long, the full series of plots for this sequence can be found in Appendix \ref{app:pred_sequence}.}
     \label{fig:target_predict_era5_horizontal}
 \end{figure}
-At first glance it clear that the \acrshort{convlstm}-model have learned which pixels are land and which is ocean. After a few hours its gets more distinct in its cloud cover and a weaker version of the triangle structure found in ECC and ERA5 is beginning to reveal itself. As the time pass by the cloud cover progress onto the continent and the \acrshort{convlstm} show signs of increased clod cover over parts of Spain and France.
+At first glance it clear that the \acrshort{convlstm}-model have learned which pixels are land and which is ocean. After a few hours its gets more distinct in its cloud cover and a weaker version of the triangle structure found in the three others begins to reveal itself. As the time pass by the cloud cover progress onto the continent and the \acrshort{convlstm} show signs of increased clod cover over parts of Spain and France.
 The values are smoother and they are in this series are in the middle range.
 
 \textbf{Comment on AR when its updated}
