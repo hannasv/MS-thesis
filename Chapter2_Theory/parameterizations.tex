@@ -1,15 +1,10 @@
 \section{Parametrization of clouds} \label{sec:param_clouds}
 %\textit{In doing so, we do not include the effects of changes to the cloud microphysics explicitly.} Building a model based on meteorological variables provided by a reliable estimate from reanalysis datasets.
-All global climate simulations are limited by computational power and the typical model grids are much too coarse to resolve all relevant processes governing clouds. Parameterization allows us to nevertheless simulate the effects of clouds on the climate, through simplified representations of cloud processes that are a function of resolved model variables. The development of both observational and modelling systems requires a understanding of the physical and biogeochemical processes that take place in the earth system (\cite{Simmons2016Observation2016-2025}). New ideas are implemented into models and tested. The simulated climate should be in accordance with observations and be able to recreate previous climate. 
+All global climate simulations are limited by computational power and the typical model grids are much too coarse to resolve all relevant processes governing clouds. Parameterization allows us to nevertheless simulate the effects of clouds on the climate, through simplified representations of cloud processes that are a function of resolved model variables. The development of both observational and modelling systems requires a understanding of the physical and biogeochemical processes that take place in the earth system (\cite{Simmons2016Observation2016-2025}). New ideas are implemented into models and tested against observations. The simulations should be able to recreate previous climate. 
 
-The complex nature of clouds originates from lots of different processes occurring simultaneously on different scales. Incorporating all these interactions into a model framework has proven to be difficult (\cite{IPCC_CH9_climate_models}, \cite{IPCC_CH7_clouds} +++ ). \textbf{Finn multiple sources} 
-
-% https://journals.ametsoc.org/doi/pdf/10.1175/2009JAS3072.1
-% https://www.esrl.noaa.gov/psd/iasoa/vocabulary/Cloud%20Properties/Macrophysical
-% Due to small scale of the processes involved, modelling the effects of clouds on the earth system requires parameterizations. 
-% Due to the large uncertainty in \acrfull{ecs} related to clouds. 
+The complex nature of clouds originates from lots of different processes occurring simultaneously on different scales. Incorporating all these interactions into a model framework has proven to be difficult (\cite{IPCC_CH7_clouds}, pp. 584)
+ 
 %This area has received a lot of attention the last few years. A consequence of increasing the complexity of the models is the trailing increase in uncertainty. Popular approaches are saturation threshold, \acrfull{pdf} and \acrfull{crm}. 
-%The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. When you one as seperate parameterizations for different cloud regimens, a consequence of this is that the cloud fraction might exceed 1.
 
 \subsection{Relative humidity schemes}
 The simplest form of cloud scheme is a binary. A model grid box is either cloudy or clear. Equation \eqref{eq:binary_param_clouds} describes a diagnostic relationship between cloud cover and relative humidity. Binary saturation threshold can be implemented as follows,
@@ -20,17 +15,20 @@ The simplest form of cloud scheme is a binary. A model grid box is either cloudy
        \text{1,} &\quad\text{else}
      \end{cases}
 \end{equation}
+\textit{This approach is clearly not adaquate for \acrshort{esm} with grid boxes in the order of 100km, which need subgrid scale clouds.} \cite{Tomkins2005}
 
 \subsection{Statistical schemes}
-Most climate models have a fractional cloud cover, which is driven by a saturation threshold. All the vapour in excess of this threshold, often $RH=100\%$, gets transformed into cloud liquid water. A representation of sub-grid scale variability is necessary to achieve fractional cloud cover. The most common variables either alone or in combination are relative humidity, temperature and vertical velocity (\cite{Golaz2002_part1}, ++ ).\textbf{cite more papers parametrizing this - draw inspiration from table?}  
+Most climate models have a fractional cloud cover, which is driven by a saturation threshold. All the vapour in excess of this threshold, often $RH=100\%$, gets transformed into cloud liquid water. A representation of sub-grid scale variability is necessary to achieve fractional cloud cover. The most common variables either alone or in combination are relative humidity, temperature and vertical velocity (\cite{Golaz2002_part1}, ++ ). 
+%\textbf{cite more papers parametrizing this - draw inspiration from table?}  
 
-Based on observations from airplane campaigns, researchers have attempted to draw statistical distributions of relevant variables. These \acrfull{pdf} are implemented into models. Virtually all existing \acrshort{pdf}s have been used to model either cloud cover or its dependent variables, see Table \ref{tab:summary_PDF}. This table is a reproduction of the summary from \citepaper{Tompkins2009CloudParametrization}, describing distribution used in a selection of papers is given in Table \ref{tab:summary_PDF}.
+Based on observations from airplane campaigns, researchers have attempted to draw statistical distributions of relevant variables. These \acrfull{pdf} are implemented into models. 
+\textbf{Write section below again}
+Virtually all existing \acrshort{pdf}s have been used to model either cloud cover or its dependent variables, see Table \ref{tab:summary_PDF}. This table is a reproduction of the summary from \citepaper{Tompkins2009CloudParametrization}, describing distribution used in a selection of papers is given in Table \ref{tab:summary_PDF}.
 \input{Chapter2_Theory/tables/param_summary_tomkins}
 Researchers have not been successful in finding an adequate representation of cloud cover using these approaches (\cite{Tompkins2009CloudParametrization}). 
 
 \citepaper{Golaz2002_part1} derived a joint \acrshort{pdf} of the sub-gridscale variability, serving as the base for parameterizing boundary layer clouds. This scheme is implemented in \acrfull{noresm} (\cite{SelandNORESM}) and \acrfull{cesm}, to recognised \acrshort{esm} (\cite{DanabasogluCESM}).
-%TS: For NorESM kan du referere til Seland et al. (2002), og for CESM2 kan du referere til Danabasoglu et al. (2020)
-The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment. For more details see \citepaper{Golaz2002_part1} and \citepaper{Golaz2002_part2}.
+The parameterization can be considered a higher-order turbulent closure problem. The first (mean), second (variance) and third order statistical moments, of the vertical velocity ($w$), the liquid water potential temperature ($\theta_l$), and the total water specific humidity ($q_t$) determines the family of \acrshort{pdf}s. It is designed to be flexible enough to (avoid the use of) circumvent the case specific adjustment ( \cite{Golaz2002_part1},  \cite{Golaz2002_part2}). 
 
 %What is necessary to understand why clouds are Parameterisations. Cite that all climate models are wrong but some are useful.
 \subsection{Cloud resolving models} \label{sec:params_climate_models}
@@ -48,13 +46,12 @@ aimed to accelerate the speed of the heavy computations in \acrshort{crm}. Emula
 %\textbf{Read Forbes in Downloads}
 \acrfull{ecmwf}s numerical weather prediction model is named, Integrated Forecasting System (IFS), They frwuently update their model, this section is based on the Cycle 41r2. 
 
+Revolutionary in its time \citepaper{Tiedtke1993} introdused a fully prognostic scheme for stratiform and convective clouds. Built on two variables cloud fractional cover and cloud condensate, seperated into liquid and snow by temperature. The scheme handles a comprehensive list of mechanisms, \textit{the scheme consderes the formation of clouds in connnection with large-scale acent, diabatic coooling, boundary layer turbuence and horizontal transport of cloud water from convective updrafts. Cloud dissipation through adiabatic and diabatic heating and turbulent mixing of cloud air with unsaturated envionmental air, the depletion of cloud water by pressipitation}. \textit{Allows for formation of anvils, cirrus clouds from convective updrafts and boundary layer clouds.} 
+Except for some small modification, this was the operational scheme for 15 years (1995-2010). 
+
+The representation of clouds by two variables lead to a number of simlpifications and in 2010 Forbes improved the scheme by extending the number of variables to 6 \textbf{?}
+ \citepaper{Forbes2011AnPrecipitation} made some significant adjustments to precipitation advection, mixed phase clouds, 
+
+
 The original Tieke scheme had two prognostic variables, cloud fraction and cloud condensate, separated into liquid and ice based on temperature. Since then the IFS model has been upgraded with ice sedimentation and autoconversion of snow, along with subgrid precipitation and evaporation and ice supersaturation of cloud free air. 
-
-Tre deler
- 1. Hva er tieke 1993
- 2. Hva ble forbedret i 2011
- 3. Hvilke forbedringer ble gjort etter ERA interim til den hydrologiske syklusen. 
-
-(\cite{Forbes2011AnPrecipitation})
-
 
