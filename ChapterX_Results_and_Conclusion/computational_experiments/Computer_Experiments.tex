@@ -1,5 +1,4 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
-
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. Two types of statistical models, \acrshort{convlstm} and \acrshort{ar}-model are trained and evaluated on an unseen portion of the dataset. 
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
@@ -199,6 +198,7 @@ The formulation of the air quality forecasting problem presented by \citeauthor{
 %Architectural decisions %such as batch size, sequence length, number of filters and number of layers 
 %can cause the \acrshort{gpu} to run out of memory, resulting in non-trainable models.
 %In these cases the compiled model is not trainable. 
+\textbf{To many parameters will cause a breakdown of a computer with limited memory}.
 To circumvent related issues, the \acrshort{convlstm}-models in this study was tuned manually. \textit{In this work, we have not explored the full range of possibilities that "ConvLSTM" potensially enables}. The list of hyperparameter is long when working with \acrshort{convlstm}-model. In the experiments conducted in this study a subset of them is tuned and the rest is kept constant.
 
 The following section describe the tuned hyperparameters. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model is optimized to learn to predict. Number of hidden states it the number of filters it learns in each layer, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. 
@@ -230,6 +230,8 @@ Another means to further increase performance of train deeper models is to reduc
 
 From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss} (highlighted in blue) its clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$. It has the lowest test and validation loss after 40 epochs. One model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ had a better training loss. As you can see based on the names it has a similar architecture, but an additional layer, this may have allowed it to learn a better representation on the training data presented, however the models are evaluated on unseen data and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ goes out winning.
 
+Proving that this study has trained a \acrshort{convlstm}-model on a larger amount of data than earlier studies. Comparisons of input data to the works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), is done based on input volumes. The dimensions are flattened to generalize the comparison. \citepaper{precip_nowcasting} is trained on $1,629,600,000$ data points, \citepaper{SunAirLSTM} on $28,513,800$ and \acrshort{ecc} on $21,220,315,200$. The models in this study is trained on more than 10 times the amount of data.
+
 $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown in Figure \ref{fig:best_ml_architecture}. The model consist of three \acrshort{batchnorm}  and  \acrshort{convlstm}-layer pairs. Both \acrshort{convlstm} layer have 32 hidden states and a $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$. The input shape is $10\times24\times81\times161\times4$ and output $24\times81\times161\times1$. 
 \begin{figure}
     \centering
@@ -240,12 +242,11 @@ $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown i
 In this input volume is simplified as a green box. One batch, of the detailed 5-dimensional input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}. One batch (green box), consist of a batch size number of sequences, here 10. A sequence is composed of a sequence length, of here 24, hourly weather data volumes of $81\time161\times4$-dimensions.
 \begin{figure}
     \centering
-    %\input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume_v2.tikz}
-    \includegraphics[scale=0.6]{ChapterX_Results_and_Conclusion/computational_experiments/temp_input_volume.png}
+    \input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume_v2.tikz}
+    %\includegraphics[scale=0.6]{ChapterX_Results_and_Conclusion/computational_experiments/temp_input_volume.png}
     \caption{Illustration of the content of the first batch. A batch is a 5-dimensional data volume. For each hour the weather data volume is $81\times 161\times 4$, a sequence consist of 24 of these volumes and a batch contain 10 sequences. \ref{fig:best_ml_architecture} \textbf{Comment to Trude, I have drawn this in tikz in a seperate overleaf doc, due to some scaling issues I've used the screenshot to by some time.}}
     \label{fig:input_volume_conv_lstm}
 \end{figure}
-
 The $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$-model is trained without allowing knowledge trasfer between neigbours. This is the architecture is the most similar \acrshort{ar}-models. From Table \ref{tab:convlstmLoss} you can see it has the worst Test loss among the trained models. This indicate that information from adjasent pixels is usefull. Its necesarry to mention that there is a significant difference between a \acrshort{ar}-model and a \acrshort{convlstm}-model with $1\times 1$ kernel and that is that the \acrshort{ar}-model train a different weight in all pixels, while the \acrshort{convlstm}-model utilize the same weights over the entire grid. 
 %Not suprising ths that the number of parameters increase as the kernel increasse. 
 \clearpage
@@ -323,13 +324,15 @@ The displayed sequence predicted by $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \t
 \textbf{Finn beste AR modell, prediker hele sekvensen, bergn MAE og tell ant. out of sample values}
 
 \subsection{Summary} \label{sec:summary_num}
-\textbf{Hva skal med}
-\begin{itemize}
-    \item 
-\end{itemize}
+\textbf{Blir det dumt med summary rett før det kommer et summary på begynnelsen av konklusjonen.}
+This study has succesfully applied data driven learning to the cloud forcasting problem. 
 
-Comparisons of inputdata to the works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), is done based on input volumes. %\textbf{Add the input volume}
-The dimensions are flattened to generalize the comparison. \citepaper{precip_nowcasting} is trained on $1,629,600,000$ data points, \citepaper{SunAirLSTM} on $28,513,800$ and \acrshort{ecc} on $21,220,315,200$. The models in this study is trained on more than 10 times the amount of data. \textbf{Understrek at detter er en achievement siden er er vanskeligere å trene en model på mer data.}
+Building a end-to-end trainables \acrshort{convlstm}-model. Managed to train a \acrshort{convlstm}-model on a larger dataset than other published studies. Beat by \acrshort{ar}, sometimes the simplest approach is the best. 
+
+On prediction a sequence, \acrshort{convlstm} improve further out in the sequence and \acrshort{ar}-model have a degraded performance.
+\textit{The blurring effect, the pixels become more and more blurrered the further out in the sequence it progress}
+
+\textit{The accuracy decrease as the prediction timestep goes on.}
 % NOTES IN CASE I FORGET WHERE THE NUMBER CAME FROM
 %\begin{enumerate}
 %    \item Radar Echo: 1 sequence is 20 Frame one frame is 100x100. Train seq. 8148, 2037 for valid and 2037 for test. 

@@ -3,7 +3,7 @@
 
 %\usetikzlibrary{decorations.pathreplacing}
 %\usepackage{tikz}
-\tikzset{every picture/.append style={scale=0.75}}
+\tikzset{every picture/.append style={scale=0.85}}
 \tikzset{pics/fake box/.style args={% #1=color, #2=x dimension, #3=y dimension, #4=z dimension
 #1 with dimensions #2 and #3 and #4}{
 code={
@@ -11,12 +11,12 @@ code={
 ++ (0,#3,0) coordinate(-front-top-right) --++
 (#2,0,0) coordinate(-front-top-right) --++ (0,-#3,0) 
 coordinate(-front-bottom-right) -- cycle;
-\draw[gray,ultra thin,fill=#1, opacity = 0.5] (0,#3.3,0)  --++ 
+\draw[gray,ultra thin,fill=#1, opacity = 0.5] (0,#3,0)  --++ 
  (0,0,#4) coordinate(-back-top-left) --++ (#2,0,0) 
  coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
 \draw[gray,ultra thin,fill=#1!80!black, opacity = 0.5] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
 --++ (0,#3,0) --++ (0,0,-#4) -- cycle;
-\path[gray,decorate,decoration={text effects along path,text={}}] (#2/2,{2+(#3.3-2)/2},0) -- (#2/2,0,0);
+\path[gray,decorate,decoration={text effects along path,text={}}] (#2/2,{2+(#3-2)/2},0) -- (#2/2,0,0);
 }
 }}
 % from https://tex.stackexchange.com/a/52856/121799
@@ -28,33 +28,30 @@ coordinate(-front-bottom-right) -- cycle;
 font=\sffamily\small, scale=0.75]
 
 %%%%%%%%%% Green box in the back symbolizing batches 
-\foreach \X / \Y in {4.0/-2.0} % , 3.0/4.3
-%2.2,2.2,2.0
+\foreach \X / \Y in {1.2/-1.5} 
 {
-\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!green with dimensions 45.0 and {2*\X} and 1*\X};
+\draw pic (box1-\Y) at (\Y, -2*\X,0) {fake box=white!25!green with dimensions 13.5 and {2*\X} and 1*\X};
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\foreach \X / \Y in {3.2*0.3/-1.0, 3.2/13.0} % , 3.0/4.3
-%2.2,2.2,2.0
-{
-\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!cyan with dimensions 13.5 and {2*\X} and 1*\X};
+\foreach \X / \Y in {1.1/-1.0, 1.1/12.9} {
+\draw pic (box1-\Y) at (\Y,-2*\X,0) {fake box=white!25!cyan with dimensions 4 and {2*\X} and 1*\X};
 }
 
-\foreach \X / \Y in {3.2/7.0, 3.2/9.0, 3.2/11.0} % , 3.0/4.3
+\foreach \X / \Y in {1.1/7.0, 1.1/9.0, 1.1/11.0} % , 3.0/4.3
 %2.2,2.2,2.0
 {
-\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!cyan with dimensions 2.0 and {2*\X} and 1*\X};
+\draw pic (box1-\Y) at (\Y,-2*\X,0) {fake box=white!25!cyan with dimensions 0.4 and {2*\X} and 1*\X};
 }
 
-\foreach \X / \Y in {.3/3.0, 0.3/3.5, 0.3/17, 0.3/17.5 } % , 3.0/4.3
+%\foreach \X / \Y in {.3/3.0, 0.3/3.5, 0.3/17, 0.3/17.5 } % , 3.0/4.3
 %2.2,2.2,2.0
-{
-\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!yellow with dimensions .3 and {2*\X} and 1*\X};
-}
+%{
+%\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!yellow with dimensions .3 and {2*\X} and 1*\X};
+%}
 
 
-\foreach \X/\Col in {0.0/red,0.2/green,0.4/cyan, 0.6/yellow} %{6.5/red,6.7/green,6.9/blue}
+\foreach \X/\Col in {0.0/red, 0.2/green, 0.4/cyan, 0.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
 %\draw[gray!60,thick] (-0.1,-0.1,-1.6) coordinate (1-1) -- (-0.1,-0.1,0.6) coordinate (1-2) -- (-0.1, 2.,0.6) coordinate (1-3) -- (-0.1, 2.1,-1.6) coordinate (1-4) -- cycle;
@@ -94,12 +91,12 @@ font=\sffamily\small, scale=0.75]
 \foreach \X/\Col in {14.0/red,14.2/green,14.4/cyan, 14.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-\node[color = dark green, thick] at (0,3.3) {BATCH \#1};
-\node[color = blue, thick] at (4.0,2.7) {SEQUENCE \#1};
-\node[color = blue, thick] at (15.5,2.7) {SEQUENCE \#10};
-\node[color = black, thick] at (0,.3) {1 HR};
-\node[color = black, thick] at (2.0,.3) {1 HR};
-\node[color = black, thick] at (5.0,.3) {1 HR};
+\node[color = dark green, thick] at (0, 3.3) {BATCH \#1};
+\node[color = blue, thick] at (3.0, -1.8) {SEQUENCE \#1};
+\node[color = blue, thick] at (15.8, -2.0) {SEQUENCE \#10};
+\node[color = black, thick] at (0, 0.3) {1 HR};
+\node[color = black, thick] at (2.0, 0.3) {1 HR};
+\node[color = black, thick] at (5.0, 0.3) {1 HR};
 %%%%%%%%%%%%%%%%%%% ADDING TEXT
 
 %\draw [decorate,decoration={brace,amplitude=30pt},xshift=0pt, yshift=2pt, grey!60]

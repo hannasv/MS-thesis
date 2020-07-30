@@ -1,36 +1,38 @@
 \chapter{Conclusions}
 % \textbf{Det du skal svare på fra Introduksjon, The scope of this study is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions.}
 In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data-driven learning on cloud fractional cover. This involves the development of \acrfull{awrs}. %, necessary to regrid satellite data to cloud fractional cover.
-Two models, \acrfull{ar} and \acrfull{convlstm} models were built and evaluated based on their ability to predict a sequence of cloud cover. This was compared to the data in ERA5. 
+Two models, \acrfull{ar} and \acrfull{convlstm} models were built on the \acrshort{ecc}. Followed by an evaluation of their ability to predict a sequence of cloud cover and comprison to the existing parameterization in ERA5. 
 
 The fist objective in this study, was to generate a high quality dataset. Without this the proposed methods are useless. The second objective was to build, train and evaluate the statistical models. 
-%Alternative, at its current state, inhomogenities renders, \acrshort{ecc}, inappropriate for cloud cover forecasting. This is not the same as stating its of low quality, however its not suitable for the applications in this study. 
+The best  
 
-%If the results are bad, the conclusion is that the dataset is not of high enough quality. This is not uncommon when working with cloud data. Don't make it look like you took bad choices when building the dataset it may simply mean that the nature of the problem is difficult. Which it is..
-$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ 
-This study shows that model X performed best. The models where able to learn, however dataset, \acrshort{ecc}, is not of high enough quality and they couldn't compete with ERA5.
+This study shows that model X performed best. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model was the best architecture 
 
-Spending more time tuning the \acrshort{convlstm}-model, expesiaclly the optimizer and changing the weight init scheme to xavier according to paper in download its important. 
 
-In the case of bad model performance. In conclusion, a higher quality dataset is necessary to apply these sets of models to the cloud forecasting problem. The models are state-of-the-art 
+In conclusion, this was a ``proof of concept'' study, proving that the statistical models chosen for this were able to learn. Based on the example sequences shown, the show a degraded performance for lager predictions step. In their current state they are not available for implemetations in practical applications. However, with a few more experiments and more refined tuning they have shown the potensial for appliyng data driven learning fro the cloud forecasting problem and other similar problem in geosciences. 
 
-Achivement, mangaed to train a model on a larger dataset than the previos studies.
+\textbf{Legg til andre områder du kan forbedre. }
+
 
 \section{Future work}
-A reasonable accurate model, may prove to have a practical application even though the \acrshort{mae} is imperfect. Evaluate the parameterisation in the context of a climate model. Using the output of the relevant variables from a \acrshort{ESM} ... \textbf{Trude they all have these variables right?}
 
-Based on the small set of experiments run in this section, there is 
-Datasets publish have different versions. Propose a suggestion for the content on \acrshort{ecc} v2.
+After a few additional experiments with refined tuning it would be interesting to evaluate the model in the context of a full climate model. Using the output from the ensamebles in CMIP6 and se how much the cloud cover differes?
+
+Nå som vi har funnet ut hvilke kombinasjoner av hidden states, filter, batches og sequence length vi må begrense oss til hadde det vært interresant å bruke keras-tuner for å automatisere optimizeringen av noen av parameterne som ble hold konstante i denne studien, vekt init, optimizer and learning rates, ... Finn flere?
+
+A reasonable accurate model, may prove to have a practical application even though the \acrshort{mae} is imperfect. Evaluate the parameterisation in the context of a climate model. Using the output of the relevant variables from a \acrshort{ESM} ... 
+
+It would be interresting to perform sesitivity analysis on the input variables to determine is all four envionmental variables are necessary or if a subset of them would be suffifienct. 
+
+For applications to climate sciences the parameterization need to be able to predict sequences in the order of centuries. \textbf{ar}-modellen kan dette. Det kan vell ConvLSTM også siden inputenen er variabler som for et tidssteg kan produseres av \acrshort{esm} prior to the diagnisation of cloud cover. 
 
 Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
-
-Sensitivitets test på input variablene.
 
 %Unfortunately, the best model is not sufficiently accurate to predict cloud cover. 
 %For future work it would be interesting to investigate how ..?
 %demonstrate its advantage and outperform ..?
 
-Nå som vi har funnet ut hvilke kombinasjoner av hidden states, filter, batches og sequence length vi må begrense oss til hadde det vært interresant å bruke keras-tuner for å automatisere optimizeringen av noen av parameterne som ble hold konstante i denne studien, vekt init, optimizer and learning rates, ... Finn flere?
+
 
 % The data driven approach taken in this thesis does not net this case-specific adjustment. Doesn't need different approaches for different regimes, but relies on the satellites capabilities to detect them. Cirrus being the most difficult. 
 
