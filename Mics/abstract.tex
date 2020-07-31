@@ -16,14 +16,10 @@ Statistical methods, \acrfull{ar}- and \acrfull{convlstm}-models were compared e
 
 Measured on their skill predicting the period
 %The \acrfull{mae} summed over the period 
-from 2014 including 2018 the best \acrshort{ar}-model, $AR-B-S-L_5$, had a \acrshort{mae} of X,  the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ had $1.91520128 \cdot 10^8$ and the reanalysis had a skill of $1.16508643\cdot10^8$. Of the models developed in this study the \textbf{1} outperform the \textbf{2}.
+% 0.20386150843063067 & 0.04901 &  0.3362179514756918
+from 2014 including 2018 the best \acrshort{ar}-model, $AR-B-L5$-model, had a \acrshort{mae} of $0.04901$,  the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ had $0.33621$ and the reanalysis had a skill of $0.20386$. Measured on \acrshort{mae}, the $AR-B-L5$-model outperform the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model. On the other hand when it comes to capturing devlopments in a sequence the result is oposite. 
 
-In this ``proof of concept'' study it was proven that statistical \textbf{name best model} models was able to learn how to forecast cloud cover. Unfortunately, it didn't learn enough \textbf{based on four enviornmental variables} to outperform the state-of-the-art parameterization in reanalysis (ERA5). Hopefully this study can serve as motivation and a suitable starting point for similar studies. 
-%\textbf{This was a proof of concept study, we proved that the statistical models was able to learn. However they were not sufficiently accurate to outperform the cloud parameterisation in reanalysis. }
-%\textbf{selvom modellen lærte noe, lærte den ikke nok... }
-%Unfortunately, they were unable to compete with the reanalysis.
-%Autoregressive (\acrshort{ar}) outperform the more complex \acrshort{convlstm}-model. 
-% List the results in Table X
-%\textbf{Denne studien har bidrat til å skaer en forståelse for at det ...selv med høuy opppløsning er det ikke nødvendig vis godt nok for å  }
-%In its current state the dataset is not of high enough quality to outperform the reanalysis on the task of predicting cloud cover. 
+Explain by the optimization routine, \acrshort{ar} is optimized to fit the next timestep and \acrshort{convlstm} is optimized to fit a 24 hour sequence.
+
+In this ``proof of concept'' study it was proven that $AR-B-L5$- and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model was able to learn how to forecast cloud cover. Unfortunately, the models have somthing more left to learn before they can compete with state-of-the-art parameterization feks. in reanalysis (ERA5). Hopefully this study can serve as motivation and a suitable starting point for similar studies.  
 \cleardoublepage
