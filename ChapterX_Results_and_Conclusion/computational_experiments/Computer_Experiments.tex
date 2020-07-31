@@ -175,7 +175,7 @@ The mountains areas light up as easier to predict. \textbf{Check if these are on
 Table \ref{tab:weights_best_model} provide the statisics of the weights in this model. \textbf{comment if there is a large spread in the statistics.} \textbf{Do the pixels show a agreement in the relation between the input variables and cloud cover.}
 \begin{figure}
     \centering
-    \includegraphics{python_figs/mea_best_ar_model_tcc.png}
+    \includegraphics{ChapterX_Results_and_Conclusion/computational_experiments/heat_ar_model_mae_test_score.png}
     \caption{Grid showing the best models performance for all individual pixels. \textbf{Antar at hullene tettes når det gjelder den ordentlige beste modelen.} \textbf{This figure shows the mean, this will be updated with }}
     \label{fig:grid_mse_best_model}
 \end{figure}
@@ -257,65 +257,73 @@ As expected, this model has a higher loss than its sibling trained using a $3\ti
 %Not suprising ths that the number of parameters increase as the kernel increasse. 
 \clearpage
 
-\subsection{Evaluation of Skill}
-%\textbf{Pga. drop remainder batch num samples of MAE is 43 680 vs 43 824 in others}
+\subsection{Evaluation of parameterizations of cloud fractional cover}
+This section contains the evaluation of the models against \acrshort{ecc}. The metric used is \acrshort{mae} and the period is 01.01.2014 to 31.12.2018. Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display the skill of the parameterization on the prediction of cloud cover in \acrshort{ecc}
+Note the scales are different for each plot. Table \ref{tab:tot_mae_score} provide a summary of spatiotemporal skill of prediction of cloud cover. This shows that the overall best parameterization is made by the $AR-B-S-L5$-model. This is a bit misleading since its evaluated on its ability to predict one time step, which is a simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
+\input{ChapterX_Results_and_Conclusion/computational_experiments/mean_absolute_error_table}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Commenting on spatial patterens
 \begin{figure}
     \centering
     \includegraphics{python_figs/mae_era_vs_target_test_period_2014_to_2018.png}
-    \caption{MAE between ERA5 and \acrshort{ecc} in the period from 01.01.2014 to 31.12.2018.}
+    \caption{Evaluation of the parametrization in ERA5.}
     \label{fig:MAE_era}
 \end{figure}
-Figure \ref{fig:mae_era_target} show the \acrshort{mae} between the \acrshort{cfc} in ERA5 and \acrshort{ecc}. It reveals systematic errors over the Mediterranean Sea and in the Atlantic Ocean of the coast of Gibraltar. Mountainous areas in the French and Italian Apls among other light up, revealing that they are predicted \textbf{skill er et bedre ord}. 
+
+They all reveal regional biases. 
+
+ERA5 
+
+
+It reveals systematic errors over the Mediterranean Sea and in the Atlantic Ocean of the coast of Gibraltar. Mountainous areas in the French and Italian Apls among other light up, revealing that they are predicted \textbf{skill er et bedre ord}. 
 
 Figure \ref{fig:MAE_convlstm} show the performance of the best convolutional model in the period 2014-2018, the period is in fact a few hours shorter, since the models ran with ``drop remainder batch''. Both these representations of \acrshort{cfc} have trouble with the Nile Delta. This doesn't not seem to be the case for \textbf{update:the best ar model}.
 \begin{figure}
     \centering
     \includegraphics{python_figs/mae_convlstm_vs_target_test_period_2014_to_2018.png}
-    \caption{\acrshort{mae} $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model for the test period }
+    \caption{Evaluation of the parameterization made by the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model.}
     \label{fig:MAE_convlstm}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics{python_figs/mea_best_ar_model_tcc_L1_in_folder_AR-B-S-L1.png}
-    \caption{The best model gridded, \acrshort{mae}, $AR-B-S-L_5$. \textbf{Update with lag5}}
+    \includegraphics{python_figs/mea_best_ar_model_tcc_L5_in_folder_AR-B-S-L5.png}
+    \caption{Evaluation of the parameterization made by the $AR-B-S-L_5$-model.}
     \label{fig:MAE_AR}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Commenting on accumulated score 
 Table \ref{tab:tot_mae_score} summarize the \acrshort{mae} over the entire domain. Keep in mind that these number are not directly comparable, ERA5 is assmilited, its a forecast rerun and bias corrected against observations. The \acrshort{convlstm}-model use the reanalysis data (eviornmental variables only) at each timestep to predict sequences of cloud cover. The ar model use the target at previos timesteps and reanalysis data 
 
-Based in this the \acrshort{ar}-model goes out winning. One possible reason for this surpising result is that \acrshort{ar}-model is fitted against the \acrshort{ecc}, while 
-the ERA5 is assimilated against other observations, however this includes some radiences from MSG \textbf{finn kilde}. 
+Based in this the \acrshort{ar}-model goes out winning. One possible reason for this surpising result is that \acrshort{ar}-model is fitted against the \acrshort{ecc}, recall that 
+the ERA5 is assimilated against a lot of observations, including radiences from \acrlong{msg} \cite{ERA52020}.
 
-All parameterizations reveal different systematic error swhen compared to \acrshort{ecc}.
-Problematic regions for 
+All parameterizations reveal different systematic errors when compared to \acrshort{ecc}. Problematic regions for 
 
 Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systematic errors appear to be in region fewer observation, i.e. mountainous regions and over the sea. %Dust storm causing the red ocean off the coast of Sahara..?
-\input{ChapterX_Results_and_Conclusion/computational_experiments/tot_mae_table}
+%\input{ChapterX_Results_and_Conclusion/computational_experiments/tot_mae_table}
 
 Med reanalyse som input for tidligere tidssteg gjør ar-modellene det veldig bra. However når det gjelder å predikere en hel sekvens går prestasjonen rask nedover. \textbf{Her vil det være mest riktig å predikere samme 24timers sekvenser for å sammenligne med ConvLSTM.} ERA5 er fremdeles assimilert 
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/AR_timelapse_cloud_cover_24hrs_from_2014_01_01_base_on_one_hrERA5.png}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
 
 
 \subsection{Visual comparison predicting sequence}
-In this section provide a visual comparison of the \textbf{best} \acrshort{ar}-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:target_predict_era5_horizontal} show the first of a series of four plots generated to illustrate a step by step comparison of the \acrshort{cfc}. The full series is shown in Appendix \ref{app:pred_sequence}. The series is 24 hours of January first 2014.
+In this section provide a visual comparison of the $AR-B-S-L5$-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:pred_sequence} shows the first six hours of the evolution of the cloud cover forecast for the different models. This if the first plot in a series of four, showing the entire 24 hour forecast. The full series can be found in Appendix \ref{app:pred_sequence}. The series starts January first \textbf{update to second?} 2014.
 
-The similarity between \acrshort{ecc}, \acrshort{ar}, and ERA5 is impressive. They capture a similar spatial pattern, ERA5 is a 
+The visual similarities of \acrshort{ecc}, \acrshort{ar}, and ERA5 is magnificent. At least for the first couple of hours. The AR model appear to be very sensitive to the initial conditions. The first hours seem to be a good match, for the next hour looks like the cloud cover retains the spatial patteren, but graually dissipate. Lets refer to this as the blurring effect from now on. At the end of the sequence the clouds are all located in the northern regions of the plot and the sourther regions are clear. 
 
-the \acrshort{ecc} show a smoother version and the ERA5 have a higher fraction of cloud cover and sharper boundaries. 
+Both ERA5 and AR have softer transitions, between cloudy and cloud-free air than \acrshort{ecc}.
+
+Like the statistical properties shown in Section X, the forecast provided \acrshort{convlstm} reveral the underlying surface. The outline of Europe is clearly visible. The forecast stick to the middle range cloud fraction values, starting with few cloud, with evolves toward a heavier overcast situation over Europe. 
+
+Not surprising ERA5 is the most similar to \acrshort{ecc}, recall that this has the complex parameterization described in Section \ref{sec:era5_param}
+
+
 %%%% TARGET PREDICITON ERA5
 \begin{figure}[ht]
     \centering
     \includegraphics[sale=0.1]{python_figs/comparting_seq_part_1_of4.png}
     \caption{First of 4 part since the sequence is 24 hours long, the full series of plots for this sequence can be found in Appendix \ref{app:pred_sequence}.}
-    \label{fig:target_predict_era5_horizontal}
+    \label{fig:pred_sequence}
 \end{figure}
 At first glance it clear that the \acrshort{convlstm}-model have learned which pixels are land and which is ocean. After a few hours its gets more distinct in its cloud cover and a weaker version of the triangle structure found in the three others begins to reveal itself. As the time pass by the cloud cover progress onto the continent and the \acrshort{convlstm} show signs of increased clod cover over parts of Spain and France.
 The values are smoother and they are in this series are in the middle range.
