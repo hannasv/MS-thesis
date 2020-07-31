@@ -157,27 +157,13 @@ The largest differences are on the axis of model configurations. On the axis of 
 % Train : 77472
 % Valid : 26304
 % Test : 43824
-\begin{figure}
-    \centering
-    \includegraphics{python_figs/mea_best_ar_model_tcc_L1_in_folder_AR-B-S-L1.png}
-    %\textbf{same colormap as MAE or obly for grids} 
-    \caption{Heatmap showing the the performance of AR models. \textbf{This is currently only based on four pixels. Update the data}}
-    \label{fig:results_ar_models}
-\end{figure}
-% se ark + flytt over bilde 
-\textbf{Move this image to section where you describe all this images. For this section, choose best model and maybee show the weights plot.}
-
-Figure \ref{fig:grid_mse_best_model} show the score of each pixel in the best model, \textbf{name best model}. This model got a remarkable performance, despite the fact that there is no information change among neighbouring pixels. The patteren in figure, show clear distinction between land and ocean, most likely i.
-
-The areas of the coast of Africa, Mediterranean ocean and the
-The mountains areas light up as easier to predict. \textbf{Check if these are on average more cloudy.}
 
 Table \ref{tab:weights_best_model} provide the statisics of the weights in this model. \textbf{comment if there is a large spread in the statistics.} \textbf{Do the pixels show a agreement in the relation between the input variables and cloud cover.}
 \begin{figure}
     \centering
     \includegraphics{ChapterX_Results_and_Conclusion/computational_experiments/heat_ar_model_mae_test_score.png}
-    \caption{Grid showing the best models performance for all individual pixels. \textbf{Antar at hullene tettes når det gjelder den ordentlige beste modelen.} \textbf{This figure shows the mean, this will be updated with }}
-    \label{fig:grid_mse_best_model}
+    \caption{Heatmap showing the area averaged \acrshort{mae} for all the \acrshort{ar} over the period from 2014 including 2018.}
+    \label{fig:heatmap_ar_models}
 \end{figure}
 
 \begin{figure}
@@ -305,6 +291,11 @@ Summing over all pixels results in a MAE of $1.16508643\cdot10^8$. These systema
 
 Med reanalyse som input for tidligere tidssteg gjør ar-modellene det veldig bra. However når det gjelder å predikere en hel sekvens går prestasjonen rask nedover. \textbf{Her vil det være mest riktig å predikere samme 24timers sekvenser for å sammenligne med ConvLSTM.} ERA5 er fremdeles assimilert 
 
+
+\textbf{Flyttet fra AR kapitell. Figure \ref{fig:grid_mse_best_model} show the score of each pixel in the best model, \textbf{name best model}. This model got a remarkable performance, despite the fact that there is no information change among neighbouring pixels. The patteren in figure, show clear distinction between land and ocean, most likely i.
+
+The areas of the coast of Africa, Mediterranean ocean and the
+The mountains areas light up as easier to predict. \textbf{Check if these are on average more cloudy.}}
 
 \subsection{Visual comparison predicting sequence}
 In this section provide a visual comparison of the $AR-B-S-L5$-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:pred_sequence} shows the first six hours of the evolution of the cloud cover forecast for the different models. This if the first plot in a series of four, showing the entire 24 hour forecast. The full series can be found in Appendix \ref{app:pred_sequence}. The series starts January first \textbf{update to second?} 2014.
