@@ -12,14 +12,20 @@ For the first few steps of the predicted sequence, the AR models does well, onwa
 \textbf{List the skill of the models.}
 This study shows that model X performed best. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model was the best architecture, for \acrshort{ar}-models it was ..
 
-In conclusion, at their current state they are not appropriate for implementations toward practical applications. However, with a few more experiments and more refined tuning they have shown the potential for applying data driven learning fro the cloud forecasting problem and other similar problem in Geosciences. 
+In conclusion, at their current state they are not appropriate for implementations toward practical applications. However, with a few more experiments and more refined tuning they have shown the potential for applying data driven learning from the cloud forecasting problem and other similar problem in Geosciences. 
+There is a extensive list of possibilities and this study has not explored the full range of possibilities \acrshort{convlstm} potentially enable. 
 This would evolve using automatic hyperparameter tuning. This study has learned which combinations of number of layers, hidden states and kernels to use to circumvent memory issue. Exploring the effect of altering many of the parameters kept constant would be of interest.
 
 Followed by a evaluation of the developed parameterizations in the context of a full climate model. Using the output from the ensembles in CMIP6 and see how much the cloud cover changes. A reasonably accurate model can be useful inn practical application without scoring perfectly on the metrics, here \acrshort{mae}.
 
 For applications to climate science it common to predict centuries not day and night as we did in this study. Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
 
+To improve upon the \acrshort{ar}-models ability to predict sequences it would be interresting to train different \acrshort{ar}-model for each timestep in a sequence. 
+
 \textbf{Fra INa: Makinlæring i seg selv en kanskje ikke godt nok for å beskrive kompleske prosesser som maskinlæring, men at komplekse prosesser som skydannelse i kombinasjon kan gi gode resultater. At fysikken beskriver prinsippene og mskinlæring korrigerer prinsippene mot observasjoner. Kombinasjonen er løsningen.}
+
+\textbf{Skriv at denne studien bidrar innefor det nye forsknigsområde som er å inkludere maskinlæring og nevrale netverk i klimamodeller for å bidre til en økt forståelse av klimasystemet og en reduksjon i klimasensitivitet}
+
 
 %Unfortunately, the best model is not sufficiently accurate to predict cloud cover. 
 %For future work it would be interesting to investigate how ..?
