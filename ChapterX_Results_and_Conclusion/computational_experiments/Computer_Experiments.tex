@@ -89,23 +89,21 @@ Other notable differences in the input data is related to handling missing value
 The \acrshort{ar}-models use shorter sequences, and samples containing missing values are simply removed. The \acrshort{convlstm}-model utilize longer sequences, and missing values are replaced by the out-of-sample value, $c=1.5$. 
 
 %The test period was chosen based on the assumption that the latest period is most representative for the climate in the near future. The handling \textbf{(nytt ord)} of gaps, provide an additional difference to the datasets used as input for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determines the length of the training sequence. All samples with gaps in the requested sequence are disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with an out-of-sample value, $c=1.5$. 
-\subsubsection{Autoregressive models (AR)}
-Five hyperparameters are available for the \acrshort{ar}-models. These are standard scaling the predictors, the inclusion of bias, order of the models and environmental variables. Varying combinations of these parameters results in the set of models used in study. 
+\subsection{Autoregressive models (AR)}
+In this study a \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box. Four hyperparameters are available for tuning, these are feature scaling of the predictors, the inclusion of bias, number of lags and a potensial inclusion of environmental variables. Varying combinations of these parameters results in the set of models trained in this study. For more theoretical details please see Section \ref{sec:ARmodels}. 
 
 \subsubsection{Feature Scaling} \label{sec:scaling_predictors}
 %Feature standardization makes the values of each feature in the data have zero-mean 
 Feature scaling is used to standardize the predictor variables.
 %By subtraecting the mean and dividing by the variance, t
-Equation \eqref{eq:scaling_data} is applied to the predictors. This 
-reshapes the distribution toward a standard normal distribution with zero mean and unit variance. 
-Applying Equation \eqref{eq:scaling_data} to the predictors reshapes %the distribution toward a standard normal distribution with zero mean and unit variance. 
+The transformation is done by applying Equation \eqref{eq:scaling_data} to the predictors, one by one. The resulting data has a reshaped distribution, in the direction of a standard normal distribution with zero mean and unit variance. The feature scaling offers an additional benefit of increased numerical stability. %When applied the predictors is transformed according to the following Equation \ref{eq:scaling_data}. 
+%The feature scaling is applied after the partitioning into training and test portions. 
 
-The transformation offers an additional benefit of increased numerical stability. %When applied the predictors is transformed according to the following Equation \ref{eq:scaling_data}. 
-The feature scaling is applied after the partitioning into training and test portions. The mean and standard deviation are computed based on the training set. This is necessary so that the trained model avoids sneak peaking at the test data, resulting in a unrepresentative measure on performance.
+It is important to perform the transformation after the data is split into training and test. The mean and standard deviation should be computed based on the training set, and applied to both sets. This is necessary to avoid a information leak between the test data and the trained model. A consequence of sneak peaking is an  unrepresentative measure on performance.
 \begin{equation} \label{eq:scaling_data}
     \mathbf{x} = \frac{\mathbf{x} - \bar{\mathbf{x}}}{\text{STD}(\mathbf{x})}
 \end{equation}
-In Equation \eqref{eq:scaling_data}, $\mathbf{x}$ is a predictor,  $\bar{\mathbf{x}}$ is its average and STD is its standard deviation. The model is trained to find relations in transformed data. Consequently the test data need to be transformed before the model can be evaluated. This transformation is done using the mean and standard deviation from the training sample.
+In Equation \eqref{eq:scaling_data}, $\mathbf{x}$ is a predictor,  $\bar{\mathbf{x}}$ is its average and STD is its standard deviation. The model is trained to find relations in transformed data. Consequently the test data need to be transformed before the model can be evaluated. %This transformation is done using the mean and standard deviation from the training sample.
 
 %\subsubsection{Transforming target} \label{sec:transforming_target}
 %A trick to avoid predicting unphysical values is fitting against a transformed target. In this study, the target, \acrfull{cfc} ranges from 0 to 1. By applying the inverse sigmoid transformation, see Equation \eqref{eq:inv_sigmoid} the target takes values from the entire real axis $(-\infty, \infty)$. 
@@ -115,19 +113,19 @@ In Equation \eqref{eq:scaling_data}, $\mathbf{x}$ is a predictor,  $\bar{\mathbf
 %In the above equation $\epsilon = 10^{-300}$ is added as a precaution for when $x=1$ and division by zero would occur. This would result in the non-numerical value, $-\infty$. The inverse transformation of this is ordinary sigmoid, see Equation \eqref{eq:sigmoid}. By applying this equation values return to the range between 0 and 1, alleviating predictions of out-of-sample values. The sigmoid function is described in Section \ref{sec:artificial neural networks} in the context of its abilities as an activation function in machine learning models and its graph is displayed in Figure \ref{fig:activation_function_example}.
 
 \subsubsection{Lags and Environmental variables}
-The dataset for a particular model is a combination of the number of lags and in some cases environmental variables (temperature, surface pressure, relative and specific humidity). All models are trained either on the full set of environmental variables or none of them. %such that no partial inclusion of environmental variables occurs. 
-They never appear in isolation. Lags describe the number of previous timesteps of \acrshort{cfc} included as a predictor. For example, if the lag is three, $L=3$, then the \acrshort{cfc} is predicted based on the cloud cover for the previous three hours.
-%\textbf{$L=3$ betyr at time 1, 2 og 3 bakover i tid er inkludert.}
+The dataset prepared for a particular model is determined by the number of lags and the inclusions of environmental variables, temperature, surface pressure, relative and specific humidity. This controls a models the number of degrees of freedom. All models are trained either on the full set of environmental variables or none of them. They never appear in isolation. 
+
+Lags describe the number of previous timesteps of \acrshort{cfc} included as a predictor. For example, if the lag is three, $L=3$, then the \acrshort{cfc} is predicted based on the cloud cover for the previous three hours. To clear any confusion, all time steps back three hours are included.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRUDE RETTET OVER HER
 
-\subsubsection{Experimental setup (AR-models)}
-The naming conventions for the \acrshort{ar}-models used in this study $AR_{TB_L}$ or $TR_{TB_L}$. $AR$ or $TR$ describe whether the environmental variables are included in the dataset of not. $TR$ is short for traditional and denotes that environmental variables is omitted. \acrshort{ar} denotes that they are included. B symbolize bias, T symbolize that scaling predictors is applied and L explains the number of lags.  
+\subsubsection{Experimental setup} \label{sec:experiments_ar}
+The naming conventions for the \acrshort{ar}-models used in this study $AR_{TB_L}$ or $TR_{TB_L}$. $AR$ or $TR$ describe whether the environmental variables are included in the dataset of not. $TR$ is short for traditional and represent that environmental variables is omitted. \acrshort{ar} represent the opposite, their inclusion. B represent bias, T symbolize that scaling predictors is applied and $L_x$ reveals the number of lags, here $x$.  
 
 %This description elaborated in Table \ref{tab:ar_model_config}.
 To ease the understanding of the naming convention used, Table \ref{tab:ar_model_config} provide four examples. Applying the following convention, $\times$ denoted not applied, \checked denotes applied.
 %of the naming conventions udes in this study. %\acrshort{ar}-models included in this study.
-The hyperparameters bias and transformation of the predictors is mutually exclusive. If one had carried out the transformation the effect of the bias would be cancelled by the subtraction of the mean. 
+The hyperparameters bias and transformation of the predictors is mutually exclusive. It both were included the transformation could cancel the effect of the bias when subtracting the mean. 
 \begin{table}[h]
     \centering
     \resizebox{\textwidth}{!}{%
@@ -143,39 +141,40 @@ The hyperparameters bias and transformation of the predictors is mutually exclus
     \label{tab:ar_model_config}
 \end{table}
 
-\subsubsection{Evaluation AR-models}
-Figure \ref{fig:heatmap_ar_models} show the performance of all \acrshort{ar}-models included in this study, varying the number of lags on the first axis and the other hyperparameters on the second axis. The score is computed computed by using Equation \eqref{eq:mae}, and setting the parameters $m = 81$, $n=161$ and $k=43824$. 
-
-\textbf{Comment figure}
-With the exception of the models which enabled transformation, the greatest increase in performance for the $AR$ models occurs by including one lag. This confirms the claim that the cloud cover at previous timestep is indeed a useful predictor. 
-
-The largest differences are on the axis of model configurations. On the axis of different lags, some model, \textbf{give examples} exhibit a small, yet improved performance. 
-
-\begin{figure}
+\subsubsection{Evaluation}
+The models are all evaluated using \acrfull{mae}.
+Recall that \acrshort{ar}-models are optimized for fitting the next timestep, not longer sequences. Figure \ref{fig:heatmap_ar_models} show the performance of all \acrshort{ar}-models included in this study, varying the number of lags on the first axis and the other hyperparameters on the second axis. The score is computed computed by using Equation \eqref{eq:mae}, and setting the parameters $m = 81$, $n=161$ and $k=43824$. \begin{figure}
     \centering
     \includegraphics{python_figs/heat_ar_model_mae_test_score.png}
     \caption{Heatmap showing the area averaged \acrshort{mae} for all the \acrshort{ar}-models included in this work. over the period from 2014 including 2018.}
     \label{fig:heatmap_ar_models}
 \end{figure}
 
+With the exception of the $AR-T$-configuration, most models increase most in performance when adding the first lag. After adding the first lag, the performance increase, but not very much. This clearly states that the cloud cover at previous timesteps are a useful predictor. The largest variations in the figures arise from different configurations of $AR$, $B$, $T$ and $TR$. 
+
+%%%%%%%%%%%%%%%%%%%%% Ta for deg alle variablene. 
+Employing $T$, doesn't appear to be a good predictor. A grid \acrshort{mae} of roughly $0.5$ is quite a lot when the target varies in the range from 0 to 1. Addding a bias to $AR$ improves the performance, for $TR$ it has the oposite effect and decrease the performance.
+
+Second to last is $TR$, does it a lot better than $T$, and the set of models lie in the area of $0.14$, but by only employing cloud cover might prove to give to little information. Since $AR$ outperforms $TR$ for all other configurations, it is clear that he environmental variables provide useful information. 
+
+The performance of the best model, $AR-B-L_5$ of $0.04901$ is great. Showing that there is enough information in the set of environmental variables and previous cloud cover to predict at least on hour into the future. 
+
+
 %%%%%%%%%%%%%%%%%%%% TEXT ON WEIGHTS 
-Recall that one \acrshort{ar}-model is composed 13041 independent regression models.
-
-\textbf{comment if there is a large spread in the statistics.} \textbf{Do the pixels show a agreement in the relation between the input variables and cloud cover.}
-
-At first sight there is a large variation of signs and patterns for the different variables. 
-
-In most regions pressure reduce the cloud cover, specific if 50/50 increase decrease, so is temperature, relative humidity 
-
-$AR-B-L_5$ showed the best performance having a \acrshort{mae} of $0.04901$. This is incrementally better than other $AR-B$ varying on number of lags. 
-
 \begin{figure}
     \centering
-    \includegraphics{python_figs/weights_AR-B-L5_best_ar_model.png}
-    \caption{The weights related to each of the variables in the best model.}
-    \label{tab:weights_best_model}
+    \includegraphics[scale=0.9]{python_figs/weights_AR-B-L5_best_ar_model.png}
+    \caption{The weights of the $AR-B-L_5$-model.}
+    \label{fig:weights_best_model}
 \end{figure}
+Figure \ref{fig:weights_best_model} shows the grids of the weights in $AR-B-L5$. The colorbars are different for all subplots, but the colors, red being positive and blue being negative is consistent. The \acrshort{ar}-model is a weighted sum over all the variables. Negative values for any of the input variables would be unphysical. Positive values can therefore be interpreted as cloud forming and negative as dissipating?
 
+By studying the weights of the five hours of previous timesteps its clear that they all contribute in producing cloud cover, there $L_1$ clearly have the highest weights. Close to one for the entire grid. The minor change for increasing number of lags, shown in Figure \ref{fig:heatmap_ar_models}, can most likely be attributed to the low magnitude of the weight. 
+%\textbf{This explains the copying effect seen in the sequence plotted.}
+
+Surface pressure is negative for the entire grid, this is consistent with the physics stating that higher pressure, are associated with ascending air masses, and they don't produce cloud cover.
+
+The behavior of relative and specific humidity is puzzling, the exhibit the approximately opposite pattern. In most regions where relative humidity produce clouds, specific humidity reduce it cloud cover. In regions over Spain the same appears to be going on with temperature and specific humidity. 
 
 \clearpage
 
@@ -183,9 +182,9 @@ $AR-B-L_5$ showed the best performance having a \acrshort{mae} of $0.04901$. Thi
 The formulation of the air quality forecasting problem presented by \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover forecasting problem presented in this study. 
 %The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}.
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
-Adopting the machine learning setup in \citepaper{SunAirLSTM} and manually tuning the model to avoid a breakdown of the computer caused by to many parameters lies the foundation of the work presented in this study. When building \acrshort{convlstm} networks, the list of tunable parameters is extensive. In this work a subset of them is tuned and the rest is kept constant.
+This study adopts the machine learning setup in \citepaper{SunAirLSTM} and applies manually tuning the model to avoid a breakdown of the computer caused by to many parameters. When building \acrshort{convlstm} networks, the list of tunable parameters is extensive. In this work a subset of them is tuned and the rest is kept constant.
 
-The following section describe the tuned hyperparameters. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model is optimized to learn to predict. Number of hidden states it the number of filters it learns in each layer, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. 
+The following section describe the tuned hyperparameters, batch size, sequence length, number of hidden state and the dimensions of the kernel. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model is optimized to learn to predict. Number of hidden states it the number of filters it learns in each layer, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. 
 The filter size determines the number of neighbours influencing an activation. Using kernel 1x1 results in the state-to-state transitions similar to \acrshort{ar}-models by removing interactions between adjacent pixels. A more detailed description on these parameters is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
 
 This section describe the hyperparameters kept constant. Between each \acrshort{convlstm}-layer there is a \acrfull{batchnorm} layer, implemented using default settings. In \citepaper{ioffe2015batch} implemented this layer in a convectional neural network and it showed three benefits, the network is less sensitive to the weight initialization, learning rate and it doesn't need dropout, randomly removing some of the trained weights to prevent overfitting. This is computationally expensive, disabling dropout accelerate the training process.
@@ -244,7 +243,7 @@ As expected, this model has a higher loss than its sibling trained using a $3\ti
 %Not suprising ths that the number of parameters increase as the kernel increasse. 
 \clearpage
 
-\subsection{WHERE did the title go}
+\subsection{GRID MAE}
 This section contains the evaluation of the models against \acrshort{ecc}. The metric used is \acrshort{mae} and the period is 01.01.2014 to 31.12.2018. Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display the skill of the parameterization on the prediction of cloud cover in \acrshort{ecc}
 Note the scales are different for each plot. Table \ref{tab:tot_mae_score} provide a summary of spatiotemporal skill of prediction of cloud cover. This shows that the overall best parameterization is made by the $AR-B-L5$-model. This is a bit misleading since its evaluated on its ability to predict one time step, which is a simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/mean_absolute_error_table}
@@ -300,6 +299,8 @@ Med reanalyse som input for tidligere tidssteg gjør ar-modellene det veldig bra
 The mountains areas light up as easier to predict. \textbf{Check if these are on average more cloudy.}}
 
 \subsection{24-hour Cloud Cover Forecast}
+\textbf{For the sequence plot of AR- it becomes clear that it has overfitted to the cloud cover at the previos timestep, this is not to surprising, makes dampend copies of the cloud cover until it becomes clear. Comment the score on the equivilent model is 10 times higher for TR.}
+
 $AR-B-L_5$ $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$
 In this section provide a visual comparison of the $AR-B-S-L5$-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 and the target, \acrshort{cfc} in \acrshort{ECC}. Figure \ref{fig:pred_sequence} shows the first six hours of the evolution of the cloud cover forecast for the different models. This if the first plot in a series of four, showing the entire 24 hour forecast. The full series can be found in Appendix \ref{app:pred_sequence}. The series starts 2\textsuperscript{nd} January 2014.
 
@@ -362,11 +363,21 @@ The minimum value in this prediction (AR) is positive, and the maxmum is $1.028$
 \textbf{First of all}
 
 \subsection{Summary} \label{sec:summary_num}
-\textbf{Blir det dumt med summary rett før det kommer et summary på begynnelsen av konklusjonen.}
+In this section X antall modeller har blitt trent og evaluert på ecc. Nevn train test split?
+
+Den best \acrshort{ar}-configuration is $AR-B-L_5$ \acrshort{mae} of $0.04901$. This is incrementally better than other $AR-B$-configurations by  varying on number of lags. Unfortunately, this model overfittet to the cloud cover at previous timesteps. Consequently its unable to produce sequences, it simply produce dampened copies of the initial cloud cover. The \acrshort{ar}-models might be to simple for performing this task? 
+
+The best \acrshort{convlstm}-configuration was $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$. Measured on MAE for the entire test period it performed rather badly, but it is was able to learn to predict a evolution in the cloud cover, unlike $AR-B-L_5$. The sequence predict cloud cover in the intermediate range of cloud fractions, resulting in a rather blurry image, it also reveal the geographical distribution underlying the data. 
+
+Building a end-to-end trainables \acrshort{convlstm}-model. Managed to train a \acrshort{convlstm}-model on a larger dataset than other published studies.
+
+
+and for the 24-hour sequence the mae was ok? 
+
 
 This study has succesfully applied data driven learning to the cloud forcasting problem. 
 
-Building a end-to-end trainables \acrshort{convlstm}-model. Managed to train a \acrshort{convlstm}-model on a larger dataset than other published studies. Beat by \acrshort{ar}, sometimes the simplest approach is the best. 
+
 
 On prediction a sequence, \acrshort{convlstm} improve further out in the sequence and \acrshort{ar}-model have a degraded performance.
 \textit{The blurring effect, the pixels become more and more blurrered the further out in the sequence it progress}
