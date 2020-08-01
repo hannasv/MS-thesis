@@ -1,21 +1,22 @@
 \section{Dataset - European Cloud Cover }
 %This chapter presents the developed methodology used in the compilation of the dataset. 
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, \acrshort{era5} reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected. The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files.
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, reanalysis, \acrshort{era5} and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected and downloaded size is 17Gb, stored in \acrshort{netcdf}-files.
 
-%\textbf{Add the scientific reasoning making the foundation of you choice.}
-Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. %\textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. See other arguments below}
 
-There are multiple global reanalysis datasets available. \acrshort{era5} was chosen since its the latest within reanalysis products and it has the highest resolution. %above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
-All reanalysis product are different. They are all dependant on the forecast assimilation system and observations used (\cite{Fujiwara2017IntroductionSystems}).
+Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. 
+Reanalysis is as close one can get to observations continuous in time and space. All reanalysis product are different. They all depend on the forecast assimilation system used and observations assimilated. There are multiple global datasets available (\cite{Fujiwara2017IntroductionSystems}). \acrshort{era5} was elected 
+%over, JRA \textbf{må siteres} and MERRA \textbf{må siteres}, 
+because of it's fine resolution and resent release date of January 2020. The assimilation model used, the \acrshort{ifs}-model is a state-of-the-art \acrshort{nwp}-model. As of now, few experiments have been conducted on this data. It is therefore more exciting to explore this datasets ability to perform climate predictions using data driven learning.
+%above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
 \subsection{Domain}
-The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers central Europe and north Africa.
+The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers Central Europe and North Africa.
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 1.0]{python_figs/Domain.png}
-    \caption[Map over domain.]{Map showing the domain in the projection available in \acrshort{ecc}.}
+    \caption{Map showing the domain in the projection available in \acrshort{ecc}.}
     \label{fig:map}
 \end{figure}
 
@@ -23,11 +24,8 @@ The geographical domain has, for this project, been restricted to latitude, $\th
 The overall goal is to investigate whether basic meteorological variables such as temperature, pressure and humidity are sufficient for prediction of cloud fractional cover with a reasonable accuracy. Cloud dynamics is far more complicated than what can be describes by these variables, as discussed in Section \ref{sec:cloud_in_climate_system}.
 %The condition describing what is ``sufficiently accurate'' is further explained in Chapter \ref{ch:computer_experiments}.
 
-This project is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parameterize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be large and there is no guarantees of state-of-the-art performance. However, large amounts of data is collected on a daily basis. Understanding how to utilise the information in these measurements despite its flaws (gaps and artefacts) is of major importance. 
-%However the real value lies in understanding with how you work with these large amounts of data. 
-%\textbf{TS: Dette følte jeg var et litt i overkant negativt syn på potensialet til AI i forbindelse med sky-parameteriseringer, som nesten undergraver verdien av studiet ditt litt. Det finnes jo enorme mengder med sky-data som hentes inn daglig, men utfordringen ligger i hvordan disse datasettene, med sine huller og mangler, kan brukes på best mulig måte.}
+This project is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parameterize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be large and there is no guarantees of state-of-the-art performance. However, large amounts of data is collected on a daily basis. Understanding how to utilize the information in these measurements despite its flaws (gaps and artifacts) is of major importance. 
 
-%Not feasible in the foreseeable future to incorporate all the effects of micro-physics at a sufficient accuracy. 
 Precipitation formation and cloud optical thickness are affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud as well. Imagine precipitation without a cloud fractional cover. 
 
 Reliable estimates of large-scale variables are available from using reanalyses or other climate models. Restricting the focus here to the macrophysical aspects of clouds makes it reasonable to choose these as explanatory variables, thereby ensuring that it is possible to build usable application of this parameterization in the future.
@@ -36,45 +34,39 @@ For this dataset, all these large-scale variables are produced by \acrshort{era5
 
 From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. The Earth is not equally heated due to the its spherical geometry. Warmer air rises, generating a low pressure at the surface. As the air rises the temperature within the rising air parcel decreases. From Equation \eqref{eq:clausius_clapeyron} it can be shown that colder air can retain less vapor, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of the vapor condenses, generating cloud water, forming a cloud, and occasionally precipitation. Low latitudes and the mid-latitudes of the summer hemisphere are often associated with this type of convective motions, generating cumulus type clouds. 
 %\textbf{TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala nedsynkning}
-%TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala
 
-In areas of lower pressure, the surrounding air will flow toward the low pressure centre to offset the pressure difference. Induced by Earth's rotation the Coriolis effect forces winds of low pressure systems to swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the centre of low pressure system, pushing it to higher altitudes in the atmosphere. A high pressure system exhibits the exact opposite behaviour, it swirls in the reverse direction, and the air flows from the centre. Diverging air masses cause sinking motions of parcels from higher in the atmosphere to fill the void. 
+In areas of lower pressure, the surrounding air will flow toward the low pressure center to offset the pressure difference. Induced by Earth's rotation the Coriolis effect forces winds of low pressure systems to swirl counterclockwise north of the equator and clockwise south of the equator, causing an accumulation of air in the center of low pressure system, pushing it to higher altitudes in the atmosphere. A high pressure system exhibits the exact opposite behavior, it swirls in the reverse direction, and the air flows from the center. Diverging air masses cause sinking motions of parcels from higher in the atmosphere to fill the void. 
 
-The large scale circulation generate zonal bands of sinking and rising air masses. Warm air rises at the equator as a result of the Earths' spherical geometry, this air move poleward, cools and sinks. The Saharan desert is located in an area of sinking air masses. Despite its warm temperatures, there is little to no cloud formation and associated precipitation. 
+The large scale circulation generate zonal bands of sinking and rising air masses. Warm air rises at the equator as a result of the Earths' spherical geometry, this air move poleward, cools and sinks. The Saharan desert is located in an area of sinking air masses. Despite its warm temperatures, there is little to no cloud formation and associated precipitation in this region. 
 
-In zones of rising air, bands of low pressure systems clouds are concentrated on fronts. A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
-Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by orography or fonts (warm and cold) (\cite{lohmann2016}, p. 79). Norway lies within the prevailing westerlies a band or rising air. Low pressure systems frequently appear along the coast from the Atlantic ocean, resulting in a cloudy and wet region. The warm moist air associated with the gulf stream amplifies this effect. Winds transports the substances suspended in air, such as pollutants and humidity. 
+\textbf{In zones of rising air, bands of low pressure systems are concentrated on fronts.} A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
+Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by fonts (warm and cold) or orography (\cite{lohmann2016}, p. 79). Norway lies within the prevailing westerlies a band or rising air. Low pressure systems frequently appear along the coast from the Atlantic ocean, resulting in a cloudy and wet region. 
+% The warm moist air associated with the gulf stream amplifies this effect. Winds transports the substances suspended in air, such as pollutants and humidity. 
 
-The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapor the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity 
+The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapor the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity is ``limited'' to the range from 0 to 1. 
 %under such supersaturated conditions it is often referred to as \textbf{X}, and 
-Therefore it is common to limit the range of relative humidity to be between 0 and 1. However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
+%Therefore it is common to limit the range of relative humidity to be between 0 and 1. 
+However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
 
 Specific humidity is the ratio between mass of vapor and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. For large scale motions, when friction and the centrifugal force are less important, the wind field can be derived from the pressure gradients, this is know as geostrophical winds  (\cite{lohmann2016}, pp. 81-84).
 
-Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to have 
+Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to explain different cloud conditions. For instance surface pressure is thought be a good predictor of frontal systems. The surface humidity, however, is not thought to play a big role in saturating the airmasses, since they appear so high in the atmosphere. Consequently, humidity is expected to have a low predictability for such an event. 
+%Cold front occurs where cold air replace warm air, and warm front is the opposite process. 
 
-For instance surface pressure is thought to explain frontal systems, but since the air originates from high in the atmosphere, so surface humidity is not thought to play a role in saturation the airmasses. Resulting in a low predictability for this event. 
-
-Cold front occurs where cold air replace warm air, and warm front is the opposite process. In shallow (and deep) convection systems, the air rises from the surface and the temperature and surface humidity is though to explain this phenomena well. Rising airmasses also generate low pressure at the surface. The clouds responsible for afternoon showers in summer. Surface pressure for wind patterens transporting the clouds. 
-
-A smaller amount of saturation need to be lifted to higher altitudes.
-
+In shallow (and deep) convection systems, the air rises from the surface and the temperature and surface humidity is though to explain this phenomena well. Rising airmasses will in turn generate low pressure at the surface. The variables temperature, humidity and pressure are assumed to be reasonable predictors for convective activity and the cumulus clouds responsible for afternoon showers.
 %\textbf{The large scale surface variable pressure can provide useful information for detecting fronts, and wind patterns potentially revealing usfull information in prediction the movement of clouds. Temperature is thought to revels cumulus type clouds in regions without sinking air masses. }. \textbf{Due to the combination of large and small scale patterens its important to study the geographical distribbution of the best model.}
 %\textbf{Can make heatmap showing the best model, one color at a time. }
 %TS: Her trengs en tydeligere diskusjon av hvilke skytyper man forventer at de storskala bakke-varaiblene er mest relevante for, og hvilke de eventuelt er mindre
-\textbf{Check out clouds in the IPCC hvor de beskriver hva som er problemet med de ulike parameteriseringene.}
+%\textbf{Check out clouds in the IPCC hvor de beskriver hva som er problemet med de ulike %parameteriseringene.}
 
 \subsection{Area Weighting Regridding Scheme (AWRS)} \label{sec:remapping}
-Computing cloud fractions based on the cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbour or area weighting. For this particular task, the pixels are of uneven size and the area weighted scheme seemed most appropriate. 
+Computing cloud fractions based on the cloud mask requires a regridding scheme. Common schemes for solving similar tasks are mean, nearest neighbor or area weighting. For this particular task, the pixels are of uneven size and the area weighted scheme seemed most appropriate. 
 
 This section provides a step-by-step description of the necessary data processing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of software with functionality to perform the regridding, described in detail below, named the \acrfull{awrs}.
 
 The regridding algorithm consists of two modules; \textit{(1) detection} and \textit{(2) area weighting algorithm}. Let the subscripts denote the dataset pertaining to a particular grid. Grid\textsubscript{MSG} refers to the space-view grid of the \acrlong{msg} and grid\textsubscript{ECC} refers to the uniform grid originating from \acrshort{era5}. Note that grid\textsubscript{ECC} is identical to  grid\textsubscript{\acrshort{era5}}. The \textit{detection algorithm}, computes the co-location of pixels across grid and determines the contributing pixel from grid\textsubscript{MSG} to grid\textsubscript{\acrshort{era5}}.
-%to the particular cells in the other grid/coordinate system,
-%
+
 The pixels are then classified into the different categories such as \textit{corner}, \textit{centre}, \textit{left}, \textit{right}, \textit{upper} and \textit{lower boundary}. These categories are later used to isolate the portion of the pixel contributing to grid\textsubscript{ECC}.
-%This is necessary to compute the area of the overlapping pixels. 
-%\textbf{Include somewhere? In order to compute the area of the boundary pixels, their centre need to be rectified to the centre of the subsection that fall within the boundaries of grid\textsubscript{ECC}, and the pixel extent need to be updated.}
 The second module, \textit{the area weighting}, consist of the category based area weighting algorithm based on the developed equations.
 
 \subsubsection{Equations describing grid area}
@@ -320,6 +312,6 @@ In most locations temperature is negatively correlated with cloud cover except i
 \acrshort{ecc} is comprised of five variables; temperature, pressure, cloud fractional cover, relative and specific humidity. These are collected from two sources; \acrshort{era5} and \acrshort{eumetsat}. The resolution available in \acrshort{era5} was preserved, while remapping the cloud mask to cloud fractional cover. 
 % duplication
 The final product consist of %the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available
-hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on \acrshort{era5} is available in Section \ref{sec:\acrshort{era5}} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
+hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on \acrshort{era5} is available in Section \ref{sec:era5} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
 \clearpage
 \input{Chapter2_Theory/tables/table_transposed.tex}
