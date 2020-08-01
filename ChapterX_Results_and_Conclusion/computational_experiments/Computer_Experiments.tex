@@ -244,7 +244,7 @@ As expected, this model has a higher loss than its sibling trained using a $3\ti
 %Not suprising ths that the number of parameters increase as the kernel increasse. 
 \clearpage
 
-\subsection{}
+\subsection{WHERE did the title go}
 This section contains the evaluation of the models against \acrshort{ecc}. The metric used is \acrshort{mae} and the period is 01.01.2014 to 31.12.2018. Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display the skill of the parameterization on the prediction of cloud cover in \acrshort{ecc}
 Note the scales are different for each plot. Table \ref{tab:tot_mae_score} provide a summary of spatiotemporal skill of prediction of cloud cover. This shows that the overall best parameterization is made by the $AR-B-L5$-model. This is a bit misleading since its evaluated on its ability to predict one time step, which is a simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/mean_absolute_error_table}
@@ -260,6 +260,7 @@ Note the scales are different for each plot. Table \ref{tab:tot_mae_score} provi
 They all reveal regional biases. 
 
 ERA5 
+\textbf{A few examples on evaluation against observartions are used to highlight the}
 
 
 It reveals systematic errors over the Mediterranean Sea and in the Atlantic Ocean of the coast of Gibraltar. Mountainous areas in the French and Italian Apls among other light up, revealing that they are predicted \textbf{skill er et bedre ord}. 
@@ -278,6 +279,8 @@ Figure \ref{fig:MAE_convlstm} show the performance of the best convolutional mod
     \caption{Evaluation of the parameterization made by the $AR-B-L_5$-model. The white dots visible is in total 12/13041 regression model having numerical issues related to non-invertable matrices.}
     \label{fig:MAE_AR}
 \end{figure}
+
+Half of this are caused by corrupt files.\textit{ We  did  not  recognize  before  later  in  the thesis  that  this  delimiting  layer  posed  a  problem  for  how  the  optimizer chose  the  pre-trained  model} This is not the case for all configurations as you can see in the other similar plots in the Appendix section \ref{app:mae_plots}. We therefore have reason to believe that this occured sometime during training. For the other pixel this remains an area of further investigation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Commenting on accumulated score 
 Table \ref{tab:tot_mae_score} summarise the \acrshort{mae} over the entire domain. Keep in mind that these number are not directly comparable, ERA5 is assimilated, its a forecast rerun and bias corrected against observations. The \acrshort{convlstm}-model use the reanalysis data (environmental variables only) at each timestep to predict sequences of cloud cover. The ar model use the target at previous timesteps and reanalysis data 
@@ -334,7 +337,7 @@ The displayed sequence predicted by $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \t
 \textbf{Does AR ever predict out of sample values}
 \textbf{Finn beste AR modell, prediker hele sekvensen, bergn MAE og tell ant. out of sample values}
 
-Table \ref{tab:24hr_mae_score} shows the skill of the different models on predicting this 24 hours sequence. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$ rank highest having a score of 0.20386, ERA5 rank second with  $0.33622$ and $AR-B-L_5$last with  $0.48502$. Note that a mean deviation of 0.46 is quite large when the data in question vary from 0 to 1. 
+Table \ref{tab:24hr_mae_score} shows the skill of the different models on predicting this 24 hours sequence. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$ rank highest having a score of 0.20386, ERA5 rank second with  $0.33622$ and $AR-B-L_5$ last with  $0.48502$. Note that a mean deviation of 0.46 is quite large when the data in question vary from 0 to 1. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/MAE_24hr_SEQUENCE}
 
 The minimum value in this prediction (AR) is positive, and the maxmum is $1.028$. It a hundred and three percent cloudy. 
