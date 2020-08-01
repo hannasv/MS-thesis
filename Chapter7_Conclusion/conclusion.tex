@@ -3,10 +3,10 @@
 In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data-driven learning of cloud fractional cover. This involves the development of \acrfull{awrs}. Without this the proposed methods are useless.
 %The fist objective in this study, was to generate a high quality dataset. 
  
-As a ``proof of concept''-study, two models, \acrfull{ar} and \acrfull{convlstm} models were built on the \acrshort{ecc}. They were evaluated and compared against exist parameterizations in ERA5. 
+As a ``proof of concept''-study, two models, \acrfull{ar} and \acrfull{convlstm} models were built on the \acrshort{ecc}. They were evaluated and compared against exist parameterizations in \acrshort{era5}. 
 %The second objective was to build, train and evaluate the statistical models. 
 
-On skill they rank 1. AR, 2. ERA5 and 3. ConvLSTM, but on their ability to conserve spatial relations in predicting a sequence, the most important task, they rank 1. ERA5, 2. AR, 3. ConvLSTM.
+On skill they rank 1. AR, 2. \acrshort{era5} and 3. ConvLSTM, but on their ability to conserve spatial relations in predicting a sequence, the most important task, they rank 1. \acrshort{era5}, 2. AR, 3. ConvLSTM.
 For the first few steps of the predicted sequence, the AR models does well, onward the performance degrade.
 
 \textbf{List the skill of the models.}
@@ -18,7 +18,7 @@ In conclusion, at their current state they are not appropriate for implementatio
 There is a extensive list of possibilities and this study has not explored the full range of possibilities \acrshort{convlstm} potentially enable. 
 This would evolve using automatic hyperparameter tuning. This study has learned which combinations of number of layers, hidden states and kernels to use to circumvent memory issue. Exploring the effect of altering many of the parameters kept constant would be of interest.
 
-Followed by a evaluation of the developed parameterizations in the context of a full climate model. Using the output from the ensembles in CMIP6 and see how much the cloud cover changes. A reasonably accurate model can be useful inn practical application without scoring perfectly on the metrics, here \acrshort{mae}.
+Followed by a evaluation of the developed parameterizations in the context of a full climate model. Using the output from the ensembles in \acrshort{cmip6} and see how much the cloud cover changes. A reasonably accurate model can be useful inn practical application without scoring perfectly on the metrics, here \acrshort{mae}. Answering important questions like, whether the models are able to generalize to a warmer climate.
 
 For applications to climate science it common to predict centuries not day and night as we did in this study. Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
 
@@ -35,6 +35,9 @@ This study has contributed with research in a relatively young field, which is a
 
 \textbf{Skriv at denne studien bidrar innefor det nye forsknigsområde som er å inkludere maskinlæring og nevrale netverk i klimamodeller for å bidre til en økt forståelse av klimasystemet og en reduksjon i klimasensitivitet}
 
+\textbf{Although considering X was fount to be important}
+
+\textbf{It is unlikely that the parameterization can encompass the full range of situation that can naturally arise}
 
 %Unfortunately, the best model is not sufficiently accurate to predict cloud cover. 
 %For future work it would be interesting to investigate how ..?
@@ -46,6 +49,6 @@ This study has contributed with research in a relatively young field, which is a
     \item Comment from Hugo, Name of chapter 2, theoretical background implies that it contains the numerical methods as well. How about changing the to Climate and Cloud Physics?
     \item Riktig skrevet: This heat gets trapped in the earth system,?
     \item sjekker du siste avsnitt i Abstract å ser om jeg har skrevet noe hårreisende .. ?
-    \item Må jeg skrive en oversikt over de forskjellige reanalysene eller er det tilstrekkelig, å si at jeg velger ERA5 fordi den har bedre romlig oppløsning enn JRA og MERRA, som er de to andre naturnlige valge. Pluss at den er ny så det er lite forskning og er det er mer spennende med resultater i den retningen?
+    \item Må jeg skrive en oversikt over de forskjellige reanalysene eller er det tilstrekkelig, å si at jeg velger \acrshort{era5} fordi den har bedre romlig oppløsning enn JRA og MERRA, som er de to andre naturnlige valge. Pluss at den er ny så det er lite forskning og er det er mer spennende med resultater i den retningen?
     \item \textbf{Litt usikker på inndeling i seksjoner, blir noen paragraphs etter jeg slo sammen }
 \end{enumerate}

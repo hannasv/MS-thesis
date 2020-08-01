@@ -1,11 +1,11 @@
 \section{Dataset - European Cloud Cover }
 %This chapter presents the developed methodology used in the compilation of the dataset. 
-This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, ERA5 reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected. The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files.
+This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, \acrshort{era5} reanalysis and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected. The downloaded size of \acrshort{ecc} is 17Gb, stored in \acrshort{netcdf}-files.
 
 %\textbf{Add the scientific reasoning making the foundation of you choice.}
 Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. %\textbf{Reanalysis is a natural choice since its as close you can be to observations continuous in time and space. See other arguments below}
 
-There are multiple global reanalysis datasets available. ERA5 was chosen since its the latest within reanalysis products and it has the highest resolution. %above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
+There are multiple global reanalysis datasets available. \acrshort{era5} was chosen since its the latest within reanalysis products and it has the highest resolution. %above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
 All reanalysis product are different. They are all dependant on the forecast assimilation system and observations used (\cite{Fujiwara2017IntroductionSystems}).
 
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
@@ -32,9 +32,9 @@ Precipitation formation and cloud optical thickness are affected by changes on a
 
 Reliable estimates of large-scale variables are available from using reanalyses or other climate models. Restricting the focus here to the macrophysical aspects of clouds makes it reasonable to choose these as explanatory variables, thereby ensuring that it is possible to build usable application of this parameterization in the future.
 
-For this dataset, all these large-scale variables are produced by ERA5. Some variables have been chosen because they are reliable and fundamental meteorological variables, e.g. temperature and surface pressure. Others were chosen because they are essential in cloud formation, e.g. specific and relative humidity. The variables were all retrieved from the surface or the closest pressure level (1000hPa). The rest of this section gives a brief introduction to their role in cloud formation.
+For this dataset, all these large-scale variables are produced by \acrshort{era5}. Some variables have been chosen because they are reliable and fundamental meteorological variables, e.g. temperature and surface pressure. Others were chosen because they are essential in cloud formation, e.g. specific and relative humidity. The variables were all retrieved from the surface or the closest pressure level (1000hPa). The rest of this section gives a brief introduction to their role in cloud formation.
 
-From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. The Earth is not equally heated due to the its spherical geometry. Warmer air rises, generating a low pressure at the surface. As the air rises the temperature within the rising air parcel decreases. From Equation \eqref{eq:clausius_clapeyron} it can be shown that colder air can retain less vapour, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of the vapour condenses, generating cloud water, forming a cloud, and occasionally precipitation. Low latitudes and the mid-latitudes of the summer hemisphere are often associated with this type of convective motions, generating cumulus type clouds. 
+From the weather maps on the news, low and high pressure systems might be familiar terms. Low pressure systems are often associated with precipitation, while high pressure systems are associated with nice weather. The Earth is not equally heated due to the its spherical geometry. Warmer air rises, generating a low pressure at the surface. As the air rises the temperature within the rising air parcel decreases. From Equation \eqref{eq:clausius_clapeyron} it can be shown that colder air can retain less vapor, enhancing the rate at which saturation is achieved. Under supersaturated conditions some of the vapor condenses, generating cloud water, forming a cloud, and occasionally precipitation. Low latitudes and the mid-latitudes of the summer hemisphere are often associated with this type of convective motions, generating cumulus type clouds. 
 %\textbf{TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala nedsynkning}
 %TS: Viktig å også si noe kort om storskala sirkulasjon, siden diskusjonen ovenfor fokuserer på lokale prosesser. Over Sahara (som jo kommer inn i domenet ditt) er det for eksempel varmt, men lite skyer og nedbør fordi dette er et område med storkskala
 
@@ -45,11 +45,11 @@ The large scale circulation generate zonal bands of sinking and rising air masse
 In zones of rising air, bands of low pressure systems clouds are concentrated on fronts. A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
 Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by orography or fonts (warm and cold) (\cite{lohmann2016}, p. 79). Norway lies within the prevailing westerlies a band or rising air. Low pressure systems frequently appear along the coast from the Atlantic ocean, resulting in a cloudy and wet region. The warm moist air associated with the gulf stream amplifies this effect. Winds transports the substances suspended in air, such as pollutants and humidity. 
 
-The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapour the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity 
+The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapor the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity 
 %under such supersaturated conditions it is often referred to as \textbf{X}, and 
 Therefore it is common to limit the range of relative humidity to be between 0 and 1. However the variable is still a measure of the identical ratio, and this explains why values exceeding 1 is present in the dataset. Relative humidity is unitless and for higher values the air is more humid.
 
-Specific humidity is the ratio between mass of vapour and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. For large scale motions, when friction and the centrifugal force are less important, the wind field can be derived from the pressure gradients, this is know as geostrophical winds  (\cite{lohmann2016}, pp. 81-84).
+Specific humidity is the ratio between mass of vapor and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. For large scale motions, when friction and the centrifugal force are less important, the wind field can be derived from the pressure gradients, this is know as geostrophical winds  (\cite{lohmann2016}, pp. 81-84).
 
 Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to have 
 
@@ -69,7 +69,7 @@ Computing cloud fractions based on the cloud mask requires a regridding scheme. 
 
 This section provides a step-by-step description of the necessary data processing done for the compilation of \acrshort{ecc}, transforming clouds masks provided in \textit{space-view} to cloud fractions on a uniform grid. \acrshort{eumetsat} doesn't provide suitable software to tackle this particular task (personal communication EUMETSAT staff). Building the dataset requires the implementations of software with functionality to perform the regridding, described in detail below, named the \acrfull{awrs}.
 
-The regridding algorithm consists of two modules; \textit{(1) detection} and \textit{(2) area weighting algorithm}. Let the subscripts denote the dataset pertaining to a particular grid. Grid\textsubscript{MSG} refers to the space-view grid of the \acrlong{msg} and grid\textsubscript{ECC} refers to the uniform grid originating from ERA5. Note that grid\textsubscript{ECC} is identical to  grid\textsubscript{ERA5}. The \textit{detection algorithm}, computes the co-location of pixels across grid and determines the contributing pixel from grid\textsubscript{MSG} to grid\textsubscript{ERA5}.
+The regridding algorithm consists of two modules; \textit{(1) detection} and \textit{(2) area weighting algorithm}. Let the subscripts denote the dataset pertaining to a particular grid. Grid\textsubscript{MSG} refers to the space-view grid of the \acrlong{msg} and grid\textsubscript{ECC} refers to the uniform grid originating from \acrshort{era5}. Note that grid\textsubscript{ECC} is identical to  grid\textsubscript{\acrshort{era5}}. The \textit{detection algorithm}, computes the co-location of pixels across grid and determines the contributing pixel from grid\textsubscript{MSG} to grid\textsubscript{\acrshort{era5}}.
 %to the particular cells in the other grid/coordinate system,
 %
 The pixels are then classified into the different categories such as \textit{corner}, \textit{centre}, \textit{left}, \textit{right}, \textit{upper} and \textit{lower boundary}. These categories are later used to isolate the portion of the pixel contributing to grid\textsubscript{ECC}.
@@ -107,7 +107,7 @@ The coordinate information is provided in grids of latitudes, $\theta$ (degrees 
 
 %%%%%%%%%%%%% PART ONE
 Computing the area weighted average of cloud masks requires detecting the pixels of grid\textsubscript{MSG}
-contributing to the grid\textsubscript{ERA5} cell, and computing their area. The pixels are classified into five categories; \textit{centre}, \textit{left}, \textit{right}, \textit{up} and \textit{down boundary}.
+contributing to the grid\textsubscript{\acrshort{era5}} cell, and computing their area. The pixels are classified into five categories; \textit{centre}, \textit{left}, \textit{right}, \textit{up} and \textit{down boundary}.
 %The detection algorithm is straight forward, overlapping pixels are included and labelled with a suitable category.
 The cloud mask pixels are smallest at the nadir point, increasing in all directions. Figure \ref{fig:estimate_dlon} illustrates this by showing an example of three neighbouring pixels. In this example the apparent pixel size increases going eastward. Consequently, there is an asymmetry between neighbouring pixels. The distance from the centre to the right and left neighbour is unequal. In order to take advantage of the analytical expression derived in Equation \eqref{eq:sphere_finish}, the extent of a contributing pixel is approximated by averaging the right and left distances. The categorisation is illustrated in Figure \ref{fig:pixels_contributing_to_cell} using different colours.
 \input{ChapterX_Results_and_Conclusion/dataset/figurs/estimating_changes_in_longitude}
@@ -148,9 +148,9 @@ The regridding scheme is a set of algorithms. Before the production of the full 
 %%%%%%%%%%%%%%%%%%%%%% TEST 1 - Formula to compute the area 
 The computations of the areas are the foundation of the \acrshort{awrs}, and it is crucial to verify that the algorithm is correct. CDO (\cite{cdo}) provides functionality to compute grid areas of a uniform grid using the code inserted below.
 \begin{verbatim}
-$ cdo gridarea era5data.nc gridarea.nc     
+$ cdo gridarea \acrshort{era5}data.nc gridarea.nc     
 \end{verbatim}
-To verify the implementations of Equation \eqref{eq:sphere_finish}, the grid areas of ERA5 are computed using both CDO and the self implemented algorithm. Both versions produce the same results.
+To verify the implementations of Equation \eqref{eq:sphere_finish}, the grid areas of \acrshort{era5} are computed using both CDO and the self implemented algorithm. Both versions produce the same results.
 % må jeg skrive hvor like, TS: nei
 Note that the self implemented code is scaled by $R$ to be consistent with CDO. Multiplication followed by division of the same number provides no additional information, and there is the off chance of introducing additional numerical errors. 
 
@@ -256,10 +256,12 @@ On a monthly average the temperature over land is higher than the ocean, but the
 \end{figure}
 Figure \ref{fig:first_week_sep_2012} shows small diurnal variations for all variables except clouds. The trend of the mean follow the data over land, with a smaller amplitude. The mean gets smoothed by the small diurnal variations over land. 
 
+Examening if it is an artificiall 
+
 \begin{figure}
     \centering
     \includegraphics{python_figs/timelapse_tcc_spike_09_2012.png}
-    \caption{Timeseries for the spike detected in Figure \ref{fig:first_week_sep_2012}.}
+    \caption{Evolution of the spike detected in Figure \ref{fig:first_week_sep_2012}.}
     \label{fig:spike_sep_2012}
 \end{figure}
 
@@ -310,14 +312,14 @@ Over land relative humidity is dominated by positive correlation with cloud cove
 
 Specific humidity shows a clear shift at longitudinal degree 10. The land area in the west shows positive correlation with cloud cover while the eastern part shows a negative correlation. 
 
-In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. This seems reasonable since warmer air can retain more vapour.%, on the other hand this could enhance evaporation rate, making more vapour available for condensing onto particles. 
+In most locations temperature is negatively correlated with cloud cover except in parts of the Alps, north coast of France and in north Africa. This seems reasonable since warmer air can retain more vapor.%, on the other hand this could enhance evaporation rate, making more vapor available for condensing onto particles. 
 
 
 % Finished regriddidng files.
 \subsection{Summary}
-\acrshort{ecc} is comprised of five variables; temperature, pressure, cloud fractional cover, relative and specific humidity. These are collected from two sources; ERA5 and EUMETSAT. The resolution available in ERA5 was preserved, while remapping the cloud mask to cloud fractional cover. 
+\acrshort{ecc} is comprised of five variables; temperature, pressure, cloud fractional cover, relative and specific humidity. These are collected from two sources; \acrshort{era5} and \acrshort{eumetsat}. The resolution available in \acrshort{era5} was preserved, while remapping the cloud mask to cloud fractional cover. 
 % duplication
 The final product consist of %the variables temperature, pressure, cloud fraction, specific humidity and relative humidity, available
-hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on ERA5 is available in Section \ref{sec:era5} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
+hourly data on a $0.25^o$ uniform grid resolution in the period from April 2004 to December 2018. Cloud fractional cover (\acrshort{cfc}) is produced from area weighting cloud masks. The \acrshort{awrs} is described in Section \ref{sec:remapping}. The remaining variables are on their original format as provided by \acrfull{ecmwf}. A summary of the original sources of the dataset is given in Table \ref{tab:dataset_summary}. More details on \acrshort{era5} is available in Section \ref{sec:\acrshort{era5}} and for the cloud mask in Section \ref{sec:EUMETSAT_cloud_mask}. 
 \clearpage
 \input{Chapter2_Theory/tables/table_transposed.tex}
