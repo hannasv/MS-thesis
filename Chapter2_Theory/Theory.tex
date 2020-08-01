@@ -1,5 +1,7 @@
 \setcounter{chapter}{1} 
-\chapter{Theoretical Background/ Climate and Cloud Physcis} \label{ch:theoretical_back}
+%\chapter{Theoretical Background on Climate and Cloud Physics}
+\chapter{Climate and Cloud Physics}
+\label{ch:theoretical_back}
 This chapter describes the necessary theoretical background on clouds for this study. It is organised as follows. The three first sections describe the cloud's role in both present and future climate systems. Beginning with cloud formation and dissipation, including the cloud effects on Earth's radiative budget in the current climate and the suggestion of future cloud climatologies as proposed by \acrshort{ipcc} in \acrshort{ar5}. This is followed by a brief introduction to parameterization of clouds, i.e. the method used to incorporate clouds into climate models.
 % Therefore necessary in studies of cloud feedback's. %in future climates. 
 Finally, the data used in the compilation of the \acrshort{ecc} dataset is introduced. 
@@ -7,20 +9,16 @@ Finally, the data used in the compilation of the \acrshort{ecc} dataset is intro
 \input{Chapter2_Theory/clouds.tex}
 \input{Chapter2_Theory/parameterizations}
 
-
 \section{Data}
 This section presents the data used in the compilation of the dataset, including background information about remote sensing of cloud properties and the method used to retrieve the data. 
 
-\subsection{Summary reanalysis} \label{sec:summary_reanalysis}
-\cite{Fujiwara2017IntroductionSystems}
-
-\subsection{ERA5} \label{sec:era5}
-ERA5 is the latest in the series of reanalyses produced by \acrfull{ecmwf}. Reanalysis is as close to observations as one can get while still obtaining data that is complete and coherent in both space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations as input and tries to make an accurate estimate of the state of the system that is as consistent as possible with the available observations at all times. This includes observations retrieved from satellites, ships, buoys, airplanes and ground-based stations. The analysis is produced in the operational forecast system, making it available within five days of real time. ERA5 is based on the Integrated Forecasting System, IFS cycle 4lr2. The data is available at a horizontal resolution of $0.25^o$ degree and hourly temporal resolution. It is an important product for the continuous monitoring of the Earth system 
+\subsection{\acrshort{era5}} \label{sec:era5}
+\acrshort{era5} is the latest in the series of reanalyses produced by \acrfull{ecmwf}. Reanalysis is as close to observations as one can get while still obtaining data that is complete and coherent in both space and time. It is produced using a forecast model to assimilate observations. Data assimilation take observations as input and tries to make an accurate estimate of the state of the system that is as consistent as possible with the available observations at all times. This includes observations retrieved from satellites, ships, buoys, airplanes and ground-based stations. The analysis is produced in the operational forecast system, making it available within five days of real time. \acrshort{era5} is based on the \acrshort{ifs}, cycle 4lr2. The data is available at a horizontal resolution of $0.25^o$ degree and hourly temporal resolution. It is an important product for the continuous monitoring of the Earth system 
 (\cite{Hersbach2018OperationalStatus}).
 
 Reanalyses data is often mistakenly referred to as observations. \citeauthor{Parker2016ReanalysesDifference} published an essay in \acrfull{bams} on this topic in \citeyear{Parker2016ReanalysesDifference}. Based on the following three points they conclude that observations and reanalyses are not too different. First, both involve inference, in other words, theory-based calculations. Second, reanalysis relies on forecast and observations do not. This is not a significant difference as long as the forecast is sufficiently accurate. Third, it is important to be aware that the uncertainty of the reanalyses is less well known than for observations. This makes it harder to judge the appropriate use of the reanalyses (\cite{Parker2016ReanalysesDifference}). 
 
-\subsection{Remote sensing of cloud properties}
+\subsection{Remote Sensing of Cloud Properties}
 Satellites are the only instruments capable of providing continuous global measurements.
 Measurements are collected by sensors, of which two types exist; passive and active imagers. The passive imaging sensors detect natural occurring levels of radiation, e.g. thermal radiation emitted by mediums. In contrast, active sensors  detect radiation returned from an emitted artificially fixed pulse of radiation (\cite{Stephens2018CloudsatSystem}). From \cite{Stockli2019CloudApplications}, \textit{the separation of the cloud from the cloud-free (reference signal) has been an everlasting problem in satellite-based cloud detection}.
 \input{Chapter2_Theory/subplot_satellite_channels}
