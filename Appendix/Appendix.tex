@@ -171,26 +171,6 @@ As a reference to future studies below is a listing of non-trainable architectur
 %    \item $ConvLSTM-B_{5}-SL_{6}-256-1\times1$
 %\end{enumerate}
 \cleardoublepage
-\chapter{24-hour Forecasts}
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/timelapse_convlstm_24hrs_from_2014-02-01.png}
-    \caption{Cloud cover forecast produced by $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$. Initiated on 01.01.2014. The area mean  cloud fraction is in the title.}
-    \label{fig:timelapse_3x3}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/AR-B-L5_timelapse_cloud_cover_24hrs_from_2014_02_01.png}
-    \caption{24 hour cloud cover forecast produced by $AR-B-L1$. The area mean  cloud fraction is in the title.}
-    \label{fig:timelapse_ar}
-\end{figure}
-\begin{figure}[ht]
-    \centering
-    \includegraphics{python_figs/timelapse_convlstm_1x1_24hrs_from_2014-02-01.png}
-    \caption{Cloud cover forecast produced by $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1\times1$. Initiated on 01.01.2014. The area mean  cloud fraction is in the title.}
-    \label{fig:timelapse_1x1}
-\end{figure}
-\cleardoublepage
 \section{Performance of AR-models} \label{app:mae_plots}
 \begin{figure}[ht]
     \centering
@@ -210,7 +190,6 @@ As a reference to future studies below is a listing of non-trainable architectur
     \caption{\acrshort{mae} of model $TR-B-L_1$.}
     \label{fig:grid_mae_TRBL1}
 \end{figure}
-
 \cleardoublepage
 \chapter{Series of 24-hour Forecast} \label{app:pred_sequence}
 \begin{figure}[ht]
@@ -237,7 +216,26 @@ As a reference to future studies below is a listing of non-trainable architectur
     \caption{Hours 18 to 23 of the predicted 24 hours sequence }
     \label{fig:part4/4}
 \end{figure}
-
+\cleardoublepage
+\chapter{24-hour Forecasts}
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/timelapse_convlstm_24hrs_from_2014-02-01.png}
+    \caption{Cloud cover forecast produced by $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$. Initiated on 01.01.2014. The area mean  cloud fraction is in the title.}
+    \label{fig:timelapse_3x3}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/AR-B-L5_timelapse_cloud_cover_24hrs_from_2014_02_01.png}
+    \caption{24 hour cloud cover forecast produced by $AR-B-L1$. The area mean  cloud fraction is in the title.}
+    \label{fig:timelapse_ar}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics{python_figs/timelapse_convlstm_1x1_24hrs_from_2014-02-01.png}
+    \caption{Cloud cover forecast produced by $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1\times1$. Initiated on 01.01.2014. The area mean  cloud fraction is in the title.}
+    \label{fig:timelapse_1x1}
+\end{figure}
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% signal artefact should be redefined if used
 \chapter{Miscellaneous} \label{app:misc}
