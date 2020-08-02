@@ -206,9 +206,7 @@ the resulting naming convention is  $ConvLSTM-B_{x}-SL_{y}-\text{hidden states}-
 \input{ChapterX_Results_and_Conclusion/computational_experiments/conv_ltsm_example_table}
 
 \subsubsection{Evaluation}
-\textbf{Tenk på om du vil ha en egen ligning for dette, den er fire dimensjonal ikke 3 som ar.}
-The input volume of \acrshort{convlstm}-models are different from the \acrshort{ar}-model, and the axis ``batch'' and ``sequence length'' are merged 
-The score is computed computed by using Equation \eqref{eq:mae}, and putting the parameters $m = 81$, $n=161$ and $k=43680$. Note that the $k$ value is a bit smaller than for \acrshort{ar}-models, this is caused by employing the ``drop remainder batch'' during training. 
+The input volume of \acrshort{convlstm}-models are different from the \acrshort{ar}-model, and the axis ``batch'' and ``sequence length'' are merged before the score is computed computed by using Equation \eqref{eq:mae}, and putting the parameters $m = 81$, $n=161$ and $k=43680$. Note that the $k$ value is a bit smaller than for \acrshort{ar}-models, this is caused by employing the ``drop remainder batch'' during training. 
 
 \begin{figure}
     \centering
@@ -217,17 +215,16 @@ The score is computed computed by using Equation \eqref{eq:mae}, and putting the
     \label{fig:convlstm_loss}
 \end{figure}
 
-Figure \ref{fig:convlstm_loss} shows the loss curves in the training process for all the compiled models in this study. As expected, they all ``learn'' the most rapidly in the beginning of the training process. This is shown in the figure as the abrupt drop i loss between epochs the first and second epoch. 
-
-\textbf{Note that the training loss is higher than the validation loss since there is a higher number of samples in this set and the loss is not scaled by the number of samples.} 
+Figure \ref{fig:convlstm_loss} shows the loss curves in the training process for all the compiled models in this study. As expected, they all ``learn'' the most rapidly in the beginning of the training process. This is shown in the figure as the steep drop i loss between epochs the first and second epoch. 
+%\textbf{Note that the training loss is higher than the validation loss since there is a higher number of samples in this set and the loss is not scaled by the number of samples.} 
 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/convltsm_table_summary}
-From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss} (highlighted in blue) its clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$. It has the lowest test and validation loss after 40 epochs. Anothe model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ had a better training loss. As you might have deduced based on the similarities in the names, the have similar architectures.
-The last model has an additional layer, this may have allowed it to learn a better representation (or overfittet) on the training data presented, however the models are evaluated on unseen data and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ goes out winning.
+From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss}  its clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ (highlighted in blue). It has the lowest test and validation loss after 40 epochs. Another model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ had a better training loss. As you might have deduced based on the similarities in the names, the have similar architectures.
+The last model has an additional layer, this may have allowed it to learn a better representation on the training data presented, however the models are evaluated on unseen data and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ goes out winning.
 
 In some cases reducing the spatiotemporal resolution will enable the model to learn even more (\cite{precip_nowcasting}). This is arguably not applicable for this task, since cloud cover has an average lifetime of one hour, as mentioned in Section \ref{sec:cloud_in_climate_system}. If applied it would most likely produce a significant loss of information.
 
-\textbf{Overgangs}
+\textbf{Overgangs ...}
 Proving that this study has trained a \acrshort{convlstm}-model on a larger amount of data than earlier studies. Comparisons of input data to the works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), is done based on input volumes. The dimensions are flattened to generalize the comparison. \citepaper{precip_nowcasting} is trained on $1,629,600,000$ data points, \citepaper{SunAirLSTM} on $28,513,800$ and \acrshort{ecc} on $21,220,315,200$. Consequently, the models in this study is trained on more than 10 times the amount of data.
 
 $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown in Figure \ref{fig:best_ml_architecture}. The model consist of three \acrshort{batchnorm} and  \acrshort{convlstm}-layer pairs. Both \acrshort{convlstm} layer have 32 hidden states and a $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$. The input shape is $10\times24\times81\times161\times4$ and output $24\times81\times161\times1$. 
@@ -237,7 +234,7 @@ $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown i
     \caption{The architecture of the cloud cover forecasting model developed in this study. }
     \label{fig:best_ml_architecture}
 \end{figure}
-In Figure \ref{fig:best_ml_architecture} is illustrated as a green box. The full details of the 5-dimensional input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}. The inputvolume is divided into batches, for this model, a batch consist of a 10 sequences. A sequence is a timeseries of 24 hours. Each hour is $81\time161\times4$-dimensional, consisting of grids the four environmental variables, temperature, surface pressure, relative and specific humidity. 
+In Figure \ref{fig:best_ml_architecture} is illustrated as a green box. The full details of the 5-dimensional input volume is displayed in Figure \ref{fig:input_volume_conv_lstm}. The input volume is divided into batches, for this model, a batch consist of a 10 sequences. A sequence is a timeseries of 24 hours. Each hour is $81\time161\times4$-dimensional, consisting of grids the four environmental variables, temperature, surface pressure, relative and specific humidity. 
 
 \begin{figure}
     \centering
@@ -247,42 +244,38 @@ In Figure \ref{fig:best_ml_architecture} is illustrated as a green box. The full
     \label{fig:input_volume_conv_lstm}
 \end{figure}
 
-To test the importance of information in neigbouring pixels the model the $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$-model was trained and compared to the best model. %This is the architecture is the most similar \acrshort{ar}-models. 
-As expected, this model has a higher loss than its sibling trained using a $3\times 3$. This is shown in Table \ref{tab:convlstmLoss} summarising the losses for all models in this study.
+To explore the importance of spatial information from neighboring pixels the model the $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$-model was trained and compared to the best model. %This is the architecture is the most similar \acrshort{ar}-models. 
+As expected, this model has a higher loss than its sibling trained using a $3\times 3$. This is shown in Table \ref{tab:convlstmLoss} summarizing the losses for all models in this study.
 %you can see it has the worst Test loss among the trained models. This indicate that information from adjacent pixels is useful. Its necesarry to mention that there is a significant difference between a \acrshort{ar}-model and a \acrshort{convlstm}-model with $1\times 1$ kernel and that is that the \acrshort{ar}-model train a different weight in all pixels, while the \acrshort{convlstm}-model utilize the same weights over the entire grid. 
 %Not suprising ths that the number of parameters increase as the kernel increasse. 
-\clearpage
+%\clearpage
+\cleardoublepage
 
 \subsection{GRID MAE}
-This section contains the evaluation of the models against \acrshort{ecc}. The metric used is \acrshort{mae} and the period is 01.01.2014 to 31.12.2018. Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display the skill of the parameterization on the prediction of cloud cover in \acrshort{ecc}
-Note the scales are different for each plot. Table \ref{tab:tot_mae_score} provide a summary of spatiotemporal skill of prediction of cloud cover. This shows that the overall best parameterization is made by the $AR-B-L5$-model. This is a bit misleading since its evaluated on its ability to predict one time step, which is a simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
+This section contains the evaluation of the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, $AR-B-L_5$ and \acrshort{era5}. The metric used is \acrshort{mae} and the period is 01.01.2014 to 31.12.2018. Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display the skill of the parameterization on the prediction of cloud fraction cover in \acrshort{ecc}. They scales are different in all the plots, nd they show different regional biases. Table \ref{tab:tot_mae_score} provide a summary
+of skill summed over space and time, while the plots only sum over time. These results indicate that the overall best parameterization is made by the $AR-B-L5$-model. This is a bit misleading since its evaluated on its ability to predict one time step ahead, which is a lot simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/mean_absolute_error_table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Commenting on spatial patterens
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics{python_figs/mae_era_vs_target_test_period_2014_to_2018.png}
     \caption{Evaluation of the parametrization in ERA5.}
     \label{fig:MAE_era}
 \end{figure}
-
-They all reveal regional biases. 
-
-ERA5 
-\textbf{A few examples on evaluation against observartions are used to highlight the}
-
+\textbf{Mention problematic regions}
 
 It reveals systematic errors over the Mediterranean Sea and in the Atlantic Ocean of the coast of Gibraltar. Mountainous areas in the French and Italian Apls among other light up, revealing that they are predicted \textbf{skill er et bedre ord}. 
 
 Figure \ref{fig:MAE_convlstm} show the performance of the best convolutional model in the period 2014-2018, the period is in fact a few hours shorter, since the models ran with ``drop remainder batch''. Both these representations of \acrshort{cfc} have trouble with the Nile Delta. This doesn't not seem to be the case for \textbf{update:the best ar model}.
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics{python_figs/mae_convlstm_vs_target_test_period_2014_to_2018.png}
     \caption{Evaluation of the parameterization made by the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model.}
     \label{fig:MAE_convlstm}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics{python_figs/mea_best_ar_model_tcc_L5_in_folder_AR-B-L5.png}
     \caption{Evaluation of the parameterization made by the $AR-B-L_5$-model. The white dots visible is in total 12/13041 regression model having numerical issues related to non-invertable matrices.}
