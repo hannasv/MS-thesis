@@ -62,39 +62,31 @@ The DGX-2 system is designed for a high level concurrency and scheduling workers
     \caption{Hardware specifications for the environment used on \acrshort{ex3}. The operating system is Ubuntu 18.04.4.}
     \label{tab:hardware_ex3}
 \end{table}
-%\textbf{TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix}
-%TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix
-%\subsection{Model Setup and Evaluation}
-%The following sections contain the configurations of the models compiled for this study. A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, as mentioned in Section \ref{sec:artificial neural networks}.
+% In the search for the best model configuration, different combinations of hyperparameters are evaluated based on a metric. This study evaluate models based on \acrfull{mae}, see Section \ref{sec:metrics} for more details.
 
-%A model is compiled based on a choice of hyperparameters. It is a set of decisions made prior to training, as mentioned in Section \ref{sec:artificial neural networks}.
-In the search for the best model configuration, different combinations of hyperparameters are evaluated based on a metric. % mention why you chose M;A;E?
-This study evaluate models based on \acrfull{mae}, see Section \ref{sec:metrics} for more details.
-
-For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. 
-
-
-
-
-%This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
+%For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. 
 
 \subsection{Training, validation and test split}
 Gradient methods are at the heart of every machine 
 learning algorithms. This type of optimization is based on the principle that the model is continuously evaluated against the validation dataset and weights are adjusted to reduce the loss. This raises the need for two datasets during training. The \acrshort{ar}-models are computed based on an analytical solution and have no need for the extra data set. 
 
-Based on the assumption that the most resent partition is representative for the near future, both models were tested on 2014 to 2018. The \acrshort{ar}-model is trained on the period 2004 to 2013, while the \acrshort{convlstm} is trained on  2004 to 2011 and validated on 2012 to 2013.
+Based on the assumption that the most resent partition is representative for the near future, both models were tested on the period 2014 including 2018. The \acrshort{ar}-model is trained on the period 2004 to 2013, while the \acrshort{convlstm} is trained on  2004 to 2011 and validated on 2012 to 2013.
 
 Other notable differences in the input data is related to handling missing values.  
-%Missing data arise from failed retrivals. Consequently entire grids are missing and not individual pixels. 
 The \acrshort{ar}-models use shorter sequences, and samples containing missing values are simply removed. The \acrshort{convlstm}-model utilize longer sequences, and missing values are replaced by the out-of-sample value, $c=1.5$. 
 
-%The test period was chosen based on the assumption that the latest period is most representative for the climate in the near future. The handling \textbf{(nytt ord)} of gaps, provide an additional difference to the datasets used as input for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determines the length of the training sequence. All samples with gaps in the requested sequence are disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with an out-of-sample value, $c=1.5$. 
 \subsection{Autoregressive models (AR)}
 In the search for the best model configuration, 
 
-The \acrshort{ar}-models follow another strategy. For this study the simplest models was trained first, followed by a gradual increase in complexity.
 
-In this study a \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box. Four hyperparameters are possible to tune, \textit{feature scaling of the predictors}, the \textit{inclusion of bias}, \textit{number of lags} and a \textit{potential inclusion of environmental variables}. Varying combinations of these parameters results in the set of models trained in this study. More theoretical details can be found in Section \ref{sec:ARmodels}. 
+% %This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
+
+In this study a \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box. Four hyperparameters are possible to tune, \textit{feature scaling of the predictors}, the \textit{inclusion of bias}, \textit{number of lags} and a \textit{potential inclusion of environmental variables}. Varying combinations of these parameters results in the set of models trained in this study. 
+The \acrshort{ar}-models follow another strategy.
+In the search for the best model configuration,  
+For this study the simplest models was trained first, followed by a gradual increase in complexity.
+
+%More theoretical details can be found in Section \ref{sec:ARmodels}. 
 
 \subsubsection{Feature Scaling} \label{sec:scaling_predictors}
 Feature scaling is used to standardize the predictor variables.
