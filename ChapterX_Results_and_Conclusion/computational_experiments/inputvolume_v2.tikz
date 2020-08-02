@@ -1,56 +1,37 @@
-%\documentclass[tikz,border=3.14pt]{standalone}
-%\usetikzlibrary{3d,decorations.text,shapes.arrows,positioning,fit,backgrounds}
 
-%\usetikzlibrary{decorations.pathreplacing}
-%\usepackage{tikz}
-\tikzset{every picture/.append style={scale=0.85}}
+\tikzset{every picture/.append style={scale=1.0}}
+\begin{tikzpicture}[x={(1,0)},y={(0,1)}, z={({cos(60)},{sin(60)})},
+font=\sffamily\small, scale=1.0]
+
 \tikzset{pics/fake box/.style args={% #1=color, #2=x dimension, #3=y dimension, #4=z dimension
 #1 with dimensions #2 and #3 and #4}{
 code={
-\draw[gray,ultra thin,fill=#1, opacity = 0.5]  (0,0,0) coordinate(-front-bottom-left) to
+\draw[teal,ultra thin,fill=#1,opacity=0.25]  (0,0,0) coordinate(-front-bottom-left) to
 ++ (0,#3,0) coordinate(-front-top-right) --++
 (#2,0,0) coordinate(-front-top-right) --++ (0,-#3,0) 
 coordinate(-front-bottom-right) -- cycle;
-\draw[gray,ultra thin,fill=#1, opacity = 0.5] (0,#3,0)  --++ 
+\draw[teal,ultra thin,fill=#1, opacity=0.25] (0,#3,0)  --++ 
  (0,0,#4) coordinate(-back-top-left) --++ (#2,0,0) 
  coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
-\draw[gray,ultra thin,fill=#1!80!black, opacity = 0.5] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
+\draw[teal,ultra thin,fill=#1!80!black, opacity=0.25] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
 --++ (0,#3,0) --++ (0,0,-#4) -- cycle;
-\path[gray,decorate,decoration={text effects along path,text={}}] (#2/2,{2+(#3-2)/2},0) -- (#2/2,0,0);
+\path[teal,decorate,decoration={text effects along path,text={}}] (#2/2,{3.4+(#3-2)/2},0) -- (#2/2,0,0);
 }
 }}
-% from https://tex.stackexchange.com/a/52856/121799
-%\tikzset{circle dotted/.style={dash pattern=on .05mm off 2mm,
-%                                         line cap=round}}
-%\begin{document}
-
-\begin{tikzpicture}[x={(1,0)},y={(0,1)},z={({cos(60)},{sin(60)})},
-font=\sffamily\small, scale=0.75]
 
 %%%%%%%%%% Green box in the back symbolizing batches 
-\foreach \X / \Y in {1.2/-1.5} 
-{
-\draw pic (box1-\Y) at (\Y, -2*\X,0) {fake box=white!25!green with dimensions 13.5 and {2*\X} and 1*\X};
+\foreach \X / \Y in {2.3/-1.5} {
+\draw pic (box1-\Y) at (\Y,-\X/,0) {fake box=green with dimensions 14.6 and {2*\X} and 1*\X};
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\foreach \X / \Y in {1.1/-1.0, 1.1/12.9} {
-\draw pic (box1-\Y) at (\Y,-2*\X,0) {fake box=white!25!cyan with dimensions 4 and {2*\X} and 1*\X};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLUE BOX
+\foreach \X / \Y in {1.5/-1.0, 1.5/6} {
+\draw pic (box1-\Y) at (\Y,-\X/,0) {fake box=white!25!cyan with dimensions 6.9 and {2*\X} and 1*\X};
 }
 
-\foreach \X / \Y in {1.1/7.0, 1.1/9.0, 1.1/11.0} % , 3.0/4.3
-%2.2,2.2,2.0
-{
-\draw pic (box1-\Y) at (\Y,-2*\X,0) {fake box=white!25!cyan with dimensions 0.4 and {2*\X} and 1*\X};
-}
 
-%\foreach \X / \Y in {.3/3.0, 0.3/3.5, 0.3/17, 0.3/17.5 } % , 3.0/4.3
-%2.2,2.2,2.0
-%{
-%\draw pic (box1-\Y) at (\Y,-\X/2,0) {fake box=white!25!yellow with dimensions .3 and {2*\X} and 1*\X};
-%}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Weather data volume 1.
 \foreach \X/\Col in {0.0/red, 0.2/green, 0.4/cyan, 0.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
@@ -58,62 +39,60 @@ font=\sffamily\small, scale=0.75]
 
 %\draw[gray!60,thick] (0.8,-0.1,-1.6) coordinate (2-1) -- (0.8,-0.1,0.6) coordinate (2-2) -- (0.8, 2.,0.6) coordinate (2-3) -- (0.8,2.1,-1.6) coordinate (2-4) -- cycle;
 
+%\foreach \X in {4,1,3}{\draw[gray!60,thick] (1-\X) -- (2-\X);}
 
-%\foreach \X in {4,1,3}
-%{\draw[gray!60,thick] (1-\X) -- (2-\X);}
+\tikzset{pics/fake box/.style args={% #1=color, #2=x dimension, #3=y dimension, #4=z dimension
+#1 with dimensions #2 and #3 and #4}{
+code={
+\draw[teal,ultra thin]  (0,0,0) coordinate(-front-bottom-left) to
+++ (0,#3,0) coordinate(-front-top-right) --++
+(#2,0,0) coordinate(-front-top-right) --++ (0,-#3,0) 
+coordinate(-front-bottom-right) -- cycle;
+\draw[teal,ultra thin] (0,#3,0)  --++ 
+ (0,0,#4) coordinate(-back-top-left) --++ (#2,0,0) 
+ coordinate(-back-top-right) --++ (0,0,-#4)  -- cycle;
+\draw[teal,ultra thin,fill=#1!80!black] (#2,0,0) --++ (0,0,#4) coordinate(-back-bottom-right)
+--++ (0,#3,0) --++ (0,0,-#4) -- cycle;
+\path[teal,decorate,decoration={text effects along path,text={}}] (#2/2,{3.4+(#3-2)/2},0) -- (#2/2,0,0);
+}
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLUE BOX
 
 \foreach \X/\Col in {2.0/red,2.2/green,2.4/cyan, 2.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-%\draw[gray!60,thick] (-0.1,-0.1,-1.6) coordinate (1-1) -- (-0.1,-0.1,0.6) coordinate (1-2) -- (-0.1, 2.,0.6) coordinate (1-3) -- (-0.1, 2.1,-1.6) coordinate (1-4) -- cycle;
-
-%\draw[gray!60,thick] (0.8,-0.1,-1.6) coordinate (2-1) -- (0.8,-0.1,0.6) coordinate (2-2) -- (0.8, 2.,0.6) coordinate (2-3) -- (0.8,2.1,-1.6) coordinate (2-4) -- cycle;
-
-%\foreach \X in {4,1,3}
-%{\draw[gray!60,thick] (1-\X) -- (2-\X);}
-
 \foreach \X/\Col in {5.0/red,5.2/green,5.4/cyan, 5.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-%\draw[gray!60,thick] (5.9, -0.1, 0.6) coordinate (1-1) -- (4.9,-0.1,0.6) coordinate (1-2) -- (4.9, 2., 0.6) coordinate (1-3) -- (4.9, 2.1,-1.6) coordinate (1-4) -- cycle;
-
-%\draw[gray!60,thick] (4.9,-0.1, 0.6) coordinate (2-1) -- (4.9,-0.1, 0.6) coordinate (2-2) -- (5.8, 2.1, 0.6) coordinate (2-3) -- (4.9, 2.1, -1.6) coordinate (2-4) -- cycle;
-
-%\foreach \X in {5, 1, 3}
-%{\draw[gray!60,thick] (1-\X) -- (2-\X);}
-
-\foreach \X/\Col in {19.0/red,19.2/green,19.4/cyan, 19.6/yellow} %{6.5/red,6.7/green,6.9/blue}
+%%%%%%%%%%%%%%% Second bow
+\foreach \X/\Col in {7.0/red,7.2/green,7.4/cyan, 7.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-\foreach \X/\Col in {16.0/red,16.2/green,16.4/cyan, 16.6/yellow} %{6.5/red,6.7/green,6.9/blue}
+\foreach \X/\Col in {9.0/red,9.2/green,9.4/cyan, 9.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-\foreach \X/\Col in {14.0/red,14.2/green,14.4/cyan, 14.6/yellow} %{6.5/red,6.7/green,6.9/blue}
+\foreach \X/\Col in {12.0/red,12.2/green,12.4/cyan, 12.6/yellow} %{6.5/red,6.7/green,6.9/blue}
 {\draw[canvas is yz plane at x = \X, transform shape, draw = black, fill = \Col!50!white, opacity = 0.5] (0,0.5) rectangle (2,-1.5);}
 
-\node[color = dark green, thick] at (0, 3.3) {BATCH \#1};
-\node[color = blue, thick] at (3.0, -1.8) {SEQUENCE \#1};
-\node[color = blue, thick] at (15.8, -2.0) {SEQUENCE \#10};
-\node[color = black, thick] at (0, 0.3) {1 HR};
-\node[color = black, thick] at (2.0, 0.3) {1 HR};
-\node[color = black, thick] at (5.0, 0.3) {1 HR};
 %%%%%%%%%%%%%%%%%%% ADDING TEXT
+\node[color = gray, thick] at (6, 3.3) {\Large Batch \#0};
+\node[color = blue!60, thick] at (1.0, -2.0) {\large SEQUENCE \#0};
+\node[color = blue!60, thick] at (8.0, -2.0) {\large SEQUENCE \#1};
+\node[color = gray, thick, rotate=60] at (0.3, 0.1) {$00:00$};
+\node[color = gray, thick, rotate=60] at (2.3, 0.05) {$01:00$};
+\node[color = gray, thick, rotate=60] at (5.3, 0.0) {$23:00$};
 
-%\draw [decorate,decoration={brace,amplitude=30pt},xshift=0pt, yshift=2pt, grey!60]
-%(14, +2.5) -- (20.3, +2.5) node [black,midway, yshift=1.8cm] 
-%{\footnotesize $Sequence Length = 24 hr$};
+\node[color = gray, thick, rotate=60] at (7.3, 0.1) {$00:00$};
+\node[color = gray, thick, rotate=60] at (9.3, 0.05) {$01:00$};
+\node[color = gray, thick, rotate=60] at (12.3, 0.0) {$23:00$};
 
-%\draw [decorate,decoration={brace, amplitude= 15pt},xshift=0pt, yshift=-1pt, grey!60]
-%(15, -1.7) -- (16.3, -1.7) node [black,midway, yshift=-.1cm] 
-%{\footnotesize $1 HR$};
 
-%\draw [decorate,decoration={brace,amplitude=30pt},xshift=0pt,yshift=2pt, grey!60]
-%(-0.5, +2.5) -- (6.3, +2.5) node [black,midway, yshift=1.8cm] 
-%{\footnotesize $Sequence Length = 24 hr$};
-
-%\draw [decorate,decoration={brace,amplitude=30pt},xshift=0pt,yshift=2pt, grey!60]
-%(-0.5, +3.5) -- (20.3, 3.5) node [black,midway, yshift=1.8cm] 
-%{\footnotesize $Batch$};
+%%%%%%%%%%%%%% Dotted lines
+\path[draw, thick, dotted] (3.0, 0.5) edge (4., 0.5);
+\path[draw, thick, dotted] (10.0, 0.5) edge (11., 0.5);
 
 \end{tikzpicture}
 %\end{document}
