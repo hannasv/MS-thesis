@@ -128,7 +128,7 @@ are a directed graph along a temporal sequence. The hidden state from the previo
 Learning long term dependencies can be challenging and is done by backpropagating the error signal thought the network. Working with longer sequences, the error signal tends to approach zero or infinity. Exploding gradients can cause the weights to oscillate. Learning from small or vanishing gradients takes a very long time, and might not produce a useful outcome at all. 
 %More advanced forms of recurrent nets control the information flow using gates. \textbf{cite 1997 and cite 1999 learning to forget.}
 
-\subsection{Long Short-term memory network} \label{sec:lstm}
+\subsection{Long Short-Term Memory Network} \label{sec:lstm}
 In order to address challenges in predicting long sequences presented in the previous section, \citeauthor{Hochreiter1997LongMemory} created the \acrfull{lstm}. Their design, documented in a paper from \citeyear{Hochreiter1997LongMemory} (\cite{Hochreiter1997LongMemory}), outperformed previous memory networks by regulating the flow of information provided to a recurrent network at each time step.
 They propose a new method for learning %an approach for constant error flow 
 in order to alleviate the issues with exploding or vanishing gradients. This approach is called constant error flow. 
