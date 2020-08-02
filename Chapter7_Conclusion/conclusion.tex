@@ -1,6 +1,7 @@
 \chapter{Conclusions and Future Work}
 % \textbf{Det du skal svare på fra Introduksjon, The scope of this study is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions.}
-In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data-driven learning of cloud fractional cover. This involves the development of \acrfull{awrs}. Without this the proposed methods are useless.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION
+In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data-driven learning on cloud fractional cover. This involves the development of \acrfull{awrs} and derivation of relevant equations. Without this dataset proposed methods are useless. The databasis, both dataset and variables, have been carefully chosen and the produced product has $0.25^o$ spatial and hourly resolution. It consist of temperature, pressure, relative and specific humidity from \acrshort{er5} and cloud fractional cover, computed by \acrshort{awrs}, based on cloud masks from \acrshort{msg}.
 %The fist objective in this study, was to generate a high quality dataset. 
  
 As a ``proof of concept''-study, two models, \acrfull{ar} and \acrfull{convlstm} models were built on the \acrshort{ecc}. They were evaluated and compared against exist parameterizations in \acrshort{era5}. 
@@ -14,6 +15,15 @@ This study shows that model X performed best. $ConvLSTM-B_{10}-SL_{24}-32-3\time
 %$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$
 
 In conclusion, at their current state they are not appropriate for implementations toward practical applications. However, with a few more experiments and more refined tuning they have shown the potential for applying data driven learning from the cloud forecasting problem and other similar problem in Geosciences. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contrubution 
+
+This study has successfully applied data driven learning to the cloud forecasting problem. 
+
+Contribution by building a end-to-end trainable \acrshort{convlstm}-model. As far as the author knows, this study has trained a \acrshort{convlstm}-model on a larger dataset than done before. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Future work
 
 There is a extensive list of possibilities and this study has not explored the full range of possibilities \acrshort{convlstm} potentially enable. 
 This would evolve using automatic hyperparameter tuning. This study has learned which combinations of number of layers, hidden states and kernels to use to circumvent memory issue. Exploring the effect of altering many of the parameters kept constant would be of interest.
@@ -51,6 +61,3 @@ This study has contributed with research in a relatively young field, which is a
 Need to asses the numerical error caused by matix inversion -- add regularizations
 
 beats the original model with significant margin.
-
-This study has successfully applied data driven learning to the cloud forecasting problem. 
-Contribution by building a end-to-end trainable \acrshort{convlstm}-model. As far as the author knows, this study has trained a \acrshort{convlstm}-model on a larger dataset than done before. 

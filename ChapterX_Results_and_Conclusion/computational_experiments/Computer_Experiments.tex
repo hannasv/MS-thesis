@@ -1,21 +1,23 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
-This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. Two types of statistical models, \acrshort{convlstm} and \acrshort{ar}-model are trained and evaluated on an unseen portion of the dataset. 
+This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. The first sections provide details on framework, structure and implementations. The following sections describes the experimental design, and the hyperparameters tuned, 
+% A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, 
+divided into two sections, one for \acrshort{convlstm}-models and another for \acrshort{ar}-models. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 including 2018. At the end, the best configuration from each of the statistical model types are evaluated on their ability to perform a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
 The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading 
 reanalysis (ERA5) data using python is provided. 
-The dataset is not published because of a licences on the \acrshort{msg} data. 
+The dataset, \acrshort{ecc}, is not published because of a licenses on the \acrshort{msg} data. 
 %The repository contains everything need to reproduce the results in this study.
 %The experiments are conducted in notebooks and the developed modules are stored in the package ``sciclouds''. Descriptions on how to acquire the data (scripts if possible) and project environment is provided to simplify the process.
 
-The code is developed in Python 3.7, a popular language for scientific software development. The source code is stored in the package \textit{sciclouds}, made available on Github through the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}).
+The code is developed in Python 3.7, a popular language for scientific software development. The source code is stored in the package \textit{sciclouds}, made available on GitHub through the project repository. Developed modules draw inspiration from the structure of \textit{scikit-learn} (\cite{sklearn_api}).
 %and the \textit{keras-tuner} (\cite{chollet2015kerastuner}). 
 %The \acrshort{convlstm} is implemented %in \textit{keras} (\cite{chollet2015keras})
 %using \textit{tensorflow v 2.0} . %The \textit{keras-tuner} is used to automize the hyperparameter search (\cite{chollet2015kerastuner}). 
-The \acrshort{convlstm} is implemented using Tensorflow's keras API (\cite{tensorflow2015}) which simplifies many aspects of building and executing machine learning models. To utilize the analytical solution the \acrshort{ar}-models are trained and evaluated using self implemented modules.
+The \acrshort{convlstm} is implemented using Tensorflow's keras API (\cite{tensorflow2015}) which simplifies many aspects of building and executing machine learning models. To utilize the analytical solution the \acrshort{ar}-models are trained and evaluated using self-implemented modules.
 %The \acrshort{ar}-models are trained and evaluated using self implemented modules. The idea was to utilize the analytical solution of the least squares problem. 
 %Many regression modules provide a numerical solution, not the analytical. 
-The python package ``sclouds'' provides a self implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
+The python package ``sciclouds'' provides a self-implemented version of \acrshort{ar}-models, using the analytical solution to the least squares problem derived in Section \ref{sec:ARmodels}.
 
 Visualizations are generated using \textit{Matplotlib} (\cite{matplotlib}),  \textit{Seaborn} (\cite{seaborn}) and maps using the package \textit{Cartopy} (\cite{Cartopy}). Other illustrations are developed using TIkZ, a language used for producing technical illustrations within the environment of LaTeX.
 
@@ -62,22 +64,20 @@ The DGX-2 system is designed for a high level concurrency and scheduling workers
 \end{table}
 %\textbf{TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix}
 %TS: Mye av teksten frem til dette punktet egner seg egentlig bedre i et Appendix
-\subsection{Model Setup and Evaluation}
-The following sections contain the configurations of the models compiled for this study. A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, as mentioned in Section \ref{sec:artificial neural networks}.
+%\subsection{Model Setup and Evaluation}
+%The following sections contain the configurations of the models compiled for this study. A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, as mentioned in Section \ref{sec:artificial neural networks}.
 
 %A model is compiled based on a choice of hyperparameters. It is a set of decisions made prior to training, as mentioned in Section \ref{sec:artificial neural networks}.
 In the search for the best model configuration, different combinations of hyperparameters are evaluated based on a metric. % mention why you chose M;A;E?
 This study evaluate models based on \acrfull{mae}, see Section \ref{sec:metrics} for more details.
 
-For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. Therefore the tuning of \acrshort{convlstm}-models was done manually. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}).
-The models are described in Section \ref{sec:related_work}.
-The \acrshort{ar}-models follow another strategy. For this study the simplest models was trained first, followed by a gradual increase in complexity.
+For the more complex \acrshort{dl}-models, the choice of architecture (model configuration) can easily overload the system memory resources. 
+
+
+
+
 %This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
 
-%it follows the principal of starting with the simplest model possible and increasing the complexity from there. 
-%Stopping at architectures where increased complexity don't increase the performance? Know stategies are using spaced sampling, attempting lags of 1, 2, 5, 10. The second is naturally to further investigate regons of lags showing the most promise. 
-%on a similar problem, air quality forecasting problem was executed. \citepaper{chollet2015kerastuner} provide suitable software for the automatic hyperparameter tuning. 
-%\textbf{Man kjører eksperimenter på mange modeller ved å bruke traning og validations dataset. The choice of model is based on this data basis and then it performance is tested on the test dataset.} 
 \subsection{Training, validation and test split}
 Gradient methods are at the heart of every machine 
 learning algorithms. This type of optimization is based on the principle that the model is continuously evaluated against the validation dataset and weights are adjusted to reduce the loss. This raises the need for two datasets during training. The \acrshort{ar}-models are computed based on an analytical solution and have no need for the extra data set. 
@@ -90,6 +90,10 @@ The \acrshort{ar}-models use shorter sequences, and samples containing missing v
 
 %The test period was chosen based on the assumption that the latest period is most representative for the climate in the near future. The handling \textbf{(nytt ord)} of gaps, provide an additional difference to the datasets used as input for the \acrshort{ar} and the \acrshort{convlstm}-models. The order of the \acrshort{ar}-model determines the length of the training sequence. All samples with gaps in the requested sequence are disregarded causing a reduction in the data basis for a model of a particular order, determined by the number of lags. For the \acrshort{convlstm} these gaps are filled with an out-of-sample value, $c=1.5$. 
 \subsection{Autoregressive models (AR)}
+In the search for the best model configuration, 
+
+The \acrshort{ar}-models follow another strategy. For this study the simplest models was trained first, followed by a gradual increase in complexity.
+
 In this study a \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box. Four hyperparameters are possible to tune, \textit{feature scaling of the predictors}, the \textit{inclusion of bias}, \textit{number of lags} and a \textit{potential inclusion of environmental variables}. Varying combinations of these parameters results in the set of models trained in this study. More theoretical details can be found in Section \ref{sec:ARmodels}. 
 
 \subsubsection{Feature Scaling} \label{sec:scaling_predictors}
@@ -184,6 +188,9 @@ The behavior of relative and specific humidity is puzzling, they exhibit the app
 \clearpage
 
 \subsection{Convolutional LSTM (ConvLSTM)}
+\textbf{Therefore the tuning of \acrshort{convlstm}-models was done manually. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}).
+The models are described in Section \ref{sec:related_work}.}
+
 The formulation of the air quality forecasting problem presented by \citeauthor{SunAirLSTM} is similar to the formulation of the cloud fractional cover forecasting problem presented in this study. 
 %The machine learning experimental setup is adopted from the paper \citepaper{SunAirLSTM}.
 % Endrer på arkitekturen - denne bruker -train - validation - test, en hvis prosentandel a
