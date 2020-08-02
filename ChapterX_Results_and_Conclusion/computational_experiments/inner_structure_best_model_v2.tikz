@@ -1,5 +1,5 @@
 \begin{tikzpicture}[x={(1,0)},y={(0,1)},z={({cos(60)},{sin(60)})},
-font=\sffamily\small,scale=2.0] % 1.7 passer bra på siden.
+font=\sffamily\small,scale=1.9] % 1.7 passer bra på siden.
 
 \tikzset{circle dotted/.style={dash pattern=on .05mm off 2mm,
                                          line cap=round}}
@@ -116,17 +116,17 @@ coordinate(-front-bottom-right) -- cycle;
 \node[draw,single arrow, orange,fill=orange!30] at (4., 0.5,0) {$3\times 3$};
 \node[draw,single arrow, orange,fill=orange!30] at (5.6, 0.5,0) {$1\times 1$};
 
-\begin{scope}[on background layer]
-\node[orange,thick,rounded corners,fill=orange!30,fit=(A1) (A3)]{};
-\node[gray,thick,rounded corners,fill=gray!10,fit=(B1) (B3)]{};
-\end{scope}
+%\begin{scope}[on background layer]
+%\node[orange,thick,rounded corners,fill=orange!30,fit=(A1) (A3)]{};
+%\node[gray,thick,rounded corners,fill=gray!10,fit=(B1) (B3)]{};
+%\end{scope}
 
 %\foreach \X in {1,2,3}
 %{\draw[-latex] (A\X) -- (B2);}
 
-\draw[thick](0.2, 3)node[scale=1.]{\small $None\times 24\times 81\times 161 \times 4 $};
-\draw[thick](2.0, -2)node[scale=1.]{\small $10\times 24\times81\times 161 \times 32 $};
-\draw[thick](3.8, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 32 $};
+\draw[thick](0.2, 3.3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 4 $};
+\draw[thick](1.5, -2)node[scale=1.]{\small $10\times 24\times81\times 161 \times 32 $};
+\draw[thick](3.8, 3.3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 32 $};
 \draw[thick](5.0, -2)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
-\draw[thick](6.6, 3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
+\draw[thick](6.6, 3.3)node[scale=1.]{\small $10\times 24\times 81\times 161 \times 1 $};
 \end{tikzpicture}
