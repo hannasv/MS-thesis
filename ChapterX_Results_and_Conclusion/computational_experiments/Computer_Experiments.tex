@@ -3,7 +3,7 @@
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. The first sections provide details on framework, structure and implementations. The following sections describes the experimental design, %and the hyperparameters tuned, 
 % A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, 
 %divided into two sections, one for 
-of the \acrshort{convlstm}-models and \acrshort{ar}-models, focusing on the hyperparameters optimized. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 including 2018. At the end, the best configuration from each of the statistical models are evaluated on their ability to produce a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
+of the \acrshort{convlstm}-models and \acrshort{ar}-models, focusing on the hyperparameters optimized. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 to 2018. At the end, the best configuration from each of the statistical models are evaluated on their ability to produce a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
 The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading 
@@ -134,7 +134,7 @@ The models are all evaluated using \acrfull{mae} and the \acrshort{ar}-models ar
 \begin{figure}
     \centering
     \includegraphics{python_figs/heat_ar_model_mae_test_score.png}
-    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. $AR$ represent the inclusion of environmental variables, $TR$ represent their omittance, $B$ is inclusion of bias and $T$ is the feature scaling, tranforming the distribution of the input data.
+    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. $AR$ represent the inclusion of environmental variables, $TR$ represent the opposite, $B$ is inclusion of bias and $T$ is the feature scaling, transforming the distribution of the input data.
     }
     \label{fig:heatmap_ar_models}
 \end{figure}

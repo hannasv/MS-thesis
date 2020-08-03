@@ -7,13 +7,13 @@ This is a ``proof of concept''-study, exploring the potential for data driven le
 % Is a simplification but --- \textbf{It is unlikely that the parameterization can encompass the full range of situation that can naturally arise}
 %The fist objective in this study, was to generate a high quality dataset. 
 
-In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data driven learning on cloud fractional cover. This involves the development of \acrfull{awrs} and derivation of relevant equations. Without this dataset proposed methods would be useless. The data basis, both the dataset and variables, has been carefully chosen. It consists of temperature, pressure, relative and specific humidity from \acrshort{er5} and cloud fractional cover, computed using \acrshort{awrs}, based on cloud masks from \acrshort{msg}. The final product has $0.25^o$ spatial and hourly resolution.
+In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data driven learning on cloud fractional cover. This involves the development of \acrfull{awrs} and derivation of relevant equations. Without this dataset proposed methods would be useless. The data basis, both the dataset and variables, has been carefully chosen. It consists of temperature, pressure, relative and specific humidity from \acrshort{era5} and cloud fractional cover, computed using \acrshort{awrs}, based on cloud masks from \acrshort{msg}. The final product has $0.25^o$ spatial and hourly resolution.
 
 Two models, \acrfull{ar} and \acrfull{convlstm} models were built on \acrshort{ecc}. They were evaluated on their abilities to produce a 24-hour forecast and compared against existing parameterizations in \acrshort{era5}. 
 %On the skill of reproducing the cloud fractional cover in the period 2014 to 2018, they rank 1. AR, 2. \acrshort{era5} and 3. ConvLSTM, but on their ability to conserve spatial relations in predicting a sequence, the most important task, they rank 1. \acrshort{era5}, 2. ConvLSTM, 3. AR.
 
 $AR-B-L_5$ sufferers from ``self-plagiarism'' when it produces a forecast. Each predictions is a less cloudy version of the previous one. Consequently, it is unfit to produce a realistic cloud cover forecast.  The $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model showed promise and a few hours into the forecast the distribution of clouds started to bear a resemblance to the cloud cover in \acrshort{ecc}. However, this type of model shows issues with blurred lines. 
-The $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$ had a lower skill, but has
+The $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$ had a higher loss, but has
 a superior performance when producing the 24-hour forecast.
 
 
@@ -28,7 +28,7 @@ In conclusion, at their current state data driven learning approaches are not ap
 To asses the numerical issues related to the \acrshort{ar}-models, one approach worth investigating is applying regularization, which may also influence performance. To improve upon the \acrshort{ar}-models' ability to predict sequences it would be interesting to train different \acrshort{ar}-model for each timestep in a sequence, using the same input data but training one model to fit the first hour and another one to fit second, third and so on.
 %Future work undersøke hvordan T SP R er relatert og kanskje redusere antall enviornmental variables litt.
 
-Cloud cover varies in the range between 0 and 1. One way of guaranteeing that the models sticks to this range could be to employ the sigmoid-function. For the \acrshort{convlstm}-model this would be implemented as the activation function of the last layer. In the case of \acrshort{ar}-models it means fitting the regression models against an inversely transformed target, to then transform the prediction back.
+Cloud cover varies in the range between 0 and 1. One way of guaranteeing that the models sticks to this range could be to employ the sigmoid function. For the \acrshort{convlstm}-model this would be implemented as the activation function of the output layer. In the case of \acrshort{ar}-models it means fitting the regression models against an inversely transformed target, to then transform the prediction back.
 
 %%%%%%%%%%%%%%%%%%% for convltsm 
 \acrshort{convlstm}-models provide an extensive list of hyperparameters and this study has not explored the full range of possibilities they potentially enable. Future studies should employ automatic hyperparameter optimization, in combination with the limits of hyperparameters tuned in this study.  
