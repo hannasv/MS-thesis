@@ -248,6 +248,6 @@
 
     \end{tikzpicture}
 
-    \caption{Structure inside \acrshort{convlstm}. Illustrating the differences in input to a \acrshort{convlstm} cell and a \acrshort{lstm} cell. The inputs and states are now vectors standing on a grid. \textit{The \acrshort{convlstm} determines the future state of a certain cell in the grid based on the inputs and passed states of its local neighbours.} This is archived using the convolutional operation in the input-to-state transition and the state-to-state transition. Inspired by \citepaper{precip_nowcasting}.}
+    \caption{Structure inside \acrshort{convlstm}. Illustrating the differences in input to a \acrshort{convlstm} cell and a \acrshort{lstm} cell. The inputs and states are now vectors standing on a grid. The actuvation, also know as future states is now a function of the input and passed states of the pixel and its neighbors. This is archived using the convolutional operation in the input-to-state transition and the state-to-state transition. Inspired by \citepaper{precip_nowcasting}.}
     \label{fig:inside_conv_lstm}
 \end{figure}
