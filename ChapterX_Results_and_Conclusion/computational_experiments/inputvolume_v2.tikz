@@ -81,13 +81,13 @@ coordinate(-front-bottom-right) -- cycle;
 \node[color = gray, thick] at (6, 3.3) {\Large Batch \#0};
 \node[color = blue!60, thick] at (1.0, -2.0) {\large SEQUENCE \#0};
 \node[color = blue!60, thick] at (8.0, -2.0) {\large SEQUENCE \#1};
-\node[color = gray, thick, rotate=60] at (0.3, 0.1) {$00:00$};
-\node[color = gray, thick, rotate=60] at (2.3, 0.05) {$01:00$};
-\node[color = gray, thick, rotate=60] at (5.3, 0.0) {$23:00$};
+\node[color = gray, thick, rotate=60] at (0.3, 0.1) {$T00$};
+\node[color = gray, thick, rotate=60] at (2.3, 0.05) {$T01$};
+\node[color = gray, thick, rotate=60] at (5.3, 0.0) {$T23$};
 
-\node[color = gray, thick, rotate=60] at (7.3, 0.1) {$00:00$};
-\node[color = gray, thick, rotate=60] at (9.3, 0.05) {$01:00$};
-\node[color = gray, thick, rotate=60] at (12.3, 0.0) {$23:00$};
+\node[color = gray, thick, rotate=60] at (7.3, 0.1) {$T00$};
+\node[color = gray, thick, rotate=60] at (9.3, 0.05) {$T01$};
+\node[color = gray, thick, rotate=60] at (12.3, 0.0) {$T23$};
 
 
 %%%%%%%%%%%%%% Dotted lines
