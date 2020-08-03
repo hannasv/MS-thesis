@@ -134,7 +134,8 @@ The models are all evaluated using \acrfull{mae} and the \acrshort{ar}-models ar
 \begin{figure}
     \centering
     \includegraphics{python_figs/heat_ar_model_mae_test_score.png}
-    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. }
+    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. %$AR-B$ describes the combination of environmental variables and bias, $AR-T$
+    }
     \label{fig:heatmap_ar_models}
 \end{figure}
 %TS: Litt i overkant mange desimaler i denne figuren. Jeg ville ha begrenset meg til 3. Tror det kan være lurt å repetere i caption hva de ulike akronymene betyr, de er litt forvirrende.
@@ -143,11 +144,11 @@ With the exception of the $AR-T$-configuration, most models increase most rapidl
 %%%%%%%%%%%%%%%%%%%%% Ta for deg alle variablene. 
 The configurations employing feature scaling, $T$ have the overall lowest performace. A grid \acrshort{mae} of roughly $0.5$ is high when the target varies in the range from 0 to 1. The inclusion of a bias in combination with $AR$ improves the performance, while for $TR$ it has the opposite effect and decreases the performance. In conclusion, $T$ is not a setting suitable for the cloud forecasting problem.
 
-The $TR$-configuration performs a lot better than $T$, and the set of models have an MAE close to $0.14$. Since $AR$ outperforms $TR$ for all configurations, except for $T$, this indicates that the environmental variables provide useful information. %\textbf{det har du allerede sakt} TS: Det er ok med litt gjentagelse :)
+The $TR$-configuration performs a lot better than $T$, and the set of models have an \acrshort{mae} close to $0.14$. Since $AR$ outperforms $TR$ for all configurations, except for $T$, this indicates that the environmental variables provide useful information. 
 
-The skill of the best model, $AR-B-L_5$, is $0.04901$, which is excellent. This shows that there is enough information in the set of environmental variables and previous cloud cover to predict cloud cover one hour into the future.
+Relatively small gain, may still be important, and the skill of the best model, $AR-B-L_5$, is $0.04901$, which is excellent. This shows that there is enough information in the set of environmental variables and previous cloud cover to predict cloud cover one hour into the future.
 
-\subsubsection{Weights in $\mathbf{AR-B-L_5}$}
+\subsubsection{Parameterization $\mathbf{AR-B-L_5}$}
 %%%%%%%%%%%%%%%%%%%% TEXT ON WEIGHTS 
 %Denne seksjonen kunne vel hatt et mer informativt navn?
 \begin{figure}
@@ -189,7 +190,7 @@ This section describe the hyperparameters kept constant. Between each \acrshort{
 first used by \citepaper{ioffe2015batch} in \acrshort{cnn} and it showed three benefits, the network was less sensitive to the weight initialization, higher learning rate and it did not need dropout. Dropout is another hyperparameter, which randomly removes some of the trained weights to prevent overfitting. This is computationally expensive,so disabling dropout accelerates the training process.
 ``Padding same'' is applied to all \acrshort{convlstm}-layer, to make sure the input and output dimensions are the same, see Section \ref{sec:padding}. The model returns a sequence and the input sequences are not shuffled. 
 %TS: Påfølgende setning er uforståelig
-The output filter and kernel size is one to concatenate all the previous hidden states to one without altering the output dimension. This is necessary to predict a sequence of cloud fractional covers. 
+The dimensions of the output layer are completely determined by the task. To produce a cloud cover forecast the output kernel and number of hidden states are put to one.
 
 The weights were initialized based on the scheme ``LeCun uniform''  (\cite{Lecun98efficientbackprop}). Callbacks such as %early stopping was impleme with patience \textbf{forgot to apply this when rerunning the models..} of 10 epochs and 
 terminate on NaN's have been applied to avoid prolonged training time. The optimizer ADAM is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$ (\cite{Kingma2015Adam:Optimization}). The default settings in Tensorflow use $\text{epsilon}=1e-08$. The loss function is \acrfull{mse}, and the models are evaluated based on \acrfull{mae}. Both metrics are described in Section \ref{sec:metrics}. 
@@ -337,6 +338,7 @@ A comment on the out-of-sample value used to fill the gaps.
 %%%%%%%%%%%%%%%%%%%%%%%%% Summary
 
 \subsection{Summary} \label{sec:summary_num}
+%%%%%%% Rart med summary her rett før conclusion?
 In this section %X antall modeller har blitt trent og evaluert på ecc. Nevn train test split?
 two types models have been trained and evaluated on task of predicting cloud cover in \acrshort{ecc}.
 Several configuration of each kind was considered. The best each was compared against \acrshort{era5} on producing a 24-hour cloud forecast.
