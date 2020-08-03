@@ -1,13 +1,13 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
 % HUSK . Two approaches will be explored: Autoregressive models (AR) and Convolutional Long Short-Term Memory Network (ConvLSTM). The \acrshort{ar} model describes a time varying process, depending linearly on its previous values. The \acrshort{convlstm} approach is used to find a non-linear relation that describes phenomena varying in both time and space.
-This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. The first sections provide details on framework, structure and implementations. The following sections describes the experimental design, and the hyperparameters tuned, 
+This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. The first sections provide details on framework, structure and implementations. The following sections describes the experimental design, %and the hyperparameters tuned, 
 % A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, 
-divided into two sections, one for \acrshort{convlstm}-models and another for \acrshort{ar}-models. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 including 2018. At the end, the best configuration from each of the statistical model types are evaluated on their ability to perform a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
+%divided into two sections, one for 
+of the \acrshort{convlstm}-models and \acrshort{ar}-models, focusing on the hyperparameters optimized. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 including 2018. At the end, the best configuration from each of the statistical models are evaluated on their ability to produce a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
 The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading 
-reanalysis (ERA5) data using python is provided. \acrshort{msg} data is available via Earth Observation Portal on \acrshort{eumetsat}'s web pages. 
-The dataset, \acrshort{ecc}, is not published because of a licenses on the \acrshort{msg} data, it is available for everyone in hourly resolution. 
+reanalysis (ERA5) data using python is provided. \acrshort{msg} data is available via Earth Observation Portal on \acrshort{eumetsat}'s web pages. The dataset, \acrshort{ecc}, is not published because of a licenses on the \acrshort{msg} data. %, it is available for everyone in hourly resolution. 
 %The repository contains everything need to reproduce the results in this study.
 %The experiments are conducted in notebooks and the developed modules are stored in the package ``sciclouds''. Descriptions on how to acquire the data (scripts if possible) and project environment is provided to simplify the process.
 
@@ -46,9 +46,9 @@ The filters are generated from within the environment of PyAEROCOM (\cite{pyaero
 The experiments described below, are conducted on a 
 %This study had access to a 
 DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, each of 32Gb local memory and 1.5Tb shared memory. %The resources was available through the \acrfull{ex3} project hosted at Simula. 
-%This study was awarded access to 1 GPU and 1024G part of the memory. 
+%This study was awarded access to 1 GPU and 1024G part of the memory.
 The data is stored on a \acrfull{rdma} accessed over Infiniband. %\textit{The best choice of collective implementation depends upon the number and kind of \acrshort{gpu}s, and the network interconnect in the cluster.} 
-The DGX-2 system is designed for a high level concurrency and scheduling workers competing for system resources.
+The DGX-2 system is designed for a high level concurrency and scheduling workers competing for system resources. More detailed hardware specifications is provided in Table \ref{tab:hardware_ex3}.
 %The hardware sets the limitations for efficiency of pipelines and training procedure. 
 %\textit{NVIDIA V100 GPU -- The eX3 infrastructure includes a DGX-2 system consisting of 16 NVIDIA Tesla V100 GPUs, allowing simultaneous communication between all eight GPU pairs at 300 GBps through the 12 integrated NVSwitches. This gives a theoretical system-wide system bi-directional  bandwidth of 2.4 TBps. All GPUs have 32 GB of local memory (total of 512 GB) and share a 1.5 TB main memory. The total system has 81,920 CUDA cores, and 10,240 Tensor cores delivering 2 Petaflops of tensor performance. The peak performance in double precision is 125 Teraflops.}
 %Working on such a monstrosity pose additional challenges related to porting existing code and virtual environments, developing and debugging code. To eventually end up with an%a achieved 
@@ -75,14 +75,14 @@ Based on the assumption the most recent partition is most representative for the
 
 Other notable differences in the input data is related to handling missing values. The \acrshort{ar}-models use shorter sequences, and samples containing missing values are simply removed. The \acrshort{convlstm}-model utilize longer sequences, and missing values are replaced by the out-of-sample value, $c=1.5$. 
 
-\subsection{Autoregressive models (AR)}
-In the search for the best model configuration, four hyperparameters have been chosen to tune. These are
+\subsection{Autoregressive models}
+Traditionally an \acrshort{ar}-model describes time-varying processes as a linear combination of its previous values, and for some models in this study it also includes other meteorological values. An \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box (see Section \ref{sec:ARmodels}). 
+
+In the search for the best model configuration, four hyperparameters have been tuned. These are
 % %This could have been done using spaced sampling, attempting lags of 1, 2, 5, 10. The result becomes the same, however for large model there might be some time to save.
 \textit{feature scaling of the predictors}, the \textit{inclusion of bias}, \textit{number of lags} and a \textit{potential inclusion of environmental variables}. Varying combinations of these parameters results in the set of models trained in this study. 
-
-The optimization process follow the strategy of the simplest models first followed by a gradual increase in complexity. 
-Recall that a \acrshort{ar}-model is composed of 13041 individual regression models, one for each grid box.
-More theoretical details can be found in Section \ref{sec:ARmodels}. 
+The optimization strategy used is starting with the simplest models and gradually increasing the complexity.
+%\acrshort{ar} model describes a time varying process, depending linearly on its previous values.
 
 \subsubsection{Feature Scaling} \label{sec:scaling_predictors}
 Feature scaling is used to standardize the predictor variables.
@@ -113,8 +113,7 @@ Lags describe the number of previous timesteps of \acrshort{cfc} included as a p
 The naming conventions for the \acrshort{ar}-models used in this study $AR_{TB_L}$ or $TR_{TB_L}$. $AR$ or $TR$ describe whether the environmental variables are included in the dataset of not. $TR$ is short for traditional and represents the case when environmental variables are omitted. \acrshort{ar} represents the opposite, their inclusion. B represents bias, T symbolizes that scaling predictors is applied and $L_x$ reveals the number of lags, represented with $x$.  
 
 %This description elaborated in Table \ref{tab:ar_model_config}.
-To ease the understanding of the naming convention used, Table \ref{tab:ar_model_config} provide four examples. Applying the following convention, $\times$ denoted not applied, \checked denotes applied.
-The hyperparameters bias and transformation of the predictors is mutually exclusive. Applying both have no benefits as the transformation cancels the effect of the bias when subtracting the mean. 
+To ease the understanding of the naming convention used, Table \ref{tab:ar_model_config} provide four examples. Applying the following convention, $\times$ denoted not applied, \checked denotes applied. The hyperparameters bias and transformation of the predictors is mutually exclusive. Applying both have no benefits as the transformation cancels the effect of the bias when subtracting the mean. 
 \begin{table}[h]
     \centering
     %\resizebox{\textwidth}{!}{%
@@ -135,7 +134,7 @@ The models are all evaluated using \acrfull{mae} and the \acrshort{ar}-models ar
 \begin{figure}
     \centering
     \includegraphics{python_figs/heat_ar_model_mae_test_score.png}
-    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. %$AR-B$ describes the combination of environmental variables and bias, $AR-T$
+    \caption{Heatmap showing the area averaged test \acrshort{mae} for all the \acrshort{ar}-models included in this work. $AR$ represent the inclusion of environmental variables, $TR$ represent their omittance, $B$ is inclusion of bias and $T$ is the feature scaling, tranforming the distribution of the input data.
     }
     \label{fig:heatmap_ar_models}
 \end{figure}
@@ -143,7 +142,7 @@ The models are all evaluated using \acrfull{mae} and the \acrshort{ar}-models ar
 With the exception of the $AR-T$-configuration, most models increase most rapidly in performance when adding the first lag. The performance continues to increase for larger numbers of lags, but at a much slower rate. This indicates that the cloud cover at previous timesteps is indeed a useful predictor. The largest variations in performance is caused by varying configurations of $AR$, $B$, $T$ and $TR$. 
 
 %%%%%%%%%%%%%%%%%%%%% Ta for deg alle variablene. 
-The configurations employing feature scaling, $T$ have the overall lowest performace. A grid \acrshort{mae} of roughly $0.5$ is high when the target varies in the range from 0 to 1. The inclusion of a bias in combination with $AR$ improves the performance, while for $TR$ it has the opposite effect and decreases the performance. In conclusion, $T$ is not a setting suitable for the cloud forecasting problem.
+The configurations employing feature scaling, $T$ have the overall lowest performance. A grid \acrshort{mae} of roughly $0.5$ is high when the target varies in the range from 0 to 1. The inclusion of a bias in combination with $AR$ improves the performance, while for $TR$ it has the opposite effect and decreases the performance. In conclusion, $T$ is not a setting suitable for the cloud forecasting problem.
 
 The $TR$-configuration performs a lot better than $T$, and the set of models have an \acrshort{mae} close to $0.14$. Since $AR$ outperforms $TR$ for all configurations, except for $T$, this indicates that the environmental variables provide useful information. 
 
@@ -159,7 +158,7 @@ Relatively small gain, may still be important, and the skill of the best model, 
     \label{fig:weights_best_model}
 \end{figure}
 Figure \ref{fig:weights_best_model} shows the weights in $AR-B-L5$. Note that the colorbars are different for all subplots, but the colors are consistent, with red being positive and blue negative. The \acrshort{ar}-model is a weighted sum over all the variables. Negative input values are unphysical. With the exception of $r$, negative values are not present, as documented in Section \ref{sec:all_stats}. In the case of relative humidity, $r$ they are rarely present, but exist, and the minimum values is $-6.6505$. 
-The surface pressure weight is negative for the entire grid. A possible interpretation of this is that higher values of surface pressure will cause large reductions in cloud cover.
+The surface pressure weight is negative for the entire grid. Higher values of surface pressure will cause large reductions in cloud cover.
 %TS: Er det egentlig en tolkning, eller rett og slett bare fakta?
 This is in agreement with the cloud physics described in Section \ref{sec:ecc}, stating that areas of high pressure are associated with descending airmasses, which do not lead to cloud formation.
 
@@ -176,19 +175,20 @@ The specific humidity has values of $\hat{q}~0.005$ see Figure \ref{fig:all_stat
 In most areas of the European continent temperature is a positive indicator for cloud formation. The temperature weight also shows an opposite spatial distributions compared to that of specific humidity, thereby resembling the weight of relative humidity. 
 % Future work undersøke hvordan T SP R er relatert og kanskje redusere antall enviornmental variables litt.
 %TS: For forståelsen kunne det nok være bra å se på ulike årstider for seg, så det kan nevnes under future work
-\clearpage
+%\clearpage
 
-\subsection{Convolutional LSTM (ConvLSTM)}
+\subsection{Convolutional LSTM}
 %\textbf{Therefore the tuning of \acrshort{convlstm}-models was done manually. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper by \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}).
 %The models are described in Section \ref{sec:related_work}.
 
 The formulation of the air quality forecasting problem presented by \citeauthor{SunAirLSTM}, see Section \ref{sec:related_work} is similar to the formulation of the cloud fractional cover forecasting problem presented in this study. This study adopts the machine learning setup in \citepaper{SunAirLSTM}. Manual tuning of the models is applied to avoid a breakdown of the computer caused by too many parameters. When building \acrshort{convlstm} networks, the list of tunable parameters is extensive. These hyperparameters are divided into subsets of tuned and constant parameters.
 
-The following section describes the tuned hyperparameters, batch size, sequence length, number of hidden states and the dimensions of the kernel. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timestamps a model is optimized to learn to predict. The number of hidden states it the number of kernels it learns in each layer. %, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. %TS: Skal det være "timestamps" over? Eller "timsteps"?
-The kernel dimensions determines the number of neighbors influencing an activation. Using kernel 1x1 results in the state-to-state transitions similar to \acrshort{ar}-models by removing interactions between adjacent pixels. A more detailed description on these parameters is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
+The following section describes the tuned hyperparameters, batch size, sequence length, number of hidden states and the dimensions of the filter. The dataset is partitioned into subsets called batches. The batch size is the number of sequences a weight update is based on. Epochs describes the number of times the model loops over the entire dataset. The sequence length is the number of timesteps a model is optimized to learn to predict. The number of hidden states it the number of kernels it learns in each layer. %, see Section \ref{sec:convolutional neural network} for a detailed description of hidden states. %TS: Skal det være "timestamps" over? Eller "timsteps"?
+The kernel dimensions determines the number of neighbors influencing an activation. Using 1x1-filter results in the state-to-state transitions similar to \acrshort{ar}-models by removing interactions between adjacent pixels. A more detailed description on these parameters is provided in Sections \ref{sec:convolutional neural network} to \ref{sec:convolutional_lstm}. 
 
-This section describe the hyperparameters kept constant. Between each \acrshort{convlstm}-layer there is a \acrfull{batchnorm}-layer, implemented using default settings. This type of %TS: her mangler det noen ord
-first used by \citepaper{ioffe2015batch} in \acrshort{cnn} and it showed three benefits, the network was less sensitive to the weight initialization, higher learning rate and it did not need dropout. Dropout is another hyperparameter, which randomly removes some of the trained weights to prevent overfitting. This is computationally expensive,so disabling dropout accelerates the training process.
+This section describe the hyperparameters kept constant. A model consist of a set of \acrshort{convlstm}-layer, between each layer there is a \acrfull{batchnorm}-layer (implemented using default settings). 
+%TS: her mangler det noen ord
+This type of layer was introduced by \citepaper{ioffe2015batch} implemented in a \acrshort{cnn}. The results showed three benefits, the network was less sensitive to the weight initialization, higher learning rate and it did not need dropout. \textit{Dropout} is another hyperparameter, which randomly removes some of the trained weights to prevent overfitting. This is computationally expensive,so disabling dropout accelerates the training process.
 ``Padding same'' is applied to all \acrshort{convlstm}-layer, to make sure the input and output dimensions are the same, see Section \ref{sec:padding}. The model returns a sequence and the input sequences are not shuffled. 
 %TS: Påfølgende setning er uforståelig
 The dimensions of the output layer are completely determined by the task. To produce a cloud cover forecast the output kernel and number of hidden states are put to one.
@@ -196,7 +196,7 @@ The dimensions of the output layer are completely determined by the task. To pro
 The weights were initialized based on the scheme ``LeCun uniform''  (\cite{Lecun98efficientbackprop}). Callbacks such as %early stopping was impleme with patience \textbf{forgot to apply this when rerunning the models..} of 10 epochs and 
 terminate on NaN's have been applied to avoid prolonged training time. The optimizer ADAM is used with the following settings, $\text{learning rate}=0.001$, $\text{beta1}=0.9$, $\text{beta2}=0.999$, $\text{epsilon}=1e-07$ (\cite{Kingma2015Adam:Optimization}). The default settings in Tensorflow use $\text{epsilon}=1e-08$. The loss function is \acrfull{mse}, and the models are evaluated based on \acrfull{mae}. Both metrics are described in Section \ref{sec:metrics}. 
 %The main difference between these functions is that \acrshort{mse} penalize points further away. This has its advantages in training the model, but makes it more difficult to interpret the results. The squared numbers in the range 0 to 1 shrink.
-A list of compiled non-trainable architecture are included in the Appendix \ref{app:list_non_trainable_architectures} as a reference for further studies.
+A list of compiled non-trainable architecture are included in the Appendix \ref{app:list_non_trainable_architectures} as a reference point for further studies.
 
 \subsubsection{Experimental setup}
 Models are given names based on an extension of the convention from \citepaper{precip_nowcasting}.
@@ -205,51 +205,42 @@ the resulting naming convention is  $ConvLSTM-B_{x}-SL_{y}-\text{hidden states}-
 \input{ChapterX_Results_and_Conclusion/computational_experiments/conv_ltsm_example_table}
 
 \subsubsection{Evaluation}
-The input volume of \acrshort{convlstm}-models are different from the \acrshort{ar}-model, and the axis ``batch'' and ``sequence length'' are merged before the score is computed by using Equation \eqref{eq:mae}, and putting the parameters $m = 81$, $n=161$ and $k=43680$. Note that the $k$ value is a bit smaller than for \acrshort{ar}-models, this is caused by employing the ``drop remainder batch'' during training. 
-
+The input volume of \acrshort{convlstm}-models are different from the \acrshort{ar}-model, and the axis ``batch'' and ``sequence length'' are merged before the score is computed by using Equation \eqref{eq:mae}, and putting the parameters $m = 81$, $n=161$ and $k=43680$. Note that the $k$ value is a bit smaller than for \acrshort{ar}-models, this is caused by employing ``drop remainder batch'' during training. 
 \begin{figure}
     \centering
     \includegraphics{python_figs/epoch_vs_loss.pdf}
     \caption{The loss of the trained model as a function of epochs.}
     \label{fig:convlstm_loss}
 \end{figure}
-
 Figure \ref{fig:convlstm_loss} shows the loss curves in the training process for all the compiled models in this study. As expected, they all ``learn'' the most rapidly in the beginning of the training process. This is shown in the figure as the steep drop in loss between the first and second epoch. 
 %\textbf{Note that the training loss is higher than the validation loss since there is a higher number of samples in this set and the loss is not scaled by the number of samples.} 
 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/convltsm_table_summary}
-From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss}  it is clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$. The run can be seen as the red line in both the table and figure. It has the lowest test and validation loss after 40 epochs, though another model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ has a better training loss. As might be deduced based on the similarities in the names, the two models have similar architectures.
+From Figure \ref{fig:convlstm_loss} and Table \ref{tab:convlstmLoss}  it is clear that the best performing \acrshort{convlstm}-model is the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$. The run can be seen as the red line in both the figure and table. It has the lowest test and validation loss after 40 epochs, though another model $ConvLSTM-B_{5}-SL_{6}-32-3\times3-32-3 \times3-32-3 \times3$ has a better training loss. As might be deduced based on the similarities in the names, the two models have similar architectures.
 The last model has an additional layer, this may have allowed it to learn a better representation on the training data presented, however the skill of predicting on unseen data is most important. The best configuration is therefore $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$.
 
 In some cases reducing the spatiotemporal resolution can enable the model to learn even more (\cite{precip_nowcasting}). This is arguably not applicable for this task, since cloud cover has an average lifetime of one hour, as mentioned in Section \ref{sec:cloud_in_climate_system}. The reduction can not be applied without most likely producing a significant loss of information.
 
 Comparisons of input data to the works by \citeauthor{precip_nowcasting} (\citeyear{precip_nowcasting}) and \citeauthor{SunAirLSTM} (\citeyear{SunAirLSTM}), has to be done based on input volumes. The dimensions are flattened to generalize the comparison. \citepaper{precip_nowcasting} is trained on $1,629,600,000$ data points, \citepaper{SunAirLSTM} on $28,513,800$ and \acrshort{ecc} on $21,220,315,200$. %Consequently, the models in this study is trained on more than 10 times the amount of data. 
-In other words,  this study has trained a \acrshort{convlstm}-model on a much larger amount of data than earlier studies. % How to say that this is harder.
+In other words, this study has trained a \acrshort{convlstm}-model on a much larger amount of data than earlier studies. % How to say that this is harder.
 
-$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown in Figure \ref{fig:best_ml_architecture}. The model consists of three \acrshort{batchnorm} and  \acrshort{convlstm}-layer pairs. Both \acrshort{convlstm} layers have 32 hidden states and a $3\times 3$ kernel. The output layer has one hidden state and the kernel dimension of $1\times 1$. The input shape is $10\times24\times81\times161\times4$ and output $24\times81\times161\times1$. 
+$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model architecture is shown in Figure \ref{fig:best_ml_architecture}. The model consists of three \acrshort{batchnorm} (gray) and \acrshort{convlstm} (cyan)  layer pairs. Both \acrshort{convlstm} layers have 32 hidden states and a $3\times 3$-filter (blue). The output (cyan) layer has one hidden state and the filter (blue) dimension of $1\times 1$. The input (green) shape is $10\times24\times81\times161\times4$ and output (red) $10\times24\times81\times161\times1$. 
 \begin{figure}
     \centering
     \input{ChapterX_Results_and_Conclusion/computational_experiments/inner_structure_best_model_v2.tikz}
     \caption{The architecture of the cloud cover forecasting model developed in this study.}
     \label{fig:best_ml_architecture}
 \end{figure}
-In Figure \ref{fig:best_ml_architecture} is illustrated by a green box. 
 
-
-Figure \ref{fig:input_volume_conv_lstm} illustrates the finer structures within the input volume. It is impossible to show the entire five dimensional input volume in one sketch, so the figure concentrates on the two first sequences, located in the first batch. The first dimension is the batch (green), the second is the sequence length (blue), the third is latitude, fourth is longitude and fifth is the number of environmental variables (illustrated in layers of different colors). A sequence consist of 24 weather data volumes, here indicated by the timestamp. A weather data volume has the dimensions $81\times161\times4$, the last dimension the environmental variables, the other dimension are the latitude and longitude. 
+Figure \ref{fig:input_volume_conv_lstm} illustrates the finer structures within the input batch. It is impossible to show the entire five dimensional input volume in one sketch, so for illustrative purposes the two first sequences, located in the first batch, is shown. The first dimension is the batch (green), the second is the sequence length (pink), the third is latitude, fourth is longitude and fifth is the number of environmental variables (illustrated in layers of different colors). A sequence consist of 24 weather data volumes, here indicated by the timestamp. A weather data volume has the dimensions $81\times161\times4$, the last dimension the environmental variables, the other dimension are the latitude and longitude. 
 \begin{figure}
     \centering
     \input{ChapterX_Results_and_Conclusion/computational_experiments/inputvolume_v2.tikz}
     %\includegraphics[scale=0.6]{ChapterX_Results_and_Conclusion/computational_experiments/temp_input_volume.png}
-    \caption{Detailed sketch of the input volume to the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model. Showing the content of the two first sequences in the first batch.}
+    \caption{A subsection of the input volume to the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model. Illustrating the content of the two first sequences in the first batch. The input volume is divided into batches (green), each batch is divided into sequences (pink) and each sequence contains 24 weather datavolumes, illustrated using four layers of different colors, one for each input variable. The weather data volumes are labeled with the timestep, $T$.}
     \label{fig:input_volume_conv_lstm}
 \end{figure}
 
-To explore the importance of spatial information from neighboring pixels the $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$-model was trained and compared to the best model. As expected, this model has a higher loss than the architecture trained using a $3\times 3$. This is shown in Table \ref{tab:convlstmLoss} summarizing the losses for all models in this study. \textbf{Denne figuren ser ut til å ha trent en bra sekvens i appendixen, se figure \ref{fig:timelapse_1x1}.}
-%you can see it has the worst Test loss among the trained models. This indicate that information from adjacent pixels is useful. Its necesarry to mention that there is a significant difference between a \acrshort{ar}-model and a \acrshort{convlstm}-model with $1\times 1$ kernel and that is that the \acrshort{ar}-model train a different weight in all pixels, while the \acrshort{convlstm}-model utilize the same weights over the entire grid. 
-%Not suprising ths that the number of parameters increase as the kernel increasse. 
-%\clearpage
-%\cleardoublepage
 
 \subsection{Temporal Performance}
 This section contains the evaluation of the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, $AR-B-L_5$ and \acrshort{era5} against \acrshort{ecc}. The metric used is \acrshort{mae} and the period is from 01.01.2014 to 31.12.2018. In making this comparison, please keep in mind that the \acrshort{ar}-model is optimized to fit and should be evaluated on its ability to predict one timestep. The \acrshort{convlstm}-model is trained and evaluated on its ability to fit a sequence of 24-hours.\textbf{ Some of the dependent variables to the parameterization in \acrshort{era5} is assimilated against a lot of observations, including radiance's from \acrlong{msg}} \cite{ERA52020}.
@@ -258,11 +249,11 @@ Figures \ref{fig:MAE_era}, \ref{fig:MAE_convlstm} and \ref{fig:MAE_AR} display t
 %They scales are different in all the plots, and 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Trude du kom så langt
 They show different regional biases. All models show clear distinction between land and ocean, the outline of Europe and North Africa is clearly visible.
-As a whole the \acrshort{era5} have a more spotted pattern than the others. All models get a high skill in the Atlantic off coast of Spain and France. The same pattern can be found in Figure \ref{fig:deviation_sp} showing the standard deviation in surface pressure, but its most like not related.
+As a whole the \acrshort{era5} has a more spotted pattern than the others. All models get a high skill in the Atlantic off the coast of Spain and France. The same pattern can be found in Figure \ref{fig:deviation_sp} showing the standard deviation in surface pressure, but it is most likely not related.
 
 The regions of low biases in Figures \ref{fig:MAE_AR} and \ref{fig:MAE_convlstm} are the same regions exhibiting a low mean and median cloud cover as shown in Figure \ref{fig:all_stats_tcc}.
 
-Both these representations of \acrshort{cfc} have trouble with the Nile Delta. This doesn't not seem to be the case for $AR-B-L_5$. The correlation between \acrshort{ecc} to relative humidity is high compared to adjacent regions, as shown in Figure \ref{fig:correlation_tcc_vs_envio}. It is also worth mentioning that the bias and weight for $r$ is high in this region, which might explain the superior performance of \acrshort{ar}.
+Both these representations of \acrshort{cfc} have trouble with the Nile Delta. This does not seem to be the case for $AR-B-L_5$. The correlation between \acrshort{ecc} and relative humidity is high compared to adjacent regions, as shown in Figure \ref{fig:correlation_tcc_vs_envio}. It is also worth mentioning that the bias and weight for $r$ is high in this region, which might explain the superior performance of \acrshort{ar}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Commenting on spatial patterens
 \begin{figure}[ht]
     \centering
@@ -287,30 +278,29 @@ Both these representations of \acrshort{cfc} have trouble with the Nile Delta. T
 %Table \ref{tab:tot_mae_score} summarise the \acrshort{mae} over the entire domain. Keep in mind that these number are not directly comparable, ERA5 is assimilated, its a forecast rerun and bias corrected against observations. The \acrshort{convlstm}-model use the reanalysis data (environmental variables only) at each timestep to predict sequences of cloud cover. The ar model use the target at previous timesteps and reanalysis data 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Mention nan values in 
-Unfortunately it was not recognized before later in this study that 
-some models issues when training. Half of these problems are numerical issues related to matrix inversions and the other half is related to corrupt files. It is reason to believe this occurred during training since other configuration have results for all pixels. The temporal performance of other \acrshort{ar}-models can be found in the Appendix \ref{app:mae_plots}.
+Unfortunately it was only recognized towards the end of this study that 
+some models had issues when training. These problems were partly numerical issues related to matrix inversions and partly related to corrupt files. It is reason to believe this occurred during training since other configurations have results for all pixels. The temporal performance of other \acrshort{ar}-models can be found in the Appendix \ref{app:mae_plots}.
 
 %%%%%%%%%%%%%%%%% OK OG PÅ RETT PLASS
-Table \ref{tab:tot_mae_score} summarize the spatially averaged performance of the models. These results indicate that the overall best parameterization is made by the $AR-B-L5$-model. %This comparison is is a bit misleading since its evaluated on its ability to predict one time step ahead, which is a lot simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
+Table \ref{tab:tot_mae_score} summarizes the spatially averaged performance of the models. These results indicate that the overall best parameterization is made by the $AR-B-L5$-model. %This comparison is is a bit misleading since its evaluated on its ability to predict one time step ahead, which is a lot simpler task, than \acrshort{convlstm}-model, which is trained to predict 24 hours. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/mean_absolute_error_table}
 
 \subsection{24-hour Cloud Cover Forecast}
 %$AR-B-L_5$ $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$
-This section provides a visual comparison of the $AR-B-S-L5$-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 against \acrshort{ecc} on their ability on forecasting cloud cover 24-hours starting from January 2\textsuperscript{nd} 2014.
+This section provides a visual comparison of the $AR-B-S-L5$-model, $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model, ERA5 against \acrshort{ecc} on their ability to forecast cloud cover for 24 hours starting from January 2, 2014.
 
-Figure \ref{fig:pred_sequence} shows the first six hours of the evolution cloud cover for the different models. The forecast produced by the different models are presented in their own column and the time progress down the rows. The 24-hour forecast is split into four figures and the full series is presented in Appendix \ref{app:pred_sequence}. 
+Figure \ref{fig:pred_sequence} shows the first six hours of the evolution of cloud cover for the different models. The forecast produced by the different models are presented in their own column and the time progresses down the rows. The 24-hour forecast is split into four figures and the full series is presented in Appendix \ref{app:pred_sequence}. 
+%TS: Jeg skjønner ikke hva du mener med "split into four figures"
 
 %%%%%%%%%%% Presenter det du ser i en og en kolonne åså oppsmmerer du til slutt.
 %%%%%%%%%% ERA5
-\acrshort{era5} shows the most resembles to \acrshort{ecc}. This is not suprising since its the most complex parameterization included in this study, see Section \ref{sec:era5_param} for more details. \acrshort{era5} distribute the cloud over the same regions, but it has smoother transitions between cloudy and non-cloudy areas, which leads to a reduces total cloudyness compared to \acrshort{ecc}.
+\acrshort{era5} resembles \acrshort{ecc} the most. This is not surprising since it is the most complex parameterization included in this study, see Section \ref{sec:era5_param} for more details. \acrshort{era5} distributes the cloud over the same regions as \acrshort{ecc}, but it has smoother transitions between cloudy and non-cloudy areas, which leads to a reduced total cloudiness compared to \acrshort{ecc}.
 
 %%%%%%%%%%%%%%%%%%%%% CONVLSTM
-There are few cloud present in the first few hours of the \acrshort{convlstm}-produced forecast. The cloud fractional cover developed slowly. From nine o'clock onwards, there is a significant overcast situation developed over parts Europe and Egypt. In general the forecast is a lot blurrier than \acrshort{ecc}. The time delay, present in the start of the forecast, may be explained by the fact that the forecast is not initiated with a cloud cover, only the environmental variables. Requires a few timesteps to spin-up/ develop the cloud cover.
-%\textbf{Timedelay I guess this sorta makes sence since its not initiated with any cloud cover its needs a spin up}
-% The outline of Europe is clearly visible.
+There are few clouds present in the first few hours of the \acrshort{convlstm}-produced forecast. The cloud fractional cover developed slowly. From $T09$ onwards, there is a significant overcast situation developed over parts of Europe and Egypt. In general the forecast is a lot blurrier than \acrshort{ecc}. The time delay, present in the start of the forecast, may be explained by the fact that the forecast is not initiated with a cloud cover, only the environmental variables. A  few timesteps may therefore be required in order to spin-up and fully develop the cloud cover.
 
 %%%%%%%%%% AR
-At first sight, the $AR-B-L_5$ appear to be very sensitive to the initial conditions. The first hour is a remarkable match, the following hours are not. It looks like the model creates a less cloudy copy of itself and present it as the next prediction. Near the end of the forecast, almost all clouds have dissipated leaving a few in Europe. This ``plagarims'' is most likely be caused by the weights of $L_1$ being close to $0.9$ as shown in Figure \ref{fig:weights_best_model}. The forecast is shown in isolation in Figure \ref{fig:timelapse_ar} and the spatial averaged cloud cover is included in the title. In the start of the forecast is has $0.6732$ which is reduced to $0.3676$ after 24-hours.
+At first sight, the $AR-B-L_5$ appears to be very sensitive to the initial conditions. The first hour is a remarkable match, while the following hours are not. It looks like the model creates a less cloudy copy of itself and presents this as the next prediction. Near the end of the forecast, almost all clouds have dissipated, leaving only a few in Europe. This ``plagiarism'' is most likely caused by the weights of $L_1$ being close to $0.9$ as shown in Figure \ref{fig:weights_best_model}. The forecast is shown in isolation in Figure \ref{fig:timelapse_ar} and the spatially averaged cloud cover is included in the title. In the start of the forecast is has a value of $0.67$ which is reduced to $0.37$ after 24-hours.
 %%%% TARGET PREDICITON ERA5
 \begin{figure}[ht]
     \centering
@@ -319,16 +309,19 @@ At first sight, the $AR-B-L_5$ appear to be very sensitive to the initial condit
     \label{fig:pred_sequence}
 \end{figure}
 
-The displayed sequence predicted by $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model contain no out of sample values, but it is worth mentioning that for the entire period $0.5\%$ of the values produces are below zero, the lowest being -1, non above 1. 
+The displayed sequence predicted by the $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model contains no out of sample values, but it is worth mentioning that for the entire period $0.5\%$ of the values produced are below zero, the lowest being -1, while non are above 1. 
 %17140/3129840 = 0.005476318278250646
 
 %%%%%%%%%%%%%%%%%%%%%%%%R und av med oppsummering av MAE table og 
-Table \ref{tab:24hr_mae_score} shows the skill of the different models on predicting this 24 hours sequence. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$ rank highest having a score of 0.20386, ERA5 rank second with  $0.33622$ and $AR-B-L_5$ last with  $0.48502$. Note that a mean deviation of 0.46 is quite large when the data in question vary from 0 to 1. 
+Table \ref{tab:24hr_mae_score} shows the skill of the different models in predicting this 24 hours sequence. $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$ ranks highest having a score of 0.20386
+%TS: Dette er for mange desimaler, her og i tabellen - tre holder lenge
+, ERA5 ranks second with  $0.33622$ and $AR-B-L_5$ last with  $0.48502$. Note that a mean deviation of 0.46 is quite large when the data in question varies from 0 to 1. 
 \input{ChapterX_Results_and_Conclusion/computational_experiments/MAE_24hr_SEQUENCE}
 
 The minimum value in this prediction (AR) is positive, and the maximum is $1.028$. It a hundred and three percent cloudy. 
 
-To the authors surprise the Figure \ref{fig:timelapse_1x1} appears to have a more realistic cloud forecast than \ref{fig:timelapse_3x3}, which is surprising - It has a lower score.
+To explore the importance of spatial information from neighboring pixels the $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$-model was trained and compared to the best model. As expected, this model has a higher loss than the architecture trained using a $3\times 3$. This is shown in Table \ref{tab:convlstmLoss} summarizing the losses for all models in this study. Nevertheless, to the author's surprise the Figure \ref{fig:timelapse_1x1} appears to have a more realistic cloud forecast than \ref{fig:timelapse_3x3} which includes information from neighboring pixels. 
+
 
 A comment on the out-of-sample value used to fill the gaps.
 \textbf{Du kan kommentere at selv om missing values ble fylt i med out of sample verdien 1.5, produserer ikke consltms noen out of sample positive veridier}
@@ -341,15 +334,15 @@ A comment on the out-of-sample value used to fill the gaps.
 \subsection{Summary} \label{sec:summary_num}
 %%%%%%% Rart med summary her rett før conclusion?
 In this section %X antall modeller har blitt trent og evaluert på ecc. Nevn train test split?
-two types models have been trained and evaluated on task of predicting cloud cover in \acrshort{ecc}.
-Several configuration of each kind was considered. The best each was compared against \acrshort{era5} on producing a 24-hour cloud forecast.
+two types of models have been trained and evaluated on the task of predicting cloud cover in \acrshort{ecc}.
+Several configurations of each kind was considered. The best configuration for each model was compared against \acrshort{era5} on producing a 24-hour cloud forecast.
 
 As a reference \acrshort{mae}, \acrshort{era5} had $0.20386$. 
-The best \acrshort{ar}-configuration is $AR-B-L_5$ \acrshort{mae} of $0.04901$. This is incrementally better than other $AR-B$-configurations by varying on number of lags. Unfortunately, the ``copy''-effect renders the model unfit to producing a realistic cloud cover further ahead in time than one hour. 
+The best \acrshort{ar}-configuration is $AR-B-L_5$ \acrshort{mae} of $0.04901$. This is incrementally better than other $AR-B$-configurations by varying on number of lags. Unfortunately, the ``copy''-effect renders the model unfit to produce a realistic cloud cover further ahead in time than one hour. 
 %overfittet to the cloud cover at previous timesteps. Consequently its unable to produce sequences, it simply produce dampened copies of the initial cloud cover. The \acrshort{ar}-models might be to simple for performing this task? 
 
 $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3\times3$ was the best \acrshort{convlstm}-configuration. 
-Measured over the entire test period i did rather badly, having a \acrshort{mae} of $0.48502$. It showed skill when producing the forecast, a few hours into the forecast it was able to reproduce the cloudy regions in \acrshort{ecc}.  
+Measured over the entire test period it did rather badly, having a \acrshort{mae} of $0.48502$. However, it did show skill when producing the forecast; a few hours into the forecast it was able to reproduce the cloudy regions in \acrshort{ecc}.  
 
 %%%%%%%%%%%%%%%%%%%%% Kanskje med conclusion mat
 

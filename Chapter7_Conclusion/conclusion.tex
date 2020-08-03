@@ -2,40 +2,40 @@
 % \textbf{Det du skal svare på fra Introduksjon, The scope of this study is to implement and compare different methods for data driven learning to find the most suitable method for cloud cover predictions.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION
 \section{Summary and main contributions}
-This study has contributed with research in popular field, which is applying data driven learning in the form of \acrshort{dl} to perform climate predictions.
-This is a ``proof of concept''-study, exploring the potential for data driven learning to applications to parameterization of clouds. The developed methodology is transferable to similar issues in Geosciences.
+This study has contributed with research in a popular field, which is applying data driven learning in the form of \acrshort{dl} to perform climate predictions.
+This is a ``proof of concept''-study, exploring the potential for data driven learning in applications to parameterization of clouds. The developed methodology is transferable to other similar issues in Geosciences.
 % Is a simplification but --- \textbf{It is unlikely that the parameterization can encompass the full range of situation that can naturally arise}
 %The fist objective in this study, was to generate a high quality dataset. 
 
-In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data driven learning on cloud fractional cover. This involves the development of \acrfull{awrs} and derivation of relevant equations. Without this dataset proposed methods would be useless. The databasis, both dataset and variables, have been carefully chosen. It consists of temperature, pressure, relative and specific humidity from \acrshort{er5} and cloud fractional cover, computed using \acrshort{awrs}, based on cloud masks from \acrshort{msg}. The final product has $0.25^o$ spatial and hourly resolution.
+In this study a high quality dataset, \acrfull{ecc} was compiled for the purpose of performing data driven learning on cloud fractional cover. This involves the development of \acrfull{awrs} and derivation of relevant equations. Without this dataset proposed methods would be useless. The data basis, both the dataset and variables, has been carefully chosen. It consists of temperature, pressure, relative and specific humidity from \acrshort{er5} and cloud fractional cover, computed using \acrshort{awrs}, based on cloud masks from \acrshort{msg}. The final product has $0.25^o$ spatial and hourly resolution.
 
-Two models, \acrfull{ar} and \acrfull{convlstm} models were built on \acrshort{ecc}. They were evaluated on their abilities in producing a 24-hour forecast and compared against exist parameterizations in \acrshort{era5}. 
+Two models, \acrfull{ar} and \acrfull{convlstm} models were built on \acrshort{ecc}. They were evaluated on their abilities to produce a 24-hour forecast and compared against existing parameterizations in \acrshort{era5}. 
 %On the skill of reproducing the cloud fractional cover in the period 2014 to 2018, they rank 1. AR, 2. \acrshort{era5} and 3. ConvLSTM, but on their ability to conserve spatial relations in predicting a sequence, the most important task, they rank 1. \acrshort{era5}, 2. ConvLSTM, 3. AR.
 
-$AR-B-L_5$ sufferers from ``plagiarism'' when it produce a forecast. Each predictions is a less cloudy version of the previous one. Consequently, it is unfit to produce a realistic cloud cover forecast.  $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model showed promise and a few hours into the forecast the distribution of clouds start to bear a resemblance the cloud cover in \acrshort{ecc}. This type model shows issues with blurred lines. 
-The $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$ had a lower skill, but have
+$AR-B-L_5$ sufferers from ``self-plagiarism'' when it produces a forecast. Each predictions is a less cloudy version of the previous one. Consequently, it is unfit to produce a realistic cloud cover forecast.  The $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model showed promise and a few hours into the forecast the distribution of clouds started to bear a resemblance to the cloud cover in \acrshort{ecc}. However, this type of model shows issues with blurred lines. 
+The $ConvLSTM-B_{10}-SL_{24}-32-1\times1-32-1 \times1$ had a lower skill, but has
 a superior performance when producing the 24-hour forecast.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contrubution 
-This study has successfully applied data driven learning to the cloud forecasting problem. Contribution by building a end-to-end trainable \acrshort{convlstm}-model based on \acrshort{ecc}. Training a \acrshort{convlstm}-model larger dataset than earlier studies. This is a indicating that there is in fact enough information in simple meteorological variables to perform climate predictions. 
+This study has successfully applied data driven learning to the cloud forecasting problem. An important and valuable contribution was made by building an end-to-end trainable \acrshort{convlstm}-model based on \acrshort{ecc}, training a \acrshort{convlstm}-model with a larger dataset than earlier studies. This is a indication that there may in fact be sufficient information in simple meteorological variables to perform climate predictions. 
 
-In conclusion, at their current state they are not appropriate for implementations toward practical applications. However, they show potential for further studies as the prof of concept was verified.
+In conclusion, at their current state data driven learning approaches are not appropriate for implementations toward practical applications. However, they show potential for further studies and development, as this proof of concept study was verified.
 
 \section{Future work}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Future work
 %%%%%%%%%%%%%%%%%%% For ar 
-To asses the numerical issues related to the \acrshort{ar}-models, one approach worth investigation is applying applying regularization, this may also influence performance. To improve upon the \acrshort{ar}-models ability to predict sequences it would be interesting to train different \acrshort{ar}-model for each timestep in a sequence. Using the same input data, but training one model to fit the first hour and another one to fit second, third and so on.
+To asses the numerical issues related to the \acrshort{ar}-models, one approach worth investigating is applying regularization, which may also influence performance. To improve upon the \acrshort{ar}-models' ability to predict sequences it would be interesting to train different \acrshort{ar}-model for each timestep in a sequence, using the same input data but training one model to fit the first hour and another one to fit second, third and so on.
 %Future work undersøke hvordan T SP R er relatert og kanskje redusere antall enviornmental variables litt.
 
-Cloud cover varies in ranges between 0 and 1. One way of guaranteeing that the models stick to this range can be to employ the sigmoid-function. For the \acrshort{convlstm}-model would be implemented as the activation function of the last layer. In the case of \acrshort{ar}-models it means fitting the regression models against a inversely transformed target, to then transform the prediction back.
+Cloud cover varies in the range between 0 and 1. One way of guaranteeing that the models sticks to this range could be to employ the sigmoid-function. For the \acrshort{convlstm}-model this would be implemented as the activation function of the last layer. In the case of \acrshort{ar}-models it means fitting the regression models against an inversely transformed target, to then transform the prediction back.
 
 %%%%%%%%%%%%%%%%%%% for convltsm 
-\acrshort{convlstm}-models provide an extensive list of hyperparameters and this study has not explored the full range of possibilities they potentially enable. Future studies should employ automatics hyperparameter optimization, in combination with the limits of hyperparameter tuned in this study.  
+\acrshort{convlstm}-models provide an extensive list of hyperparameters and this study has not explored the full range of possibilities they potentially enable. Future studies should employ automatic hyperparameter optimization, in combination with the limits of hyperparameters tuned in this study.  
 
-Weather and the number of daylight hours determine the seasons. Cloud cover is heavily affected by both and it would be interesting to evaluate the parameterizations ability to capture the cloud fractional cover for varying seasons. 
+Weather patterns and the number of daylight hours determine the seasons. Cloud cover is heavily affected by both and it would be interesting to evaluate the parameterization's ability to capture the cloud fractional cover for varying seasons. 
 
-A reasonably accurate model can be useful inn practical applications. It would be interesting to evaluate the improved parameterizations in the context of a full climate model. This can be done using the output from the ensembles in i.e. \acrshort{cmip6}. Answering important questions like, whether the developed parameterizations are able to generalize to a warmer climate.
+A reasonably accurate model can be useful in practical applications. It would be interesting to evaluate the improved parameterizations in the context of a full climate model. This can be done using the output from the ensemble simulations in e.g. \acrshort{cmip6}. This could answer important questions like whether the developed parameterizations generalizable to a warmer climate.
 
 % Comment: Since 
 %For applications to climate science it common to predict centuries not day and night as we did in this study. Invest more effort in predicting longer sequences. Climate models usually make projections hundreds of years into the future.
