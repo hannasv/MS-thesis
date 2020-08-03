@@ -12,7 +12,7 @@ because of it's fine resolution and resent release date of January 2020. The ass
 The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
 \subsection{Domain}
-The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers Central Europe and North Africa.
+The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers Central Europe and North Africa. $54\%$ of the domain is land, and $46\%$ is ocean or sea. 
 \begin{figure}[h]
     \centering
     \includegraphics[scale = 1.0]{python_figs/Domain.png}
@@ -140,7 +140,7 @@ The regridding scheme is a set of algorithms. Before the production of the full 
 %%%%%%%%%%%%%%%%%%%%%% TEST 1 - Formula to compute the area 
 The computations of the areas are the foundation of the \acrshort{awrs}, and it is crucial to verify that the algorithm is correct. CDO (\cite{cdo}) provides functionality to compute grid areas of a uniform grid using the code inserted below.
 \begin{verbatim}
-$ cdo gridarea \acrshort{era5}data.nc gridarea.nc     
+$ cdo gridarea era5data.nc gridarea.nc     
 \end{verbatim}
 To verify the implementations of Equation \eqref{eq:sphere_finish}, the grid areas of \acrshort{era5} are computed using both CDO and the self implemented algorithm. Both versions produce the same results.
 % må jeg skrive hvor like, TS: nei
