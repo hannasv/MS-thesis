@@ -2,14 +2,13 @@
 %This chapter presents the developed methodology used in the compilation of the dataset. 
 This section presents the developed algorithms necessary for the compilation of the dataset \acrfull{ecc}. It is pieced together from two sources, reanalysis, \acrshort{era5} and \acrfull{msg} cloud mask. The common period of 2004 to 2018 is selected and downloaded size is 17Gb, stored in \acrshort{netcdf}-files.
 
-
-Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. 
-Reanalysis is as close one can get to observations continuous in time and space. All reanalysis product are different. They all depend on the forecast assimilation system used and observations assimilated. There are multiple global datasets available (\cite{Fujiwara2017IntroductionSystems}). \acrshort{era5} was elected 
+Reanalysis products is as close one can get to observations continuous in time and space. There is multiple global reanalysis datasets available and they are all different. It depends on the forecast assimilation system used and observations assimilated (\cite{Fujiwara2017IntroductionSystems}). \acrshort{era5} was elected 
 %over, JRA \textbf{må siteres} and MERRA \textbf{må siteres}, 
-because of it's fine resolution and resent release date of January 2020. The assimilation model used, the \acrshort{ifs}-model is a state-of-the-art \acrshort{nwp}-model. As of now, few experiments have been conducted on this data. It is therefore more exciting to explore this datasets ability to perform climate predictions using data driven learning.
+because of it's fine resolution and resent release date of January 2020. %The assimilation model used, the \acrshort{ifs}-model is a state-of-the-art \acrshort{nwp}-model. 
+%As of now, few experiments have been conducted on this data. It is more useful to research this datasets ability to perform climate predictions, than older versions.
 %above JRA and MERRA because of the spatial resolution and because it the latest within reanalis products available. 
 
-The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
+Several candidate satellites were considered before arriving at the combination of datasets presented in this chapter. Spatiotemporal consistency and resolution were given top priority. The variable cloud mask is provided by many satellites, bringing valuable information in itself, but also for the retrieval of other variables restricted to cloud free conditions, such as humidity. The satellite product chosen for this project is the \acrfull{msg}. This satellite is in geostationary orbit, and has an exceptional temporal resolution, with scans every 15min. Knowing that the average lifetime of a cloud is 60min or less, the selected data set was found to be the most suitable for the purpose of this study (\cite{lohmann2016}, p. 19). The finished dataset, described in detail below, is named \acrfull{ecc}. 
 
 \subsection{Domain}
 The geographical domain has, for this project, been restricted to latitude, $\theta \in[30,50]$ and longitude $\phi \in [-15, 25]$. The resulting dimensions of the grid become $81\times161$ pixels. Figure \ref{fig:map} shows the domain included in this dataset. The domain covers Central Europe and North Africa. $54\%$ of the domain is land, and $46\%$ is ocean or sea. 
@@ -27,7 +26,6 @@ The overall goal is to investigate whether basic meteorological variables such a
 This project is a \textit{proof of concept study} aimed to demonstrate the feasibility of using \acrshort{ai} to parameterize \acrshort{cfc}. Employing data driven learning to represent cloud physics and dynamics in its full complexity requires measurements from technologies not yet invented. If they did exist, the computational cost would be large and there is no guarantees of state-of-the-art performance. However, large amounts of data is collected on a daily basis. Understanding how to utilize the information in these measurements despite its flaws (gaps and artifacts) is of major importance. 
 
 Precipitation formation and cloud optical thickness are affected by changes on a microphysical level. However, they are undeniably closely related to the macrophysical properties of the cloud as well. Imagine precipitation without a cloud fractional cover. 
-
 Reliable estimates of large-scale variables are available from using reanalyses or other climate models. Restricting the focus here to the macrophysical aspects of clouds makes it reasonable to choose these as explanatory variables, thereby ensuring that it is possible to build usable application of this parameterization in the future.
 
 For this dataset, all these large-scale variables are produced by \acrshort{era5}. Some variables have been chosen because they are reliable and fundamental meteorological variables, e.g. temperature and surface pressure. Others were chosen because they are essential in cloud formation, e.g. specific and relative humidity. The variables were all retrieved from the surface or the closest pressure level (1000hPa). The rest of this section gives a brief introduction to their role in cloud formation.
@@ -39,8 +37,8 @@ In areas of lower pressure, the surrounding air will flow toward the low pressur
 
 The large scale circulation generate zonal bands of sinking and rising air masses. Warm air rises at the equator as a result of the Earths' spherical geometry, this air move poleward, cools and sinks. The Saharan desert is located in an area of sinking air masses. Despite its warm temperatures, there is little to no cloud formation and associated precipitation in this region. 
 
-\textbf{In zones of rising air, bands of low pressure systems are concentrated on fronts.} A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
-Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by fonts (warm and cold) or orography (\cite{lohmann2016}, p. 79). Norway lies within the prevailing westerlies a band or rising air. Low pressure systems frequently appear along the coast from the Atlantic sea, resulting in a cloudy and wet region. 
+In zones of rising air, bands of clouds are concentrated around fronts. A front is a transition zone between two types of air masses, usually of different temperatures. % A cold front is formed when warmer air is pushed to higher altitudes, this is known to generate clouds, which is often assosiated with precipitation. % TS: Her følte jeg at det manglet noe om fronter som jo er hvor skyene er konsentrert i forbindelse med lavtrykk.
+Large cloud decks are generated from the lifting of entire layers. This is likely to happen when the air is forced to higher altitudes by fonts (warm and cold) or orography (\cite{lohmann2016}, p. 79). Norway lies within the zone of westerlies. Low pressure systems frequently appear along the coast, resulting in a cloudy and wet region. 
 % The warm moist air associated with the gulf stream amplifies this effect. Winds transports the substances suspended in air, such as pollutants and humidity. 
 
 The dataset includes both relative and specific humidity. Relative humidity is a measure of how much vapor the air contains, relative to how much it can hold at a certain temperature. At relative humidity of 1 the air is at its dew point, and for higher values clouds form. These conditions are commonly referred to as supersaturated, consequently the variable relative humidity is ``limited'' to the range from 0 to 1. 
@@ -50,7 +48,7 @@ However the variable is still a measure of the identical ratio, and this explain
 
 Specific humidity is the ratio between mass of vapor and mass of air, with unit of $kg kg^{-1}$ (\cite{lohmann2016}, pp. 53-54). Whether relative or specific humidity is the better predictor is not clear a priori. The data is gathered from the model level closest to the surface, at an altitude of 1000hPa. For large scale motions, when friction and the centrifugal force are less important, the wind field can be derived from the pressure gradients, this is know as geostrophical winds  (\cite{lohmann2016}, pp. 81-84).
 
-Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to explain different cloud conditions. For instance surface pressure is thought be a good predictor of frontal systems. The surface humidity, however, is not thought to play a big role in saturating the airmasses, since they appear so high in the atmosphere. Consequently, humidity is expected to have a low predictability for such an event. 
+Observed weather systems depend upon local and large scale interaction between variables. Different combinations are thought to explain different cloud conditions. For instance surface pressure is thought be a good predictor of frontal systems. The surface humidity, on the other hand is not. Fronts appear at high altitudes in the atmosphere that surface humidity is not thought to take part in saturating these airmasses. Therefore, humidity is expected to have a low predictability for such an event. 
 %Cold front occurs where cold air replace warm air, and warm front is the opposite process. 
 
 In shallow (and deep) convection systems, the air rises from the surface and the temperature and surface humidity is though to explain this phenomena well. Rising airmasses will in turn generate low pressure at the surface. The variables temperature, humidity and pressure are assumed to be reasonable predictors for convective activity and the cumulus clouds responsible for afternoon showers.
@@ -81,7 +79,7 @@ the equation can be rewritten into,
 \begin{equation} \label{eq:sphere_finish}
     A \left( \theta, \phi, \delta \theta, \delta \phi   \right)= 2R^2 \left( sin\left( \theta + \delta \theta  \right) - sin\left(  \theta - \delta \theta  \right) \right) \delta \phi
 \end{equation}
-where $R=6378km$ denotes the distance to Earth's center, $\theta$ the latitude and $\phi$ the longitude. Equations \eqref{eq:sphere_integral} and \eqref{eq:sphere_finish} can be related to Figure \ref{fig:spherical_coords} by setting $d \theta = 2 \delta \theta$ and $d \phi = 2 \delta \phi$. The implementation is scaled by $R$.
+where $R=6378km$ denotes the distance to Earth's center, $\theta$ the latitude and $\phi$ the longitude. Equations \eqref{eq:sphere_integral} and \eqref{eq:sphere_finish} can be related to Figure \ref{fig:spherical_coords} by setting $d \theta = 2 \delta \theta$ and $d \phi = 2 \delta \phi$. The implementation is scaled by $R$, to avoid unnecessary large values. Multiplication followed by division of the same number provides no additional information, and there is the off chance of introducing additional numerical errors. 
 
 The equations used to compute the area weighted cloud fractional cover are as follows,
 \begin{equation} \label{eq:area_weighting}
@@ -144,10 +142,10 @@ $ cdo gridarea era5data.nc gridarea.nc
 \end{verbatim}
 To verify the implementations of Equation \eqref{eq:sphere_finish}, the grid areas of \acrshort{era5} are computed using both CDO and the self implemented algorithm. Both versions produce the same results.
 % må jeg skrive hvor like, TS: nei
-Note that the self implemented code is scaled by $R$ to be consistent with CDO. Multiplication followed by division of the same number provides no additional information, and there is the off chance of introducing additional numerical errors. 
+Note that the self implemented code is scaled by $R$.
 
 %%%%%%%%%%%%%%%%% TEST 2 -- vis regridding
-A reason for confusion in the process of developing the \acrshort{awrs} algorithm arose from the different rotations of the data provided by the \acrshort{grib} and \acrshort{netcdf} files. The coordinate information is available in \acrshort{netcdf}, but the file-size is too large to store all data in this format, therefore the data is downloaded in \acrshort{grib}, as mentioned in Section \ref{sec:EUMETSAT_cloud_mask}. The \acrshort{grib}-file is provided as the left and right flipped version of the  \acrshort{netcdf}-file. A fast modular test to check the regridding routine is to insert the raw data including the land and sea masks. Figure \ref{fig:visual_inspection_regridding} shows a example of the regridding of the raw data from 2\textsuperscript{nd} May 2009. Clouds are illustrated in white, land mask in teal and sea in purple. The original data also include the category off-earth disk, this is not a member of the chosen subset. By regridding the raw data it quickly becomes apparent whether the correct domain has been used, and evident if the algorithm generates any discontinuities in space. 
+A reason for confusion in the process of developing the \acrshort{awrs} algorithm arose from the different rotations of the data provided by the \acrshort{grib} and \acrshort{netcdf} files. The coordinate information is available in \acrshort{netcdf}, but the file-size is too large to store all data in this format, therefore the data is downloaded in \acrshort{grib}, as mentioned in Section \ref{sec:EUMETSAT_cloud_mask}. The \acrshort{grib}-file is provided as the left and right flipped version of the  \acrshort{netcdf}-file. A fast modular test to check the regridding routine is to insert the raw data including the land and sea masks. Figure \ref{fig:visual_inspection_regridding} shows a example of the regridding of the raw data from May 2, 2009. Clouds are illustrated in white, land mask in teal and sea in purple. The original data also include the category off-earth disk, this is not a member of the chosen subset. By regridding the raw data it quickly becomes apparent whether the correct domain has been used, and evident if the algorithm generates any discontinuities in space. 
 \begin{figure}
     \centering
     \includegraphics{python_figs/visual_regridding.pdf}
@@ -171,7 +169,7 @@ Missing values are inevitable when working with observational data. Sensors occa
 \end{figure}
 In some cases the sensor fails to scan and in other cases the data has been destroyed prior to archiving. Independent of the cause, the result is the same, the data can never be recovered. Further down the chain of supply, the missing data can cause issues for the process of downloading data. Corrupt data can enter infinity loops without being detected by \acrshort{eumetsat}. One request amount to approximately 3.5 months of hourly data. The combination of corrupt data and maximum number of pending requests (20) have cause some delays in preparing the dataset. 
 
-Missing timestamps result in missing disks. When available the closest time step within the previous and trailing 45 minutes is used to fill the gap. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of missing values per month is presented in Figure \ref{fig:barplot_missing_values}. The plot is ment to illustrate any seasonal biases. The months of 2004 prior to the time at which the satellite became operational are not included in the statistics of missing values.
+Missing timesteps result in missing disks. When available the closest time step within the previous and trailing 45 minutes is used to fill the gap. A summary of missing values per month in the data set is provided in Figure \ref{fig:heatmap_missing_values}. Aggregation of missing values per month is presented in Figure \ref{fig:barplot_missing_values}. The plot is ment to illustrate any seasonal biases. The months of 2004 prior to the time at which the satellite became operational are not included in the statistics of missing values.
 
 METeosat provides a two satellite system, and occasionally both the standby and the operational sensors scan at the same time, as mentioned in Section \ref{sec:meteosat}.
 In cases of technical failures, the standby scan is used. The scans are done from a different nominal position. However, the coordinate systems remain the same, since the standby scan is rectified to the position of the operational satellite before the product is released (personal communication \acrshort{eumetsat} staff). Comparing simultaneous measurements for the operational and the standby METeosat satellites, it becomes clear that they are dissimilar. However, this does not occur very frequently and there has been no effort in quantifying the magnitude of the parallax, to correct for the bias this may introduce.
@@ -185,7 +183,7 @@ This is a python toolbox developed within the \acrfull{aerocom} project. To avoi
 \begin{figure}
     \centering
     \includegraphics{python_figs/example_artefact.pdf}
-    \caption[Artifact in European Cloud Cover dataset.]{The results after regridding reveal an artifact. This is a snapshot from May 2\textsuperscript{nd} 2004 at noon. The frequency of occurrence is currently unknown.}
+    \caption[Artifact in European Cloud Cover dataset.]{The results after regridding reveal an artifact. This is a snapshot from May 2, 2004 at noon. The frequency of occurrence is currently unknown.}
     \label{fig:example_artifact}
 \end{figure}
 
@@ -203,7 +201,8 @@ Based on a visual comparison to Figure \ref{fig:example_artifact}, the artifact 
 \end{equation}
 All filters are displayed in Figure \ref{fig:filters_subplot}. 
 %shows a subplot of all filters, including the artifact detecting filter. 
-The signal from the artifact filter when applied to \acrshort{ecc} seem to follow a normal distribution as shown Figure \ref{fig:signal_artifact} in Appendix \ref{app:misc}. To get an idea of the frequency of appearance, it is necessary to detect when it appears in isolation and not in cloud. It could, for instance, be done by studying the histograms from the ratio of the artifact signal and a buffered artifact filter. No efforts have been made to remove the artifact from the data. 
+%The signal from the artifact filter when applied to \acrshort{ecc} seem to follow a normal distribution as shown Figure \ref{fig:signal_artifact} in Appendix \ref{app:misc}. To get an idea of the frequency of appearance, it is necessary to detect when it appears in isolation and not in cloud. It could, for instance, be done by studying the histograms from the ratio of the artifact signal and a buffered artifact filter. 
+No efforts have been made to remove the artifact from the data. 
 
 \subsection{Statistical Properties in ECC}
 To summarize and present the content of \acrshort{ecc}, statistical properties are used. For clarity, the period used in this section is 2004 to 2018. The properties selected in this study are mean, minimum (min), maximum (max), median, \acrfull{std} and \acrfull{mad}. The most important results are presented in this section, and complementary figures can be found in the Appendix \ref{ch:appendix_statistic}. 
@@ -238,7 +237,7 @@ The spatially averaged time series for the first week of September in 2012 is sh
     \caption{Spatially averaged time series, showing the evolution of cloud cover and other variables in the first week of September 2012.}
     \label{fig:first_week_sep_2012}
 \end{figure}
-The figure shows small diurnal variations over sea, for all variables except clouds. In this week in September 2012, the temperature in \acrshort{era5} is remarkably constant. Varying within one degree and the temperature at sea, nothing at all. Recall, this is hourly reanalysis data. The variables, excluding clouds, show little variation, the amplitudes are nearly constant and the lines of values don't cross each other. 
+The figure shows small diurnal variations over sea, for all variables except clouds. In this week in September 2012, the temperature in \acrshort{era5} is remarkably constant. Varying within one degree and the temperature at sea, nothing at all. Remember that these variables stem from the hourly reanalysis product, and the variables, except for clouds, show little variation, the amplitudes are nearly constant and the lines of values don't cross each other. 
 %The case for most, mean follow the data over land, with a smaller amplitude. The mean gets smoothed by the small diurnal variations over land. 
 
 The complete series of first weeks of the remaining months of 2012 is shown in Appendix \ref{app:first_week}. Under the assumption that the first week of a month is representative for that month. This series show that the diurnal changes of temperature and relative humidity vary most within the course of the year. 
@@ -249,7 +248,7 @@ The complete series of first weeks of the remaining months of 2012 is shown in A
     \caption{Evolution of the spike detected in Figure \ref{fig:first_week_sep_2012}.}
     \label{fig:spike_sep_2012}
 \end{figure}
-Note the spike appearing on September 2\textsuperscript{nd} in Figure \ref{fig:first_week_sep_2012}. To examine this event Figure \ref{fig:spike_sep_2012} was produced. From studying the evolution of the cloud cover it doesn't appear to be a numerical artifact. It is simply looks like there is a low pressure system centered in Europe, able to raise the cloud cover from 0.4 to 0.7 within one hour. Recall from Section \ref{sec:ecc} that low pressure system swirls counter clockwise north of Equator. 
+Note the spike appearing on September 2, 2012 in Figure \ref{fig:first_week_sep_2012}. To examine this event Figure \ref{fig:spike_sep_2012} was produced. From studying the evolution of the cloud cover it doesn't appear to be a numerical artifact. It is simply looks like there is a low pressure system centered in Europe, able to raise the cloud cover from 0.4 to 0.7 within one hour. Recall, that low pressure system swirls counter clockwise north of Equator, as mentioned in Section \ref{sec:ecc} . 
 
 \subsubsection{Temporal statistics}
 All the statistical properties computed over time for the variable \acrshort{cfc} in \acrshort{ecc} are plotted in 
@@ -270,11 +269,12 @@ With the exception of minimum and maximum values, the cloud cover is affected by
     \label{fig:deviation_tcc}
 \end{figure}
 
-The mean values displayed in figure \ref{fig:all_stats_tcc} show that on average the coastline has a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
+The mean values displayed in Figure \ref{fig:all_stats_tcc} show that on average the coastline has a lower cloud cover than the adjacent areas. This is supported by the bar plot, see Figure \ref{fig:bar_plot_global_stats}. 
 %From the minimum values of \acrshort{cfc} it becomes evident that there is another artifact present in the dataset. This pattern is most likely caused by the remapping routine. However by looking at the axis it is incrementally small and is not likely to affect the quality of the dataset much.
 
-Figure \ref{fig:area_pixel_signal} shows the patterns of magnitude of the areas contributing to a pixel. One might expect all pixels to be without cloud cover for at least one hour over the period of 14 years, but this is not the case. The maximum value is as expected, one over the entire region, indicating that at some point every pixel is full of clouds. The standard deviation is higher over land, this is caused by larger variation in cloud cover in these regions. The median and \acrshort{mad} 
-% Det er jo ikke rart for mad er medianen av en differanse.
+Figure \ref{fig:area_pixel_signal} shows the patterns of magnitude of the areas contributing to a pixel. As expected, the minimum value is zero and the max is one. This tells us that in the course of a 14 year period, all pixel are cloudy and clear at least once.
+%One might expect all pixels to be without cloud cover for at least one hour over the period of 14 years, but this is not the case. The maximum value is as expected, one over the entire region, indicating that at some point every pixel is full of clouds. 
+The standard deviation, shown in Figure \ref{fig:deviation_tcc}, is higher over land. This indicate a larger variation in cloud cover in these regions. The median and \acrshort{mad} % Det er jo ikke rart for mad er medianen av en differanse.
 show similar patterns, this is not surprising since \acrshort{mad} is short for \acrlong{mad}, where the lowest values are found along the coast.
 
 \subsubsection{Correlation between cloud cover and environmental variables}

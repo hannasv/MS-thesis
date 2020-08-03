@@ -1,12 +1,13 @@
 \section{Computer Experiments} \label{ch:computer_experiments}
+% HUSK . Two approaches will be explored: Autoregressive models (AR) and Convolutional Long Short-Term Memory Network (ConvLSTM). The \acrshort{ar} model describes a time varying process, depending linearly on its previous values. The \acrshort{convlstm} approach is used to find a non-linear relation that describes phenomena varying in both time and space.
 This section describes the setup and configuration of the computational experiments conducted in this study, and the accompanied results. The first sections provide details on framework, structure and implementations. The following sections describes the experimental design, and the hyperparameters tuned, 
 % A configuration is a set of parameters set prior to training. These are often referred to as hyperparameters, 
 divided into two sections, one for \acrshort{convlstm}-models and another for \acrshort{ar}-models. All models are evaluated on their ability to reproduce the cloud cover in the period from 2014 including 2018. At the end, the best configuration from each of the statistical model types are evaluated on their ability to perform a 24-hour cloud cover forecast and compared against existing parameterizations in \acrshort{era5}.
 
 \subsection{Framework, Structure and Implementation} \label{sec:structure_and_implementations} \label{sec:framework}
 The numerical methods used in this study are described in Chapter \ref{ch:num_methods}. The code is available on GitHub in the project repository named ``MS'' on \href{https://github.com/hannasv/MS}{https://github.com/hannasv/MS}. Instructions for downloading 
-reanalysis (ERA5) data using python is provided. 
-The dataset, \acrshort{ecc}, is not published because of a licenses on the \acrshort{msg} data. 
+reanalysis (ERA5) data using python is provided. \acrshort{msg} data is available via Earth Observation Portal on \acrshort{eumetsat}'s web pages. 
+The dataset, \acrshort{ecc}, is not published because of a licenses on the \acrshort{msg} data, it is available for everyone in hourly resolution. 
 %The repository contains everything need to reproduce the results in this study.
 %The experiments are conducted in notebooks and the developed modules are stored in the package ``sciclouds''. Descriptions on how to acquire the data (scripts if possible) and project environment is provided to simplify the process.
 
