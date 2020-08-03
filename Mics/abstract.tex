@@ -14,6 +14,7 @@ This inspire new parameterizations of cloud cover. It is unclear which level of 
 To investigate this problem from a new angle, namely the potential for data driven learning for parameterization of clouds, a new dataset, \acrfull{ecc}, was generated, using the self-implmented \acrfull{awrs}. The databasis is a combination of reanalysis and satellite data. % \textbf{for/in this study}. \textbf{enda tydligere på at jeg har gjort dette}.
 Statistical methods, \acrfull{ar}- and \acrfull{convlstm}-models were compared existing parameterizations used in \acrshort{era5}, on their ability to parameterize cloud cover. 
 
+%%%%%%%%%%%%%%%%%%%%% vurderer å ta bort denne og si de to best av hvert type blir evaluert basert på deres egentskaper for å predikser skydekket. Føler det blir for mye i abstractet og at ratio med dataset og modeller er veldig skjeiv i forhold til 
 \textbf{To quantify this skill they have been evaluated on their ability} to reproduce the cloud cover in the period from 2014 including 2018, when trained on 2004 to 2013. Listed from best to worst 
 $AR-B-L5$-model, had a \acrshort{mae} of $0.04901$, \acrshort{era5} of $0.20386$ and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ got $0.33621$.
 
