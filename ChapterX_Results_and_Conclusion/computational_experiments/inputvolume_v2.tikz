@@ -27,7 +27,7 @@ coordinate(-front-bottom-right) -- cycle;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLUE BOX
 \foreach \X / \Y in {1.5/-1.0, 1.5/6} {
-\draw pic (box1-\Y) at (\Y,-\X/,0) {fake box=white!25!cyan with dimensions 6.9 and {2*\X} and 1*\X};
+\draw pic (box1-\Y) at (\Y,-\X/,0) {fake box=white!30!purple with dimensions 6.9 and {2*\X} and 1*\X};
 }
 
 
@@ -79,8 +79,8 @@ coordinate(-front-bottom-right) -- cycle;
 
 %%%%%%%%%%%%%%%%%%% ADDING TEXT
 \node[color = gray, thick] at (6, 3.3) {\Large Batch \#0};
-\node[color = blue!60, thick] at (1.0, -2.0) {\large SEQUENCE \#0};
-\node[color = blue!60, thick] at (8.0, -2.0) {\large SEQUENCE \#1};
+\node[color = purple!60, thick] at (1.0, -2.0) {\large SEQUENCE \#0};
+\node[color = purple!60, thick] at (8.0, -2.0) {\large SEQUENCE \#1};
 \node[color = gray, thick, rotate=60] at (0.3, 0.1) {$T00$};
 \node[color = gray, thick, rotate=60] at (2.3, 0.05) {$T01$};
 \node[color = gray, thick, rotate=60] at (5.3, 0.0) {$T23$};

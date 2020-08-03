@@ -8,22 +8,30 @@
 
 %\subsection*{Introduce a challenge or unresolved issue that you will try and solve.} 
 %Over the last decades researchers have been working on determining the climate sensitivity. 
-There is large uncertainties in estimates climate sensitivity for climate projections. This is related to cloud feedbacks and to how clouds are resolved in climate models. 
-This inspire new parameterizations of cloud cover. It is unclear which level of sophistication is needed for these subgrid-scale parameterizations in order to model their effect on climate.
+There are large uncertainties in estimates of climate sensitivity for climate projections. These are related to cloud feedbacks and to how clouds are resolved in climate models. This inspire new parameterizations of cloud cover. It is unclear which level of sophistication is needed for these subgrid-scale parameterizations in order to model their effect on climate.
 
-To investigate this problem from a new angle, namely the potential for data driven learning for parameterization of clouds, a new dataset, \acrfull{ecc}, was generated, using the self-implmented \acrfull{awrs}. The databasis is a combination of reanalysis and satellite data. % \textbf{for/in this study}. \textbf{enda tydligere på at jeg har gjort dette}.
-Statistical methods, \acrfull{ar}- and \acrfull{convlstm}-models were compared existing parameterizations used in \acrshort{era5}, on their ability to parameterize cloud cover. 
+To investigate this problem from a new angle, namely the potential for data driven learning for parameterization of clouds, a new dataset, \acrfull{ecc}, was generated, using the self-implemented \acrfull{awrs}. The databasis is a combination of reanalysis and satellite data. % \textbf{for/in this study}. \textbf{enda tydligere på at jeg har gjort dette}.
 
+Statistical methods, \acrfull{ar}- and \acrfull{convlstm}-models were compared existing parameterizations in \acrshort{era5}, on their ability to parameterize cloud cover. 
 %%%%%%%%%%%%%%%%%%%%% vurderer å ta bort denne og si de to best av hvert type blir evaluert basert på deres egentskaper for å predikser skydekket. Føler det blir for mye i abstractet og at ratio med dataset og modeller er veldig skjeiv i forhold til 
-\textbf{To quantify this skill they have been evaluated on their ability} to reproduce the cloud cover in the period from 2014 including 2018, when trained on 2004 to 2013. Listed from best to worst 
-$AR-B-L5$-model, had a \acrshort{mae} of $0.04901$, \acrshort{era5} of $0.20386$ and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ got $0.33621$.
+%\textbf{To quantify this skill they have been evaluated on their ability} to reproduce the cloud cover in the period from 2014 including 2018, when trained on 2004 to 2013. Listed from best to worst 
+%$AR-B-L5$-model, had a \acrshort{mae} of $0.04901$, \acrshort{era5} of $0.20386$ and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$ got $0.33621$.
 
-Regrettably, the $AR-B-L5$-model is unable to produce a realistic 24-hour forecast of cloud cover, it suffers from ``plagarims'', every predicted hour is simply a small reduction of the cloud cover at the previous timestep.
+\acrshort{era5} outperform both models by a significant margin.
+Unfortunately, the $AR-B-L5$-model is unable to produce a realistic 24-hour forecast of cloud cover, as it suffers from ``self-plagarims''. Every prediction it generates is a small reduction of the cloud cover at the previous timestep.
 % plagiarism - taking someone else work and passing it of as your own. 
-$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, on the other hand, show potensial, a few hours into the forecast it is able to reproduce a smoother version of the cloud cover in \acrshort{ecc}.
 
-The models still need some polishing before there is hope for them to reaching state-of-the-art performance. Nevertheless, this study verified the ``proof of concept'' under investigation. Proving that data driven learning, using $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, can be used to predict cloud cover.
+$ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, on the other hand, show potential. A few hours into the forecast it is able to reproduce some of the features in \acrshort{ecc}. 
 
+This study verified the proof of concept, data driven learning can be applied to forecast cloud cover.
+
+
+%This study has successfully applied data driven learning to the cloud forecasting problem.An important and valuable contribution was made by building an end-to-end trainable Con-vLSTM-model based on ECC, training a ConvLSTM-model with a larger dataset than earlierstudies. This is a indication that there may in fact be sufficient information in simple meteorological variables to perform climate predictions.
+
+%In conclusion, at their current state data driven learning approaches are not appropriate forimplementations toward practical applications. However, they show potential for furtherstudies and development, as this proof of concept study was verifie
+
+
+%under investigation. Proving that data driven learning, using $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$, can be used to predict cloud cover.
 %In this ``proof of concept'' study it was proven that $AR-B-L5$- and $ConvLSTM-B_{10}-SL_{24}-32-3\times3-32-3 \times3$-model was able to learn how to forecast cloud cover. 
 %Unfortunately, the models have somthing more left to learn before they can compete with state-of-the-art parameterization feks. in reanalysis (ERA5). Hopefully this study can serve as motivation and a suitable starting point for similar studies.  
 \cleardoublepage
