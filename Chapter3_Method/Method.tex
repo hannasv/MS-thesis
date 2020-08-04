@@ -256,28 +256,11 @@ The absolute value or sum of squares is to avoid penalizing points on the lower 
 \section{Related work} \label{sec:related_work}
 Deep learning is a young field and \acrshort{convlstm} an even younger model. Few studies have been conducted within \acrshort{dl} applied to sequence modeling. The task of object detection or classification has to this date received the most attention.
 
-The \acrshort{convlstm} was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. Their model used gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. The dataset used, named Radar Echo, has 8148 training, 2037 validation and 2037 test samples. Each sample consists of 20 frames, 5 used for input and 15 used for prediction, in other words based on 5 frames the model predicts 15. \citeauthor{precip_nowcasting} report that they have managed to training a model, named $ConvLstm 3\times 3-64-3\times 3-64$. %The naming convention revels the models architecture. 
-This model has two layers, both with 64 hidden states, used in combination with $3\times 3$ filter. Theses results are compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, the ROVER algorithmn. Both \acrshort{lstm} versions optimize the crossentropy error of 15 prediction samples. This metric aims to predict the most likely event. The \acrshort{convlstm}-model showed superior performance. 
+The \acrshort{convlstm} architecture was developed by \citepaper{precip_nowcasting} for the task of precipitation nowcasting. The model used gridded data and the spatial dimension is $100\times 100$ after resizing it using filters to remove noise. The dataset, named Radar Echo, has 8148 training, 2037 validation and 2037 test samples. Each sample consists of 20 frames, 5 used for input and 15 used for prediction, in other words based on 5 frames the model predicts 15. \citeauthor{precip_nowcasting} report that they have managed to training a model, named $ConvLstm 3\times 3-64-3\times 3-64$. %The naming convention revels the models architecture. 
+This model has two layers, both with 64 hidden states, used in combination with $3\times 3$ filter. Theses results are compared to a FC-LSTM-2000-2000 and a traditional model for precipitation nowcasting, the ROVER algorithmn. Both \acrshort{lstm} versions optimize the crossentropy error of 15 prediction samples. This metric aims to predict the most likely event. The \acrshort{convlstm}-model showed superior performance over \acrshort{lstm} and ROVER. 
 %\textbf{Du har ikke forklart crossentropy noen plass. A common metric in classification problems.}
 
 \citepaper{SunAirLSTM} applied it to the air quality forecasting problem, using high resolution data from a period up to two years. %Both studies evaluate their models based on case specific metrics. % Results from model is not transmissible across problem, in this case datasets.
 They use a combination of distributed data. Weather data is provided in grids, and air quality observations are point measurements. The weather data volume at each timestep is a tensor of shape $(21 \times 31 \times 5)$. Sixteen months of hourly data were divided into sequences of 72 frames, 24 for input and 48 for prediction. %Batch size is not mentioned in the paper, but based on Figure X, where one tensor of shape $(21 \times 31 \times 5)$ is sent as input. i.e. one sample. 
-They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs, and gradient clipping to avoid exploding gradients when training longer sequences. This is combined with the following filters; $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states. The model names are given following this structure, described using an example. \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, in combination with 2 layers, both of 256 hidden states.
+They use a learning rate scheduler dropping from 0.01 to 0.001 after five epochs, and gradient clipping to avoid exploding gradients when training longer sequences. This is combined with the following filters; $1\times 1$, $3\times 3$ and $5\times 5$. Two or three layers with either 256 or 128 hidden states. The model names are given following this structure, described using an example. \textit{ConvLSTM 3x3-256-2}, is a \acrshort{convlstm} model using a $3\times 3$ filter, in combination with 2 layers, both of 256 hidden states. Their work showed a significant improvement over \acrshort{lstm}.
 
-%%%%%%%%%%%%%% above here is ok
-
-%In this works the model is trained on a small amount of data. Unlike like dataset.
-%State-of-the art models 
-
- 
-
-
-%%%% summarize precipitation nowcasting 
-
-
-
-%%%%%%%%%%% summarize the 
-
-%A hyper parameter is a constant set before the training procedure begins. There is a mind-boggling amount of choices for hyperparameters, the initial configuration used in the conducted experiments for this project draw inspiration from this paper. 
-
-%Deep learning is a young field and not many studies have been conducted in the intersection with geosciences. This section provide a brief introduction to some relevant studies and their findings. 
